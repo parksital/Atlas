@@ -31,6 +31,8 @@ class EventServiceTests: XCTestCase {
     }
     
     private class MockAPIClient: APIClient {
-        
+        func fetch() {
+            // this function should fetch mock json
+        }
     }
 }

@@ -9,5 +9,7 @@
 import Foundation
 
 final class AWSClient: APIClient {
-    
+    func fetch() {
+        
+    }
 }
