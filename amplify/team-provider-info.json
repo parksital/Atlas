@@ -1,0 +1,15 @@
+{
+    "develop": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-atlas-develop-142923-authRole",
+            "UnauthRoleArn": "arn:aws:iam::840692999077:role/amplify-atlas-develop-142923-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::840692999077:role/amplify-atlas-develop-142923-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-atlas-develop-142923-deployment",
+            "UnauthRoleName": "amplify-atlas-develop-142923-unauthRole",
+            "StackName": "amplify-atlas-develop-142923",
+            "StackId": "arn:aws:cloudformation:eu-west-1:840692999077:stack/amplify-atlas-develop-142923/56f08460-5a2e-11ea-883e-06c1d1eeaccc",
+            "AmplifyAppId": "dn3xlovqr8km2"
+        }
+    }
+}
