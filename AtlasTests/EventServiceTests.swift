@@ -9,7 +9,6 @@
 import XCTest
 @testable import Atlas
 class EventServiceTests: XCTestCase {
-    
     var eventService: EventFetching!
     
     override func setUp() {
