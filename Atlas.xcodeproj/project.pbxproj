@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A03F48C52403029B00992232 /* EventServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03F48C42403029B00992232 /* EventServiceTests.swift */; };
+		A03F48C82403051800992232 /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03F48C72403051800992232 /* AWSClient.swift */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A03F48C42403029B00992232 /* EventServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServiceTests.swift; sourceTree = "<group>"; };
+		A03F48C72403051800992232 /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A03F48C62403050C00992232 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A03F48C72403051800992232 /* AWSClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		A0B661A82400265F001C5B40 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
+				A03F48C62403050C00992232 /* Network */,
 				A0DBC4872401CC72002419C6 /* Service */,
 				A0DBC4842401CC4A002419C6 /* Presenter */,
 				A0DBC47E24014C34002419C6 /* Interactor */,
@@ -120,6 +133,7 @@
 			children = (
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
 				A0B661CD24002661001C5B40 /* Info.plist */,
+				A03F48C42403029B00992232 /* EventServiceTests.swift */,
 			);
 			path = AtlasTests;
 			sourceTree = "<group>";
@@ -303,6 +317,7 @@
 			files = (
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
+				A03F48C82403051800992232 /* AWSClient.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
@@ -313,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03F48C52403029B00992232 /* EventServiceTests.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

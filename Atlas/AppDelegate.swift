@@ -59,7 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return EventListInteractor(presenter: presenter, eventService: service)
         })
         
-        container.register(EventFetching.self, factory: { _ in EventService() })
+        container.register(APIClient.self, factory: { _ in AWSClient() })
+
+        container.register(EventFetching.self, factory: { r in
+            guard let client = r.resolve(APIClient.self) else {
+                fatalError("APIClient implementation not found")
+            }
+            return EventService(client: client)
+        })
     }
 }
 

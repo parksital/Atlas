@@ -8,10 +8,22 @@
 
 import Foundation
 
+protocol APIClient {
+    func fetch()
+}
+
 protocol EventFetching {
-    
+    var client: APIClient! { get }
+    func fetch()
 }
 
 final class EventService: EventFetching {
+    private (set) var client: APIClient!
     
+    init(client: APIClient) {
+        self.client = client
+    }
+    
+    func fetch() {
+    }
 }
