@@ -13,6 +13,7 @@ mutation CreateVenue(
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -34,6 +35,7 @@ mutation UpdateVenue(
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -55,6 +57,7 @@ mutation DeleteVenue(
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -81,6 +84,7 @@ mutation CreateEvent(
       description
       owner
     }
+    owner
   }
 }
 mutation UpdateEvent(
@@ -102,6 +106,7 @@ mutation UpdateEvent(
       description
       owner
     }
+    owner
   }
 }
 mutation DeleteEvent(
@@ -123,5 +128,6 @@ mutation DeleteEvent(
       description
       owner
     }
+    owner
   }
 }

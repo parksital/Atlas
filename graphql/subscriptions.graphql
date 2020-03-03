@@ -10,6 +10,7 @@ subscription OnCreateVenue($owner: String!) {
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -28,6 +29,7 @@ subscription OnUpdateVenue($owner: String!) {
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -46,6 +48,7 @@ subscription OnDeleteVenue($owner: String!) {
         start_date
         end_date
         description
+        owner
       }
       nextToken
     }
@@ -53,8 +56,8 @@ subscription OnDeleteVenue($owner: String!) {
     owner
   }
 }
-subscription OnCreateEvent {
-  onCreateEvent {
+subscription OnCreateEvent($owner: String!) {
+  onCreateEvent(owner: $owner) {
     id
     title
     start_date
@@ -69,10 +72,11 @@ subscription OnCreateEvent {
       description
       owner
     }
+    owner
   }
 }
-subscription OnUpdateEvent {
-  onUpdateEvent {
+subscription OnUpdateEvent($owner: String!) {
+  onUpdateEvent(owner: $owner) {
     id
     title
     start_date
@@ -87,10 +91,11 @@ subscription OnUpdateEvent {
       description
       owner
     }
+    owner
   }
 }
-subscription OnDeleteEvent {
-  onDeleteEvent {
+subscription OnDeleteEvent($owner: String!) {
+  onDeleteEvent(owner: $owner) {
     id
     title
     start_date
@@ -105,5 +110,6 @@ subscription OnDeleteEvent {
       description
       owner
     }
+    owner
   }
 }
