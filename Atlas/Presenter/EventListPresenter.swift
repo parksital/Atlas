@@ -9,9 +9,9 @@
 import Foundation
 
 protocol EventListPresentation {
-    var view: EventListOutput? { get set }
+    var view: EventListViewOutput? { get set }
 }
 
 final class EventListPresenter: EventListPresentation {
-    weak var view: EventListOutput?
+    weak var view: EventListViewOutput?
 }

@@ -1,0 +1,115 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateVenue($owner: String!) {
+  onCreateVenue(owner: $owner) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+        owner
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+subscription OnUpdateVenue($owner: String!) {
+  onUpdateVenue(owner: $owner) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+        owner
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+subscription OnDeleteVenue($owner: String!) {
+  onDeleteVenue(owner: $owner) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+        owner
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+subscription OnCreateEvent($owner: String!) {
+  onCreateEvent(owner: $owner) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+    owner
+  }
+}
+subscription OnUpdateEvent($owner: String!) {
+  onUpdateEvent(owner: $owner) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+    owner
+  }
+}
+subscription OnDeleteEvent($owner: String!) {
+  onDeleteEvent(owner: $owner) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+    owner
+  }
+}

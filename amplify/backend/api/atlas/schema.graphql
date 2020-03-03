@@ -1,0 +1,19 @@
+type Venue 
+@model
+@auth(rules: [{ allow: owner, operations: [create, update, delete] }]) {
+  id: ID!
+  name: String!
+  events: [Event] @connection(name: "VenueEvents")
+  description: String
+}
+
+type Event 
+@model 
+@auth(rules: [{ allow: owner, operations: [create, update, delete] }]) {
+  id: ID!
+  title: String!
+  start_date: AWSDateTime!
+  end_date: AWSDateTime!
+  description: String
+  venue: Venue! @connection(name: "VenueEvents")
+}

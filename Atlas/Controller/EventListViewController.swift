@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol EventListOutput: class {
+protocol EventListViewOutput: class {
     
 }
 
-final class EventListViewController: UIViewController, EventListOutput {
+final class EventListViewController: UIViewController, EventListViewOutput {
     
     private let interactor: EventListInteraction!
     private (set) var safeArea: UILayoutGuide!
