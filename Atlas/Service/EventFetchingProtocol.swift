@@ -9,6 +9,6 @@
 import Foundation
 
 protocol EventFetchingProtocol {
-    var client: APIClient! { get }
+    var client: APIClientProtocol! { get }
     func fetch()
 }

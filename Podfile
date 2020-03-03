@@ -14,7 +14,7 @@ target 'Atlas' do
   pod 'AWSAppSync'
 
   target 'AtlasTests' do
-    inherit! :search_paths
+    
     # Pods for testing
   end
 

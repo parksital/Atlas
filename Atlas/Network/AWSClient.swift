@@ -8,7 +8,9 @@
 
 import Foundation
 
-final class AWSClient: APIClient {
+final class AWSClient: APIClientProtocol {
+    var initialized = false
+    
     func fetch() {
         
     }

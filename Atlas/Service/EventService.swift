@@ -9,9 +9,9 @@
 import Foundation
 
 final class EventService: EventFetchingProtocol {
-    private (set) var client: APIClient!
+    private (set) var client: APIClientProtocol!
     
-    init(client: APIClient) {
+    init(client: APIClientProtocol) {
         self.client = client
     }
     
