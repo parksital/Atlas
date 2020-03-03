@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		248449CB3C6D55648E1CB065 /* Pods_AtlasUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */; };
 		4485260D64E39D9E7859F684 /* Pods_AtlasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7440D73B5EE5BDAD670A15 /* Pods_AtlasTests.framework */; };
+		A01A8043240EA371008B5A30 /* mockJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = A01A8042240EA371008B5A30 /* mockJSON.json */; };
 		A03F48C52403029B00992232 /* EventServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03F48C42403029B00992232 /* EventServiceTests.swift */; };
 		A03F48C82403051800992232 /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03F48C72403051800992232 /* AWSClient.swift */; };
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
@@ -51,6 +52,7 @@
 		56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Atlas.release.xcconfig"; path = "Target Support Files/Pods-Atlas/Pods-Atlas.release.xcconfig"; sourceTree = "<group>"; };
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01A8042240EA371008B5A30 /* mockJSON.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = mockJSON.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A03F48C42403029B00992232 /* EventServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServiceTests.swift; sourceTree = "<group>"; };
 		A03F48C72403051800992232 /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -181,6 +183,7 @@
 				A0B661CD24002661001C5B40 /* Info.plist */,
 				A03F48C42403029B00992232 /* EventServiceTests.swift */,
 				A075E38B240BDAD3006F891F /* EventListViewControllerTests.swift */,
+				A01A8042240EA371008B5A30 /* mockJSON.json */,
 			);
 			path = AtlasTests;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01A8043240EA371008B5A30 /* mockJSON.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
