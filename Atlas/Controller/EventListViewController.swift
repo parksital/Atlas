@@ -8,12 +8,7 @@
 
 import UIKit
 
-protocol EventListViewOutput: class {
-    
-}
-
 final class EventListViewController: UIViewController, EventListViewOutput {
-    
     private let interactor: EventListInteraction!
     private (set) var safeArea: UILayoutGuide!
     private let eventsTableView: UITableView = {

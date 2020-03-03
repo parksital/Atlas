@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol EventListInteraction {
-    func fetchEvents()
-}
-
 final class EventListInteractor {
     private let presenter: EventListPresentation!
     private let eventService: EventFetching!

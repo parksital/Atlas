@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol EventListPresentation {
-    var view: EventListViewOutput? { get set }
-}
-
 final class EventListPresenter: EventListPresentation {
     weak var view: EventListViewOutput?
 }
