@@ -1,5 +1,5 @@
 //
-//  EventListViewOutput.swift
+//  EventListViewOutputProtocol.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 03/03/2020.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol EventListViewOutput: class {
+protocol EventListViewOutputProtocol: class {
     
 }

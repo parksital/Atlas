@@ -9,7 +9,7 @@
 import XCTest
 @testable import Atlas
 class EventListViewControllerTests: XCTestCase {
-    var sut: EventListViewOutput!
+    var sut: EventListViewOutputProtocol!
     
     override func setUp() {
         super.setUp()
@@ -25,7 +25,7 @@ class EventListViewControllerTests: XCTestCase {
         
     }
     
-    private class EventListViewControllerSpy: EventListViewOutput {
+    private class EventListViewControllerSpy: EventListViewOutputProtocol {
         var fetchEventsCalled: Bool = false
         
         func fetchEvents() {

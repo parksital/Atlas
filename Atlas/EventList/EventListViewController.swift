@@ -8,15 +8,15 @@
 
 import UIKit
 
-final class EventListViewController: UIViewController, EventListViewOutput {
-    private let interactor: EventListInteraction!
+final class EventListViewController: UIViewController, EventListViewOutputProtocol {
+    private let interactor: EventListInteractionProtocol!
     private (set) var safeArea: UILayoutGuide!
     private let eventsTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    init(interactor: EventListInteraction) {
+    init(interactor: EventListInteractionProtocol) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }

@@ -9,16 +9,16 @@
 import Foundation
 
 final class EventListInteractor {
-    private let presenter: EventListPresentation!
-    private let eventService: EventFetching!
+    private let presenter: EventListPresentationProtocol!
+    private let eventService: EventFetchingProtocol!
     
-    init(presenter: EventListPresentation, eventService: EventFetching) {
+    init(presenter: EventListPresentationProtocol, eventService: EventFetchingProtocol) {
         self.presenter = presenter
         self.eventService = eventService
     }
 }
 
-extension EventListInteractor: EventListInteraction {
+extension EventListInteractor: EventListInteractionProtocol {
     func fetchEvents() {
         // eventservice.getEvents
     }

@@ -1,5 +1,5 @@
 //
-//  EventListInteraction.swift
+//  EventFetchingProtocol.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 03/03/2020.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol EventListInteraction {
-    func fetchEvents()
+protocol EventFetchingProtocol {
+    var client: APIClient! { get }
+    func fetch()
 }

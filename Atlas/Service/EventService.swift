@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class EventService: EventFetching {
+final class EventService: EventFetchingProtocol {
     private (set) var client: APIClient!
     
     init(client: APIClient) {
