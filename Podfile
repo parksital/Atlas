@@ -8,6 +8,9 @@ target 'Atlas' do
   # Pods for Atlas
   pod 'Swinject'
   pod 'AWSCore'
+  pod 'AWSMobileClient'
+  pod 'AWSAuthUI'
+  pod 'AWSUserPoolsSignIn'
   pod 'AWSAppSync'
 
   target 'AtlasTests' do
