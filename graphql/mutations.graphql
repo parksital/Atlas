@@ -1,0 +1,127 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateVenue(
+  $input: CreateVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  createVenue(input: $input, condition: $condition) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+mutation UpdateVenue(
+  $input: UpdateVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  updateVenue(input: $input, condition: $condition) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+mutation DeleteVenue(
+  $input: DeleteVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  deleteVenue(input: $input, condition: $condition) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+    owner
+  }
+}
+mutation CreateEvent(
+  $input: CreateEventInput!
+  $condition: ModelEventConditionInput
+) {
+  createEvent(input: $input, condition: $condition) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+  }
+}
+mutation UpdateEvent(
+  $input: UpdateEventInput!
+  $condition: ModelEventConditionInput
+) {
+  updateEvent(input: $input, condition: $condition) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+  }
+}
+mutation DeleteEvent(
+  $input: DeleteEventInput!
+  $condition: ModelEventConditionInput
+) {
+  deleteEvent(input: $input, condition: $condition) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+      owner
+    }
+  }
+}

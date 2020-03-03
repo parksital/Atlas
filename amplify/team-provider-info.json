@@ -10,6 +10,11 @@
             "StackName": "amplify-atlas-develop-142923",
             "StackId": "arn:aws:cloudformation:eu-west-1:840692999077:stack/amplify-atlas-develop-142923/56f08460-5a2e-11ea-883e-06c1d1eeaccc",
             "AmplifyAppId": "dn3xlovqr8km2"
+        },
+        "categories": {
+            "auth": {
+                "atlas0ecbc3c4": {}
+            }
         }
     }
 }

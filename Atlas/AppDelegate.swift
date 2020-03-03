@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         setupDependencies()
         
-        guard let rootViewController = container.resolve(EventListOutput.self) as? EventListViewController else {
+        guard let rootViewController = container.resolve(EventListViewOutput.self) as? EventListViewController else {
             fatalError("no EventListViewController found")
         }
         
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setupDependencies() {
         container = Container()
         
-        container.register(EventListOutput.self, factory: { r in
+        container.register(EventListViewOutput.self, factory: { r in
             guard let interactor = r.resolve(EventListInteraction.self) else {
                 fatalError("EventListOutput implementation not registered")
             }
@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(EventListPresentation.self, factory: { _ in EventListPresenter() })
             .initCompleted { r, p in
                 var presenter = p
-                presenter.view = r.resolve(EventListOutput.self)
+                presenter.view = r.resolve(EventListViewOutput.self)
         }
         
         container.register(EventListInteraction.self, factory: { r in
