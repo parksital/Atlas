@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return EventListInteractor(presenter: presenter, eventService: service)
         })
         
-        container.register(APIClientProtocol.self, factory: { _ in AWSClient() })
+        container.register(APIClientProtocol.self, factory: { _ in MockAPIClient() })
 
         container.register(EventFetchingProtocol.self, factory: { r in
             guard let client = r.resolve(APIClientProtocol.self) else {
@@ -69,4 +69,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 }
-

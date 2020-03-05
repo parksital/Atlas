@@ -7,21 +7,7 @@
 //
 
 import XCTest
-@testable import Atlas
-
 class APIClientTests: XCTestCase {
-    class MockAPIClient: APIClientProtocol {
-        var initialized: Bool
-        
-        init() {
-            initialized = true
-        }
-        
-        func fetch() {
-            
-        }
-    }
-
     var sut: APIClientProtocol!
     
     override func setUp() {
@@ -35,8 +21,38 @@ class APIClientTests: XCTestCase {
     }
     
     func testAPIClient_initialized() {
-        let client = MockAPIClient()
+        XCTAssertNotNil(sut)
+    }
+    
+    func testAPIClient_request_allEvents() {
+        let promise = expectation(description: "fetching events success")
         
-        XCTAssertFalse(client.initialized)
+        sut.request(data: [EventSummary].self) { result in
+            switch result {
+            case .success(let events):
+                XCTAssertFalse(events.isEmpty)
+                promise.fulfill()
+            case .failure(let error):
+                print(error)
+                XCTFail(error.localizedDescription)
+            }
+        }
+        
+        wait(for: [promise], timeout: 0.5)
+    }
+    
+    func testAPIClientRequest_modelMismatch() {
+        let promise = expectation(description: "JSONDecoder error")
+        
+        sut.request(data: String.self) { result in
+            switch result {
+            case .success:
+                XCTFail("expecting JSONDecoder error")
+            case .failure:
+                promise.fulfill()
+            }
+        }
+        
+        wait(for: [promise], timeout: 0.5)
     }
 }

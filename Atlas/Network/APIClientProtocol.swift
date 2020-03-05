@@ -9,6 +9,6 @@
 import Foundation
 
 protocol APIClientProtocol: class {
-    var initialized: Bool { get set }
-    func fetch()
+    var decoder: JSONDecoder! { get }
+    func request<D: Decodable>(data: D.Type, _ completion: @escaping (Result<D, Error>) -> Void)
 }

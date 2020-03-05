@@ -1,7 +1,5 @@
 {
-  "data": {
-    "listEvents": {
-      "items": [
+    "data": [
         {
           "id": "4e0ef088-db73-4dfb-bdc9-fec3f981d7e9",
           "title": "Nirvana",
@@ -58,8 +56,5 @@
           },
           "owner": "event-organizer-1"
         }
-      ],
-      "nextToken": null
-    }
-  }
+      ]
 }
