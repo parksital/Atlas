@@ -10,5 +10,5 @@ import Foundation
 
 protocol APIClientProtocol: class {
     var decoder: JSONDecoder! { get }
-    func request<D: Decodable>(data: D.Type, _ completion: @escaping (Result<D, Error>) -> Void)
+    func request<D: Decodable>(_ type: D.Type, _ completion: @escaping (Result<D, Error>) -> Void)
 }

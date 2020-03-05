@@ -15,7 +15,7 @@ final class MockAPIClient: APIClientProtocol {
         return decoder
     }()
     
-    func request<D: Decodable>(data: D.Type, _ completion: @escaping (Result<D, Error>) -> Void) {
+    func request<D: Decodable>(_ type: D.Type, _ completion: @escaping (Result<D, Error>) -> Void) {
         let json = stubbedResponse("Events")
         
         do {

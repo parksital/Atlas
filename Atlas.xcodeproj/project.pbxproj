@@ -21,6 +21,8 @@
 		A03E2AD9241009BF00B45712 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD7241009BA00B45712 /* MockAPIClient.swift */; };
 		A03E2ADB241009FE00B45712 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2ADA241009FE00B45712 /* DataContainer.swift */; };
 		A03E2ADC24100A0400B45712 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2ADA241009FE00B45712 /* DataContainer.swift */; };
+		A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
+		A03EECF1241154B200FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
 		A05CC7FB240ED72700331CF7 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
 		A075E38E240E8201006F891F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
@@ -72,6 +74,7 @@
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E2AD7241009BA00B45712 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A03E2ADA241009FE00B45712 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
+		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +194,7 @@
 			children = (
 				A01A805B240EC549008B5A30 /* APIClientProtocol.swift */,
 				A03E2AD7241009BA00B45712 /* MockAPIClient.swift */,
+				A03EECEF2411547A00FCDD8C /* AWSClient.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -507,6 +511,7 @@
 				A01A8068240EC621008B5A30 /* EventListViewOutputProtocol.swift in Sources */,
 				A03E2AD8241009BA00B45712 /* MockAPIClient.swift in Sources */,
 				A01A805F240EC569008B5A30 /* EventFetchingProtocol.swift in Sources */,
+				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A01A8062240EC5E8008B5A30 /* EventListPresentationProtocol.swift in Sources */,
 				A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */,
 				A01A8065240EC5FE008B5A30 /* EventListInteractionProtocol.swift in Sources */,
@@ -523,6 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03EECF1241154B200FCDD8C /* AWSClient.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
 				A03E2ADC24100A0400B45712 /* DataContainer.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,

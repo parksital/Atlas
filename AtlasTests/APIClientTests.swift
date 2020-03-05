@@ -27,7 +27,7 @@ class APIClientTests: XCTestCase {
     func testAPIClient_request_allEvents() {
         let promise = expectation(description: "fetching events success")
         
-        sut.request(data: [EventSummary].self) { result in
+        sut.request([EventSummary].self) { result in
             switch result {
             case .success(let events):
                 XCTAssertFalse(events.isEmpty)
@@ -44,7 +44,7 @@ class APIClientTests: XCTestCase {
     func testAPIClientRequest_modelMismatch() {
         let promise = expectation(description: "JSONDecoder error")
         
-        sut.request(data: String.self) { result in
+        sut.request(String.self) { result in
             switch result {
             case .success:
                 XCTFail("expecting JSONDecoder error")
