@@ -33,6 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setupDependencies() {
         container = Container()
         
+        container.register(AWSClient.self) { _ in AWSClient() }
+        
+        container.register(EventService.self, factory: { r in
+            guard let client = r.resolve(AWSClient.self) else {
+                fatalError("APIClient implementation not found")
+            }
+            return EventService(client: client)
+        })
+        
         container.register(EventListViewOutputProtocol.self, factory: { r in
             guard let interactor = r.resolve(EventListInteractionProtocol.self) else {
                 fatalError("EventListOutput implementation not registered")
@@ -52,20 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("EventListPresentationProtocol implementation not registerd")
             }
             
-            guard let service = r.resolve(EventFetchingProtocol.self) else {
+            guard let service = r.resolve(EventService.self) else {
                 fatalError("EventFetching implementation not registered")
             }
             
             return EventListInteractor(presenter: presenter, eventService: service)
-        })
-        
-        container.register(APIClientProtocol.self, factory: { _ in MockAPIClient() })
-
-        container.register(EventFetchingProtocol.self, factory: { r in
-            guard let client = r.resolve(APIClientProtocol.self) else {
-                fatalError("APIClient implementation not found")
-            }
-            return EventService(client: client)
         })
     }
 }

@@ -1,6 +1,9 @@
 type Venue 
 @model
-@auth(rules: [{ allow: owner, operations: [create, update, delete] }]) {
+@auth(rules: [
+  { allow: public, provider: apiKey, operations: [read] },
+  { allow: owner, provider: userPools, operations: [create, read, update, delete] }
+  ]) {
   id: ID!
   name: String!
   events: [Event] @connection(name: "VenueEvents")
@@ -8,8 +11,11 @@ type Venue
 }
 
 type Event 
-@model 
-@auth(rules: [{ allow: owner, operations: [create, update, delete] }]) {
+@model
+@auth(rules: [
+  { allow: public, provider: apiKey, operations: [read] },
+  { allow: owner, provider: userPools, operations: [create, read, update, delete] }
+  ]) {
   id: ID!
   title: String!
   start_date: AWSDateTime!

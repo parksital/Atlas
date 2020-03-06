@@ -884,7 +884,7 @@ public struct ModelEventFilterInput: GraphQLMapConvertible {
 
 public final class CreateVenueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateVenue($input: CreateVenueInput!, $condition: ModelVenueConditionInput) {\n  createVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "mutation CreateVenue($input: CreateVenueInput!, $condition: ModelVenueConditionInput) {\n  createVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var input: CreateVenueInput
   public var condition: ModelVenueConditionInput?
@@ -931,9 +931,9 @@ public final class CreateVenueMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -942,8 +942,8 @@ public final class CreateVenueMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -973,15 +973,6 @@ public final class CreateVenueMutation: GraphQLMutation {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -997,6 +988,15 @@ public final class CreateVenueMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -1139,7 +1139,7 @@ public final class CreateVenueMutation: GraphQLMutation {
 
 public final class UpdateVenueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateVenue($input: UpdateVenueInput!, $condition: ModelVenueConditionInput) {\n  updateVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "mutation UpdateVenue($input: UpdateVenueInput!, $condition: ModelVenueConditionInput) {\n  updateVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var input: UpdateVenueInput
   public var condition: ModelVenueConditionInput?
@@ -1186,9 +1186,9 @@ public final class UpdateVenueMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -1197,8 +1197,8 @@ public final class UpdateVenueMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -1228,15 +1228,6 @@ public final class UpdateVenueMutation: GraphQLMutation {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -1252,6 +1243,15 @@ public final class UpdateVenueMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -1394,7 +1394,7 @@ public final class UpdateVenueMutation: GraphQLMutation {
 
 public final class DeleteVenueMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteVenue($input: DeleteVenueInput!, $condition: ModelVenueConditionInput) {\n  deleteVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "mutation DeleteVenue($input: DeleteVenueInput!, $condition: ModelVenueConditionInput) {\n  deleteVenue(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var input: DeleteVenueInput
   public var condition: ModelVenueConditionInput?
@@ -1441,9 +1441,9 @@ public final class DeleteVenueMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -1452,8 +1452,8 @@ public final class DeleteVenueMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -1483,15 +1483,6 @@ public final class DeleteVenueMutation: GraphQLMutation {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -1507,6 +1498,15 @@ public final class DeleteVenueMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -1649,7 +1649,7 @@ public final class DeleteVenueMutation: GraphQLMutation {
 
 public final class CreateEventMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateEvent($input: CreateEventInput!, $condition: ModelEventConditionInput) {\n  createEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "mutation CreateEvent($input: CreateEventInput!, $condition: ModelEventConditionInput) {\n  createEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var input: CreateEventInput
   public var condition: ModelEventConditionInput?
@@ -1792,9 +1792,9 @@ public final class CreateEventMutation: GraphQLMutation {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -1803,8 +1803,8 @@ public final class CreateEventMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -1834,15 +1834,6 @@ public final class CreateEventMutation: GraphQLMutation {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -1858,6 +1849,15 @@ public final class CreateEventMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -1904,7 +1904,7 @@ public final class CreateEventMutation: GraphQLMutation {
 
 public final class UpdateEventMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateEvent($input: UpdateEventInput!, $condition: ModelEventConditionInput) {\n  updateEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "mutation UpdateEvent($input: UpdateEventInput!, $condition: ModelEventConditionInput) {\n  updateEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var input: UpdateEventInput
   public var condition: ModelEventConditionInput?
@@ -2047,9 +2047,9 @@ public final class UpdateEventMutation: GraphQLMutation {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -2058,8 +2058,8 @@ public final class UpdateEventMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -2089,15 +2089,6 @@ public final class UpdateEventMutation: GraphQLMutation {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -2113,6 +2104,15 @@ public final class UpdateEventMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -2159,7 +2159,7 @@ public final class UpdateEventMutation: GraphQLMutation {
 
 public final class DeleteEventMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteEvent($input: DeleteEventInput!, $condition: ModelEventConditionInput) {\n  deleteEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "mutation DeleteEvent($input: DeleteEventInput!, $condition: ModelEventConditionInput) {\n  deleteEvent(input: $input, condition: $condition) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var input: DeleteEventInput
   public var condition: ModelEventConditionInput?
@@ -2302,9 +2302,9 @@ public final class DeleteEventMutation: GraphQLMutation {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -2313,8 +2313,8 @@ public final class DeleteEventMutation: GraphQLMutation {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -2344,12 +2344,210 @@ public final class DeleteEventMutation: GraphQLMutation {
           }
         }
 
+        public var description: String? {
+          get {
+            return snapshot["description"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "description")
+          }
+        }
+
+        public var owner: String? {
+          get {
+            return snapshot["owner"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
         public var events: Event? {
           get {
             return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
           }
           set {
             snapshot.updateValue(newValue?.snapshot, forKey: "events")
+          }
+        }
+
+        public struct Event: GraphQLSelectionSet {
+          public static let possibleTypes = ["ModelEventConnection"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("nextToken", type: .scalar(String.self)),
+          ]
+
+          public var snapshot: Snapshot
+
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          public init(nextToken: String? = nil) {
+            self.init(snapshot: ["__typename": "ModelEventConnection", "nextToken": nextToken])
+          }
+
+          public var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var nextToken: String? {
+            get {
+              return snapshot["nextToken"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "nextToken")
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class ListVenuesQuery: GraphQLQuery {
+  public static let operationString =
+    "query ListVenues($filter: ModelVenueFilterInput, $limit: Int, $nextToken: String) {\n  listVenues(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    nextToken\n  }\n}"
+
+  public var filter: ModelVenueFilterInput?
+  public var limit: Int?
+  public var nextToken: String?
+
+  public init(filter: ModelVenueFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  public var variables: GraphQLMap? {
+    return ["filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("listVenues", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListVenue.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(listVenues: ListVenue? = nil) {
+      self.init(snapshot: ["__typename": "Query", "listVenues": listVenues.flatMap { $0.snapshot }])
+    }
+
+    public var listVenues: ListVenue? {
+      get {
+        return (snapshot["listVenues"] as? Snapshot).flatMap { ListVenue(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "listVenues")
+      }
+    }
+
+    public struct ListVenue: GraphQLSelectionSet {
+      public static let possibleTypes = ["ModelVenueConnection"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.object(Item.selections))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(items: [Item?]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ModelVenueConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var items: [Item?]? {
+        get {
+          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
+        }
+      }
+
+      public var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      public struct Item: GraphQLSelectionSet {
+        public static let possibleTypes = ["Venue"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("description", type: .scalar(String.self)),
+          GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -2368,6 +2566,15 @@ public final class DeleteEventMutation: GraphQLMutation {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -2414,7 +2621,7 @@ public final class DeleteEventMutation: GraphQLMutation {
 
 public final class GetVenueQuery: GraphQLQuery {
   public static let operationString =
-    "query GetVenue($id: ID!) {\n  getVenue(id: $id) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "query GetVenue($id: ID!) {\n  getVenue(id: $id) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var id: GraphQLID
 
@@ -2459,9 +2666,9 @@ public final class GetVenueQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -2470,8 +2677,8 @@ public final class GetVenueQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -2501,15 +2708,6 @@ public final class GetVenueQuery: GraphQLQuery {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -2525,6 +2723,15 @@ public final class GetVenueQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -2665,216 +2872,9 @@ public final class GetVenueQuery: GraphQLQuery {
   }
 }
 
-public final class ListVenuesQuery: GraphQLQuery {
-  public static let operationString =
-    "query ListVenues($filter: ModelVenueFilterInput, $limit: Int, $nextToken: String) {\n  listVenues(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    nextToken\n  }\n}"
-
-  public var filter: ModelVenueFilterInput?
-  public var limit: Int?
-  public var nextToken: String?
-
-  public init(filter: ModelVenueFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
-    self.filter = filter
-    self.limit = limit
-    self.nextToken = nextToken
-  }
-
-  public var variables: GraphQLMap? {
-    return ["filter": filter, "limit": limit, "nextToken": nextToken]
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
-
-    public static let selections: [GraphQLSelection] = [
-      GraphQLField("listVenues", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListVenue.selections)),
-    ]
-
-    public var snapshot: Snapshot
-
-    public init(snapshot: Snapshot) {
-      self.snapshot = snapshot
-    }
-
-    public init(listVenues: ListVenue? = nil) {
-      self.init(snapshot: ["__typename": "Query", "listVenues": listVenues.flatMap { $0.snapshot }])
-    }
-
-    public var listVenues: ListVenue? {
-      get {
-        return (snapshot["listVenues"] as? Snapshot).flatMap { ListVenue(snapshot: $0) }
-      }
-      set {
-        snapshot.updateValue(newValue?.snapshot, forKey: "listVenues")
-      }
-    }
-
-    public struct ListVenue: GraphQLSelectionSet {
-      public static let possibleTypes = ["ModelVenueConnection"]
-
-      public static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("items", type: .list(.object(Item.selections))),
-        GraphQLField("nextToken", type: .scalar(String.self)),
-      ]
-
-      public var snapshot: Snapshot
-
-      public init(snapshot: Snapshot) {
-        self.snapshot = snapshot
-      }
-
-      public init(items: [Item?]? = nil, nextToken: String? = nil) {
-        self.init(snapshot: ["__typename": "ModelVenueConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
-      }
-
-      public var __typename: String {
-        get {
-          return snapshot["__typename"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      public var items: [Item?]? {
-        get {
-          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
-        }
-        set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
-        }
-      }
-
-      public var nextToken: String? {
-        get {
-          return snapshot["nextToken"] as? String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "nextToken")
-        }
-      }
-
-      public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["Venue"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
-          GraphQLField("description", type: .scalar(String.self)),
-          GraphQLField("owner", type: .scalar(String.self)),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var id: GraphQLID {
-          get {
-            return snapshot["id"]! as! GraphQLID
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "id")
-          }
-        }
-
-        public var name: String {
-          get {
-            return snapshot["name"]! as! String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
-        public var description: String? {
-          get {
-            return snapshot["description"] as? String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "description")
-          }
-        }
-
-        public var owner: String? {
-          get {
-            return snapshot["owner"] as? String
-          }
-          set {
-            snapshot.updateValue(newValue, forKey: "owner")
-          }
-        }
-
-        public struct Event: GraphQLSelectionSet {
-          public static let possibleTypes = ["ModelEventConnection"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("nextToken", type: .scalar(String.self)),
-          ]
-
-          public var snapshot: Snapshot
-
-          public init(snapshot: Snapshot) {
-            self.snapshot = snapshot
-          }
-
-          public init(nextToken: String? = nil) {
-            self.init(snapshot: ["__typename": "ModelEventConnection", "nextToken": nextToken])
-          }
-
-          public var __typename: String {
-            get {
-              return snapshot["__typename"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          public var nextToken: String? {
-            get {
-              return snapshot["nextToken"] as? String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "nextToken")
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 public final class GetEventQuery: GraphQLQuery {
   public static let operationString =
-    "query GetEvent($id: ID!) {\n  getEvent(id: $id) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "query GetEvent($id: ID!) {\n  getEvent(id: $id) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var id: GraphQLID
 
@@ -3015,9 +3015,9 @@ public final class GetEventQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -3026,8 +3026,8 @@ public final class GetEventQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -3057,15 +3057,6 @@ public final class GetEventQuery: GraphQLQuery {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -3081,6 +3072,15 @@ public final class GetEventQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -3384,7 +3384,7 @@ public final class ListEventsQuery: GraphQLQuery {
 
 public final class OnCreateVenueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateVenue($owner: String!) {\n  onCreateVenue(owner: $owner) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "subscription OnCreateVenue($owner: String!) {\n  onCreateVenue(owner: $owner) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var owner: String
 
@@ -3429,9 +3429,9 @@ public final class OnCreateVenueSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -3440,8 +3440,8 @@ public final class OnCreateVenueSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -3471,15 +3471,6 @@ public final class OnCreateVenueSubscription: GraphQLSubscription {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -3495,6 +3486,15 @@ public final class OnCreateVenueSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -3637,7 +3637,7 @@ public final class OnCreateVenueSubscription: GraphQLSubscription {
 
 public final class OnUpdateVenueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateVenue($owner: String!) {\n  onUpdateVenue(owner: $owner) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "subscription OnUpdateVenue($owner: String!) {\n  onUpdateVenue(owner: $owner) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var owner: String
 
@@ -3682,9 +3682,9 @@ public final class OnUpdateVenueSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -3693,8 +3693,8 @@ public final class OnUpdateVenueSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -3724,15 +3724,6 @@ public final class OnUpdateVenueSubscription: GraphQLSubscription {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -3748,6 +3739,15 @@ public final class OnUpdateVenueSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -3890,7 +3890,7 @@ public final class OnUpdateVenueSubscription: GraphQLSubscription {
 
 public final class OnDeleteVenueSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteVenue($owner: String!) {\n  onDeleteVenue(owner: $owner) {\n    __typename\n    id\n    name\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n    description\n    owner\n  }\n}"
+    "subscription OnDeleteVenue($owner: String!) {\n  onDeleteVenue(owner: $owner) {\n    __typename\n    id\n    name\n    description\n    owner\n    events {\n      __typename\n      items {\n        __typename\n        id\n        title\n        start_date\n        end_date\n        description\n        owner\n      }\n      nextToken\n    }\n  }\n}"
 
   public var owner: String
 
@@ -3935,9 +3935,9 @@ public final class OnDeleteVenueSubscription: GraphQLSubscription {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("events", type: .object(Event.selections)),
         GraphQLField("description", type: .scalar(String.self)),
         GraphQLField("owner", type: .scalar(String.self)),
+        GraphQLField("events", type: .object(Event.selections)),
       ]
 
       public var snapshot: Snapshot
@@ -3946,8 +3946,8 @@ public final class OnDeleteVenueSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+      public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+        self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
@@ -3977,15 +3977,6 @@ public final class OnDeleteVenueSubscription: GraphQLSubscription {
         }
       }
 
-      public var events: Event? {
-        get {
-          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-        }
-        set {
-          snapshot.updateValue(newValue?.snapshot, forKey: "events")
-        }
-      }
-
       public var description: String? {
         get {
           return snapshot["description"] as? String
@@ -4001,6 +3992,15 @@ public final class OnDeleteVenueSubscription: GraphQLSubscription {
         }
         set {
           snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      public var events: Event? {
+        get {
+          return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue?.snapshot, forKey: "events")
         }
       }
 
@@ -4143,7 +4143,7 @@ public final class OnDeleteVenueSubscription: GraphQLSubscription {
 
 public final class OnCreateEventSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateEvent($owner: String!) {\n  onCreateEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "subscription OnCreateEvent($owner: String!) {\n  onCreateEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var owner: String
 
@@ -4284,9 +4284,9 @@ public final class OnCreateEventSubscription: GraphQLSubscription {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -4295,8 +4295,8 @@ public final class OnCreateEventSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -4326,15 +4326,6 @@ public final class OnCreateEventSubscription: GraphQLSubscription {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -4350,6 +4341,15 @@ public final class OnCreateEventSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -4396,7 +4396,7 @@ public final class OnCreateEventSubscription: GraphQLSubscription {
 
 public final class OnUpdateEventSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateEvent($owner: String!) {\n  onUpdateEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "subscription OnUpdateEvent($owner: String!) {\n  onUpdateEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var owner: String
 
@@ -4537,9 +4537,9 @@ public final class OnUpdateEventSubscription: GraphQLSubscription {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -4548,8 +4548,8 @@ public final class OnUpdateEventSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -4579,15 +4579,6 @@ public final class OnUpdateEventSubscription: GraphQLSubscription {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -4603,6 +4594,15 @@ public final class OnUpdateEventSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 
@@ -4649,7 +4649,7 @@ public final class OnUpdateEventSubscription: GraphQLSubscription {
 
 public final class OnDeleteEventSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteEvent($owner: String!) {\n  onDeleteEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      events {\n        __typename\n        nextToken\n      }\n      description\n      owner\n    }\n    owner\n  }\n}"
+    "subscription OnDeleteEvent($owner: String!) {\n  onDeleteEvent(owner: $owner) {\n    __typename\n    id\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      description\n      owner\n      events {\n        __typename\n        nextToken\n      }\n    }\n    owner\n  }\n}"
 
   public var owner: String
 
@@ -4790,9 +4790,9 @@ public final class OnDeleteEventSubscription: GraphQLSubscription {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("events", type: .object(Event.selections)),
           GraphQLField("description", type: .scalar(String.self)),
           GraphQLField("owner", type: .scalar(String.self)),
+          GraphQLField("events", type: .object(Event.selections)),
         ]
 
         public var snapshot: Snapshot
@@ -4801,8 +4801,8 @@ public final class OnDeleteEventSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, events: Event? = nil, description: String? = nil, owner: String? = nil) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "events": events.flatMap { $0.snapshot }, "description": description, "owner": owner])
+        public init(id: GraphQLID, name: String, description: String? = nil, owner: String? = nil, events: Event? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "description": description, "owner": owner, "events": events.flatMap { $0.snapshot }])
         }
 
         public var __typename: String {
@@ -4832,15 +4832,6 @@ public final class OnDeleteEventSubscription: GraphQLSubscription {
           }
         }
 
-        public var events: Event? {
-          get {
-            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
-          }
-          set {
-            snapshot.updateValue(newValue?.snapshot, forKey: "events")
-          }
-        }
-
         public var description: String? {
           get {
             return snapshot["description"] as? String
@@ -4856,6 +4847,15 @@ public final class OnDeleteEventSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        public var events: Event? {
+          get {
+            return (snapshot["events"] as? Snapshot).flatMap { Event(snapshot: $0) }
+          }
+          set {
+            snapshot.updateValue(newValue?.snapshot, forKey: "events")
           }
         }
 

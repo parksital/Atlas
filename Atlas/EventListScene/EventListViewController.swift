@@ -36,7 +36,7 @@ private extension EventListViewController {
         setupView()
         setupTableView()
         
-        // interactor.fetchEvents
+        interactor.fetchEvents()
     }
     
     func setupView() {
@@ -78,11 +78,5 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a custom cell
         return UITableViewCell()
-    }
-}
-
-extension EventListViewController {
-    final class EventListViewModel {
-        
     }
 }

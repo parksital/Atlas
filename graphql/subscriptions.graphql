@@ -3,6 +3,8 @@ subscription OnCreateVenue($owner: String!) {
   onCreateVenue(owner: $owner) {
     id
     name
+    description
+    owner
     events {
       items {
         id
@@ -14,14 +16,14 @@ subscription OnCreateVenue($owner: String!) {
       }
       nextToken
     }
-    description
-    owner
   }
 }
 subscription OnUpdateVenue($owner: String!) {
   onUpdateVenue(owner: $owner) {
     id
     name
+    description
+    owner
     events {
       items {
         id
@@ -33,14 +35,14 @@ subscription OnUpdateVenue($owner: String!) {
       }
       nextToken
     }
-    description
-    owner
   }
 }
 subscription OnDeleteVenue($owner: String!) {
   onDeleteVenue(owner: $owner) {
     id
     name
+    description
+    owner
     events {
       items {
         id
@@ -52,8 +54,6 @@ subscription OnDeleteVenue($owner: String!) {
       }
       nextToken
     }
-    description
-    owner
   }
 }
 subscription OnCreateEvent($owner: String!) {
@@ -66,11 +66,11 @@ subscription OnCreateEvent($owner: String!) {
     venue {
       id
       name
+      description
+      owner
       events {
         nextToken
       }
-      description
-      owner
     }
     owner
   }
@@ -85,11 +85,11 @@ subscription OnUpdateEvent($owner: String!) {
     venue {
       id
       name
+      description
+      owner
       events {
         nextToken
       }
-      description
-      owner
     }
     owner
   }
@@ -104,11 +104,11 @@ subscription OnDeleteEvent($owner: String!) {
     venue {
       id
       name
+      description
+      owner
       events {
         nextToken
       }
-      description
-      owner
     }
     owner
   }

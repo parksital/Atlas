@@ -10,9 +10,9 @@ import Foundation
 
 final class EventListInteractor {
     private let presenter: EventListPresentationProtocol!
-    private let eventService: EventFetchingProtocol!
+    private let eventService: EventService!
     
-    init(presenter: EventListPresentationProtocol, eventService: EventFetchingProtocol) {
+    init(presenter: EventListPresentationProtocol, eventService: EventService) {
         self.presenter = presenter
         self.eventService = eventService
     }
@@ -20,6 +20,12 @@ final class EventListInteractor {
 
 extension EventListInteractor: EventListInteractionProtocol {
     func fetchEvents() {
-        // eventservice.getEvents
+        eventService.fetchEventsSummarized { result in
+            switch result {
+            case .failure(let error): assertionFailure(error.localizedDescription)
+            case .success(let data):
+                print("retrieved events", data)
+            }
+        }
     }
 }
