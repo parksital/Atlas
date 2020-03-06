@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum NetworkingError: Error {
-    case noListEvents
-}
-
 final class EventService {
     private (set) var client: AWSClient!
     private (set) var decoder: JSONDecoder! = {
