@@ -8,7 +8,6 @@
 
 import UIKit
 import Swinject
-//import AWSAppSync
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
