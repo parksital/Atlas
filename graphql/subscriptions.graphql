@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateVenue($owner: String!) {
-  onCreateVenue(owner: $owner) {
+subscription OnCreateVenue {
+  onCreateVenue {
     id
     name
     events {
@@ -10,16 +10,14 @@ subscription OnCreateVenue($owner: String!) {
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
     description
-    owner
   }
 }
-subscription OnUpdateVenue($owner: String!) {
-  onUpdateVenue(owner: $owner) {
+subscription OnUpdateVenue {
+  onUpdateVenue {
     id
     name
     events {
@@ -29,16 +27,14 @@ subscription OnUpdateVenue($owner: String!) {
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
     description
-    owner
   }
 }
-subscription OnDeleteVenue($owner: String!) {
-  onDeleteVenue(owner: $owner) {
+subscription OnDeleteVenue {
+  onDeleteVenue {
     id
     name
     events {
@@ -48,16 +44,14 @@ subscription OnDeleteVenue($owner: String!) {
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
     description
-    owner
   }
 }
-subscription OnCreateEvent($owner: String!) {
-  onCreateEvent(owner: $owner) {
+subscription OnCreateEvent {
+  onCreateEvent {
     id
     title
     start_date
@@ -70,13 +64,11 @@ subscription OnCreateEvent($owner: String!) {
         nextToken
       }
       description
-      owner
     }
-    owner
   }
 }
-subscription OnUpdateEvent($owner: String!) {
-  onUpdateEvent(owner: $owner) {
+subscription OnUpdateEvent {
+  onUpdateEvent {
     id
     title
     start_date
@@ -89,13 +81,11 @@ subscription OnUpdateEvent($owner: String!) {
         nextToken
       }
       description
-      owner
     }
-    owner
   }
 }
-subscription OnDeleteEvent($owner: String!) {
-  onDeleteEvent(owner: $owner) {
+subscription OnDeleteEvent {
+  onDeleteEvent {
     id
     title
     start_date
@@ -108,8 +98,6 @@ subscription OnDeleteEvent($owner: String!) {
         nextToken
       }
       description
-      owner
     }
-    owner
   }
 }

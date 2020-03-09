@@ -10,12 +10,10 @@ query GetVenue($id: ID!) {
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
     description
-    owner
   }
 }
 query ListVenues(
@@ -31,7 +29,6 @@ query ListVenues(
         nextToken
       }
       description
-      owner
     }
     nextToken
   }
@@ -50,9 +47,7 @@ query GetEvent($id: ID!) {
         nextToken
       }
       description
-      owner
     }
-    owner
   }
 }
 query ListEvents(
@@ -71,9 +66,7 @@ query ListEvents(
         id
         name
         description
-        owner
       }
-      owner
     }
     nextToken
   }

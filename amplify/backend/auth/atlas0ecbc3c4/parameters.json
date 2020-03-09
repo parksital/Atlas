@@ -1,6 +1,6 @@
 {
     "identityPoolName": "atlas0ecbc3c4_identitypool_0ecbc3c4",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "atlas0ecbc3c4",
     "userPoolName": "atlas0ecbc3c4_userpool_0ecbc3c4",
     "autoVerifiedAttributes": [
@@ -44,7 +44,16 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "userPoolGroupList": [],
-    "dependsOn": []
+    "dependsOn": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": []
 }

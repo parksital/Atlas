@@ -8,20 +8,15 @@
 
 import UIKit
 
-protocol EventListViewOutput: class {
-    
-}
-
-final class EventListViewController: UIViewController, EventListViewOutput {
-    
-    private let interactor: EventListInteraction!
+final class EventListViewController: UIViewController, EventListViewOutputProtocol {
+    private let interactor: EventListInteractionProtocol!
     private (set) var safeArea: UILayoutGuide!
     private let eventsTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    init(interactor: EventListInteraction) {
+    init(interactor: EventListInteractionProtocol) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,7 +36,7 @@ private extension EventListViewController {
         setupView()
         setupTableView()
         
-        // interactor.fetchEvents
+        interactor.fetchEvents()
     }
     
     func setupView() {
@@ -83,11 +78,5 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a custom cell
         return UITableViewCell()
-    }
-}
-
-extension EventListViewController {
-    final class EventListViewModel {
-        
     }
 }
