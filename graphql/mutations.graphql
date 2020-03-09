@@ -6,8 +6,6 @@ mutation CreateVenue(
   createVenue(input: $input, condition: $condition) {
     id
     name
-    description
-    owner
     events {
       items {
         id
@@ -15,10 +13,10 @@ mutation CreateVenue(
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
+    description
   }
 }
 mutation UpdateVenue(
@@ -28,8 +26,6 @@ mutation UpdateVenue(
   updateVenue(input: $input, condition: $condition) {
     id
     name
-    description
-    owner
     events {
       items {
         id
@@ -37,10 +33,10 @@ mutation UpdateVenue(
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
+    description
   }
 }
 mutation DeleteVenue(
@@ -50,8 +46,6 @@ mutation DeleteVenue(
   deleteVenue(input: $input, condition: $condition) {
     id
     name
-    description
-    owner
     events {
       items {
         id
@@ -59,10 +53,10 @@ mutation DeleteVenue(
         start_date
         end_date
         description
-        owner
       }
       nextToken
     }
+    description
   }
 }
 mutation CreateEvent(
@@ -78,13 +72,11 @@ mutation CreateEvent(
     venue {
       id
       name
-      description
-      owner
       events {
         nextToken
       }
+      description
     }
-    owner
   }
 }
 mutation UpdateEvent(
@@ -100,13 +92,11 @@ mutation UpdateEvent(
     venue {
       id
       name
-      description
-      owner
       events {
         nextToken
       }
+      description
     }
-    owner
   }
 }
 mutation DeleteEvent(
@@ -122,12 +112,10 @@ mutation DeleteEvent(
     venue {
       id
       name
-      description
-      owner
       events {
         nextToken
       }
+      description
     }
-    owner
   }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Swinject
+//import AWSAppSync
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupDependencies() {
         container = Container()
-        
+
         container.register(AWSClient.self) { _ in AWSClient() }
         
         container.register(EventService.self, factory: { r in

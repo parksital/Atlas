@@ -1,4 +1,21 @@
 # this is an auto generated file. This will be overwritten
+query GetVenue($id: ID!) {
+  getVenue(id: $id) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+  }
+}
 query ListVenues(
   $filter: ModelVenueFilterInput
   $limit: Int
@@ -8,32 +25,12 @@ query ListVenues(
     items {
       id
       name
-      description
-      owner
       events {
         nextToken
       }
+      description
     }
     nextToken
-  }
-}
-query GetVenue($id: ID!) {
-  getVenue(id: $id) {
-    id
-    name
-    description
-    owner
-    events {
-      items {
-        id
-        title
-        start_date
-        end_date
-        description
-        owner
-      }
-      nextToken
-    }
   }
 }
 query GetEvent($id: ID!) {
@@ -46,13 +43,11 @@ query GetEvent($id: ID!) {
     venue {
       id
       name
-      description
-      owner
       events {
         nextToken
       }
+      description
     }
-    owner
   }
 }
 query ListEvents(
@@ -71,9 +66,7 @@ query ListEvents(
         id
         name
         description
-        owner
       }
-      owner
     }
     nextToken
   }

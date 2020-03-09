@@ -8,45 +8,25 @@
 
 import Foundation
 import AWSAppSync
-import AWSMobileClient
-
-// Make sure AWSMobileClient is a Cognito User Pool credentails providers
-// this makes it easy to AWSMobileClient shared instance with AppSync Client
-// read https://github.com/awslabs/aws-mobile-appsync-sdk-ios/issues/157 for details
-extension AWSMobileClient: AWSCognitoUserPoolsAuthProviderAsync {
-    public func getLatestAuthToken(_ callback: @escaping (String?, Error?) -> Void) {
-        getTokens { (tokens, error) in
-            if error != nil {
-                callback(nil, error)
-            } else {
-                callback(tokens?.idToken?.tokenString, nil)
-            }
-        }
-    }
-}
 
 class AWSClient {
     private var appSyncClient: AWSAppSyncClient!
     
     init() {
         do {
-            let cacheConfiguration = try AWSAppSyncCacheConfiguration()
+            let serviceConfig = try AWSAppSyncServiceConfig()
+            let cacheConfig = try AWSAppSyncCacheConfiguration(useClientDatabasePrefix: true, appSyncServiceConfig: serviceConfig)
             
-            // AppSync configuration & client initialization
-            let appSyncServiceConfig = try AWSAppSyncServiceConfig()
-            let appSyncConfig = try AWSAppSyncClientConfiguration(
-                appSyncServiceConfig: appSyncServiceConfig,
-                cacheConfiguration: cacheConfiguration
-            )
-            self.appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
+            let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: serviceConfig, cacheConfiguration: cacheConfig )
+            self.appSyncClient = try AWSAppSyncClient(appSyncConfig: config)
         } catch {
-            assertionFailure("Error initializing appSyncClient. Error: \(error.localizedDescription)")
+            assertionFailure(error.localizedDescription)
         }
     }
-
+    
     func fetch<Q: GraphQLQuery>(
-        query: Q,
-        _ completion: @escaping (Result<Q.Data>) -> Void
+        query: Q, _
+        completion: @escaping (Result<Q.Data>) -> Void
     ) {
         appSyncClient.fetch(
             query: query,
