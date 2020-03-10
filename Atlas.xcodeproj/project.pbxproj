@@ -14,6 +14,7 @@
 		A01A8062240EC5E8008B5A30 /* EventListPresentationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8061240EC5E8008B5A30 /* EventListPresentationProtocol.swift */; };
 		A01A8065240EC5FE008B5A30 /* EventListInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8064240EC5FE008B5A30 /* EventListInteractionProtocol.swift */; };
 		A01A8068240EC621008B5A30 /* EventListViewOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8067240EC621008B5A30 /* EventListViewOutputProtocol.swift */; };
+		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD62410087100B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD8241009BA00B45712 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD7241009BA00B45712 /* MockAPIClient.swift */; };
@@ -71,6 +72,7 @@
 		A01A8061240EC5E8008B5A30 /* EventListPresentationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresentationProtocol.swift; sourceTree = "<group>"; };
 		A01A8064240EC5FE008B5A30 /* EventListInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractionProtocol.swift; sourceTree = "<group>"; };
 		A01A8067240EC621008B5A30 /* EventListViewOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewOutputProtocol.swift; sourceTree = "<group>"; };
+		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E2AD7241009BA00B45712 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A03E2ADA241009FE00B45712 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				A0DBC4852401CC57002419C6 /* EventListPresenter.swift */,
 				A0DBC47F24014C43002419C6 /* EventListInteractor.swift */,
 				A0B661B82400265F001C5B40 /* EventListViewController.swift */,
+				A038D17724184AD100507207 /* EventSummaryCell.swift */,
 			);
 			path = EventList;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
+				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
 				A01A8068240EC621008B5A30 /* EventListViewOutputProtocol.swift in Sources */,
 				A03E2AD8241009BA00B45712 /* MockAPIClient.swift in Sources */,

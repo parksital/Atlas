@@ -11,7 +11,7 @@ import UIKit
 final class EventListViewController: UIViewController, EventListViewOutputProtocol {
     private let interactor: EventListInteractionProtocol!
     private (set) var events: [String] = []
-    private let tableView: UITableView = {
+    private let eventsTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
@@ -32,8 +32,8 @@ final class EventListViewController: UIViewController, EventListViewOutputProtoc
     
     func displayEvents(_ viewModel: [String]) {
         self.events = viewModel
-        DispatchQueue.main.async { [tableView] in
-            tableView.reloadData()
+        DispatchQueue.main.async { [eventsTableView] in
+            eventsTableView.reloadData()
         }
     }
     
@@ -51,7 +51,7 @@ private extension EventListViewController {
     
     func setupViews() {
         setupNavigationBar()
-        setupTableView(tableView)
+        setupTableView(eventsTableView)
     }
     
     func setupNavigationBar() {
@@ -62,12 +62,12 @@ private extension EventListViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        setupConstraintsFor(tableView: tableView, in: view)
+        setupConstraintsFor(tableView, in: view)
         
         tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
     }
     
-    func setupConstraintsFor(tableView: UITableView, in view: UIView) {
+    func setupConstraintsFor(_ tableView: UITableView, in view: UIView) {
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,8 +86,9 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = events[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
+        
+        cell.setup(title: events[indexPath.row])
         return cell
     }
 }
