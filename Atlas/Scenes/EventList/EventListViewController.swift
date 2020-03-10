@@ -11,7 +11,6 @@ import UIKit
 final class EventListViewController: UIViewController, EventListViewOutputProtocol {
     private let interactor: EventListInteractionProtocol!
     private (set) var events: [String] = []
-    private (set) var safeArea: UILayoutGuide!
     private let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -45,21 +44,30 @@ final class EventListViewController: UIViewController, EventListViewOutputProtoc
 
 private extension EventListViewController {
     func setup() {
-        setupView()
-        setupTableView()
+        setupViews()
         
         interactor.fetchEvents()
     }
     
-    func setupView() {
-        safeArea = view.layoutMarginsGuide
-        view.backgroundColor = .systemPink
-
+    func setupViews() {
         setupNavigationBar()
-        setupContainerView()
+        setupTableView(tableView)
     }
     
-    func setupContainerView() {
+    func setupNavigationBar() {
+        navigationItem.title = "Events"
+    }
+    
+    func setupTableView(_ tableView: UITableView) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        setupConstraintsFor(tableView: tableView, in: view)
+        
+        tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
+    }
+    
+    func setupConstraintsFor(tableView: UITableView, in view: UIView) {
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,17 +78,6 @@ private extension EventListViewController {
 
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
     }
-    
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    func setupNavigationBar() {
-        navigationItem.title = "Events"
-    }
 }
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -89,7 +86,7 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = events[indexPath.row]
         return cell
     }
