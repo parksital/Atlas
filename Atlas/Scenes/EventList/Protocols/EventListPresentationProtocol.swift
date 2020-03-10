@@ -10,4 +10,7 @@ import Foundation
 
 protocol EventListPresentationProtocol {
     var view: EventListViewOutputProtocol? { get set }
+    
+    func presentEvents(_ events: [EventSummary])
+    func presentError(_ error: Error)
 }

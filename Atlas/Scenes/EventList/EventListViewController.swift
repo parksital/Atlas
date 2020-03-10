@@ -10,8 +10,9 @@ import UIKit
 
 final class EventListViewController: UIViewController, EventListViewOutputProtocol {
     private let interactor: EventListInteractionProtocol!
+    private (set) var events: [String] = []
     private (set) var safeArea: UILayoutGuide!
-    private let eventsTableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
@@ -28,6 +29,17 @@ final class EventListViewController: UIViewController, EventListViewOutputProtoc
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func displayEvents(_ viewModel: [String]) {
+        self.events = viewModel
+        DispatchQueue.main.async { [tableView] in
+            tableView.reloadData()
+        }
+    }
+    
+    func displayError(_ error: Error) {
+        
     }
 }
 
@@ -48,20 +60,22 @@ private extension EventListViewController {
     }
     
     func setupContainerView() {
-        view.addSubview(eventsTableView)
+        view.addSubview(tableView)
         
-        eventsTableView.translatesAutoresizingMaskIntoConstraints = false
-        let top = eventsTableView.topAnchor.constraint(equalTo: view.topAnchor)
-        let leading = eventsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = eventsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let bottom = eventsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        let top = tableView.topAnchor.constraint(equalTo: view.topAnchor)
+        let leading = tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
     }
     
     func setupTableView() {
-        eventsTableView.delegate = self
-        eventsTableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     func setupNavigationBar() {
@@ -71,12 +85,12 @@ private extension EventListViewController {
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // grab this from the viewmodel later
-        return 0
+        return events.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // create a custom cell
-        return UITableViewCell()
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = events[indexPath.row]
+        return cell
     }
 }
