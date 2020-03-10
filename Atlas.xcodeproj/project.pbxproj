@@ -160,6 +160,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		A00DFE7C2416E17A005A729E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A03B2C88240EC93800A6A411 /* EventList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		A01A805A240EC538008B5A30 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,7 +187,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		A03B2C88240EC93800A6A411 /* EventListScene */ = {
+		A03B2C88240EC93800A6A411 /* EventList */ = {
 			isa = PBXGroup;
 			children = (
 				A01A805A240EC538008B5A30 /* Protocols */,
@@ -187,7 +195,7 @@
 				A0DBC47F24014C43002419C6 /* EventListInteractor.swift */,
 				A0B661B82400265F001C5B40 /* EventListViewController.swift */,
 			);
-			path = EventListScene;
+			path = EventList;
 			sourceTree = "<group>";
 		};
 		A03EECF224127AD700FCDD8C /* Errors */ = {
@@ -241,7 +249,7 @@
 				A03562F7240EF70800299AC4 /* Models */,
 				A03F48C62403050C00992232 /* Network */,
 				A0DBC4872401CC72002419C6 /* Service */,
-				A03B2C88240EC93800A6A411 /* EventListScene */,
+				A00DFE7C2416E17A005A729E /* Scenes */,
 				A0B661BD24002660001C5B40 /* Assets.xcassets */,
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,

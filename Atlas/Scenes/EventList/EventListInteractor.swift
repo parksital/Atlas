@@ -24,6 +24,7 @@ extension EventListInteractor: EventListInteractionProtocol {
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
             case .success(let data):
+                // handle errors
                 print("retrieved events", data)
             }
         }
