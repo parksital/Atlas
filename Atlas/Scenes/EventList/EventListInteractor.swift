@@ -20,11 +20,10 @@ final class EventListInteractor {
 
 extension EventListInteractor: EventListInteractionProtocol {
     func fetchEvents() {
-        eventService.fetchEventsSummarized { result in
+        eventService.fetchEventsSummarized { [presenter] result in
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
-            case .success(let data):
-                print("retrieved events", data)
+            case .success(let data): presenter?.presentEvents(data)
             }
         }
     }

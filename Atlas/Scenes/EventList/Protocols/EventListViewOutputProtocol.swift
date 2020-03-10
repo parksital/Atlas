@@ -9,5 +9,7 @@
 import Foundation
 
 protocol EventListViewOutputProtocol: class {
-    
+    var events: [String] { get }
+    func displayEvents(_ viewModel: [String])
+    func displayError(_ error: Error)
 }
