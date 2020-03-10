@@ -1,0 +1,73 @@
+# this is an auto generated file. This will be overwritten
+query GetVenue($id: ID!) {
+  getVenue(id: $id) {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+  }
+}
+query ListVenues(
+  $filter: ModelVenueFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVenues(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+    }
+    nextToken
+  }
+}
+query GetEvent($id: ID!) {
+  getEvent(id: $id) {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+    }
+  }
+}
+query ListEvents(
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      start_date
+      end_date
+      description
+      venue {
+        id
+        name
+        description
+      }
+    }
+    nextToken
+  }
+}

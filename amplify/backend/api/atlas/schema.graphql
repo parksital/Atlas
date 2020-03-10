@@ -1,0 +1,17 @@
+type Venue 
+@model {
+  id: ID!
+  name: String!
+  events: [Event] @connection(name: "VenueEvents")
+  description: String
+}
+
+type Event 
+@model {
+  id: ID!
+  title: String!
+  start_date: AWSDateTime!
+  end_date: AWSDateTime!
+  description: String
+  venue: Venue! @connection(name: "VenueEvents")
+}

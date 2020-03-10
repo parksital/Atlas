@@ -1,0 +1,103 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateVenue {
+  onCreateVenue {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+  }
+}
+subscription OnUpdateVenue {
+  onUpdateVenue {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+  }
+}
+subscription OnDeleteVenue {
+  onDeleteVenue {
+    id
+    name
+    events {
+      items {
+        id
+        title
+        start_date
+        end_date
+        description
+      }
+      nextToken
+    }
+    description
+  }
+}
+subscription OnCreateEvent {
+  onCreateEvent {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+    }
+  }
+}
+subscription OnUpdateEvent {
+  onUpdateEvent {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+    }
+  }
+}
+subscription OnDeleteEvent {
+  onDeleteEvent {
+    id
+    title
+    start_date
+    end_date
+    description
+    venue {
+      id
+      name
+      events {
+        nextToken
+      }
+      description
+    }
+  }
+}

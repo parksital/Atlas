@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         setupDependencies()
         
-        guard let rootViewController = container.resolve(EventListOutput.self) as? EventListViewController else {
+        guard let rootViewController = container.resolve(EventListViewOutputProtocol.self) as? EventListViewController else {
             fatalError("no EventListViewController found")
         }
         
@@ -32,34 +32,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupDependencies() {
         container = Container()
+
+        container.register(AWSClient.self) { _ in AWSClient() }
         
-        container.register(EventListOutput.self, factory: { r in
-            guard let interactor = r.resolve(EventListInteraction.self) else {
+        container.register(EventService.self, factory: { r in
+            guard let client = r.resolve(AWSClient.self) else {
+                fatalError("APIClient implementation not found")
+            }
+            return EventService(client: client)
+        })
+        
+        container.register(EventListViewOutputProtocol.self, factory: { r in
+            guard let interactor = r.resolve(EventListInteractionProtocol.self) else {
                 fatalError("EventListOutput implementation not registered")
             }
             
             return EventListViewController(interactor: interactor)
         })
         
-        container.register(EventListPresentation.self, factory: { _ in EventListPresenter() })
+        container.register(EventListPresentationProtocol.self, factory: { _ in EventListPresenter() })
             .initCompleted { r, p in
                 var presenter = p
-                presenter.view = r.resolve(EventListOutput.self)
+                presenter.view = r.resolve(EventListViewOutputProtocol.self)
         }
         
-        container.register(EventListInteraction.self, factory: { r in
-            guard let presenter = r.resolve(EventListPresentation.self) else {
-                fatalError("EventListPresentation implementation not registerd")
+        container.register(EventListInteractionProtocol.self, factory: { r in
+            guard let presenter = r.resolve(EventListPresentationProtocol.self) else {
+                fatalError("EventListPresentationProtocol implementation not registerd")
             }
             
-            guard let service = r.resolve(EventFetching.self) else {
+            guard let service = r.resolve(EventService.self) else {
                 fatalError("EventFetching implementation not registered")
             }
             
             return EventListInteractor(presenter: presenter, eventService: service)
         })
-        
-        container.register(EventFetching.self, factory: { _ in EventService() })
     }
 }
-
