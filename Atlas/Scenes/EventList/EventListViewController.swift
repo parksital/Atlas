@@ -8,26 +8,30 @@
 
 import UIKit
 
-final class EventListViewController: UIViewController, EventListViewOutputProtocol {
-    private let interactor: EventListInteractionProtocol!
+final class EventListViewController: UIViewController, EventListDisplayLogic {
+    var interactor: EventListLogic?
+    var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
+    
     private (set) var events: [String] = []
     private let eventsTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    init(interactor: EventListInteractionProtocol) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not supported")
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupViews()
+        interactor?.fetchEvents()
     }
     
     func displayEvents(_ viewModel: [String]) {
@@ -44,9 +48,17 @@ final class EventListViewController: UIViewController, EventListViewOutputProtoc
 
 private extension EventListViewController {
     func setup() {
-        setupViews()
+        let viewController = self
+        let presenter = EventListPresenter()
+        let interactor = EventListInteractor()
+        let router = EventListRouter()
         
-        interactor.fetchEvents()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
     }
     
     func setupViews() {
@@ -90,5 +102,9 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.setup(title: events[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }

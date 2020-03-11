@@ -8,13 +8,18 @@
 
 import Foundation
 
-final class EventListPresenter {
-    weak var view: EventListViewOutputProtocol?
+protocol EventListPresentationLogic {
+    func presentEvents(_ events: [EventSummary])
+    func presentError(_ error: Error)
 }
 
-extension EventListPresenter: EventListPresentationProtocol {
+final class EventListPresenter {
+    weak var viewController: EventListDisplayLogic?
+}
+
+extension EventListPresenter: EventListPresentationLogic {
     func presentEvents(_ events: [EventSummary]) {
-        view?.displayEvents(events.map { $0.title })
+        viewController?.displayEvents(events.map { $0.title })
     }
     
     func presentError(_ error: Error) {

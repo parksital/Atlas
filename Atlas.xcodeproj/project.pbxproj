@@ -11,9 +11,7 @@
 		A000D3D8240ECABC00B4739E /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000D3D7240ECABC00B4739E /* APIClientTests.swift */; };
 		A01A8043240EA371008B5A30 /* Events.json in Resources */ = {isa = PBXBuildFile; fileRef = A01A8042240EA371008B5A30 /* Events.json */; };
 		A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
-		A01A8062240EC5E8008B5A30 /* EventListPresentationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8061240EC5E8008B5A30 /* EventListPresentationProtocol.swift */; };
-		A01A8065240EC5FE008B5A30 /* EventListInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8064240EC5FE008B5A30 /* EventListInteractionProtocol.swift */; };
-		A01A8068240EC621008B5A30 /* EventListViewOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8067240EC621008B5A30 /* EventListViewOutputProtocol.swift */; };
+		A01A8068240EC621008B5A30 /* EventListDisplayLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD62410087100B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -34,6 +32,7 @@
 		A0B661C124002661001C5B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */; };
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
+		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
@@ -69,9 +68,7 @@
 		A000D3D7240ECABC00B4739E /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		A01A8042240EA371008B5A30 /* Events.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = Events.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A01A805B240EC549008B5A30 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
-		A01A8061240EC5E8008B5A30 /* EventListPresentationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresentationProtocol.swift; sourceTree = "<group>"; };
-		A01A8064240EC5FE008B5A30 /* EventListInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractionProtocol.swift; sourceTree = "<group>"; };
-		A01A8067240EC621008B5A30 /* EventListViewOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewOutputProtocol.swift; sourceTree = "<group>"; };
+		A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListDisplayLogic.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E2AD7241009BA00B45712 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
@@ -92,6 +89,7 @@
 		A0B661D224002661001C5B40 /* AtlasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtlasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
@@ -173,9 +171,8 @@
 		A01A805A240EC538008B5A30 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A01A8061240EC5E8008B5A30 /* EventListPresentationProtocol.swift */,
-				A01A8064240EC5FE008B5A30 /* EventListInteractionProtocol.swift */,
-				A01A8067240EC621008B5A30 /* EventListViewOutputProtocol.swift */,
+				A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */,
+				A0BE38C524192D8C0077DE4E /* EventListRouter.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -526,15 +523,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */,
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
-				A01A8068240EC621008B5A30 /* EventListViewOutputProtocol.swift in Sources */,
+				A01A8068240EC621008B5A30 /* EventListDisplayLogic.swift in Sources */,
 				A03E2AD8241009BA00B45712 /* MockAPIClient.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
-				A01A8062240EC5E8008B5A30 /* EventListPresentationProtocol.swift in Sources */,
 				A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */,
-				A01A8065240EC5FE008B5A30 /* EventListInteractionProtocol.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,

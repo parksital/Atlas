@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol EventListViewOutputProtocol: class {
+protocol EventListDisplayLogic: class {
     var events: [String] { get }
     func displayEvents(_ viewModel: [String])
     func displayError(_ error: Error)

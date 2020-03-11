@@ -8,17 +8,21 @@
 
 import Foundation
 
-final class EventListInteractor {
-    private let presenter: EventListPresentationProtocol!
-    private let eventService: EventService!
-    
-    init(presenter: EventListPresentationProtocol, eventService: EventService) {
-        self.presenter = presenter
-        self.eventService = eventService
-    }
+protocol EventListLogic {
+    func fetchEvents()
 }
 
-extension EventListInteractor: EventListInteractionProtocol {
+protocol EventListDataStore {
+    var events: [EventSummary] { get }
+}
+
+final class EventListInteractor: EventListDataStore {
+    var presenter: EventListPresentationLogic?
+    private (set) var events: [EventSummary] = []
+    private let eventService: EventService! = EventService()
+}
+
+extension EventListInteractor: EventListLogic {
     func fetchEvents() {
         eventService.fetchEventsSummarized { [presenter] result in
             switch result {
