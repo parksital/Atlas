@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol EventListDisplayLogic: class {
+    var events: [String] { get }
+    func displayEvents(_ viewModel: [String])
+    func displayError(_ error: Error)
+}
+
 final class EventListViewController: UIViewController, EventListDisplayLogic {
     var interactor: EventListLogic?
     var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?

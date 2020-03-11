@@ -11,7 +11,6 @@
 		A000D3D8240ECABC00B4739E /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000D3D7240ECABC00B4739E /* APIClientTests.swift */; };
 		A01A8043240EA371008B5A30 /* Events.json in Resources */ = {isa = PBXBuildFile; fileRef = A01A8042240EA371008B5A30 /* Events.json */; };
 		A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
-		A01A8068240EC621008B5A30 /* EventListDisplayLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD62410087100B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -68,7 +67,6 @@
 		A000D3D7240ECABC00B4739E /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		A01A8042240EA371008B5A30 /* Events.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = Events.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A01A805B240EC549008B5A30 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
-		A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListDisplayLogic.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E2AD7241009BA00B45712 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
@@ -163,18 +161,10 @@
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				A041ED3B24196FD900DB772F /* EventDetail */,
 				A03B2C88240EC93800A6A411 /* EventList */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		A01A805A240EC538008B5A30 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				A01A8067240EC621008B5A30 /* EventListDisplayLogic.swift */,
-				A0BE38C524192D8C0077DE4E /* EventListRouter.swift */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		A03562F7240EF70800299AC4 /* Models */ = {
@@ -189,8 +179,8 @@
 		A03B2C88240EC93800A6A411 /* EventList */ = {
 			isa = PBXGroup;
 			children = (
-				A01A805A240EC538008B5A30 /* Protocols */,
 				A0DBC4852401CC57002419C6 /* EventListPresenter.swift */,
+				A0BE38C524192D8C0077DE4E /* EventListRouter.swift */,
 				A0DBC47F24014C43002419C6 /* EventListInteractor.swift */,
 				A0B661B82400265F001C5B40 /* EventListViewController.swift */,
 				A038D17724184AD100507207 /* EventSummaryCell.swift */,
@@ -214,6 +204,13 @@
 				A03EECEF2411547A00FCDD8C /* AWSClient.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		A041ED3B24196FD900DB772F /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EventDetail;
 			sourceTree = "<group>";
 		};
 		A0B661A82400265F001C5B40 = {
@@ -527,7 +524,6 @@
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
-				A01A8068240EC621008B5A30 /* EventListDisplayLogic.swift in Sources */,
 				A03E2AD8241009BA00B45712 /* MockAPIClient.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */,
