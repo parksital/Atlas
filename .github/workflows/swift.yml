@@ -1,0 +1,13 @@
+name: Swift
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone SE,OS=13.3"
