@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		248449CB3C6D55648E1CB065 /* Pods_AtlasUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */; };
-		A01A8043240EA371008B5A30 /* Events.json in Resources */ = {isa = PBXBuildFile; fileRef = A01A8042240EA371008B5A30 /* Events.json */; };
 		A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
 		A0297D05241A61070089F38C /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D04241A61070089F38C /* EventDetail.swift */; };
 		A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */; };
@@ -74,7 +73,6 @@
 		56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Atlas.release.xcconfig"; path = "Target Support Files/Pods-Atlas/Pods-Atlas.release.xcconfig"; sourceTree = "<group>"; };
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A01A8042240EA371008B5A30 /* Events.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = Events.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A01A805B240EC549008B5A30 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
 		A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenterTests.swift; sourceTree = "<group>"; };
@@ -162,14 +160,6 @@
 				C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A000D3D6240EC9E300B4739E /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				A01A8042240EA371008B5A30 /* Events.json */,
-			);
-			path = Mocks;
 			sourceTree = "<group>";
 		};
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
@@ -274,7 +264,6 @@
 		A0B661CA24002661001C5B40 /* AtlasTests */ = {
 			isa = PBXGroup;
 			children = (
-				A000D3D6240EC9E300B4739E /* Mocks */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
 				A0B661CD24002661001C5B40 /* Info.plist */,
 				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
@@ -417,7 +406,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A01A8043240EA371008B5A30 /* Events.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
