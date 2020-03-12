@@ -31,12 +31,12 @@ final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
 
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
         let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
-        destination.eventID = source.events[selectedRow!].id
+        DispatchQueue.global(qos: .userInitiated).async { [destination] in
+            destination.eventID = source.events[selectedRow!].id
+        }
     }
     
     func navigateToDestination(source: EventListViewController, destination: UIViewController) {
-        DispatchQueue.main.async {
-            source.navigationController?.pushViewController(destination, animated: true)
-        }
+        source.navigationController?.pushViewController(destination, animated: true)
     }
 }

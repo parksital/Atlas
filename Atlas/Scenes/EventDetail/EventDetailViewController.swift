@@ -9,10 +9,10 @@
 import UIKit
 
 protocol EventDetailDisplayLogic: class {
-
+    func displayEventDetails(event: String)
 }
 
-final class EventDetailViewController: UIViewController, EventDetailDisplayLogic {
+final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
     var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
     
@@ -27,7 +27,8 @@ final class EventDetailViewController: UIViewController, EventDetailDisplayLogic
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        setupViews()
+        interactor?.viewDidFinishLoading()
     }
 }
 
@@ -44,5 +45,15 @@ private extension EventDetailViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
+    }
+    
+    func setupViews() {
+        view.backgroundColor = .white
+    }
+}
+
+extension EventDetailViewController: EventDetailDisplayLogic {
+    func displayEventDetails(event: String) {
+        navigationItem.title = event
     }
 }

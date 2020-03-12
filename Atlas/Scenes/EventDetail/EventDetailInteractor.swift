@@ -9,7 +9,7 @@
 import Foundation
 
 protocol EventDetailLogic: class {
-    
+    func viewDidFinishLoading()
 }
 
 protocol EventDetailDataStore: class {
@@ -22,5 +22,7 @@ final class EventDetailInteractor: EventDetailDataStore {
 }
 
 extension EventDetailInteractor: EventDetailLogic {
-    
+    func viewDidFinishLoading() {
+        presenter?.presentEventDetails(event: eventID!)
+    }
 }
