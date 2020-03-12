@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AWSAppSync
 
 enum EventDetail {
     struct Request {
