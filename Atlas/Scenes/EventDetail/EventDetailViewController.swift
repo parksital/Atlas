@@ -9,7 +9,8 @@
 import UIKit
 
 protocol EventDetailDisplayLogic: class {
-    func displayEventDetails(event: String)
+    func displayEventTitle(_ title: String)
+    func displayViewModel(_ viewModel: EventDetail.ViewModel)
 }
 
 final class EventDetailViewController: UIViewController {
@@ -29,6 +30,7 @@ final class EventDetailViewController: UIViewController {
     override func viewDidLoad() {
         setupViews()
         interactor?.viewDidFinishLoading()
+        interactor?.fetchEvent()
     }
 }
 
@@ -53,7 +55,11 @@ private extension EventDetailViewController {
 }
 
 extension EventDetailViewController: EventDetailDisplayLogic {
-    func displayEventDetails(event: String) {
-        navigationItem.title = event
+    func displayEventTitle(_ title: String) {
+        navigationItem.title = title
+    }
+    
+    func displayViewModel(_ viewModel: EventDetail.ViewModel) {
+        print("viewmodel startDate:", viewModel.startDate)
     }
 }
