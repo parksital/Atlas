@@ -20,6 +20,7 @@ final class EventService {
         self.client = client
     }
     
+    #warning("TODO: - Refactor me")
     func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
         client.fetch(query: ListEventsSummarizedQuery()) { result in
             switch result {
@@ -39,6 +40,31 @@ final class EventService {
                     .map { try self.decoder.decode(EventSummary.self, from: $0) }
                 
                 completion(.success(data))
+            }
+        }
+    }
+    
+    func fetchEvent(request: EventDetail.Request, _ completion: @escaping (Result<EventDetail.Response, Error>) -> Void) {
+        client.fetch(query: request.query) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let data):
+                guard let event = data.getEvent else {
+                    completion(.failure(NetworkingError.noListEvents))
+                    return
+                }
+                
+                if JSONSerialization.isValidJSONObject(event.jsonObject) {
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: event.jsonObject, options: .prettyPrinted)
+                        let eventDetails = try self.decoder.decode(EventDetail.Response.self, from: jsonData)
+                        
+                        completion(.success(eventDetails))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
             }
         }
     }
