@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol EventListRouting {
-    func routeToDetail(eventID: String)
+    func routeToDetail()
 }
 
 protocol EventListDataPassing {
@@ -22,14 +22,21 @@ final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
     var dataStore: EventListDataStore?
 
     
-    func routeToDetail(eventID: String) {
+    func routeToDetail() {
+        let destinationVC = EventDetailViewController()
+        var destinationDS = destinationVC.router?.dataStore
+        passDataToDestination(source: dataStore!, destination: &destinationDS!)
+        navigateToDestination(source: viewController!, destination: destinationVC)
     }
-     
-//    func passDataToChild(source: EventListDataStore, destination: inout ChildDataStore) {
-//        destination.name = source.events
-//    }
-//
-//    func navigateToChild(source: EventListViewController, destination: UIViewController) {
-//        source.navigationController?.pushViewController(destination, animated: true)
-//    }
+
+    func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
+        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+        DispatchQueue.global(qos: .userInitiated).async { [destination] in
+            destination.eventID = source.events[selectedRow!].id
+        }
+    }
+    
+    func navigateToDestination(source: EventListViewController, destination: UIViewController) {
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
 }

@@ -11,15 +11,16 @@ import UIKit
 protocol EventListDisplayLogic: class {
     var events: [String] { get }
     func displayEvents(_ viewModel: [String])
+    func didSelectEvent(_ event: String)
     func displayError(_ error: Error)
 }
 
-final class EventListViewController: UIViewController, EventListDisplayLogic {
+final class EventListViewController: UIViewController {
     var interactor: EventListLogic?
     var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
     
     private (set) var events: [String] = []
-    private let eventsTableView: UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
@@ -39,11 +40,17 @@ final class EventListViewController: UIViewController, EventListDisplayLogic {
         setupViews()
         interactor?.fetchEvents()
     }
+}
+
+extension EventListViewController: EventListDisplayLogic {
+    func didSelectEvent(_ event: String) {
+        router?.routeToDetail()
+    }
     
     func displayEvents(_ viewModel: [String]) {
         self.events = viewModel
-        DispatchQueue.main.async { [eventsTableView] in
-            eventsTableView.reloadData()
+        DispatchQueue.main.async { [tableView] in
+            tableView.reloadData()
         }
     }
     
@@ -69,7 +76,7 @@ private extension EventListViewController {
     
     func setupViews() {
         setupNavigationBar()
-        setupTableView(eventsTableView)
+        setupTableView(tableView)
     }
     
     func setupNavigationBar() {
@@ -111,6 +118,6 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        interactor?.didSelectEvent(atIndex: indexPath.row)
     }
 }
