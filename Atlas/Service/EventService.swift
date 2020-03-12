@@ -21,7 +21,7 @@ final class EventService {
     }
     
     func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-        client.fetch(query: ListEventsQuery()) { result in
+        client.fetch(query: ListEventsSummarizedQuery()) { result in
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
             case .success(let data):

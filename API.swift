@@ -2,54 +2,46 @@
 
 import AWSAppSync
 
-public struct CreateVenueInput: GraphQLMapConvertible {
+public struct ModelEventFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, name: String, description: String? = nil) {
-    graphQLMap = ["id": id, "name": name, "description": description]
+  public init(id: ModelIDInput? = nil, title: ModelStringInput? = nil, startDate: ModelStringInput? = nil, endDate: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelEventFilterInput?]? = nil, or: [ModelEventFilterInput?]? = nil, not: ModelEventFilterInput? = nil) {
+    graphQLMap = ["id": id, "title": title, "start_date": startDate, "end_date": endDate, "description": description, "and": and, "or": or, "not": not]
   }
 
-  public var id: GraphQLID? {
+  public var id: ModelIDInput? {
     get {
-      return graphQLMap["id"] as! GraphQLID?
+      return graphQLMap["id"] as! ModelIDInput?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "id")
     }
   }
 
-  public var name: String {
+  public var title: ModelStringInput? {
     get {
-      return graphQLMap["name"] as! String
+      return graphQLMap["title"] as! ModelStringInput?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "title")
     }
   }
 
-  public var description: String? {
+  public var startDate: ModelStringInput? {
     get {
-      return graphQLMap["description"] as! String?
+      return graphQLMap["start_date"] as! ModelStringInput?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "description")
+      graphQLMap.updateValue(newValue, forKey: "start_date")
     }
   }
-}
 
-public struct ModelVenueConditionInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  public init(name: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelVenueConditionInput?]? = nil, or: [ModelVenueConditionInput?]? = nil, not: ModelVenueConditionInput? = nil) {
-    graphQLMap = ["name": name, "description": description, "and": and, "or": or, "not": not]
-  }
-
-  public var name: ModelStringInput? {
+  public var endDate: ModelStringInput? {
     get {
-      return graphQLMap["name"] as! ModelStringInput?
+      return graphQLMap["end_date"] as! ModelStringInput?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "end_date")
     }
   }
 
@@ -62,27 +54,27 @@ public struct ModelVenueConditionInput: GraphQLMapConvertible {
     }
   }
 
-  public var and: [ModelVenueConditionInput?]? {
+  public var and: [ModelEventFilterInput?]? {
     get {
-      return graphQLMap["and"] as! [ModelVenueConditionInput?]?
+      return graphQLMap["and"] as! [ModelEventFilterInput?]?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "and")
     }
   }
 
-  public var or: [ModelVenueConditionInput?]? {
+  public var or: [ModelEventFilterInput?]? {
     get {
-      return graphQLMap["or"] as! [ModelVenueConditionInput?]?
+      return graphQLMap["or"] as! [ModelEventFilterInput?]?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "or")
     }
   }
 
-  public var not: ModelVenueConditionInput? {
+  public var not: ModelEventFilterInput? {
     get {
-      return graphQLMap["not"] as! ModelVenueConditionInput?
+      return graphQLMap["not"] as! ModelEventFilterInput?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "not")
@@ -90,97 +82,97 @@ public struct ModelVenueConditionInput: GraphQLMapConvertible {
   }
 }
 
-public struct ModelStringInput: GraphQLMapConvertible {
+public struct ModelIDInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(ne: String? = nil, eq: String? = nil, le: String? = nil, lt: String? = nil, ge: String? = nil, gt: String? = nil, contains: String? = nil, notContains: String? = nil, between: [String?]? = nil, beginsWith: String? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil, size: ModelSizeInput? = nil) {
+  public init(ne: GraphQLID? = nil, eq: GraphQLID? = nil, le: GraphQLID? = nil, lt: GraphQLID? = nil, ge: GraphQLID? = nil, gt: GraphQLID? = nil, contains: GraphQLID? = nil, notContains: GraphQLID? = nil, between: [GraphQLID?]? = nil, beginsWith: GraphQLID? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil, size: ModelSizeInput? = nil) {
     graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "contains": contains, "notContains": notContains, "between": between, "beginsWith": beginsWith, "attributeExists": attributeExists, "attributeType": attributeType, "size": size]
   }
 
-  public var ne: String? {
+  public var ne: GraphQLID? {
     get {
-      return graphQLMap["ne"] as! String?
+      return graphQLMap["ne"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "ne")
     }
   }
 
-  public var eq: String? {
+  public var eq: GraphQLID? {
     get {
-      return graphQLMap["eq"] as! String?
+      return graphQLMap["eq"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "eq")
     }
   }
 
-  public var le: String? {
+  public var le: GraphQLID? {
     get {
-      return graphQLMap["le"] as! String?
+      return graphQLMap["le"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "le")
     }
   }
 
-  public var lt: String? {
+  public var lt: GraphQLID? {
     get {
-      return graphQLMap["lt"] as! String?
+      return graphQLMap["lt"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "lt")
     }
   }
 
-  public var ge: String? {
+  public var ge: GraphQLID? {
     get {
-      return graphQLMap["ge"] as! String?
+      return graphQLMap["ge"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "ge")
     }
   }
 
-  public var gt: String? {
+  public var gt: GraphQLID? {
     get {
-      return graphQLMap["gt"] as! String?
+      return graphQLMap["gt"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "gt")
     }
   }
 
-  public var contains: String? {
+  public var contains: GraphQLID? {
     get {
-      return graphQLMap["contains"] as! String?
+      return graphQLMap["contains"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "contains")
     }
   }
 
-  public var notContains: String? {
+  public var notContains: GraphQLID? {
     get {
-      return graphQLMap["notContains"] as! String?
+      return graphQLMap["notContains"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "notContains")
     }
   }
 
-  public var between: [String?]? {
+  public var between: [GraphQLID?]? {
     get {
-      return graphQLMap["between"] as! [String?]?
+      return graphQLMap["between"] as! [GraphQLID?]?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "between")
     }
   }
 
-  public var beginsWith: String? {
+  public var beginsWith: GraphQLID? {
     get {
-      return graphQLMap["beginsWith"] as! String?
+      return graphQLMap["beginsWith"] as! GraphQLID?
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "beginsWith")
@@ -347,6 +339,219 @@ public struct ModelSizeInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "between")
+    }
+  }
+}
+
+public struct ModelStringInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(ne: String? = nil, eq: String? = nil, le: String? = nil, lt: String? = nil, ge: String? = nil, gt: String? = nil, contains: String? = nil, notContains: String? = nil, between: [String?]? = nil, beginsWith: String? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil, size: ModelSizeInput? = nil) {
+    graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "contains": contains, "notContains": notContains, "between": between, "beginsWith": beginsWith, "attributeExists": attributeExists, "attributeType": attributeType, "size": size]
+  }
+
+  public var ne: String? {
+    get {
+      return graphQLMap["ne"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ne")
+    }
+  }
+
+  public var eq: String? {
+    get {
+      return graphQLMap["eq"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+
+  public var le: String? {
+    get {
+      return graphQLMap["le"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "le")
+    }
+  }
+
+  public var lt: String? {
+    get {
+      return graphQLMap["lt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "lt")
+    }
+  }
+
+  public var ge: String? {
+    get {
+      return graphQLMap["ge"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ge")
+    }
+  }
+
+  public var gt: String? {
+    get {
+      return graphQLMap["gt"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "gt")
+    }
+  }
+
+  public var contains: String? {
+    get {
+      return graphQLMap["contains"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "contains")
+    }
+  }
+
+  public var notContains: String? {
+    get {
+      return graphQLMap["notContains"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "notContains")
+    }
+  }
+
+  public var between: [String?]? {
+    get {
+      return graphQLMap["between"] as! [String?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "between")
+    }
+  }
+
+  public var beginsWith: String? {
+    get {
+      return graphQLMap["beginsWith"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "beginsWith")
+    }
+  }
+
+  public var attributeExists: Bool? {
+    get {
+      return graphQLMap["attributeExists"] as! Bool?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "attributeExists")
+    }
+  }
+
+  public var attributeType: ModelAttributeTypes? {
+    get {
+      return graphQLMap["attributeType"] as! ModelAttributeTypes?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "attributeType")
+    }
+  }
+
+  public var size: ModelSizeInput? {
+    get {
+      return graphQLMap["size"] as! ModelSizeInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "size")
+    }
+  }
+}
+
+public struct CreateVenueInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: GraphQLID? = nil, name: String, description: String? = nil) {
+    graphQLMap = ["id": id, "name": name, "description": description]
+  }
+
+  public var id: GraphQLID? {
+    get {
+      return graphQLMap["id"] as! GraphQLID?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  public var name: String {
+    get {
+      return graphQLMap["name"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "name")
+    }
+  }
+
+  public var description: String? {
+    get {
+      return graphQLMap["description"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+}
+
+public struct ModelVenueConditionInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(name: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelVenueConditionInput?]? = nil, or: [ModelVenueConditionInput?]? = nil, not: ModelVenueConditionInput? = nil) {
+    graphQLMap = ["name": name, "description": description, "and": and, "or": or, "not": not]
+  }
+
+  public var name: ModelStringInput? {
+    get {
+      return graphQLMap["name"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "name")
+    }
+  }
+
+  public var description: ModelStringInput? {
+    get {
+      return graphQLMap["description"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+
+  public var and: [ModelVenueConditionInput?]? {
+    get {
+      return graphQLMap["and"] as! [ModelVenueConditionInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  public var or: [ModelVenueConditionInput?]? {
+    get {
+      return graphQLMap["or"] as! [ModelVenueConditionInput?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  public var not: ModelVenueConditionInput? {
+    get {
+      return graphQLMap["not"] as! ModelVenueConditionInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
     }
   }
 }
@@ -677,207 +882,199 @@ public struct ModelVenueFilterInput: GraphQLMapConvertible {
   }
 }
 
-public struct ModelIDInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+public final class ListEventsSummarizedQuery: GraphQLQuery {
+  public static let operationString =
+    "query ListEventsSummarized($filter: ModelEventFilterInput, $limit: Int, $nextToken: String) {\n  listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      title\n      start_date\n      venue {\n        __typename\n        name\n      }\n    }\n    nextToken\n  }\n}"
 
-  public init(ne: GraphQLID? = nil, eq: GraphQLID? = nil, le: GraphQLID? = nil, lt: GraphQLID? = nil, ge: GraphQLID? = nil, gt: GraphQLID? = nil, contains: GraphQLID? = nil, notContains: GraphQLID? = nil, between: [GraphQLID?]? = nil, beginsWith: GraphQLID? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil, size: ModelSizeInput? = nil) {
-    graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "contains": contains, "notContains": notContains, "between": between, "beginsWith": beginsWith, "attributeExists": attributeExists, "attributeType": attributeType, "size": size]
+  public var filter: ModelEventFilterInput?
+  public var limit: Int?
+  public var nextToken: String?
+
+  public init(filter: ModelEventFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
   }
 
-  public var ne: GraphQLID? {
-    get {
-      return graphQLMap["ne"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ne")
-    }
+  public var variables: GraphQLMap? {
+    return ["filter": filter, "limit": limit, "nextToken": nextToken]
   }
 
-  public var eq: GraphQLID? {
-    get {
-      return graphQLMap["eq"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "eq")
-    }
-  }
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
 
-  public var le: GraphQLID? {
-    get {
-      return graphQLMap["le"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "le")
-    }
-  }
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("listEvents", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .object(ListEvent.selections)),
+    ]
 
-  public var lt: GraphQLID? {
-    get {
-      return graphQLMap["lt"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "lt")
-    }
-  }
+    public var snapshot: Snapshot
 
-  public var ge: GraphQLID? {
-    get {
-      return graphQLMap["ge"] as! GraphQLID?
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ge")
-    }
-  }
 
-  public var gt: GraphQLID? {
-    get {
-      return graphQLMap["gt"] as! GraphQLID?
+    public init(listEvents: ListEvent? = nil) {
+      self.init(snapshot: ["__typename": "Query", "listEvents": listEvents.flatMap { $0.snapshot }])
     }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "gt")
-    }
-  }
 
-  public var contains: GraphQLID? {
-    get {
-      return graphQLMap["contains"] as! GraphQLID?
+    public var listEvents: ListEvent? {
+      get {
+        return (snapshot["listEvents"] as? Snapshot).flatMap { ListEvent(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "listEvents")
+      }
     }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "contains")
-    }
-  }
 
-  public var notContains: GraphQLID? {
-    get {
-      return graphQLMap["notContains"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "notContains")
-    }
-  }
+    public struct ListEvent: GraphQLSelectionSet {
+      public static let possibleTypes = ["ModelEventConnection"]
 
-  public var between: [GraphQLID?]? {
-    get {
-      return graphQLMap["between"] as! [GraphQLID?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "between")
-    }
-  }
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .list(.object(Item.selections))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
 
-  public var beginsWith: GraphQLID? {
-    get {
-      return graphQLMap["beginsWith"] as! GraphQLID?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "beginsWith")
-    }
-  }
+      public var snapshot: Snapshot
 
-  public var attributeExists: Bool? {
-    get {
-      return graphQLMap["attributeExists"] as! Bool?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "attributeExists")
-    }
-  }
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
 
-  public var attributeType: ModelAttributeTypes? {
-    get {
-      return graphQLMap["attributeType"] as! ModelAttributeTypes?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "attributeType")
-    }
-  }
+      public init(items: [Item?]? = nil, nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ModelEventConnection", "items": items.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, "nextToken": nextToken])
+      }
 
-  public var size: ModelSizeInput? {
-    get {
-      return graphQLMap["size"] as! ModelSizeInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "size")
-    }
-  }
-}
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
 
-public struct ModelEventFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+      public var items: [Item?]? {
+        get {
+          return (snapshot["items"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Item(snapshot: $0) } } }
+        }
+        set {
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "items")
+        }
+      }
 
-  public init(id: ModelIDInput? = nil, title: ModelStringInput? = nil, startDate: ModelStringInput? = nil, endDate: ModelStringInput? = nil, description: ModelStringInput? = nil, and: [ModelEventFilterInput?]? = nil, or: [ModelEventFilterInput?]? = nil, not: ModelEventFilterInput? = nil) {
-    graphQLMap = ["id": id, "title": title, "start_date": startDate, "end_date": endDate, "description": description, "and": and, "or": or, "not": not]
-  }
+      public var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
 
-  public var id: ModelIDInput? {
-    get {
-      return graphQLMap["id"] as! ModelIDInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "id")
-    }
-  }
+      public struct Item: GraphQLSelectionSet {
+        public static let possibleTypes = ["Event"]
 
-  public var title: ModelStringInput? {
-    get {
-      return graphQLMap["title"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "title")
-    }
-  }
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("title", type: .nonNull(.scalar(String.self))),
+          GraphQLField("start_date", type: .nonNull(.scalar(String.self))),
+          GraphQLField("venue", type: .nonNull(.object(Venue.selections))),
+        ]
 
-  public var startDate: ModelStringInput? {
-    get {
-      return graphQLMap["start_date"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "start_date")
-    }
-  }
+        public var snapshot: Snapshot
 
-  public var endDate: ModelStringInput? {
-    get {
-      return graphQLMap["end_date"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "end_date")
-    }
-  }
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
 
-  public var description: ModelStringInput? {
-    get {
-      return graphQLMap["description"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "description")
-    }
-  }
+        public init(id: GraphQLID, title: String, startDate: String, venue: Venue) {
+          self.init(snapshot: ["__typename": "Event", "id": id, "title": title, "start_date": startDate, "venue": venue.snapshot])
+        }
 
-  public var and: [ModelEventFilterInput?]? {
-    get {
-      return graphQLMap["and"] as! [ModelEventFilterInput?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "and")
-    }
-  }
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
 
-  public var or: [ModelEventFilterInput?]? {
-    get {
-      return graphQLMap["or"] as! [ModelEventFilterInput?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "or")
-    }
-  }
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
 
-  public var not: ModelEventFilterInput? {
-    get {
-      return graphQLMap["not"] as! ModelEventFilterInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "not")
+        public var title: String {
+          get {
+            return snapshot["title"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "title")
+          }
+        }
+
+        public var startDate: String {
+          get {
+            return snapshot["start_date"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "start_date")
+          }
+        }
+
+        public var venue: Venue {
+          get {
+            return Venue(snapshot: snapshot["venue"]! as! Snapshot)
+          }
+          set {
+            snapshot.updateValue(newValue.snapshot, forKey: "venue")
+          }
+        }
+
+        public struct Venue: GraphQLSelectionSet {
+          public static let possibleTypes = ["Venue"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          ]
+
+          public var snapshot: Snapshot
+
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          public init(name: String) {
+            self.init(snapshot: ["__typename": "Venue", "name": name])
+          }
+
+          public var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var name: String {
+            get {
+              return snapshot["name"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "name")
+            }
+          }
+        }
+      }
     }
   }
 }

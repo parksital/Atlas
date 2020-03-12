@@ -1,0 +1,15 @@
+query ListEventsSummarized(
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      start_date
+      venue { name }
+    }
+    nextToken
+  }
+}
