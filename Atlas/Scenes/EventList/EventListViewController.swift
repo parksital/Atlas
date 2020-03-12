@@ -86,7 +86,6 @@ private extension EventListViewController {
     func setupTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
-        
         setupConstraintsFor(tableView, in: view)
         
         tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
@@ -119,5 +118,6 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         interactor?.didSelectEvent(atIndex: indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
