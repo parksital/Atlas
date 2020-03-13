@@ -44,6 +44,7 @@
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
+		A0FEA88C241BF88B00B3F3A1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FEA88B241BF88B00B3F3A1 /* UIView+.swift */; };
 		D67B2EEF1A4087F5B57E076D /* Pods_Atlas_AtlasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */; };
 		FCB58863BC11DF4258B6FA5B /* Pods_Atlas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */; };
 /* End PBXBuildFile section */
@@ -103,6 +104,7 @@
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		A0FEA88B241BF88B00B3F3A1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas_AtlasTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE01D6A39A386AF4534E8C2A /* Pods-AtlasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.debug.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8C5FE42EC600F9FCD056ECE /* Pods-AtlasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.release.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
+				A0FEA88A241BF87400B3F3A1 /* Utilities */,
 				A03EECF224127AD700FCDD8C /* Errors */,
 				A03562F7240EF70800299AC4 /* Models */,
 				A03F48C62403050C00992232 /* Network */,
@@ -286,6 +289,14 @@
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		A0FEA88A241BF87400B3F3A1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A0FEA88B241BF88B00B3F3A1 /* UIView+.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -541,6 +552,7 @@
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A03E2ADB241009FE00B45712 /* DataContainer.swift in Sources */,
+				A0FEA88C241BF88B00B3F3A1 /* UIView+.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
