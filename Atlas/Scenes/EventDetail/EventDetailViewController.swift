@@ -120,7 +120,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.titleLabel.text = viewModel.venue
-            self.dateTimeLabel.text = "\(viewModel.startDate) - \(viewModel.endTime)"
+            self.dateTimeLabel.text = viewModel.startDate
             self.descriptionLabel.text = viewModel.description
         }
     }
