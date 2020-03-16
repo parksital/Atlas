@@ -56,7 +56,7 @@ class EventDetailPresenterTests: XCTestCase {
         // Saturday, January 25, 2020 3:00:00 PM
         // "2020-01-25T15:00:00Z"
         // timestamp: 1579964400
-        let expectation = "January 25, 2020 at 4:00 PM"
+        let expectation = "Saturday, January 25, 2020 at 4:00 PM"
         
         let input = Date(timeIntervalSince1970: 1579964400)
         let result = sut.formatDate(input)
@@ -68,7 +68,7 @@ class EventDetailPresenterTests: XCTestCase {
         // "January 25, 2020 at 7:00 PM"
         // timestamp: 1579975200
         
-        let expectation = "January 25, 2020 at 7:00 PM"
+        let expectation = "Saturday, January 25, 2020 at 7:00 PM"
         
         let input = Date(timeIntervalSince1970: 1579975200)
         let result = sut.formatDate(input)
@@ -79,7 +79,7 @@ class EventDetailPresenterTests: XCTestCase {
     func testDateFormatting_zeroIntervalSince1970() {
         // "1970-01-01T00:00:00Z"
         // timestamp: 0
-        let expectation = "January 1, 1970 at 1:00 AM"
+        let expectation = "Thursday, January 1, 1970 at 1:00 AM"
 
         let input = Date(timeIntervalSince1970: 0)
         let result = sut.formatDate(input)
