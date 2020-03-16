@@ -17,7 +17,7 @@ final class EventDetailPresenter {
     weak var viewController: EventDetailDisplayLogic?
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.dateStyle = .full
         formatter.timeStyle = .short
         return formatter
     }()
