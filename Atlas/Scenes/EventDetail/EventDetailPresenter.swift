@@ -15,9 +15,11 @@ protocol EventDetailPresentationLogic: class {
 
 final class EventDetailPresenter {
     weak var viewController: EventDetailDisplayLogic?
-    private var dateFormatter: ISO8601DateFormatter = {
-        let isoFormatter = ISO8601DateFormatter()
-        return isoFormatter
+    private var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter
     }()
 }
 
@@ -37,15 +39,13 @@ extension EventDetailPresenter {
         EventDetail.ViewModel(
             id: response.id,
             title: response.title.capitalized,
-            startDate: "response.startDate",
-            startTime: "response.startDate",
-            endTime: "response.endDate",
+            startDate: formatDate(response.startDate),
             venue: response.venue.capitalized,
             description: response.description?.capitalized ?? ""
         )
     }
     
     func formatDate(_ date: Date) -> String {
-        return dateFormatter.string(from: date)
+        return date.formatted(using: dateFormatter.string(from:))
     }
 }

@@ -30,8 +30,6 @@ enum EventDetail {
         let id: String
         let title: String
         let startDate: String
-        let startTime: String
-        let endTime: String
         let venue: String
         let description: String?
     }
