@@ -35,13 +35,12 @@ extension EventListInteractor: EventListLogic {
     
     func fetchEvents() {
         eventService?.fetchEventsSummarized { [weak self] result in
-            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                self.presenter?.presentError(error)
+                self?.presenter?.presentError(error)
             case .success(let data):
-                self.updateEvents(data)
-                self.presentEvents(data)
+                self?.updateEvents(data)
+                self?.presentEvents(data)
             }
         }
     }
