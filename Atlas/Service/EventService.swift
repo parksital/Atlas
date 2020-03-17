@@ -16,7 +16,7 @@ class EventService {
         return decoder
     }()
     
-    init(client: AWSClient? = nil) {
+    init(client: AWSClient? = AWSClient()) {
         self.client = client
     }
     

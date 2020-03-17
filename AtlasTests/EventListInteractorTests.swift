@@ -13,6 +13,7 @@ class EventListInteractorTests: XCTestCase {
         
         init(shouldFail: Bool) {
             self.shouldFail = shouldFail
+            super.init(client: nil)
         }
         
         override func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
