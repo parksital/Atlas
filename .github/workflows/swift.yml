@@ -13,6 +13,6 @@ jobs:
     - name: Clean project
       run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator clean
     - name: Build For Testing
-      run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' build-for-testing
+      run: xcodebuild -project Atlas.xcodeproj -scheme Atlas -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' build-for-testing
     - name: Test Without Building
       run: xcodebuild test-without-building -project Atlas.xcodeproj -scheme Atlas -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.3' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
