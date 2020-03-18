@@ -21,6 +21,10 @@ final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
     private (set) var events: [EventSummary] = []
     var eventService: EventService?
+    
+    init(eventService: EventService? = EventService()) {
+        self.eventService = eventService
+    }
 }
 
 extension EventListInteractor: EventListLogic {

@@ -9,20 +9,20 @@
 import XCTest
 class EventListInteractorTests: XCTestCase {
     private class MockEventService: EventService {
-        var shouldFail: Bool = true
+        var shouldPass: Bool = true
         
-        init(shouldFail: Bool) {
-            self.shouldFail = shouldFail
+        init(shouldPass: Bool) {
+            self.shouldPass = shouldPass
             super.init(client: nil)
         }
         
         override func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
             
-            if shouldFail {
-                completion(.failure(NetworkError.noEvents))
-            } else {
+            if shouldPass {
                 let data = MockEventService.getFakeSummaries(count: 5)
                 completion(.success(data))
+            } else {
+                completion(.failure(NetworkError.noEvents))
             }
         }
         
@@ -64,7 +64,7 @@ class EventListInteractorTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        sut = EventListInteractor()
+        sut = EventListInteractor(eventService: nil)
     }
 
     override func tearDown() {
@@ -73,7 +73,7 @@ class EventListInteractorTests: XCTestCase {
     }
     
     func testInteractor_initialized() {
-        sut.eventService = MockEventService(shouldFail: true)
+        sut.eventService = MockEventService(shouldPass: false)
         
         XCTAssertNotNil(sut)
         XCTAssertNotNil(sut.eventService, "eventService not initialized")
@@ -82,7 +82,7 @@ class EventListInteractorTests: XCTestCase {
     func testFetchEventsCalledFailure() {
         let spy = PresenterSpy()
         sut.presenter = spy
-        sut.eventService = MockEventService(shouldFail: true)
+        sut.eventService = MockEventService(shouldPass: false)
         
         sut.fetchEvents()
         
@@ -93,7 +93,7 @@ class EventListInteractorTests: XCTestCase {
     func testFetchEventsCalledSuccess() {
         let spy = PresenterSpy()
         sut.presenter = spy
-        sut.eventService = MockEventService(shouldFail: false)
+        sut.eventService = MockEventService(shouldPass: true)
         
         sut.fetchEvents()
         let result = spy.eventsReceived
@@ -105,7 +105,7 @@ class EventListInteractorTests: XCTestCase {
     func testEventSelectedOutOfBoundsFailure() {
         let spy = PresenterSpy()
         sut.presenter = spy
-        sut.eventService = MockEventService(shouldFail: true)
+        sut.eventService = MockEventService(shouldPass: false)
         
         sut.fetchEvents() // WILL FAIL
         sut.didSelectEvent(atIndex: 2)
@@ -117,7 +117,7 @@ class EventListInteractorTests: XCTestCase {
     func testEventSelectedSuccess() {
         let spy = PresenterSpy()
         sut.presenter = spy
-        sut.eventService = MockEventService(shouldFail: false)
+        sut.eventService = MockEventService(shouldPass: true)
         
         sut.fetchEvents()
         sut.didSelectEvent(atIndex: 2)
