@@ -6,6 +6,7 @@ query GetVenue($id: ID!) {
     events {
       items {
         id
+        type
         title
         start_date
         end_date
@@ -36,6 +37,7 @@ query ListVenues(
 query GetEvent($id: ID!) {
   getEvent(id: $id) {
     id
+    type
     title
     start_date
     end_date
@@ -58,6 +60,39 @@ query ListEvents(
   listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      type
+      title
+      start_date
+      end_date
+      description
+      venue {
+        id
+        name
+        description
+      }
+    }
+    nextToken
+  }
+}
+query EventsByStartDate(
+  $type: String
+  $start_date: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  eventsByStartDate(
+    type: $type
+    start_date: $start_date
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      type
       title
       start_date
       end_date
