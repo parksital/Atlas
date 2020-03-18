@@ -20,34 +20,42 @@ protocol EventListDataStore {
 final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
     private (set) var events: [EventSummary] = []
-    private let eventService: EventService! = EventService()
+    var eventService: EventService?
+    
+    init(eventService: EventService? = EventService()) {
+        self.eventService = eventService
+    }
 }
 
 extension EventListInteractor: EventListLogic {
     func didSelectEvent(atIndex index: Int) {
-        guard index < events.count else {
-            assertionFailure("index out of bounds")
+        guard let event = getEventSummaryAtIndex(index) else {
+            presenter?.presentError(NetworkError.generic)
             return
         }
         
-        presenter?.didSelectEvent(events[index])
+        presenter?.didSelectEvent(event)
     }
     
     func fetchEvents() {
-        eventService.fetchEventsSummarized { [weak self] result in
-            guard let self = self else { return }
+        eventService?.fetchEventsSummarized { [weak self] result in
             switch result {
             case .failure(let error):
-                assertionFailure(error.localizedDescription)
+                self?.presenter?.presentError(error)
             case .success(let data):
-                self.updateEvents(data)
-                self.presentEvents(data)
+                self?.updateEvents(data)
+                self?.presentEvents(data)
             }
         }
     }
 }
 
 private extension EventListInteractor {
+    func getEventSummaryAtIndex(_ index: Int) -> EventSummary? {
+        guard index < events.count else { return nil }
+        return events[index]
+    }
+    
     func updateEvents(_ fetchedEvents: [EventSummary]) {
         events = fetchedEvents
     }

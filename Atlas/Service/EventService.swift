@@ -8,27 +8,27 @@
 
 import Foundation
 
-final class EventService {
-    private (set) var client: AWSClient!
+class EventService {
+    private (set) var client: AWSClient?
     private (set) var decoder: JSONDecoder! = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
     
-    init(client: AWSClient = AWSClient()) {
+    init(client: AWSClient? = AWSClient()) {
         self.client = client
     }
     
     #warning("TODO: - Refactor me")
     func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-        client.fetch(query: ListEventsSummarizedQuery()) { result in
+        client?.fetch(query: ListEventsSummarizedQuery()) { result in
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
             case .success(let data):
                 guard let items = data.listEvents?.items else {
                     assertionFailure("list events not found")
-                    completion(.failure(NetworkingError.noListEvents))
+                    completion(.failure(NetworkError.noEvents))
                     return
                 }
                 
@@ -45,13 +45,13 @@ final class EventService {
     }
     
     func fetchEvent(request: EventDetail.Request, _ completion: @escaping (Result<EventDetail.Response, Error>) -> Void) {
-        client.fetch(query: request.query) { result in
+        client?.fetch(query: request.query) { result in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let data):
                 guard let event = data.getEvent else {
-                    completion(.failure(NetworkingError.noListEvents))
+                    completion(.failure(NetworkError.noEvents))
                     return
                 }
                 

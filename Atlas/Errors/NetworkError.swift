@@ -8,6 +8,7 @@
 
 import Foundation
 
-enum NetworkingError: Error {
-    case noListEvents
+enum NetworkError: Error {
+    case generic
+    case noEvents
 }

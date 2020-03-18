@@ -37,3 +37,5 @@ extension EventSummary: Decodable {
         venue = try venueContainer.decode(String.self, forKey: .name)
     }
 }
+
+extension EventSummary: Equatable { }
