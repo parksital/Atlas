@@ -9,7 +9,7 @@
 import Foundation
 
 protocol EventDetailPresentationLogic: class {
-    func presentEventDetails(event: String)
+    func presentEventTitle(title: String)
     func presentEventResponse(_ response: EventDetail.Response)
 }
 
@@ -24,8 +24,8 @@ final class EventDetailPresenter {
 }
 
 extension EventDetailPresenter: EventDetailPresentationLogic {
-    func presentEventDetails(event: String) {
-        viewController?.displayEventTitle(event)
+    func presentEventTitle(title: String) {
+        viewController?.displayEventTitle(title)
     }
     
     func presentEventResponse(_ response: EventDetail.Response) {

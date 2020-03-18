@@ -14,18 +14,18 @@ protocol EventDetailLogic: class {
 }
 
 protocol EventDetailDataStore: class {
-    var eventID: String? { get set }
+    var event: EventSummary? { get set }
 }
 
 final class EventDetailInteractor: EventDetailDataStore {
-    var eventID: String?
+    var event: EventSummary?
     var presenter: EventDetailPresentationLogic?
     private let eventService: EventService! = EventService()
 }
 
 extension EventDetailInteractor: EventDetailLogic {
     func fetchEvent() {
-        eventService.fetchEvent(request: .init(id: eventID!)) { [weak self] result in
+        eventService.fetchEvent(request: .init(id: event!.id)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
@@ -37,7 +37,7 @@ extension EventDetailInteractor: EventDetailLogic {
     }
     
     func viewDidFinishLoading() {
-        presenter?.presentEventDetails(event: eventID!)
+        presenter?.presentEventTitle(title: event!.title)
     }
 }
 
