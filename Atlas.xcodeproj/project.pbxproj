@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		248449CB3C6D55648E1CB065 /* Pods_AtlasUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */; };
-		A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
+		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
+		A00C655D24238DE900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
+		A00C655E24238E1900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
+		A00C65602423AE2B00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
+		A00C65612423AE3A00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
 		A0297D05241A61070089F38C /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D04241A61070089F38C /* EventDetail.swift */; };
 		A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */; };
 		A0297D17241A90280089F38C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
 		A0297D18241A902D0089F38C /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D04241A61070089F38C /* EventDetail.swift */; };
-		A0297D19241A90310089F38C /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01A805B240EC549008B5A30 /* APIClientProtocol.swift */; };
 		A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED3C2419718800DB772F /* EventDetailViewController.swift */; };
 		A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED402419723700DB772F /* EventDetailInteractor.swift */; };
 		A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED44241973D800DB772F /* EventDetailRouter.swift */; };
@@ -26,8 +29,6 @@
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD62410087100B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
-		A03E2ADB241009FE00B45712 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2ADA241009FE00B45712 /* DataContainer.swift */; };
-		A03E2ADC24100A0400B45712 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2ADA241009FE00B45712 /* DataContainer.swift */; };
 		A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
 		A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
 		A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
@@ -50,6 +51,8 @@
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
+		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
+		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
@@ -83,13 +86,14 @@
 		56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Atlas.release.xcconfig"; path = "Target Support Files/Pods-Atlas/Pods-Atlas.release.xcconfig"; sourceTree = "<group>"; };
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A01A805B240EC549008B5A30 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
+		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
+		A00C655C24238DE900D12C8D /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
+		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
 		A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenterTests.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
-		A03E2ADA241009FE00B45712 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A03EECF324127AF300FCDD8C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A041ED3C2419718800DB772F /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
+		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
@@ -175,6 +180,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A00C65622423AE6A00D12C8D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				A00C655C24238DE900D12C8D /* SectionType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,8 +201,8 @@
 			isa = PBXGroup;
 			children = (
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
-				A03E2ADA241009FE00B45712 /* DataContainer.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
+				A00C655F2423AE2B00D12C8D /* EventList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -217,7 +230,6 @@
 		A03F48C62403050C00992232 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				A01A805B240EC549008B5A30 /* APIClientProtocol.swift */,
 				A03EECEF2411547A00FCDD8C /* AWSClient.swift */,
 			);
 			path = Network;
@@ -262,6 +274,7 @@
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
+				A00C65622423AE6A00D12C8D /* Enums */,
 				A0FEA88A241BF87400B3F3A1 /* Utilities */,
 				A03EECF224127AD700FCDD8C /* Errors */,
 				A03562F7240EF70800299AC4 /* Models */,
@@ -281,6 +294,7 @@
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
 				A0B661CD24002661001C5B40 /* Info.plist */,
 				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
+				A00C655924238D9300D12C8D /* SectionTypeTests.swift */,
 				A09038F82420D58E00743881 /* EventListInteractorTests.swift */,
 			);
 			path = AtlasTests;
@@ -308,6 +322,7 @@
 			children = (
 				A0FEA88B241BF88B00B3F3A1 /* UIView+.swift */,
 				A03CC8F0241FDF5E00A1D287 /* Date+.swift */,
+				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -558,17 +573,18 @@
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
+				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
-				A01A805C240EC549008B5A30 /* APIClientProtocol.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
-				A03E2ADB241009FE00B45712 /* DataContainer.swift in Sources */,
 				A0FEA88C241BF88B00B3F3A1 /* UIView+.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
+				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,14 +596,14 @@
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A09038FD2420E68300743881 /* EventListViewController.swift in Sources */,
+				A00C655E24238E1900D12C8D /* SectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0297D20241A907A0089F38C /* AWSClient.swift in Sources */,
-				A0297D19241A90310089F38C /* APIClientProtocol.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,
-				A03E2ADC24100A0400B45712 /* DataContainer.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
 				A03CC8EF241FD89700A1D287 /* UIView+.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
@@ -596,9 +612,11 @@
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
+				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

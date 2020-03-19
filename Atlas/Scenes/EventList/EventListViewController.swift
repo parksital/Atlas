@@ -9,8 +9,9 @@
 import UIKit
 
 protocol EventListDisplayLogic: class {
-    var events: [String] { get }
-    func displayEvents(_ viewModel: [String])
+    var viewModel: EventList.ViewModel { get }
+    
+    func displayViewModel(_ viewModel: EventList.ViewModel)
     func didSelectEvent(_ event: String)
     func displayError(_ error: Error)
 }
@@ -19,7 +20,8 @@ final class EventListViewController: UIViewController {
     var interactor: EventListLogic?
     var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
     
-    private (set) var events: [String] = []
+    private (set) var viewModel: EventList.ViewModel = .init()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -47,8 +49,9 @@ extension EventListViewController: EventListDisplayLogic {
         router?.routeToDetail()
     }
     
-    func displayEvents(_ viewModel: [String]) {
-        self.events = viewModel
+    func displayViewModel(_ viewModel: EventList.ViewModel) {
+        self.viewModel = viewModel
+        
         DispatchQueue.main.async { [tableView] in
             tableView.reloadData()
         }
@@ -109,14 +112,35 @@ private extension EventListViewController {
 }
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.sectionHeaders.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.sectionHeaders[section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        guard let sectionType = SectionType(rawValue: section) else { return 0 }
+        
+        //let events =  viewModel.eventsForSectionType(_:)
+        // return events.count
+        
+        switch sectionType {
+        case .tonight: return viewModel.eventCount
+        case .tomorrow: return 0
+        case .date: return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
-        cell.setup(title: events[indexPath.row])
+        if let sectionType = SectionType(rawValue: indexPath.section) {
+            let events = viewModel.events[sectionType] ?? []
+            cell.setup(eventSummary: events[indexPath.row])
+        }
+        
         return cell
     }
     
