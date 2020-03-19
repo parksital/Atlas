@@ -38,4 +38,27 @@ class SectionTypeTests: XCTestCase {
         
         XCTAssertEqual(nil, result)
     }
+    
+    func testInitializedWithCustomStringNoValue() {
+        let sectionType = SectionType.date(nil)
+        let result = sectionType.header
+        
+        XCTAssertNil(result)
+    }
+    
+    func testInitializedWithCustomStringEmpty() {
+        let string = ""
+        let sectionType = SectionType.date(string)
+        let result = sectionType.header
+        
+        XCTAssertNil(result)
+    }
+    
+    func testInitializedWithCustomStringValue() {
+        let string = "Date"
+        let sectionType = SectionType.date(string)
+        let result = sectionType.header
+        
+        XCTAssertEqual(result, string)
+    }
 }

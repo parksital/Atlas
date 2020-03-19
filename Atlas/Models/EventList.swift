@@ -11,5 +11,11 @@ import Foundation
 enum EventList {
     struct ViewModel {
         let events: [EventSummary]
+        let sections: [SectionType]
+
+        init(events: [EventSummary] = [], sections: [SectionType] = []) {
+            self.events = events
+            self.sections = sections
+        }
     }
 }

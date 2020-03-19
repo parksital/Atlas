@@ -10,10 +10,8 @@ import UIKit
 
 protocol EventListDisplayLogic: class {
     var viewModel: EventList.ViewModel { get }
-    var sections: [String] { get }
-
+    
     func displayViewModel(_ viewModel: EventList.ViewModel)
-    func updateSections(_ sections: [String])
     func didSelectEvent(_ event: String)
     func displayError(_ error: Error)
 }
@@ -22,8 +20,7 @@ final class EventListViewController: UIViewController {
     var interactor: EventListLogic?
     var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
     
-    private (set) var viewModel: EventList.ViewModel = .init(events: [])
-    private (set) var sections: [String] = ["Tonight"]
+    private (set) var viewModel: EventList.ViewModel = .init()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -48,10 +45,6 @@ final class EventListViewController: UIViewController {
 }
 
 extension EventListViewController: EventListDisplayLogic {
-    func updateSections(_ sections: [String]) {
-        self.sections = sections
-    }
-    
     func didSelectEvent(_ event: String) {
         router?.routeToDetail()
     }
@@ -120,11 +113,11 @@ private extension EventListViewController {
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return viewModel.sections.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
+        return viewModel.sections[section].header
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,8 +136,7 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
-        let event = viewModel.events[indexPath.row]
-        cell.setup(title: event.title)
+        cell.setup(eventSummary: viewModel.events[indexPath.row])
         return cell
     }
     

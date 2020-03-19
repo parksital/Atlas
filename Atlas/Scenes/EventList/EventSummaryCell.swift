@@ -18,7 +18,7 @@ final class EventSummaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(title: String?) {
-        textLabel?.text = title
+    func setup(eventSummary: EventSummary) {
+        textLabel?.text = eventSummary.title
     }
 }

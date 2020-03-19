@@ -24,10 +24,21 @@ extension EventListPresenter: EventListPresentationLogic {
     }
     
     func presentEvents(_ events: [EventSummary]) {
-        viewController?.displayViewModel(.init(events: events))
+        let viewModel = getViewModelForResponse(events)
+        viewController?.displayViewModel(viewModel)
     }
     
     func presentError(_ error: Error) {
         assertionFailure(error.localizedDescription)
+    }
+}
+
+extension EventListPresenter {
+    func getViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
+        let events = response
+        let sections: [SectionType] = [.tonight, .tomorrow, .date("")]
+        
+        
+        return EventList.ViewModel(events: events, sections: sections)
     }
 }
