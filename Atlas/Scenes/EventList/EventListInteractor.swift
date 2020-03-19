@@ -19,8 +19,9 @@ protocol EventListDataStore {
 
 final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
-    private (set) var events: [EventSummary] = []
     var eventService: EventService?
+    
+    private (set) var events: [EventSummary] = []
     
     init(eventService: EventService? = EventService()) {
         self.eventService = eventService

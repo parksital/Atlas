@@ -10,7 +10,9 @@ import UIKit
 
 protocol EventListDisplayLogic: class {
     var events: [String] { get }
+    var sections: [String] { get }
     func displayEvents(_ viewModel: [String])
+    func updateSections(_ sections: [String])
     func didSelectEvent(_ event: String)
     func displayError(_ error: Error)
 }
@@ -20,6 +22,8 @@ final class EventListViewController: UIViewController {
     var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
     
     private (set) var events: [String] = []
+    private (set) var sections: [String] = ["Tonight"]
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -43,6 +47,10 @@ final class EventListViewController: UIViewController {
 }
 
 extension EventListViewController: EventListDisplayLogic {
+    func updateSections(_ sections: [String]) {
+        self.sections = sections
+    }
+    
     func didSelectEvent(_ event: String) {
         router?.routeToDetail()
     }
@@ -109,8 +117,24 @@ private extension EventListViewController {
 }
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        if let sectionType = SectionType(rawValue: section) {
+            switch sectionType {
+            case .tonight: return events.count
+            case .tomorrow: return 0
+            case .date: return 0
+            }
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
