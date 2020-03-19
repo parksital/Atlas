@@ -11,6 +11,8 @@
 		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
 		A00C655D24238DE900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
 		A00C655E24238E1900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
+		A00C65602423AE2B00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
+		A00C65612423AE3A00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
 		A0297D05241A61070089F38C /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D04241A61070089F38C /* EventDetail.swift */; };
 		A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */; };
 		A0297D17241A90280089F38C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
@@ -84,6 +86,7 @@
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
 		A00C655C24238DE900D12C8D /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
+		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
 		A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenterTests.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
 				A00C655C24238DE900D12C8D /* SectionType.swift */,
+				A00C655F2423AE2B00D12C8D /* EventList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -557,6 +561,7 @@
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
+				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
@@ -597,6 +602,7 @@
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

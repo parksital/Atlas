@@ -8,12 +8,6 @@
 
 import Foundation
 
-enum EventList {
-    struct ViewModel {
-        let events: [EventSummary]
-    }
-}
-
 protocol EventListPresentationLogic {
     func presentEvents(_ events: [EventSummary])
     func didSelectEvent(_ event: EventSummary)
