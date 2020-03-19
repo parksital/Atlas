@@ -16,6 +16,12 @@ protocol EventListPresentationLogic {
 
 final class EventListPresenter {
     weak var viewController: EventListDisplayLogic?
+    private var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }
 
 extension EventListPresenter: EventListPresentationLogic {
@@ -35,10 +41,26 @@ extension EventListPresenter: EventListPresentationLogic {
 
 extension EventListPresenter {
     func getViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
-        let events = response
-        let sections: [SectionType] = [.tonight, .tomorrow, .date("")]
+        var dict: [SectionType: [EventSummary]] = .init()
         
+        let dates = response.map { $0.startDate }
+        var sections: [SectionType] = [.tonight, .tomorrow]
+        let customSections: [SectionType] = getUniqueSectionsTypesForDates(dates)
         
-        return EventList.ViewModel(events: events, sections: sections)
+        sections.append(contentsOf: customSections)
+        
+        sections.forEach { dict[$0] = [] }
+        dict[.tonight] = response
+        
+        return EventList.ViewModel(events: dict)
+    }
+    
+    func getUniqueSectionsTypesForDates(_ dates: [Date]) -> [SectionType] {
+        let output: [SectionType] = dates
+            .map { $0.formatted(using: dateFormatter.string(from:)) }
+            .unique()
+            .map { SectionType.date($0) }
+        
+        return output
     }
 }

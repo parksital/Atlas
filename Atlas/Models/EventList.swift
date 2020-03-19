@@ -10,12 +10,20 @@ import Foundation
 
 enum EventList {
     struct ViewModel {
-        let events: [EventSummary]
-        let sections: [SectionType]
-
-        init(events: [EventSummary] = [], sections: [SectionType] = []) {
+        let events: [SectionType: [EventSummary]]
+        
+        var eventCount: Int {
+            var count = 0
+            self.events.forEach { $1.forEach { _ in count += 1 } }
+            return count
+        }
+        
+        var sectionHeaders: [String?] {
+            return Array(events.keys).map { $0.header }
+        }
+        
+        init(events: [SectionType: [EventSummary]] = [:]) {
             self.events = events
-            self.sections = sections
         }
     }
 }

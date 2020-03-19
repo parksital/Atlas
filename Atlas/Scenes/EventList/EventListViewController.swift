@@ -113,11 +113,11 @@ private extension EventListViewController {
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.sections.count
+        return viewModel.sectionHeaders.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.sections[section].header
+        return viewModel.sectionHeaders[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,7 +127,7 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         // return events.count
         
         switch sectionType {
-        case .tonight: return viewModel.events.count
+        case .tonight: return viewModel.eventCount
         case .tomorrow: return 0
         case .date: return 0
         }
@@ -136,7 +136,11 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
-        cell.setup(eventSummary: viewModel.events[indexPath.row])
+        if let sectionType = SectionType(rawValue: indexPath.section) {
+            let events = viewModel.events[sectionType] ?? []
+            cell.setup(eventSummary: events[indexPath.row])
+        }
+        
         return cell
     }
     

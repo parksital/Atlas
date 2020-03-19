@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct EventData {
+    var events: [SectionType: [EventSummary]]
+}
+
 enum SectionType: CaseIterable {
     typealias AllCases = [SectionType]
     static var allCases: [SectionType] {
@@ -41,3 +45,4 @@ enum SectionType: CaseIterable {
 }
 
 extension SectionType: Equatable { }
+extension SectionType: Hashable { }

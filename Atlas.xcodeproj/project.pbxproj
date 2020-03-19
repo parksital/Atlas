@@ -51,6 +51,7 @@
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
+		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
@@ -114,6 +115,7 @@
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
+		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			children = (
 				A0FEA88B241BF88B00B3F3A1 /* UIView+.swift */,
 				A03CC8F0241FDF5E00A1D287 /* Date+.swift */,
+				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				A0FEA88C241BF88B00B3F3A1 /* UIView+.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
