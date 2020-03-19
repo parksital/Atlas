@@ -15,6 +15,7 @@ class EventService {
         decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
+    private var token: String?
     
     init(client: AWSClient? = AWSClient()) {
         self.client = client
@@ -22,11 +23,11 @@ class EventService {
     
     #warning("TODO: - Refactor me")
     func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-        client?.fetch(query: ListEventsSummarizedQuery()) { result in
+        client?.fetch(query: ListEventsSummarizedByStartDateQuery(type: "Event", sortDirection: .asc, limit: 30, nextToken: token)) { result in
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
             case .success(let data):
-                guard let items = data.listEvents?.items else {
+                guard let items = data.eventsByStartDate?.items else {
                     assertionFailure("list events not found")
                     completion(.failure(NetworkError.noEvents))
                     return
