@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum EventList {
+    struct ViewModel {
+        let events: [EventSummary]
+    }
+}
+
 protocol EventListPresentationLogic {
     func presentEvents(_ events: [EventSummary])
     func didSelectEvent(_ event: EventSummary)
@@ -24,7 +30,7 @@ extension EventListPresenter: EventListPresentationLogic {
     }
     
     func presentEvents(_ events: [EventSummary]) {
-        viewController?.displayEvents(events.map { $0.title })
+        viewController?.displayViewModel(.init(events: events))
     }
     
     func presentError(_ error: Error) {
