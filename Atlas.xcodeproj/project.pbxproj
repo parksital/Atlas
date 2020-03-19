@@ -177,6 +177,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A00C65622423AE6A00D12C8D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				A00C655C24238DE900D12C8D /* SectionType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,7 +199,6 @@
 			children = (
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
-				A00C655C24238DE900D12C8D /* SectionType.swift */,
 				A00C655F2423AE2B00D12C8D /* EventList.swift */,
 			);
 			path = Models;
@@ -264,6 +271,7 @@
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
+				A00C65622423AE6A00D12C8D /* Enums */,
 				A0FEA88A241BF87400B3F3A1 /* Utilities */,
 				A03EECF224127AD700FCDD8C /* Errors */,
 				A03562F7240EF70800299AC4 /* Models */,
