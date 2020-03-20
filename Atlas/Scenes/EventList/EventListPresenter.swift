@@ -30,7 +30,7 @@ extension EventListPresenter: EventListPresentationLogic {
     }
     
     func presentEvents(_ events: [EventSummary]) {
-        let viewModel = getViewModelForResponse(events)
+        let viewModel = createViewModelForResponse(events)
         viewController?.displayViewModel(viewModel)
     }
     
@@ -40,12 +40,11 @@ extension EventListPresenter: EventListPresentationLogic {
 }
 
 extension EventListPresenter {
-    func getViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
-        
-        let sections = sectionHeadersForEvents(response)
-        let events = getEventsDictionary(response)
-        
-        return EventList.ViewModel(events: events, sectionHeaders: sections)
+    func createViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
+        return EventList.ViewModel(
+            events: getEventsDictionary(response),
+            sectionHeaders: sectionHeadersForEvents(response)
+        )
     }
     
     func getEventsDictionary(_ events: [EventSummary]) -> [String: [EventSummary]] {

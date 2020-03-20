@@ -23,12 +23,14 @@ enum EventList {
             self.events = events
             self.sectionHeaders = sectionHeaders
         }
-        
-        func eventsForSection(_ section: Int) -> [EventSummary] {
-            guard section < sectionHeaders.count else { return [] }
-            let header = sectionHeaders[section]
-            let output = events[header] ?? []
-            return output
-        }
+    }
+}
+
+extension EventList.ViewModel {
+    func eventsForSection(_ section: Int) -> [EventSummary] {
+        guard section < sectionHeaders.count else { return [] }
+        let header = sectionHeaders[section]
+        let output = events[header] ?? []
+        return output
     }
 }
