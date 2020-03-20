@@ -70,7 +70,6 @@ extension EventListPresenter {
             .compactMap { $0.header }
             .unique()
     }
-
     
     func sectionForDate(_ date: Date) -> SectionType {
         if Calendar.current.isDateInToday(date) {
