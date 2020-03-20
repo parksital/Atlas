@@ -29,7 +29,9 @@ final class EventDetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.spacing = 10.0
+        stackView.spacing = UIStackView.spacingUseSystem
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         return stackView
     }()
     
