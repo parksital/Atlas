@@ -10,20 +10,27 @@ import Foundation
 
 enum EventList {
     struct ViewModel {
-        let events: [SectionType: [EventSummary]]
+        let events: [String: [EventSummary]]
+        let sectionHeaders: [String]
         
         var eventCount: Int {
             var count = 0
             self.events.forEach { $1.forEach { _ in count += 1 } }
             return count
         }
-        
-        var sectionHeaders: [String?] {
-            return Array(events.keys).map { $0.header }
-        }
-        
-        init(events: [SectionType: [EventSummary]] = [:]) {
+
+        init(events: [String: [EventSummary]] = [:], sectionHeaders: [String] = []) {
             self.events = events
+            self.sectionHeaders = sectionHeaders
         }
+    }
+}
+
+extension EventList.ViewModel {
+    func eventsForSection(_ section: Int) -> [EventSummary] {
+        guard section < sectionHeaders.count else { return [] }
+        let header = sectionHeaders[section]
+        let output = events[header] ?? []
+        return output
     }
 }

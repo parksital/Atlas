@@ -121,25 +121,14 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionType = SectionType(rawValue: section) else { return 0 }
-        
-        //let events =  viewModel.eventsForSectionType(_:)
-        // return events.count
-        
-        switch sectionType {
-        case .tonight: return viewModel.eventCount
-        case .tomorrow: return 0
-        case .date: return 0
-        }
+        return viewModel.eventsForSection(section).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
-        if let sectionType = SectionType(rawValue: indexPath.section) {
-            let events = viewModel.events[sectionType] ?? []
-            cell.setup(eventSummary: events[indexPath.row])
-        }
+        let events = viewModel.eventsForSection(indexPath.section)
+        cell.setup(eventSummary: events[indexPath.row])
         
         return cell
     }

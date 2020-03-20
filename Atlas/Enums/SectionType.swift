@@ -8,16 +8,7 @@
 
 import Foundation
 
-struct EventData {
-    var events: [SectionType: [EventSummary]]
-}
-
-enum SectionType: CaseIterable {
-    typealias AllCases = [SectionType]
-    static var allCases: [SectionType] {
-        return [.tonight, .tomorrow, .date("")]
-    }
-    
+enum SectionType {
     case tonight
     case tomorrow
     case date(String?)
@@ -31,15 +22,6 @@ enum SectionType: CaseIterable {
                 let date = custom,
                 !date.isEmpty else { return nil }
             return date
-            
-        }
-    }
-    
-    init?(rawValue: Int) {
-        switch rawValue {
-        case 0: self = .tonight
-        case 1: self = .tomorrow
-        default: return nil
         }
     }
 }
