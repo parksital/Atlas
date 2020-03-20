@@ -18,6 +18,10 @@ final class EventSummaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupEmtpy(withLocalizedString string: String) {
+        textLabel?.text = string
+    }
+    
     func setup(eventSummary: EventSummary) {
         textLabel?.text = eventSummary.title
     }
