@@ -8,23 +8,62 @@
 
 import Foundation
 
-final class EventListInteractor {
-    private let presenter: EventListPresentationProtocol!
-    private let eventService: EventService!
+protocol EventListLogic {
+    func fetchEvents()
+    func didSelectEvent(_ event: EventSummary)
+}
+
+protocol EventListDataStore {
+    var events: [EventSummary] { get }
+    var selectedEvent: EventSummary? { get }
+}
+
+final class EventListInteractor: EventListDataStore {
+    var presenter: EventListPresentationLogic?
+    var eventService: EventService?
     
-    init(presenter: EventListPresentationProtocol, eventService: EventService) {
-        self.presenter = presenter
+    private (set) var events: [EventSummary] = []
+    private (set) var selectedEvent: EventSummary?
+    
+    init(eventService: EventService? = EventService()) {
         self.eventService = eventService
     }
 }
 
-extension EventListInteractor: EventListInteractionProtocol {
+extension EventListInteractor: EventListLogic {
+    func didSelectEvent(_ event: EventSummary) {
+        updateSelectedEvent(event)
+        presenter?.didSelectEvent()
+    }
+    
     func fetchEvents() {
-        eventService.fetchEventsSummarized { [presenter] result in
+        eventService?.fetchEventsSummarized { [weak self] result in
             switch result {
-            case .failure(let error): assertionFailure(error.localizedDescription)
-            case .success(let data): presenter?.presentEvents(data)
+            case .failure(let error):
+                self?.presenter?.presentError(error)
+            case .success(let data):
+                self?.updateEvents(data)
+                self?.presentEvents(data)
             }
         }
+    }
+}
+
+private extension EventListInteractor {
+    func getEventSummaryAtIndex(_ index: Int) -> EventSummary? {
+        guard index < events.count else { return nil }
+        return events[index]
+    }
+    
+    func updateEvents(_ fetchedEvents: [EventSummary]) {
+        events = fetchedEvents
+    }
+    
+    func updateSelectedEvent(_ event: EventSummary) {
+        self.selectedEvent = event
+    }
+    
+    func presentEvents(_ events: [EventSummary]) {
+        presenter?.presentEvents(events)
     }
 }

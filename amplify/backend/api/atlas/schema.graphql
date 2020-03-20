@@ -7,8 +7,10 @@ type Venue
 }
 
 type Event 
-@model {
+@model
+@key(name: "ByStartDate", fields: ["type", "start_date"], queryField: "eventsByStartDate") {
   id: ID!
+  type: String
   title: String!
   start_date: AWSDateTime!
   end_date: AWSDateTime!

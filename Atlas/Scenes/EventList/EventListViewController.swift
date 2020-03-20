@@ -8,32 +8,57 @@
 
 import UIKit
 
-final class EventListViewController: UIViewController, EventListViewOutputProtocol {
-    private let interactor: EventListInteractionProtocol!
-    private (set) var events: [String] = []
-    private let eventsTableView: UITableView = {
+protocol EventListDisplayLogic: class {
+    var viewModel: EventList.ViewModel { get }
+    
+    func displayViewModel(_ viewModel: EventList.ViewModel)
+    func didSelectEvent()
+    func displayError(_ error: Error)
+}
+
+final class EventListViewController: UIViewController {
+    var interactor: EventListLogic?
+    var router: (NSObjectProtocol & EventListRouting & EventListDataPassing)?
+    
+    private (set) var viewModel: EventList.ViewModel = .init()
+    
+    let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    init(interactor: EventListInteractionProtocol) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not supported")
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupViews()
+        interactor?.fetchEvents()
     }
     
-    func displayEvents(_ viewModel: [String]) {
-        self.events = viewModel
-        DispatchQueue.main.async { [eventsTableView] in
-            eventsTableView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
+}
+
+extension EventListViewController: EventListDisplayLogic {
+    func didSelectEvent() {
+        router?.routeToDetail()
+    }
+    
+    func displayViewModel(_ viewModel: EventList.ViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.viewModel = viewModel
+            self.tableView.reloadData()
         }
     }
     
@@ -44,24 +69,34 @@ final class EventListViewController: UIViewController, EventListViewOutputProtoc
 
 private extension EventListViewController {
     func setup() {
-        setupViews()
+        let viewController = self
+        let presenter = EventListPresenter()
+        let interactor = EventListInteractor()
+        let router = EventListRouter()
         
-        interactor.fetchEvents()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
     }
     
     func setupViews() {
-        setupNavigationBar()
-        setupTableView(eventsTableView)
+        setupTableView(tableView)
     }
     
     func setupNavigationBar() {
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.darkText]
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.barStyle = .default
         navigationItem.title = "Events"
     }
     
     func setupTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
-        
         setupConstraintsFor(tableView, in: view)
         
         tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
@@ -81,14 +116,38 @@ private extension EventListViewController {
 }
 
 extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.sectionHeaders.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.sectionHeaders[section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        let eventCount = viewModel.eventsForSection(section).count
+        return eventCount > 0 ? eventCount : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
-        cell.setup(title: events[indexPath.row])
+        let events = viewModel.eventsForSection(indexPath.section)
+        
+        if events.isEmpty {
+            cell.setupEmtpy(withLocalizedString: "No events")
+            cell.isUserInteractionEnabled = false
+        } else {
+            cell.setup(eventSummary: events[indexPath.row])
+        }
+
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let events = viewModel.eventsForSection(indexPath.section)
+        
+        interactor?.didSelectEvent(events[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

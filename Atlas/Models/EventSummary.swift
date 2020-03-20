@@ -12,8 +12,6 @@ struct EventSummary {
     let id: String
     let title: String
     let startDate: Date
-    let endDate: Date
-    let description: String?
     let venue: String
 }
 
@@ -22,8 +20,6 @@ extension EventSummary: Decodable {
         case id
         case title
         case startDate = "start_date"
-        case endDate = "end_date"
-        case description
         case venue
         
         enum VenueKeys: String, CodingKey {
@@ -38,8 +34,8 @@ extension EventSummary: Decodable {
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         startDate = try container.decode(Date.self, forKey: .startDate)
-        endDate = try container.decode(Date.self, forKey: .endDate)
         venue = try venueContainer.decode(String.self, forKey: .name)
-        description = try container.decode(String?.self, forKey: .description)
     }
 }
+
+extension EventSummary: Equatable { }
