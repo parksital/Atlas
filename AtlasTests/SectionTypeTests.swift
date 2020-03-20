@@ -18,19 +18,6 @@ class SectionTypeTests: XCTestCase {
         XCTAssertEqual(expectation, result)
     }
     
-    func testInitializationWithValidInt() {
-        let result = SectionType(rawValue: 1)
-        let expectation = SectionType.tomorrow
-        
-        XCTAssertEqual(expectation, result)
-    }
-    
-    func testInitializationWithInvalidInt() {
-        let result = SectionType(rawValue: -1)
-        
-        XCTAssertEqual(nil, result)
-    }
-    
     func testInitializedWithCustomStringNoValue() {
         let sectionType = SectionType.date(nil)
         let result = sectionType.header

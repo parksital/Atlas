@@ -41,26 +41,46 @@ extension EventListPresenter: EventListPresentationLogic {
 
 extension EventListPresenter {
     func getViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
-        var dict: [SectionType: [EventSummary]] = .init()
         
-        let dates = response.map { $0.startDate }
-        var sections: [SectionType] = [.tonight, .tomorrow]
-        let customSections: [SectionType] = getUniqueSectionsTypesForDates(dates)
+        let sections = sectionHeadersForEvents(response)
+        let events = getEventsDictionary(response)
         
-        sections.append(contentsOf: customSections)
-        
-        sections.forEach { dict[$0] = [] }
-        dict[.tonight] = response
-        
-        return EventList.ViewModel(events: dict)
+        return EventList.ViewModel(events: events, sectionHeaders: sections)
     }
     
-    func getUniqueSectionsTypesForDates(_ dates: [Date]) -> [SectionType] {
-        let output: [SectionType] = dates
-            .map { $0.formatted(using: dateFormatter.string(from:)) }
-            .unique()
-            .map { SectionType.date($0) }
+    func getEventsDictionary(_ events: [EventSummary]) -> [String: [EventSummary]] {
+        let output = events.reduce(into: [String: [EventSummary]]()) { acc, event in
+            let sectionType = sectionForDate(event.startDate).header!
+            var events = acc[sectionType] ?? []
+            events.append(event)
+            acc.updateValue(events, forKey: sectionType)
+        }
         
         return output
+    }
+    
+    func sectionHeadersForEvents(_ events: [EventSummary]) -> [String] {
+        var sections = events
+            .map { $0.startDate }
+            .map(sectionForDate(_:))
+        
+        sections.insert(.tomorrow, at: 0)
+        sections.insert(.tonight, at: 0)
+        
+        return sections
+            .compactMap { $0.header }
+            .unique()
+    }
+
+    
+    func sectionForDate(_ date: Date) -> SectionType {
+        if Calendar.current.isDateInToday(date) {
+            return .tonight
+        } else if Calendar.current.isDateInTomorrow(date) {
+            return .tomorrow
+        } else {
+            let date = date.formatted(using: dateFormatter.string(from:))
+            return SectionType.date(date)
+        }
     }
 }
