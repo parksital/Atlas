@@ -17,6 +17,13 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
     var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
     
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceVertical = true
+        return scrollView
+    }()
+    
     private var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -83,29 +90,50 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
+        setupScrollView()
+        setupStackView()
         updatePrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
-        configureStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
-        setupConstraintsFor(stackView, in: view)
     }
     
     func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func configureStackView(_ stackView: UIStackView, withSubviews views: [UIView]) {
-        views.forEach { stackView.addArrangedSubview($0) }
-        stackView.addArrangedSubview(UIView().spacer())
+    func setupScrollView() {
+        view.addSubview(scrollView)
+        setupConstraintsForScrollView()
     }
     
-    func setupConstraintsFor(_ stackView: UIStackView, in view: UIView) {
-        view.addSubview(stackView)
+    func setupStackView() {
+        scrollView.addSubview(stackView)
+        setupConstraintsForStackView()
+        populateStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
+    }
+    
+    func setupConstraintsForScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        let top = scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+        let leading = scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+        let trailing = scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+        let bottom = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let top = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let leading = stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0.0)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0.0)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+    
+    func setupConstraintsForStackView() {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let top = stackView.topAnchor.constraint(equalTo: scrollView.topAnchor)
+        let leading = stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        
+        stackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+    
+    func populateStackView(_ stackView: UIStackView, withSubviews views: [UIView]) {
+        views.forEach { stackView.addArrangedSubview($0) }
+        stackView.addArrangedSubview(UIView().spacer())
     }
     
     func updatePrioritiesForViews(_ views: [UIView]) {
