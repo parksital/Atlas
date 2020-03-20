@@ -11,6 +11,7 @@ import Foundation
 enum EventList {
     struct ViewModel {
         let events: [String: [EventSummary]]
+        // headers are stored in a separate array to maintain order
         let sectionHeaders: [String]
         
         var eventCount: Int {

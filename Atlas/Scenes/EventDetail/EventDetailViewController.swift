@@ -71,6 +71,11 @@ final class EventDetailViewController: UIViewController {
         interactor?.viewDidFinishLoading()
         interactor?.fetchEvent()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
 }
 
 private extension EventDetailViewController {
@@ -92,6 +97,10 @@ private extension EventDetailViewController {
         view.backgroundColor = .white
         configureStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
         setupConstraintsFor(stackView, in: view)
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func configureStackView(_ stackView: UIStackView, withSubviews views: [UIView]) {
