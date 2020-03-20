@@ -40,8 +40,8 @@ extension EventDetailPresenter {
             id: response.id,
             title: response.title.capitalized,
             startDate: formatDate(response.startDate),
-            venue: response.venue.capitalized,
-            description: response.description?.capitalized ?? ""
+            venue: response.venue,
+            description: response.description ?? ""
         )
     }
     

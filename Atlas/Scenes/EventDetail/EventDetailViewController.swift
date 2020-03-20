@@ -28,31 +28,19 @@ final class EventDetailViewController: UIViewController {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
-        label.textAlignment = .natural
-        label.numberOfLines = 0
-        label.backgroundColor = .systemRed
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.applyStyling(.title)
         return label
     }()
     
     private var dateTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
-        label.textAlignment = .natural
-        label.numberOfLines = 0
-        label.backgroundColor = .systemBlue
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.applyStyling(.headline)
         return label
     }()
     
     private var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textAlignment = .natural
-        label.numberOfLines = 0
-        label.backgroundColor = .systemYellow
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.applyStyling(.body)
         return label
     }()
     
@@ -95,6 +83,7 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
+        updatePrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
         configureStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
         setupConstraintsFor(stackView, in: view)
     }
@@ -117,6 +106,10 @@ private extension EventDetailViewController {
         let trailing = stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0.0)
         let bottom = stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+    
+    func updatePrioritiesForViews(_ views: [UIView]) {
+        views.forEach { $0.setContentHuggingPriority(.defaultHigh, for: .vertical) }
     }
 }
 
