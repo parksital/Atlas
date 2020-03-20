@@ -10,11 +10,12 @@ import Foundation
 
 protocol EventListLogic {
     func fetchEvents()
-    func didSelectEvent(atIndex: Int)
+    func didSelectEvent(_ event: EventSummary)
 }
 
 protocol EventListDataStore {
     var events: [EventSummary] { get }
+    var selectedEvent: EventSummary? { get }
 }
 
 final class EventListInteractor: EventListDataStore {
@@ -22,6 +23,7 @@ final class EventListInteractor: EventListDataStore {
     var eventService: EventService?
     
     private (set) var events: [EventSummary] = []
+    private (set) var selectedEvent: EventSummary?
     
     init(eventService: EventService? = EventService()) {
         self.eventService = eventService
@@ -29,13 +31,9 @@ final class EventListInteractor: EventListDataStore {
 }
 
 extension EventListInteractor: EventListLogic {
-    func didSelectEvent(atIndex index: Int) {
-        guard let event = getEventSummaryAtIndex(index) else {
-            presenter?.presentError(NetworkError.generic)
-            return
-        }
-        
-        presenter?.didSelectEvent(event)
+    func didSelectEvent(_ event: EventSummary) {
+        updateSelectedEvent(event)
+        presenter?.didSelectEvent()
     }
     
     func fetchEvents() {
@@ -59,6 +57,10 @@ private extension EventListInteractor {
     
     func updateEvents(_ fetchedEvents: [EventSummary]) {
         events = fetchedEvents
+    }
+    
+    func updateSelectedEvent(_ event: EventSummary) {
+        self.selectedEvent = event
     }
     
     func presentEvents(_ events: [EventSummary]) {

@@ -10,7 +10,7 @@ import Foundation
 
 protocol EventListPresentationLogic {
     func presentEvents(_ events: [EventSummary])
-    func didSelectEvent(_ event: EventSummary)
+    func didSelectEvent()
     func presentError(_ error: Error)
 }
 
@@ -25,8 +25,8 @@ final class EventListPresenter {
 }
 
 extension EventListPresenter: EventListPresentationLogic {
-    func didSelectEvent(_ event: EventSummary) {
-        viewController?.didSelectEvent(event.title)
+    func didSelectEvent() {
+        viewController?.didSelectEvent()
     }
     
     func presentEvents(_ events: [EventSummary]) {

@@ -12,7 +12,7 @@ protocol EventListDisplayLogic: class {
     var viewModel: EventList.ViewModel { get }
     
     func displayViewModel(_ viewModel: EventList.ViewModel)
-    func didSelectEvent(_ event: String)
+    func didSelectEvent()
     func displayError(_ error: Error)
 }
 
@@ -42,18 +42,23 @@ final class EventListViewController: UIViewController {
         setupViews()
         interactor?.fetchEvents()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
 }
 
 extension EventListViewController: EventListDisplayLogic {
-    func didSelectEvent(_ event: String) {
+    func didSelectEvent() {
         router?.routeToDetail()
     }
     
     func displayViewModel(_ viewModel: EventList.ViewModel) {
-        self.viewModel = viewModel
-        
-        DispatchQueue.main.async { [tableView] in
-            tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.viewModel = viewModel
+            self.tableView.reloadData()
         }
     }
     
@@ -78,7 +83,6 @@ private extension EventListViewController {
     }
     
     func setupViews() {
-        setupNavigationBar()
         setupTableView(tableView)
     }
     
@@ -134,7 +138,9 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        interactor?.didSelectEvent(atIndex: indexPath.row)
+        let events = viewModel.eventsForSection(indexPath.section)
+        
+        interactor?.didSelectEvent(events[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

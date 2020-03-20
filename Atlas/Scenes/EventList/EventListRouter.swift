@@ -30,9 +30,8 @@ final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
     }
 
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
-        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
         DispatchQueue.global(qos: .userInitiated).async { [destination] in
-            destination.event = source.events[selectedRow!]
+            destination.event = source.selectedEvent
         }
     }
     
