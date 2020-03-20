@@ -8,12 +8,7 @@
 
 import Foundation
 
-enum SectionType: CaseIterable {
-    typealias AllCases = [SectionType]
-    static var allCases: [SectionType] {
-        return [.tonight, .tomorrow, .date(nil)]
-    }
-    
+enum SectionType {
     case tonight
     case tomorrow
     case date(String?)

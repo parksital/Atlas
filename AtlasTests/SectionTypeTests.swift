@@ -10,14 +10,6 @@ import XCTest
 
 class SectionTypeTests: XCTestCase {
     
-    func testInteration() {
-        var result: Int = 0
-        SectionType.allCases.forEach { _ in result += 1 }
-        
-        let expectation = SectionType.allCases.count
-        XCTAssertEqual(expectation, result)
-    }
-    
     func testInitializedWithCustomStringNoValue() {
         let sectionType = SectionType.date(nil)
         let result = sectionType.header
