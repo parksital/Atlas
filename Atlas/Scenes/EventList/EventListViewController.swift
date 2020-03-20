@@ -125,15 +125,22 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.eventsForSection(section).count
+        let eventCount = viewModel.eventsForSection(section).count
+        return eventCount > 0 ? eventCount : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventSummaryCell ?? EventSummaryCell()
         
         let events = viewModel.eventsForSection(indexPath.section)
-        cell.setup(eventSummary: events[indexPath.row])
         
+        if events.isEmpty {
+            cell.setupEmtpy(withLocalizedString: "No events")
+            cell.isUserInteractionEnabled = false
+        } else {
+            cell.setup(eventSummary: events[indexPath.row])
+        }
+
         return cell
     }
     
