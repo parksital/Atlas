@@ -9,29 +9,28 @@
 import UIKit
 
 final class ScrollViewComponent: UIScrollView {
-    private var contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private var contentView: UIView = { UIView() }()
+    private var embeddedView: UIView?
     
-    var view: UIView? // this will be the stackView
-    
-    init(view: UIView) {
+    init() {
         super.init(frame: .zero)
-        
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
-        self.alwaysBounceVertical = true
-        self.contentSize = view.frame.size
-        self.view = view
-        
         setup()
+        setupContentView()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+}
+
+private extension ScrollViewComponent {
     func setup() {
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
+        self.alwaysBounceVertical = true
+    }
+    
+    func setupContentView() {
         self.addSubview(contentView)
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,14 +43,13 @@ final class ScrollViewComponent: UIScrollView {
         height.priority = .defaultLow
         
         NSLayoutConstraint.activate([leading, top, trailing, bottom, width, height])
-        
-        if let content = view {
-            setupConstraintsForView(content, withinContainer: contentView)
-        }
     }
+}
+extension ScrollViewComponent {
+    func setupWithView(_ view: UIView) {
+        self.embeddedView = view
     
-    func setupConstraintsForView(_ view: UIView, withinContainer container: UIView) {
-        container.addSubview(view)
+        contentView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         let top = view.topAnchor.constraint(equalTo: contentView.topAnchor)
