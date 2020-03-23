@@ -17,19 +17,7 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
     var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
     
-    private var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.alwaysBounceVertical = true
-        return scrollView
-    }()
-    
-    private var contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
+    private var scrollViewComponent: ScrollViewComponent = { ScrollViewComponent() }()
     private var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -103,69 +91,38 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        setupScrollView()
-        setupContentView()
-        setupStackView()
-        updatePrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
+        setPrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
+        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
+        setupScrollViewComponent()
     }
     
     func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func setupScrollView() {
-        view.addSubview(scrollView)
-        setupConstraintsForScrollView()
+    func setupScrollViewComponent() {
+        scrollViewComponent.setupWithView(stackView)
+        setupScrollComponentConstraints()
     }
     
-    func setupContentView() {
-        scrollView.addSubview(contentView)
-        setupConstraintsForContentView()
-    }
-    
-    func setupStackView() {
-        contentView.addSubview(stackView)
-        setupConstraintsForStackView()
-        populateStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
-    }
-    
-    func setupConstraintsForScrollView() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = scrollView.topAnchor.constraint(equalTo: view.topAnchor)
-        let bottom = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    func setupScrollComponentConstraints() {
+        view.addSubview(scrollViewComponent)
+        
+        scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
+        let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.topAnchor)
+        let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupConstraintsForContentView() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        let top = contentView.topAnchor.constraint(equalTo: scrollView.topAnchor)
-        let leading = contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
-        let trailing = contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
-        let bottom = contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-        let width = contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        let height = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-        height.priority = .defaultLow
-        NSLayoutConstraint.activate([leading, trailing, top, bottom, width, height])
-    }
-    
-    func setupConstraintsForStackView() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let top = stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
-        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        NSLayoutConstraint.activate([top, leading, trailing, bottom])
-    }
-    
-    func populateStackView(_ stackView: UIStackView, withSubviews views: [UIView]) {
+    func populateStackView(_ stackView: UIStackView, with views: [UIView]) {
         views.forEach { stackView.addArrangedSubview($0) }
         stackView.addArrangedSubview(UIView().spacer())
     }
     
-    func updatePrioritiesForViews(_ views: [UIView]) {
+    func setPrioritiesForViews(_ views: [UIView]) {
         views.forEach { $0.setContentHuggingPriority(.defaultHigh, for: .vertical) }
     }
 }
