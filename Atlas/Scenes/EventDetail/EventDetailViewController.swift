@@ -46,6 +46,8 @@ final class EventDetailViewController: UIViewController {
         return stackView
     }()
     
+    private var scrollViewComponent: ScrollViewComponent?
+    
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.applyStyling(.title)
@@ -103,10 +105,17 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        setupScrollView()
-        setupContentView()
-        setupStackView()
+//        setupScrollView()
+//        setupContentView()
+        
         updatePrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
+        setupStackView()
+        scrollViewComponent = ScrollViewComponent(view: stackView)
+        
+        if let component = scrollViewComponent {
+            view.addSubview(component)
+            setupScrollComponentConstraints()
+        }
     }
     
     func setupNavigationBar() {
@@ -124,9 +133,21 @@ private extension EventDetailViewController {
     }
     
     func setupStackView() {
-        contentView.addSubview(stackView)
-        setupConstraintsForStackView()
+//        contentView.addSubview(stackView)
+//        setupConstraintsForStackView()
         populateStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
+    }
+    
+    func setupScrollComponentConstraints() {
+        if let scrollComponent = scrollViewComponent {
+            scrollComponent.translatesAutoresizingMaskIntoConstraints = false
+            let leading = scrollComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            let trailing = scrollComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            let top = scrollComponent.topAnchor.constraint(equalTo: view.topAnchor)
+            let bottom = scrollComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+            NSLayoutConstraint.activate([leading, trailing, top, bottom])
+        }
     }
     
     func setupConstraintsForScrollView() {
