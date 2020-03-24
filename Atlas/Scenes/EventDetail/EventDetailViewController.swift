@@ -34,6 +34,22 @@ final class EventDetailViewController: UIViewController {
         return stackView
     }()
     
+    private var artistStackView: UIStackView! = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = UIStackView.spacingUseSystem
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 20,
+            bottom: 0,
+            trailing: 20
+        )
+        return stackView
+    }()
+    
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.applyStyling(.title)
@@ -93,6 +109,7 @@ private extension EventDetailViewController {
         view.backgroundColor = .white
         setPrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
         populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
+        populateStackView(stackView, with: [artistStackView])
         setupScrollViewComponent()
     }
     
@@ -119,7 +136,6 @@ private extension EventDetailViewController {
     
     func populateStackView(_ stackView: UIStackView, with views: [UIView]) {
         views.forEach { stackView.addArrangedSubview($0) }
-        stackView.addArrangedSubview(UIView().spacer())
     }
     
     func setPrioritiesForViews(_ views: [UIView]) {
@@ -138,6 +154,12 @@ extension EventDetailViewController: EventDetailDisplayLogic {
             self.titleLabel.text = viewModel.venue
             self.dateTimeLabel.text = viewModel.startDate
             self.descriptionLabel.text = viewModel.description
+            self.populateStackView(self.artistStackView, with: viewModel.artists.map {
+                let label = UILabel()
+                label.applyStyling(.body)
+                label.text = $0
+                return label
+            })
         }
     }
 }
