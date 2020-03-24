@@ -25,6 +25,13 @@ enum EventDetail {
         let venue: String
         let description: String?
         let artists: [Artist]
+        
+        struct Artist {
+            let id: String
+            let artistName: String
+            let firstName: String
+            let lastName: String?
+        }
     }
     
     struct ViewModel {
@@ -33,6 +40,7 @@ enum EventDetail {
         let startDate: String
         let venue: String
         let description: String?
+        let artists: [String]
     }
 }
 
@@ -84,14 +92,7 @@ extension EventDetail.Response: Decodable {
     }
 }
 
-struct Artist {
-    let id: String
-    let artistName: String
-    let firstName: String
-    let lastName: String?
-}
-
-extension Artist: Codable {
+extension EventDetail.Response.Artist: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case artistName = "artist_name"
