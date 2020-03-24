@@ -17,6 +17,19 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
     var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
     
+    private var viewModel: EventDetail.ViewModel? {
+        didSet {
+            guard let vm = viewModel else { return }
+            titleLabel.text = vm.venue
+            dateTimeLabel.text = vm.startDate
+            descriptionLabel.text = vm.description
+            
+            let artistStackView = getStackViewForArtists(vm.artists, getLabelsForArtists(_:))
+            stackView.addArrangedSubview(artistStackView)
+            stackView.addSpacer()
+        }
+    }
+    
     private var scrollViewComponent: ScrollViewComponent = { ScrollViewComponent() }()
     private var stackView: UIStackView! = {
         let stackView = UIStackView()
@@ -91,9 +104,8 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        setPrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
-        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
         setupScrollViewComponent()
+        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
     }
     
     func setupNavigationBar() {
@@ -111,7 +123,7 @@ private extension EventDetailViewController {
         scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
         let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.topAnchor)
+        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
@@ -119,11 +131,25 @@ private extension EventDetailViewController {
     
     func populateStackView(_ stackView: UIStackView, with views: [UIView]) {
         views.forEach { stackView.addArrangedSubview($0) }
-        stackView.addArrangedSubview(UIView().spacer())
     }
     
-    func setPrioritiesForViews(_ views: [UIView]) {
-        views.forEach { $0.setContentHuggingPriority(.defaultHigh, for: .vertical) }
+    func getStackViewForArtists(_ artists: [String], _ viewCreation: ([String]) -> [UIView]) -> UIStackView {
+        let views = viewCreation(artists)
+        let stackView = UIStackView(arrangedSubviews: views)
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = UIStackView.spacingUseSystem
+        return stackView
+    }
+    
+    func getLabelsForArtists(_ artists: [String]) -> [UILabel] {
+        return artists.map {
+            let label = UILabel()
+            label.applyStyling(.body)
+            label.text = $0
+            return label
+        }
     }
 }
 
@@ -134,10 +160,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
     
     func displayViewModel(_ viewModel: EventDetail.ViewModel) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.titleLabel.text = viewModel.venue
-            self.dateTimeLabel.text = viewModel.startDate
-            self.descriptionLabel.text = viewModel.description
+            self?.viewModel = viewModel
         }
     }
 }
