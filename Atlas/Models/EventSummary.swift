@@ -14,3 +14,5 @@ struct EventSummary {
     let startDate: Date
     let venue: String
 }
+
+extension EventSummary: Equatable { }

@@ -36,7 +36,7 @@ class EventDetailPresenterTests: XCTestCase {
             startDate: Date(timeIntervalSince1970: 1579964400),
             endDate: Date(timeIntervalSince1970: 1579975200),
             venue: "Mock Venue Name",
-            description: "mock event description",
+            description: "Mock Event Description.",
             artists: []
         )
         
