@@ -45,6 +45,7 @@
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
+		A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */; };
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
 		A075E38E240E8201006F891F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
@@ -113,6 +114,7 @@
 		A041ED422419736000DB772F /* EventDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenter.swift; sourceTree = "<group>"; };
 		A041ED44241973D800DB772F /* EventDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailRouter.swift; sourceTree = "<group>"; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
@@ -275,6 +277,32 @@
 			path = EventDetail;
 			sourceTree = "<group>";
 		};
+		A0503DC2242A875400FF1BA3 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A0503DC4242A876800FF1BA3 /* EventDetail */,
+				A0503DC3242A875E00FF1BA3 /* EventList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A0503DC3242A875E00FF1BA3 /* EventList */ = {
+			isa = PBXGroup;
+			children = (
+				A09038F82420D58E00743881 /* EventListInteractorTests.swift */,
+				A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */,
+			);
+			path = EventList;
+			sourceTree = "<group>";
+		};
+		A0503DC4242A876800FF1BA3 /* EventDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
+			);
+			path = EventDetail;
+			sourceTree = "<group>";
+		};
 		A0B661A82400265F001C5B40 = {
 			isa = PBXGroup;
 			children = (
@@ -322,11 +350,10 @@
 		A0B661CA24002661001C5B40 /* AtlasTests */ = {
 			isa = PBXGroup;
 			children = (
+				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
 				A0B661CD24002661001C5B40 /* Info.plist */,
-				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
 				A00C655924238D9300D12C8D /* SectionTypeTests.swift */,
-				A09038F82420D58E00743881 /* EventListInteractorTests.swift */,
 			);
 			path = AtlasTests;
 			sourceTree = "<group>";
@@ -636,6 +663,7 @@
 				A00C655E24238E1900D12C8D /* SectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
