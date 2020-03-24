@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Atlas
 class EventListInteractorTests: XCTestCase {
     var sut: EventListInteractor!
     
@@ -56,24 +57,9 @@ class EventListInteractorTests: XCTestCase {
         sut.eventService = MockEventService(shouldPass: false)
         
         sut.fetchEvents() // WILL FAIL
-        sut.didSelectEvent(atIndex: 2)
         
         let result = spy.errorReceived as! NetworkError
         XCTAssertEqual(result, NetworkError.generic)
-    }
-    
-    func testEventSelectedSuccess() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
-        sut.eventService = MockEventService(shouldPass: true)
-        
-        sut.fetchEvents()
-        sut.didSelectEvent(atIndex: 2)
-        
-        let events = MockEventService.getFakeSummaries(count: 5)
-        let expectation = events[2]
-        let result = spy.eventSelected
-        XCTAssertEqual(result, expectation)
     }
 }
 
@@ -87,8 +73,7 @@ extension EventListInteractorTests {
             super.init(client: nil)
         }
         
-        override func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-            
+        override func fetchEventList(_ completion: @escaping (Result<[EventList.Response], Error>) -> Void) {
             if shouldPass {
                 let data = MockEventService.getFakeSummaries(count: 5)
                 completion(.success(data))
@@ -97,10 +82,10 @@ extension EventListInteractorTests {
             }
         }
         
-        static func getFakeSummaries(count: Int) -> [EventSummary] {
-            var result: [EventSummary] = []
+        static func getFakeSummaries(count: Int) -> [EventList.Response] {
+            var result: [EventList.Response] = []
             for i in 1...count {
-                let summary = EventSummary(
+                let summary = EventList.Response(
                     id: String(i),
                     title: "Mock title \(i)",
                     startDate: Date(timeIntervalSince1970: TimeInterval(i)),
@@ -115,17 +100,15 @@ extension EventListInteractorTests {
     
     private class PresenterSpy: EventListPresentationLogic {
         var errorReceived: Error?
-        var eventsReceived: [EventSummary] = []
-        var eventSelected: EventSummary?
+        var eventsReceived: [EventList.Response] = []
         
-        func presentEvents(_ events: [EventSummary]) {
-            eventsReceived = events
+        func presentEventResponse(_ response: [EventList.Response]) {
+            
         }
         
-        func didSelectEvent(_ event: EventSummary) {
-            eventSelected = event
+        func didSelectEvent() {
+            
         }
-        
         func presentError(_ error: Error) {
             errorReceived = error
         }

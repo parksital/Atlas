@@ -36,7 +36,8 @@ class EventDetailPresenterTests: XCTestCase {
             startDate: Date(timeIntervalSince1970: 1579964400),
             endDate: Date(timeIntervalSince1970: 1579975200),
             venue: "Mock Venue Name",
-            description: "mock event description."
+            description: "mock event description",
+            artists: []
         )
         
         let expectation = EventDetail.ViewModel(
@@ -44,7 +45,8 @@ class EventDetailPresenterTests: XCTestCase {
             title: "Mock Event Title",
             startDate: "January 25, 2020 at 4:00 PM",
             venue: "Mock Venue Name",
-            description: "Mock Event Description."
+            description: "Mock Event Description.",
+            artists: []
         )
         
         let result = sut.getViewModelForResponse(response)
