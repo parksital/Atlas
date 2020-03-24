@@ -24,12 +24,9 @@ final class EventDetailViewController: UIViewController {
             dateTimeLabel.text = vm.startDate
             descriptionLabel.text = vm.description
             
-            populateStackView(artistStackView, with: vm.artists.map {
-                let label = UILabel()
-                label.applyStyling(.body)
-                label.text = $0
-                return label
-            })
+            let artistStackView = getStackViewForArtists(vm.artists, getLabelsForArtists(_:))
+            stackView.addArrangedSubview(artistStackView)
+            stackView.addSpacer()
         }
     }
     
@@ -47,15 +44,6 @@ final class EventDetailViewController: UIViewController {
             bottom: 20,
             trailing: 20
         )
-        return stackView
-    }()
-    
-    private var artistStackView: UIStackView! = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .leading
-        stackView.spacing = UIStackView.spacingUseSystem
         return stackView
     }()
     
@@ -116,9 +104,8 @@ private extension EventDetailViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        setPrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
         setupScrollViewComponent()
-        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel, artistStackView])
+        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
     }
     
     func setupNavigationBar() {
@@ -146,8 +133,23 @@ private extension EventDetailViewController {
         views.forEach { stackView.addArrangedSubview($0) }
     }
     
-    func setPrioritiesForViews(_ views: [UIView]) {
-        views.forEach { $0.setContentHuggingPriority(.defaultHigh, for: .vertical) }
+    func getStackViewForArtists(_ artists: [String], _ viewCreation: ([String]) -> [UIView]) -> UIStackView {
+        let views = viewCreation(artists)
+        let stackView = UIStackView(arrangedSubviews: views)
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = UIStackView.spacingUseSystem
+        return stackView
+    }
+    
+    func getLabelsForArtists(_ artists: [String]) -> [UILabel] {
+        return artists.map {
+            let label = UILabel()
+            label.applyStyling(.body)
+            label.text = $0
+            return label
+        }
     }
 }
 
