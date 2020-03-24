@@ -22,8 +22,9 @@ class EventService {
     }
     
     #warning("TODO: - Refactor me")
-    func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-        client?.fetch(query: ListEventsSummarizedByStartDateQuery(type: "Event", sortDirection: .asc, limit: 30, nextToken: token)) { result in
+    func fetchEventList(_ completion: @escaping (Result<[EventList.Response], Error>) -> Void) {
+        let request = EventList.Request.init(token: token)
+        client?.fetch(query: request.query) { (result) in
             switch result {
             case .failure(let error): assertionFailure(error.localizedDescription)
             case .success(let data):
@@ -38,8 +39,7 @@ class EventService {
                     .map { $0.jsonObject }
                     .filter(JSONSerialization.isValidJSONObject(_:))
                     .map { try JSONSerialization.data(withJSONObject: $0, options: .prettyPrinted) }
-                    .map { try self.decoder.decode(EventSummary.self, from: $0) }
-                
+                    .map { try self.decoder.decode(EventList.Response.self, from: $0) }
                 completion(.success(data))
             }
         }

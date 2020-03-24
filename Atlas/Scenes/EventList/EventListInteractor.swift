@@ -14,7 +14,7 @@ protocol EventListLogic {
 }
 
 protocol EventListDataStore {
-    var events: [EventSummary] { get }
+    var events: [EventList.Response] { get }
     var selectedEvent: EventSummary? { get }
 }
 
@@ -22,7 +22,7 @@ final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
     var eventService: EventService?
     
-    private (set) var events: [EventSummary] = []
+    private (set) var events: [EventList.Response] = []
     private (set) var selectedEvent: EventSummary?
     
     init(eventService: EventService? = EventService()) {
@@ -37,7 +37,7 @@ extension EventListInteractor: EventListLogic {
     }
     
     func fetchEvents() {
-        eventService?.fetchEventsSummarized { [weak self] result in
+        eventService?.fetchEventList { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.presenter?.presentError(error)
@@ -50,12 +50,12 @@ extension EventListInteractor: EventListLogic {
 }
 
 private extension EventListInteractor {
-    func getEventSummaryAtIndex(_ index: Int) -> EventSummary? {
+    func getEventSummaryAtIndex(_ index: Int) -> EventList.Response? {
         guard index < events.count else { return nil }
         return events[index]
     }
     
-    func updateEvents(_ fetchedEvents: [EventSummary]) {
+    func updateEvents(_ fetchedEvents: [EventList.Response]) {
         events = fetchedEvents
     }
     
@@ -63,7 +63,7 @@ private extension EventListInteractor {
         self.selectedEvent = event
     }
     
-    func presentEvents(_ events: [EventSummary]) {
-        presenter?.presentEvents(events)
+    func presentEvents(_ events: [EventList.Response]) {
+        presenter?.presentEventResponse(events)
     }
 }
