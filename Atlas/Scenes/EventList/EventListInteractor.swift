@@ -32,6 +32,11 @@ final class EventListInteractor: EventListDataStore {
 
 extension EventListInteractor: EventListLogic {
     func didSelectEvent(_ event: EventSummary) {
+        guard events.contains(where: { $0.id == event.id }) else {
+            presenter?.presentError(NetworkError.generic)
+            return
+        }
+        
         updateSelectedEvent(event)
         presenter?.didSelectEvent()
     }
@@ -50,11 +55,6 @@ extension EventListInteractor: EventListLogic {
 }
 
 private extension EventListInteractor {
-    func getEventSummaryAtIndex(_ index: Int) -> EventList.Response? {
-        guard index < events.count else { return nil }
-        return events[index]
-    }
-    
     func updateEvents(_ fetchedEvents: [EventList.Response]) {
         events = fetchedEvents
     }

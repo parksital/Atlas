@@ -7,6 +7,7 @@
 //
 
 import XCTest
+
 class EventListInteractorTests: XCTestCase {
     var sut: EventListInteractor!
     
@@ -45,36 +46,50 @@ class EventListInteractorTests: XCTestCase {
         
         sut.fetchEvents()
         let result = spy.eventsReceived
-        let expectation = MockEventService.getFakeSummaries(count: 5)
+        let expectation = MockEventService.getFakeResponse(count: 5)
         
         XCTAssertEqual(expectation, result)
     }
     
-    func testEventSelectedOutOfBoundsFailure() {
+    func testEventSelectionWithoutEvents() {
         let spy = PresenterSpy()
         sut.presenter = spy
         sut.eventService = MockEventService(shouldPass: false)
+        let fake = EventSummary(
+            id: "uid",
+            title: "title",
+            startDate: Date(),
+            venue: "venue"
+        )
         
-        sut.fetchEvents() // WILL FAIL
-        sut.didSelectEvent(atIndex: 2)
+        sut.fetchEvents()
+        sut.didSelectEvent(fake)
         
         let result = spy.errorReceived as! NetworkError
+        
         XCTAssertEqual(result, NetworkError.generic)
     }
     
-    func testEventSelectedSuccess() {
+    func testEventSelectionSuccessful() {
         let spy = PresenterSpy()
         sut.presenter = spy
         sut.eventService = MockEventService(shouldPass: true)
+        // grab third object
+        let mock = MockEventService.getFakeResponse(count: 5)[2]
+
+        let input = EventSummary(
+            id: mock.id,
+            title: mock.title,
+            startDate: mock.startDate,
+            venue: mock.venue
+        )
         
         sut.fetchEvents()
-        sut.didSelectEvent(atIndex: 2)
+        sut.didSelectEvent(input)
         
-        let events = MockEventService.getFakeSummaries(count: 5)
-        let expectation = events[2]
-        let result = spy.eventSelected
-        XCTAssertEqual(result, expectation)
+        XCTAssertTrue(spy.eventSelected)
     }
+    
 }
 
 //MARK: - Helpers
@@ -87,20 +102,19 @@ extension EventListInteractorTests {
             super.init(client: nil)
         }
         
-        override func fetchEventsSummarized(_ completion: @escaping (Result<[EventSummary], Error>) -> Void) {
-            
+        override func fetchEventList(_ completion: @escaping (Result<[EventList.Response], Error>) -> Void) {
             if shouldPass {
-                let data = MockEventService.getFakeSummaries(count: 5)
+                let data = MockEventService.getFakeResponse(count: 5)
                 completion(.success(data))
             } else {
                 completion(.failure(NetworkError.noEvents))
             }
         }
         
-        static func getFakeSummaries(count: Int) -> [EventSummary] {
-            var result: [EventSummary] = []
+        static func getFakeResponse(count: Int) -> [EventList.Response] {
+            var result: [EventList.Response] = []
             for i in 1...count {
-                let summary = EventSummary(
+                let summary = EventList.Response(
                     id: String(i),
                     title: "Mock title \(i)",
                     startDate: Date(timeIntervalSince1970: TimeInterval(i)),
@@ -115,17 +129,16 @@ extension EventListInteractorTests {
     
     private class PresenterSpy: EventListPresentationLogic {
         var errorReceived: Error?
-        var eventsReceived: [EventSummary] = []
-        var eventSelected: EventSummary?
+        var eventsReceived: [EventList.Response] = []
+        var eventSelected: Bool = false
         
-        func presentEvents(_ events: [EventSummary]) {
-            eventsReceived = events
+        func presentEventResponse(_ response: [EventList.Response]) {
+            eventsReceived = response
         }
         
-        func didSelectEvent(_ event: EventSummary) {
-            eventSelected = event
+        func didSelectEvent() {
+            eventSelected = true
         }
-        
         func presentError(_ error: Error) {
             errorReceived = error
         }
