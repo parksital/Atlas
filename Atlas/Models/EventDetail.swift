@@ -11,7 +11,7 @@ import Foundation
 enum EventDetail {
     struct Request {
         private var id: String
-        var query: GetEventQuery { GetEventQuery(id: id) }
+        var query: GetEventDetailsQuery { .init(id: id) }
         
         init(id: String) {
             self.id = id
@@ -24,6 +24,7 @@ enum EventDetail {
         let endDate: Date
         let venue: String
         let description: String?
+        let artists: [Artist]
     }
     
     struct ViewModel {
@@ -43,15 +44,25 @@ extension EventDetail.Response: Decodable {
         case endDate = "end_date"
         case venue
         case description
+        case artists = "bookings"
         
         enum VenueKeys: String, CodingKey {
             case name
+        }
+        
+        enum BookingContainerKeys: String, CodingKey {
+            case items
+            
+            enum ItemKeys: String, CodingKey {
+                case artist
+            }
         }
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let venueContainer = try container.nestedContainer(keyedBy: CodingKeys.VenueKeys.self, forKey: .venue)
+        let bookingContainer = try container.nestedContainer(keyedBy: CodingKeys.BookingContainerKeys.self, forKey: .artists)
 
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
@@ -59,5 +70,32 @@ extension EventDetail.Response: Decodable {
         endDate = try container.decode(Date.self, forKey: .endDate)
         venue = try venueContainer.decode(String.self, forKey: .name)
         description = try container.decode(String?.self, forKey: .description)
+        
+        var unkeyedItems = try bookingContainer.nestedUnkeyedContainer(forKey: .items)
+        var decodedArtists: [Artist] = []
+        while !unkeyedItems.isAtEnd {
+            let booking = try unkeyedItems.nestedContainer(keyedBy: CodingKeys.BookingContainerKeys.ItemKeys.self)
+            precondition(booking.contains(.artist))
+            let artist = try booking.decode(Artist.self, forKey: .artist)
+            decodedArtists.append(artist)
+        }
+        
+        artists = decodedArtists
+    }
+}
+
+struct Artist {
+    let id: String
+    let artistName: String
+    let firstName: String
+    let lastName: String?
+}
+
+extension Artist: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case artistName = "artist_name"
+        case firstName = "first_name"
+        case lastName = "last_name"
     }
 }
