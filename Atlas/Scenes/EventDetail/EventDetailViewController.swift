@@ -17,6 +17,22 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
     var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
     
+    private var viewModel: EventDetail.ViewModel? {
+        didSet {
+            guard let vm = viewModel else { return }
+            titleLabel.text = vm.venue
+            dateTimeLabel.text = vm.startDate
+            descriptionLabel.text = vm.description
+            
+            populateStackView(artistStackView, with: vm.artists.map {
+                let label = UILabel()
+                label.applyStyling(.body)
+                label.text = $0
+                return label
+            })
+        }
+    }
+    
     private var scrollViewComponent: ScrollViewComponent = { ScrollViewComponent() }()
     private var stackView: UIStackView! = {
         let stackView = UIStackView()
@@ -40,13 +56,6 @@ final class EventDetailViewController: UIViewController {
         stackView.distribution = .fill
         stackView.alignment = .leading
         stackView.spacing = UIStackView.spacingUseSystem
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
-            leading: 20,
-            bottom: 0,
-            trailing: 20
-        )
         return stackView
     }()
     
@@ -108,9 +117,8 @@ private extension EventDetailViewController {
     func setupViews() {
         view.backgroundColor = .white
         setPrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
-        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
-        populateStackView(stackView, with: [artistStackView])
         setupScrollViewComponent()
+        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel, artistStackView])
     }
     
     func setupNavigationBar() {
@@ -128,7 +136,7 @@ private extension EventDetailViewController {
         scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
         let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.topAnchor)
+        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
@@ -150,16 +158,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
     
     func displayViewModel(_ viewModel: EventDetail.ViewModel) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.titleLabel.text = viewModel.venue
-            self.dateTimeLabel.text = viewModel.startDate
-            self.descriptionLabel.text = viewModel.description
-            self.populateStackView(self.artistStackView, with: viewModel.artists.map {
-                let label = UILabel()
-                label.applyStyling(.body)
-                label.text = $0
-                return label
-            })
+            self?.viewModel = viewModel
         }
     }
 }
