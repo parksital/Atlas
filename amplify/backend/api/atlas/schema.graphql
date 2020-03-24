@@ -1,4 +1,4 @@
-type Venue 
+type Venue
   @model {
   id: ID!
   name: String!
@@ -26,7 +26,7 @@ type Booking
   artist: Artist! @connection(name: "ArtistBookings")
 }
 
-type Artist 
+type Artist
   @model {
   id: ID!
   first_name: String!
