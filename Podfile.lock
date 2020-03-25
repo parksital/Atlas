@@ -4,66 +4,32 @@ PODS:
     - ReachabilitySwift (~> 5.0.0)
     - SQLite.swift (~> 0.12.2)
     - Starscream (~> 3.0.2)
-  - AWSAuthCore (2.12.7):
-    - AWSCore (= 2.12.7)
-  - AWSAuthUI (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCore (= 2.12.7)
-  - AWSCognitoIdentityProvider (2.12.7):
-    - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.12.7)
-  - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.12.7)
-  - AWSMobileClient (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCognitoIdentityProvider (= 2.12.7)
-  - AWSUserPoolsSignIn (2.12.7):
-    - AWSAuthCore (= 2.12.7)
-    - AWSCognitoIdentityProvider (= 2.12.7)
   - ReachabilitySwift (5.0.0)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
   - Starscream (3.0.6)
-  - Swinject (2.7.1)
 
 DEPENDENCIES:
   - AWSAppSync
-  - AWSAuthUI
   - AWSCore
-  - AWSMobileClient
-  - AWSUserPoolsSignIn
-  - Swinject
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AWSAppSync
-    - AWSAuthCore
-    - AWSAuthUI
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
     - AWSCore
-    - AWSMobileClient
-    - AWSUserPoolsSignIn
     - ReachabilitySwift
     - SQLite.swift
     - Starscream
-    - Swinject
 
 SPEC CHECKSUMS:
   AWSAppSync: 04f615ce0c3a0c815b7bf1ca3d47362a22ed12ca
-  AWSAuthCore: 288cb737a35ff031fbf42edaa8d0062328791d4e
-  AWSAuthUI: 464fbab1841f8878e6370ec76581f9bea67e6252
-  AWSCognitoIdentityProvider: 4998bdbfbafe5038dae0237a598580e102e7b6b5
-  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: 2f0f88ae94a63a198274d683c7d0e18709d7090b
-  AWSMobileClient: bf1fb0868f9187141ca7b69220383c14878c0a29
-  AWSUserPoolsSignIn: fffc46e512e326783585e53639e58c355aae320f
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
-  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
 
-PODFILE CHECKSUM: 1f638a7741417e23adbf8a092285fa4104f77dc5
+PODFILE CHECKSUM: c0be6629546ac88e066762c46f39d5c59b08a771
 
 COCOAPODS: 1.7.5
