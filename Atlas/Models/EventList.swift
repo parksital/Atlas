@@ -7,19 +7,11 @@
 //
 
 import Foundation
+//import AWSAppSync
 
 enum EventList {
     struct Request {
         private var token: String?
-        var query: ListEventsSummarizedByStartDateQuery {
-            ListEventsSummarizedByStartDateQuery(
-                type: "Event",
-                sortDirection: .asc,
-                limit: 30,
-                nextToken: token
-            )
-        }
-        
         init(token: String?) {
             self.token = token
         }
@@ -50,15 +42,25 @@ enum EventList {
     }
 }
 
-extension EventList.ViewModel {
-    func eventsForSection(_ section: Int) -> [EventSummary] {
-        guard section < sectionHeaders.count else { return [] }
-        let header = sectionHeaders[section]
-        let output = events[header] ?? []
-        return output
+extension EventList.Request: Fetchable {
+    typealias Q = ListEventsSummarizedByStartDateQuery
+    var query: ListEventsSummarizedByStartDateQuery {
+        .init(
+            type: "Event",
+            sortDirection: .asc,
+            limit: 30,
+            nextToken: token
+        )
     }
 }
 
+extension EventList.Request: Mockable {
+    var fileName: String? { return "eventsByStartDate" }
+    var `extension`: String { return "json" }
+}
+
+
+extension EventList.Response: Equatable { }
 extension EventList.Response: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
@@ -82,4 +84,15 @@ extension EventList.Response: Decodable {
     }
 }
 
-extension EventList.Response: Equatable { }
+extension EventList.ViewModel {
+    func eventsForSection(_ section: Int) -> [EventSummary] {
+        guard section < sectionHeaders.count else { return [] }
+        let header = sectionHeaders[section]
+        let output = events[header] ?? []
+        return output
+    }
+}
+
+extension CodingUserInfoKey {
+    static let rootKeyName = CodingUserInfoKey(rawValue: "rootKeyName")!
+}

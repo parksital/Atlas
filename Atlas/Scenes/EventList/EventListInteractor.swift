@@ -20,8 +20,7 @@ protocol EventListDataStore {
 
 final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
-    var eventService: EventService?
-    
+    private (set) var eventService: EventService!
     private (set) var events: [EventList.Response] = []
     private (set) var selectedEvent: EventSummary?
     
