@@ -23,15 +23,17 @@ class AWSClient {
             assertionFailure(error.localizedDescription)
         }
     }
-    
-    func fetch<Q: GraphQLQuery>(
-        query: Q, _
-        completion: @escaping (Result<Q.Data>) -> Void
-    ) {
+}
+
+extension AWSClient: APIClient {
+    func fetch<R>(
+        request: R,
+        _ completion: @escaping (Swift.Result<Data, Error>) -> Void
+    ) where R : Fetchable, R : Mockable {
         appSyncClient.fetch(
-            query: query,
+            query: request.query,
             cachePolicy: .fetchIgnoringCacheData,
-            queue: .global(qos: .userInitiated)
+            queue: .global(qos: .userInteractive)
         ) { (result, error) in
             guard error == nil else {
                 completion(.failure(error!))
@@ -43,7 +45,14 @@ class AWSClient {
                 return
             }
             
-            completion(.success(data))
+            do {
+                let finalData: Data = try JSONSerialization.data(withJSONObject: data.snapshot, options: .prettyPrinted)
+                
+                completion(.success(finalData))
+            } catch {
+                assertionFailure(error.localizedDescription)
+                completion(.failure(error))
+            }
         }
     }
 }
