@@ -8,11 +8,15 @@
 
 import Foundation
 import AWSAppSync
+import Combine
 
 class AWSClient {
-    private var appSyncClient: AWSAppSyncClient!
+    private var appSyncClient: AWSAppSyncClientProtocol!
+    private var decoder: JSONDecoder = JSONDecoder()
     
-    init() {
+    init(appSyncClient: AWSAppSyncClientProtocol) {
+        self.appSyncClient = appSyncClient
+        
         do {
             let serviceConfig = try AWSAppSyncServiceConfig()
             let cacheConfig = try AWSAppSyncCacheConfiguration(useClientDatabasePrefix: true, appSyncServiceConfig: serviceConfig)
@@ -25,34 +29,39 @@ class AWSClient {
     }
 }
 
-extension AWSClient: APIClient {
-    func fetch<R>(
-        request: R,
-        _ completion: @escaping (Swift.Result<Data, Error>) -> Void
-    ) where R : Fetchable, R : Mockable {
-        appSyncClient.fetch(
-            query: request.query,
-            cachePolicy: .fetchIgnoringCacheData,
-            queue: .global(qos: .userInteractive)
-        ) { (result, error) in
-            guard error == nil else {
-                completion(.failure(error!))
+extension AWSClient {
+    func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error> {
+        return Future<D, Error> { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(NetworkError.generic))
                 return
             }
             
-            guard let data = result?.data else {
-                completion(.failure(error!))
-                return
-            }
-            
-            do {
-                let finalData: Data = try JSONSerialization.data(withJSONObject: data.snapshot, options: .prettyPrinted)
-                
-                completion(.success(finalData))
-            } catch {
-                assertionFailure(error.localizedDescription)
-                completion(.failure(error))
+            self.appSyncClient.request(
+                query: query,
+                cachePolicy: .fetchIgnoringCacheData,
+                queue: .global(qos: .userInitiated)) { result, error in
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    } else {
+                        guard let jsonObject = result else {
+                            promise(.failure(NetworkError.generic))
+                            return
+                        }
+                        do {
+                            let object: D = try self.decode(D.self, with: jsonObject)
+                            promise(.success(object))
+                        } catch {
+                            promise(.failure(NetworkError.generic))
+                        }
+                    }
             }
         }
+    }
+    
+    private func decode<D: Codable>(_ type: D.Type, with json: JSONObject) throws -> D {
+        let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        return try decoder.decode(type, from: data)
     }
 }
