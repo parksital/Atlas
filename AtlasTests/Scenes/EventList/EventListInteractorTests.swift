@@ -81,15 +81,6 @@ class EventListInteractorTests: XCTestCase {
         let result = spy.eventSelected
         XCTAssertTrue(result)
     }
-    
-    func testHandlingError() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
-        
-        let result = spy.errorReceived as! NetworkError
-        
-        
-    }
 }
 
 //MARK: - Helpers
