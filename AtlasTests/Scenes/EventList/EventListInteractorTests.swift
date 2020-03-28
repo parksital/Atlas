@@ -57,12 +57,38 @@ class EventListInteractorTests: XCTestCase {
             venue: "venue"
         )
         
-        sut.fetchEvents()
         sut.didSelectEvent(fake)
         
         let result = spy.errorReceived as! NetworkError
         
         XCTAssertEqual(result, NetworkError.generic)
+    }
+    
+    func testEventSelectionSuccess() {
+        let spy = PresenterSpy()
+        sut.presenter = spy
+        
+        let selectedEvent = EventSummary(
+            id: "5a7e9ed7-f2f1-4d46-81f0-c3019910da8f",
+            title: "doesn't matter",
+            startDate: Date(),
+            venue: "doesnt matter"
+        )
+        
+        sut.fetchEvents()
+        sut.didSelectEvent(selectedEvent)
+        
+        let result = spy.eventSelected
+        XCTAssertTrue(result)
+    }
+    
+    func testHandlingError() {
+        let spy = PresenterSpy()
+        sut.presenter = spy
+        
+        let result = spy.errorReceived as! NetworkError
+        
+        
     }
 }
 

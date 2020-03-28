@@ -8,19 +8,21 @@
 
 import Foundation
 
-final class MockAPIClient: APIClient {
+final class MockAPIClient {
+    func getMock(mockable: Mockable) -> Data {
+        let bundle = Bundle(for: MockAPIClient.self)
+        let path = bundle.path(forResource: mockable.fileName!, ofType: mockable.extension)
+        let url = URL(fileURLWithPath: path!)
+        return try! Data(contentsOf: url)
+    }
+}
+
+extension MockAPIClient: APIClient {
     func fetch<R>(
         request: R,
         _ completion: @escaping (Result<Data, Error>) -> Void
     ) where R : Fetchable, R : Mockable {
         let data = getMock(mockable: request)
         completion(.success(data))
-    }
-    
-    func getMock(mockable: Mockable) -> Data {
-        let bundle = Bundle(for: MockAPIClient.self)
-        let path = bundle.path(forResource: mockable.fileName!, ofType: mockable.extension)
-        let url = URL(fileURLWithPath: path!)
-        return try! Data(contentsOf: url)
     }
 }
