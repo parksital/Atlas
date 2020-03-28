@@ -9,6 +9,7 @@ target 'Atlas' do
   inhibit_all_warnings!
 
   # Pods for Atlas
+  pod 'Swinject'
   pod 'AWSCore'
   pod 'AWSAppSync'
 
