@@ -10,6 +10,7 @@ target 'Atlas' do
 
   # Pods for Atlas
   pod 'Swinject'
+  pod 'SwinjectAutoregistration'
   pod 'AWSCore'
   pod 'AWSAppSync'
 

@@ -19,6 +19,7 @@
 		A00C65612423AE3A00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
 		A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
+		A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE22425068A001E117D /* StylableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE12425068A001E117D /* StylableProtocol.swift */; };
@@ -117,6 +118,7 @@
 		A00C655C24238DE900D12C8D /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
+		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE12425068A001E117D /* StylableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylableProtocol.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				A0B661BD24002660001C5B40 /* Assets.xcassets */,
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,
+				A016B873242FB6F300D4057B /* AWSContainer.swift */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A0857DD1242E3BEA003538C8 /* ListContainer.swift in Sources */,
+				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
 				A0857DD3242E3C82003538C8 /* JSONDecoder+.swift in Sources */,

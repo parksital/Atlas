@@ -10,26 +10,20 @@ import Foundation
 import AWSAppSync
 import Combine
 
+protocol AWSClientProtocol {
+    func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error>
+}
+
 class AWSClient {
     private var appSyncClient: AWSAppSyncClientProtocol!
     private var decoder: JSONDecoder = JSONDecoder()
     
     init(appSyncClient: AWSAppSyncClientProtocol) {
         self.appSyncClient = appSyncClient
-        
-        do {
-            let serviceConfig = try AWSAppSyncServiceConfig()
-            let cacheConfig = try AWSAppSyncCacheConfiguration(useClientDatabasePrefix: true, appSyncServiceConfig: serviceConfig)
-            
-            let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: serviceConfig, cacheConfiguration: cacheConfig )
-            self.appSyncClient = try AWSAppSyncClient(appSyncConfig: config)
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
     }
 }
 
-extension AWSClient {
+extension AWSClient: AWSClientProtocol {
     func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error> {
         return Future<D, Error> { [weak self] promise in
             guard let self = self else {
