@@ -24,7 +24,7 @@ class AWSClient {
 }
 
 extension AWSClient: AWSClientProtocol {
-    func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error> {
+    func fetch<Q: GraphQLQuery, D: Decodable>(query: Q) -> Future<D, Error> {
         return Future<D, Error> { [weak self] promise in
             guard let self = self else {
                 promise(.failure(NetworkError.generic))
@@ -44,7 +44,8 @@ extension AWSClient: AWSClientProtocol {
                             return
                         }
                         do {
-                            let object: D = try self.decode(D.self, with: jsonObject)
+                            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+                            let object = try self.decoder.decode(D.self, from: data)
                             promise(.success(object))
                         } catch {
                             promise(.failure(NetworkError.generic))
@@ -52,10 +53,5 @@ extension AWSClient: AWSClientProtocol {
                     }
             }
         }
-    }
-    
-    private func decode<D: Codable>(_ type: D.Type, with json: JSONObject) throws -> D {
-        let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-        return try decoder.decode(type, from: data)
     }
 }
