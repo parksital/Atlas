@@ -10,7 +10,8 @@ import Foundation
 import AWSAppSync
 import Combine
 
-protocol AWSClientProtocol {
+protocol APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error>
     func fetch<Q: GraphQLQuery, D: Decodable>(query: Q) -> Future<D, Error>
 }
 
@@ -23,7 +24,32 @@ class AWSClient {
     }
 }
 
-extension AWSClient: AWSClientProtocol {
+extension AWSClient: APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error> {
+        return Future<D, Error> { [appSyncClient, decoder] promise in
+            appSyncClient?.request(query: query.query) { result, error in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                
+                guard let data = result else {
+                    promise(.failure(NetworkError.generic))
+                    return
+                }
+                
+                do {
+                    let object = try decoder.decode(D.self, from: data)
+                    promise(.success(object))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+    }
+    
+
+    //MARK: - TODO: remove me after testing the fetchable+mockable function
     func fetch<Q: GraphQLQuery, D: Decodable>(query: Q) -> Future<D, Error> {
         return Future<D, Error> { [weak self] promise in
             guard let self = self else {

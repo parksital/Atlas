@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol EventListLogic {
     func fetchEvents()
@@ -23,6 +24,7 @@ final class EventListInteractor: EventListDataStore {
     private (set) var eventService: EventService!
     private (set) var events: [EventList.Response] = []
     private (set) var selectedEvent: EventSummary?
+    private var cancellables: Set<AnyCancellable> = .init()
     
     init(eventService: EventService? = EventService()) {
         self.eventService = eventService
@@ -41,15 +43,19 @@ extension EventListInteractor: EventListLogic {
     }
     
     func fetchEvents() {
-        eventService?.fetchEventList { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.presenter?.presentError(error)
-            case .success(let data):
-                self?.updateEvents(data)
-                self?.presentEvents(data)
+        eventService.fetchEventList()
+            .sink(
+                receiveCompletion: {
+                    switch $0 {
+                    case .finished: return
+                    case .failure(let error): self.presenter?.presentError(error)
+                    }
+            },
+                receiveValue: {
+                    self.updateEvents($0)
+                    self.presentEvents($0)
             }
-        }
+        ).store(in: &cancellables)
     }
 }
 

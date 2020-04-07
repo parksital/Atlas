@@ -17,7 +17,7 @@ class AWSContainer {
     private init() {
         container = Container()
         
-        container.register(AWSClientProtocol.self) { r in
+        container.register(APIClientProtocol.self) { r in
             let appSyncClient = r.resolve(AWSAppSyncClientProtocol.self)!
             return AWSClient(appSyncClient: appSyncClient)
         }

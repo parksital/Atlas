@@ -32,10 +32,19 @@ extension AWSAppSyncClient: AWSAppSyncClientProtocol {
                         completion?(nil, NetworkError.generic)
                         return
                     }
-                    // grab JSON and turn it into Data
+
                     let data = try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
                     completion?(data, nil)
                 }
         }
+    }
+}
+
+extension MockAPIClient: AWSAppSyncClientProtocol {
+    func request<Q: GraphQLQuery>(
+        query: Q,
+        completion: ((Data?, Error?) -> Void)?
+    ) {
+        
     }
 }
