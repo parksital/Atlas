@@ -11,7 +11,7 @@ import AWSAppSync
 import Combine
 
 protocol AWSClientProtocol {
-    func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error>
+    func fetch<Q: GraphQLQuery, D: Decodable>(query: Q) -> Future<D, Error>
 }
 
 class AWSClient {
@@ -31,26 +31,22 @@ extension AWSClient: AWSClientProtocol {
                 return
             }
             
-            self.appSyncClient.request(
-                query: query,
-                cachePolicy: .fetchIgnoringCacheData,
-                queue: .global(qos: .userInitiated)) { result, error in
-                    if let error = error {
-                        promise(.failure(error))
+            self.appSyncClient.request(query: query) { (result, error) in
+                if let error = error {
+                    promise(.failure(error))
+                    return
+                } else {
+                    guard let data = result else {
+                        promise(.failure(NetworkError.generic))
                         return
-                    } else {
-                        guard let jsonObject = result else {
-                            promise(.failure(NetworkError.generic))
-                            return
-                        }
-                        do {
-                            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-                            let object = try self.decoder.decode(D.self, from: data)
-                            promise(.success(object))
-                        } catch {
-                            promise(.failure(NetworkError.generic))
-                        }
                     }
+                    do {
+                        let object = try self.decoder.decode(D.self, from: data)
+                        promise(.success(object))
+                    } catch {
+                        promise(.failure(NetworkError.generic))
+                    }
+                }
             }
         }
     }
