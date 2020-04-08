@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AWSAppSync
 
 final class MockAPIClient {
     func getMock(mockable: Mockable) -> Data {
@@ -17,12 +18,11 @@ final class MockAPIClient {
     }
 }
 
-extension MockAPIClient: APIClient {
-    func fetch<R>(
-        request: R,
-        _ completion: @escaping (Result<Data, Error>) -> Void
-    ) where R : Fetchable, R : Mockable {
-        let data = getMock(mockable: request)
-        completion(.success(data))
+extension MockAPIClient: AWSAppSyncClientProtocol {
+    func request<Q: GraphQLQuery>(
+        query: Q,
+        completion: ((Data?, Error?) -> Void)?
+    ) {
+        
     }
 }

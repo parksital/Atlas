@@ -39,12 +39,3 @@ extension AWSAppSyncClient: AWSAppSyncClientProtocol {
         }
     }
 }
-
-extension MockAPIClient: AWSAppSyncClientProtocol {
-    func request<Q: GraphQLQuery>(
-        query: Q,
-        completion: ((Data?, Error?) -> Void)?
-    ) {
-        
-    }
-}

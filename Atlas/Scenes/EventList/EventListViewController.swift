@@ -14,12 +14,13 @@ protocol EventListDisplayLogic: class {
     func displayViewModel(_ viewModel: EventList.ViewModel)
     func didSelectEvent()
     func displayError(_ error: Error)
-    func set(router: EventListRouterProtocol)
+    func setup(router: EventListRouterProtocol)
+    func setup(interactor: EventListLogic)
 }
 
 final class EventListViewController: UIViewController {
-    var interactor: EventListLogic?
-    var router: EventListRouterProtocol?
+    private var interactor: EventListLogic?
+    private var router: EventListRouterProtocol?
     
     private (set) var viewModel: EventList.ViewModel = .init()
     
@@ -30,12 +31,10 @@ final class EventListViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
     }
     
     override func viewDidLoad() {
@@ -51,8 +50,12 @@ final class EventListViewController: UIViewController {
 }
 
 extension EventListViewController: EventListDisplayLogic {
-    func set(router: EventListRouterProtocol) {
+    func setup(router: EventListRouterProtocol) {
         self.router = router
+    }
+    
+    func setup(interactor: EventListLogic) {
+        self.interactor = interactor
     }
     
     func didSelectEvent() {
@@ -73,17 +76,6 @@ extension EventListViewController: EventListDisplayLogic {
 }
 
 private extension EventListViewController {
-    func setup() {
-        let viewController = self
-        let presenter = EventListPresenter()
-        let router = EventListRouter()
-        
-        viewController.interactor = interactor
-        viewController.router = router
-        presenter.viewController = viewController
-        router.viewController = viewController
-    }
-    
     func setupViews() {
         setupTableView(tableView)
     }

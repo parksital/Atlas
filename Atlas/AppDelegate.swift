@@ -35,17 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.autoregister(EventListPresentationLogic.self, initializer: EventListPresenter.init)
         container.autoregister(EventListRouterProtocol.self, initializer: EventListRouter.init)
         
-        container.register(EventListDisplayLogic.self) { r in
+        container.register(EventListViewController.self) { r in
+            EventListViewController()
+        }.initCompleted { r, vc in
             let interactor = r.resolve(EventListInteraction.self)!
             let router = r.resolve(EventListRouterProtocol.self)!
             let presenter = r.resolve(EventListPresentationLogic.self)!
-            let vc = EventListViewController()
             
-            vc.interactor = interactor
-            presenter.setup(viewController: vc)
+            vc.setup(interactor: interactor)
+            vc.setup(router: router)
+            
             router.setup(dataStore: interactor)
+            router.setup(viewController: vc)
             
-            return vc
+            presenter.setup(viewController: vc)
         }
     }
 }
