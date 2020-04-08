@@ -35,7 +35,6 @@ class AWSContainer {
                     
                     return try AWSAppSyncClient(appSyncConfig: config)
                 } catch {
-                    assertionFailure(error.localizedDescription)
                     fatalError("could not initialise appsyncClient")
                 }
             }
