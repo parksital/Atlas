@@ -13,19 +13,39 @@ import SwinjectAutoregistration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    
-    let container: Container = {
-        AWSContainer.shared.container
+    let container: Container! = {
+        Container(parent: AWSContainer.shared.container)
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let rootViewController = EventListViewController()
+        setupDependencies()
+        let rootViewController = container.resolve(EventListViewController.self)!
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func setupDependencies() {
+        container.autoregister(EventService.self, initializer: EventService.init)
+        container.autoregister(EventListInteraction.self, initializer: EventListInteractor.init)
+        container.autoregister(EventListPresentationLogic.self, initializer: EventListPresenter.init)
+        container.autoregister(EventListRouterProtocol.self, initializer: EventListRouter.init)
+        
+        container.register(EventListDisplayLogic.self) { r in
+            let interactor = r.resolve(EventListInteraction.self)!
+            let router = r.resolve(EventListRouterProtocol.self)!
+            let presenter = r.resolve(EventListPresentationLogic.self)!
+            let vc = EventListViewController()
+            
+            vc.interactor = interactor
+            presenter.setup(viewController: vc)
+            router.setup(dataStore: interactor)
+            
+            return vc
+        }
     }
 }

@@ -23,22 +23,26 @@ class AWSContainer {
         }
         
         container.register(AWSAppSyncClientProtocol?.self) { r in
-            do {
-                let serviceConfig = try AWSAppSyncServiceConfig()
-                let cacheConfig = try AWSAppSyncCacheConfiguration(
-                    useClientDatabasePrefix: true,
-                    appSyncServiceConfig: serviceConfig
-                )
-                
-                let config = try AWSAppSyncClientConfiguration(
-                    appSyncServiceConfig: serviceConfig,
-                    cacheConfiguration: cacheConfig
-                )
-                
-                return try AWSAppSyncClient(appSyncConfig: config)
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
+            if ProcessInfo.processInfo.arguments.contains("mock") {
+                return MockAPIClient()
+            } else {
+                do {
+                    let serviceConfig = try AWSAppSyncServiceConfig()
+                    let cacheConfig = try AWSAppSyncCacheConfiguration(
+                        useClientDatabasePrefix: true,
+                        appSyncServiceConfig: serviceConfig
+                    )
+                    
+                    let config = try AWSAppSyncClientConfiguration(
+                        appSyncServiceConfig: serviceConfig,
+                        cacheConfiguration: cacheConfig
+                    )
+                    
+                    return try AWSAppSyncClient(appSyncConfig: config)
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return nil
+                }
             }
         }
     }

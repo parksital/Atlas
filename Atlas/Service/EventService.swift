@@ -19,11 +19,7 @@ class EventService {
     private var token: String?
     
     init(client: APIClientProtocol? = nil) {
-//        if ProcessInfo.processInfo.arguments.contains("mock") {
-//            self.client = MockAPIClient()
-//        } else {
-            self.client = client
-//        }
+        self.client = client
     }
     
     func fetchEventList() -> Future<[EventList.Response], Error> {

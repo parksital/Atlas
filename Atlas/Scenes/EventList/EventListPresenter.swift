@@ -9,6 +9,7 @@
 import Foundation
 
 protocol EventListPresentationLogic {
+    func setup(viewController: EventListDisplayLogic)
     func presentEventResponse(_ response: [EventList.Response])
     func didSelectEvent()
     func presentError(_ error: Error)
@@ -25,6 +26,10 @@ final class EventListPresenter {
 }
 
 extension EventListPresenter: EventListPresentationLogic {
+    func setup(viewController: EventListDisplayLogic) {
+        self.viewController = viewController
+    }
+    
     func presentEventResponse(_ response: [EventList.Response]) {
         let viewModel = createViewModelForResponse(response)
         viewController?.displayViewModel(viewModel)

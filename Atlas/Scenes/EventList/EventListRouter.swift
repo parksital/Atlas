@@ -10,17 +10,18 @@ import UIKit
 
 @objc protocol EventListRouting {
     func routeToDetail()
+    func setup(viewController: EventListViewController)
 }
 
 protocol EventListDataPassing {
     var dataStore: EventListDataStore? { get }
+    func setup(dataStore: EventListDataStore)
 }
 
-final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
-    
+typealias EventListRouterProtocol = NSObject & EventListRouting & EventListDataPassing
+final class EventListRouter: EventListRouterProtocol {
     weak var viewController: EventListViewController?
     var dataStore: EventListDataStore?
-
     
     func routeToDetail() {
         let destinationVC = EventDetailViewController()
@@ -37,5 +38,13 @@ final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
     
     func navigateToDestination(source: EventListViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func setup(viewController: EventListViewController) {
+        self.viewController = viewController
+    }
+    
+    func setup(dataStore: EventListDataStore) {
+        self.dataStore = dataStore
     }
 }

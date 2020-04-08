@@ -19,6 +19,7 @@ protocol EventListDataStore {
     var selectedEvent: EventSummary? { get }
 }
 
+typealias EventListInteraction = EventListLogic & EventListDataStore
 final class EventListInteractor: EventListDataStore {
     var presenter: EventListPresentationLogic?
     private (set) var eventService: EventService!
@@ -26,7 +27,7 @@ final class EventListInteractor: EventListDataStore {
     private (set) var selectedEvent: EventSummary?
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(eventService: EventService? = EventService()) {
+    init(presenter: EventListPresentationLogic, eventService: EventService) {
         self.eventService = eventService
     }
 }
