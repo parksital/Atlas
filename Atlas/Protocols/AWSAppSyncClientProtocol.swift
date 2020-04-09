@@ -10,19 +10,19 @@ import Foundation
 import AWSAppSync
 
 protocol AWSAppSyncClientProtocol {
-    func request<Q: GraphQLQuery>(
-        query: Q,
+    func request<F: Fetchable & Mockable>(
+        query: F,
         completion: ((Data?, Error?) -> Void)?
     )
 }
 
 extension AWSAppSyncClient: AWSAppSyncClientProtocol {
-    func request<Q>(
-        query: Q,
+    func request<F: Fetchable & Mockable>(
+        query: F,
         completion: ((Data?, Error?) -> Void)?
-    ) where Q : GraphQLQuery {
+    ) {
         fetch(
-            query: query,
+            query: query.query,
             cachePolicy: .fetchIgnoringCacheData,
             queue: .global(qos: .userInitiated)) { result, error in
                 if let error = error {
@@ -32,7 +32,7 @@ extension AWSAppSyncClient: AWSAppSyncClientProtocol {
                         completion?(nil, NetworkError.generic)
                         return
                     }
-
+                    
                     let data = try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
                     completion?(data, nil)
                 }

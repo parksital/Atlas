@@ -18,11 +18,11 @@ class EventService {
     }()
     private var token: String?
     
-    init(client: APIClientProtocol? = nil) {
+    init(client: APIClientProtocol) {
         self.client = client
     }
     
-    func fetchEventList() -> Future<[EventList.Response], Error> {
+    func fetchEventList() -> Future<GetEventList, Error> {
         return client.fetch(query: EventList.Request(token: token))
     }
     

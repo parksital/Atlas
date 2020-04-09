@@ -89,17 +89,6 @@ final class EventDetailViewController: UIViewController {
 
 private extension EventDetailViewController {
     func setup() {
-        let viewController = self
-        let presenter = EventDetailPresenter()
-        let interactor = EventDetailInteractor()
-        let router = EventDetailRouter()
-        
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
     }
     
     func setupViews() {

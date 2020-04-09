@@ -67,5 +67,8 @@ extension EventListPresenterTests {
         func displayError(_ error: Error) {
             
         }
+        
+        func setup(router: EventListRouterProtocol) { }
+        func setup(interactor: EventListLogic) { }
     }
 }

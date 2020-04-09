@@ -9,15 +9,20 @@
 import XCTest
 
 class EventListInteractorTests: XCTestCase {
-    var sut: EventListInteractor!
+    private var sut: EventListInteractor!
+    private var spy: PresenterSpy!
     
     override func setUp() {
         super.setUp()
-        sut = EventListInteractor(eventService: EventService())
+        let client = AWSClient(appSyncClient: MockAPIClient())
+        spy = PresenterSpy()
+        sut = EventListInteractor(presenter: spy, eventService: EventService(client: client)
+        )
     }
 
     override func tearDown() {
         sut = nil
+        spy = nil
         super.tearDown()
     }
     
@@ -30,15 +35,10 @@ class EventListInteractorTests: XCTestCase {
     }
     
     func testfPresenterInitialization() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
         XCTAssertNotNil(sut.presenter)
     }
     
     func testFetchEventsCalledSuccess() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
-        
         sut.fetchEvents()
         let result = spy.eventsReceived.count
         let expectation = 4
@@ -47,9 +47,6 @@ class EventListInteractorTests: XCTestCase {
     }
     
     func testEventSelectionWithoutEvents() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
-
         let fake = EventSummary(
             id: "uid",
             title: "title",
@@ -65,9 +62,6 @@ class EventListInteractorTests: XCTestCase {
     }
     
     func testEventSelectionSuccess() {
-        let spy = PresenterSpy()
-        sut.presenter = spy
-        
         let selectedEvent = EventSummary(
             id: "5a7e9ed7-f2f1-4d46-81f0-c3019910da8f",
             title: "doesn't matter",
@@ -87,12 +81,14 @@ class EventListInteractorTests: XCTestCase {
 extension EventListInteractorTests {
     private class PresenterSpy: EventListPresentationLogic {
         var errorReceived: Error?
-        var eventsReceived: [EventList.Response] = []
+        var eventsReceived: [EventItem] = []
         var eventSelected: Bool = false
         
-        func presentEventResponse(_ response: [EventList.Response]) {
-            eventsReceived = response
+        func setup(viewController: EventListDisplayLogic) { }
+        func presentEventItems(_ eventItems: [EventItem]) {
+            eventsReceived = eventItems
         }
+        func presentEventResponse(_ response: [EventList.Response]) { }
         
         func didSelectEvent() {
             eventSelected = true

@@ -7,14 +7,73 @@
 //
 
 import Foundation
-//import AWSAppSync
+
+#warning("TODO: - Break up this file")
+// MARK: - GetEventList
+struct GetEventList: Decodable {
+    let eventSummaryList: EventSummaryList
+    enum CodingKeys: String, CodingKey {
+        case eventSummaryList = "eventsByStartDate"
+    }
+}
+
+// MARK: - EventSummaryList
+struct EventSummaryList: Decodable {
+    let eventItems: [EventItem]
+    enum CodingKeys: String, CodingKey {
+        case eventItems = "items"
+    }
+}
+
+// MARK: - EventItem
+struct EventItem: Decodable {
+    let id: String
+    let title: String
+    let startDate: Date
+    let venue: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case startDate = "start_date"
+        case venue
+        
+        enum VenueKeys: String, CodingKey {
+            case name
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let venueContainer = try container.nestedContainer(keyedBy: CodingKeys.VenueKeys.self, forKey: .venue)
+        
+        id = try container.decode(String.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        startDate = try container.decode(Date.self, forKey: .startDate)
+        venue = try venueContainer.decode(String.self, forKey: .name)
+    }
+}
 
 enum EventList {
-    struct Request {
+    struct Request: Fetchable, Mockable {
+        typealias Q = ListEventsSummarizedByStartDateQuery
+        
         private var token: String?
         init(token: String?) {
             self.token = token
         }
+        
+        var query: ListEventsSummarizedByStartDateQuery {
+            .init(
+                type: "Event",
+                sortDirection: .asc,
+                limit: 30,
+                nextToken: token
+            )
+        }
+        
+        var fileName: String? { return "eventsByStartDate" }
+        var `extension`: String { return "json" }
     }
     
     struct Response {
@@ -41,24 +100,6 @@ enum EventList {
         }
     }
 }
-
-extension EventList.Request: Fetchable {
-    typealias Q = ListEventsSummarizedByStartDateQuery
-    var query: ListEventsSummarizedByStartDateQuery {
-        .init(
-            type: "Event",
-            sortDirection: .asc,
-            limit: 30,
-            nextToken: token
-        )
-    }
-}
-
-extension EventList.Request: Mockable {
-    var fileName: String? { return "eventsByStartDate" }
-    var `extension`: String { return "json" }
-}
-
 
 extension EventList.Response: Equatable { }
 extension EventList.Response: Decodable {

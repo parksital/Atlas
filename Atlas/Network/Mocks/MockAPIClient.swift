@@ -19,10 +19,10 @@ final class MockAPIClient {
 }
 
 extension MockAPIClient: AWSAppSyncClientProtocol {
-    func request<Q: GraphQLQuery>(
-        query: Q,
-        completion: ((Data?, Error?) -> Void)?
-    ) {
-        
+    func request<F: Fetchable & Mockable>(
+        query: F,
+        completion: ((Data?, Error?) -> Void)?) {
+        let data = getMock(mockable: query)
+        completion?(data, nil)
     }
 }

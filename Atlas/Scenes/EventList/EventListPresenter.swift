@@ -11,10 +11,12 @@ import Foundation
 protocol EventListPresentationLogic {
     func setup(viewController: EventListDisplayLogic)
     func presentEventResponse(_ response: [EventList.Response])
+    func presentEventItems(_ eventItems: [EventItem])
     func didSelectEvent()
     func presentError(_ error: Error)
 }
 
+#warning("TODO: - Clean me up")
 final class EventListPresenter {
     weak var viewController: EventListDisplayLogic?
     private var dateFormatter: DateFormatter = {
@@ -30,8 +32,13 @@ extension EventListPresenter: EventListPresentationLogic {
         self.viewController = viewController
     }
     
+    func presentEventItems(_ eventItems: [EventItem]) {
+        let viewModel = createViewModelForResponse(eventItems)
+        viewController?.displayViewModel(viewModel)
+    }
+    
     func presentEventResponse(_ response: [EventList.Response]) {
-        let viewModel = createViewModelForResponse(response)
+        let viewModel = createViewModelForResponse([])
         viewController?.displayViewModel(viewModel)
     }
     
@@ -45,14 +52,14 @@ extension EventListPresenter: EventListPresentationLogic {
 }
 
 extension EventListPresenter {
-    func createViewModelForResponse(_ response: [EventList.Response]) -> EventList.ViewModel {
+    func createViewModelForResponse(_ response: [EventItem]) -> EventList.ViewModel {
         return EventList.ViewModel(
             events: getEventsDictionary(response),
             sectionHeaders: sectionHeadersForEvents(response)
         )
     }
     
-    func getEventsDictionary(_ events: [EventList.Response]) -> [String: [EventSummary]] {
+    func getEventsDictionary(_ events: [EventItem]) -> [String: [EventSummary]] {
         let output = events.reduce(into: [String: [EventSummary]]()) { acc, event in
             let sectionType = sectionForDate(event.startDate).header!
             var events = acc[sectionType] ?? []
@@ -68,7 +75,7 @@ extension EventListPresenter {
         return output
     }
     
-    func sectionHeadersForEvents(_ events: [EventList.Response]) -> [String] {
+    func sectionHeadersForEvents(_ events: [EventItem]) -> [String] {
         var sections = events
             .map { $0.startDate }
             .map(sectionForDate(_:))
