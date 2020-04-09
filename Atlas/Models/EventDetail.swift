@@ -18,7 +18,7 @@ struct GetEvent: Decodable {
 }
 
 // MARK: - Event
-struct Event: Decodable {
+struct Event {
     let id: String
     let title: String
     let startDate: Date
@@ -27,20 +27,15 @@ struct Event: Decodable {
     let description: String?
     let artists: [Artist]
     
-    struct Artist: Decodable {
+    struct Artist {
         let id: String
         let artistName: String
         let firstName: String
         let lastName: String?
-        
-        enum CodingKeys: String, CodingKey {
-            case id
-            case artistName = "artist_name"
-            case firstName = "first_name"
-            case lastName = "last_name"
-        }
     }
+}
 
+extension Event: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -86,7 +81,15 @@ struct Event: Decodable {
         
         artists = decodedArtists
     }
-    
+}
+
+extension Event.Artist: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case artistName = "artist_name"
+        case firstName = "first_name"
+        case lastName = "last_name"
+    }
 }
 
 enum EventDetail {
