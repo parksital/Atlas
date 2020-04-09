@@ -15,7 +15,7 @@ protocol EventListLogic {
 }
 
 protocol EventListDataStore {
-    var events: [EventList.Response] { get }
+    var events: [EventItem] { get }
     var selectedEvent: EventSummary? { get }
 }
 
@@ -23,7 +23,7 @@ typealias EventListInteraction = EventListLogic & EventListDataStore
 final class EventListInteractor: EventListDataStore {
     private (set) var presenter: EventListPresentationLogic!
     private (set) var eventService: EventService!
-    private (set) var events: [EventList.Response] = []
+    private (set) var events: [EventItem] = []
     private (set) var selectedEvent: EventSummary?
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -64,7 +64,7 @@ extension EventListInteractor: EventListLogic {
 }
 
 private extension EventListInteractor {
-    func updateEvents(_ fetchedEvents: [EventList.Response]) {
+    func updateEvents(_ fetchedEvents: [EventItem]) {
         events = fetchedEvents
     }
     

@@ -76,13 +76,6 @@ enum EventList {
         var `extension`: String { return "json" }
     }
     
-    struct Response {
-        let id: String
-        let title: String
-        let startDate: Date
-        let venue: String
-    }
-    
     struct ViewModel {
         let events: [String: [EventSummary]]
         // headers are stored in a separate array to maintain order
@@ -101,30 +94,6 @@ enum EventList {
     }
 }
 
-extension EventList.Response: Equatable { }
-extension EventList.Response: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case startDate = "start_date"
-        case venue
-        
-        enum VenueKeys: String, CodingKey {
-            case name
-        }
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let venueContainer = try container.nestedContainer(keyedBy: CodingKeys.VenueKeys.self, forKey: .venue)
-        
-        id = try container.decode(String.self, forKey: .id)
-        title = try container.decode(String.self, forKey: .title)
-        startDate = try container.decode(Date.self, forKey: .startDate)
-        venue = try venueContainer.decode(String.self, forKey: .name)
-    }
-}
-
 extension EventList.ViewModel {
     func eventsForSection(_ section: Int) -> [EventSummary] {
         guard section < sectionHeaders.count else { return [] }
@@ -132,8 +101,4 @@ extension EventList.ViewModel {
         let output = events[header] ?? []
         return output
     }
-}
-
-extension CodingUserInfoKey {
-    static let rootKeyName = CodingUserInfoKey(rawValue: "rootKeyName")!
 }
