@@ -8,43 +8,39 @@
 
 import Foundation
 
-enum EventDetail {
-    struct Request {
-        private var id: String
-        var query: GetEventDetailsQuery { .init(id: id) }
-        
-        init(id: String) {
-            self.id = id
-        }
-    }
-    struct Response {
-        let id: String
-        let title: String
-        let startDate: Date
-        let endDate: Date
-        let venue: String
-        let description: String?
-        let artists: [Artist]
-        
-        struct Artist {
-            let id: String
-            let artistName: String
-            let firstName: String
-            let lastName: String?
-        }
-    }
-    
-    struct ViewModel {
-        let id: String
-        let title: String
-        let startDate: String
-        let venue: String
-        let description: String?
-        let artists: [String]
+
+// MARK: - GetEvent
+struct GetEvent: Decodable {
+    let event: Event
+    enum CodingKeys: String, CodingKey {
+        case event = "getEvent"
     }
 }
 
-extension EventDetail.Response: Decodable {
+// MARK: - Event
+struct Event: Decodable {
+    let id: String
+    let title: String
+    let startDate: Date
+    let endDate: Date
+    let venue: String
+    let description: String?
+    let artists: [Artist]
+    
+    struct Artist: Decodable {
+        let id: String
+        let artistName: String
+        let firstName: String
+        let lastName: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case artistName = "artist_name"
+            case firstName = "first_name"
+            case lastName = "last_name"
+        }
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -90,13 +86,28 @@ extension EventDetail.Response: Decodable {
         
         artists = decodedArtists
     }
+    
 }
 
-extension EventDetail.Response.Artist: Codable {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case artistName = "artist_name"
-        case firstName = "first_name"
-        case lastName = "last_name"
+enum EventDetail {
+    struct Request: Fetchable, Mockable {
+        var fileName: String? { return "" }
+        var `extension`: String {return "json" }
+        
+        private var id: String
+        var query: GetEventDetailsQuery { .init(id: id) }
+        
+        init(id: String) {
+            self.id = id
+        }
+    }
+    
+    struct ViewModel {
+        let id: String
+        let title: String
+        let startDate: String
+        let venue: String
+        let description: String?
+        let artists: [String]
     }
 }

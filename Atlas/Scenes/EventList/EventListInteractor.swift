@@ -45,7 +45,7 @@ extension EventListInteractor: EventListLogic {
     }
     
     func fetchEvents() {
-        eventService.fetchEventList()
+        eventService.events()
             .sink(
                 receiveCompletion: {
                     switch $0 {

@@ -22,32 +22,11 @@ class EventService {
         self.client = client
     }
     
-    func fetchEventList() -> Future<GetEventList, Error> {
+    func events() -> Future<GetEventList, Error> {
         return client.fetch(query: EventList.Request(token: token))
     }
     
-    func fetchEvent(request: EventDetail.Request, _ completion: @escaping (Result<EventDetail.Response, Error>) -> Void) {
-//        client?.fetch(query: request.query) { result in
-//            switch result {
-//            case .failure(let error):
-//                completion(.failure(error))
-//            case .success(let data):
-//                guard let event = data.getEvent else {
-//                    completion(.failure(NetworkError.noEvents))
-//                    return
-//                }
-//
-//                if JSONSerialization.isValidJSONObject(event.jsonObject) {
-//                    do {
-//                        let jsonData = try JSONSerialization.data(withJSONObject: event.jsonObject, options: .prettyPrinted)
-//                        let eventDetails = try self.decoder.decode(EventDetail.Response.self, from: jsonData)
-//
-//                        completion(.success(eventDetails))
-//                    } catch {
-//                        completion(.failure(error))
-//                    }
-//                }
-//            }
-//        }
+    func event(byID id: String) -> Future<GetEvent, Error> {
+        return client.fetch(query: EventDetail.Request(id: id))
     }
 }
