@@ -16,30 +16,28 @@ class AWSContainer {
     
     private init() {
         container = Container()
-        
-        container.register(AWSClientProtocol.self) { r in
-            let appSyncClient = r.resolve(AWSAppSyncClientProtocol.self)!
-            return AWSClient(appSyncClient: appSyncClient)
-        }
-        
-        container.register(AWSAppSyncClientProtocol?.self) { r in
-            do {
-                let serviceConfig = try AWSAppSyncServiceConfig()
-                let cacheConfig = try AWSAppSyncCacheConfiguration(
-                    useClientDatabasePrefix: true,
-                    appSyncServiceConfig: serviceConfig
-                )
-                
-                let config = try AWSAppSyncClientConfiguration(
-                    appSyncServiceConfig: serviceConfig,
-                    cacheConfiguration: cacheConfig
-                )
-                
-                return try AWSAppSyncClient(appSyncConfig: config)
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
+        container.autoregister(APIClientProtocol.self, initializer: AWSClient.init)
+        container.register(AWSAppSyncClientProtocol.self, factory: { _ in
+            if ProcessInfo.processInfo.arguments.contains("mock") {
+                return MockAPIClient()
+            } else {
+                do {
+                    let serviceConfig = try AWSAppSyncServiceConfig()
+                    let cacheConfig = try AWSAppSyncCacheConfiguration(
+                        useClientDatabasePrefix: true,
+                        appSyncServiceConfig: serviceConfig
+                    )
+                    
+                    let config = try AWSAppSyncClientConfiguration(
+                        appSyncServiceConfig: serviceConfig,
+                        cacheConfiguration: cacheConfig
+                    )
+                    
+                    return try AWSAppSyncClient(appSyncConfig: config)
+                } catch {
+                    fatalError("could not initialise appsyncClient")
+                }
             }
-        }
+        })
     }
 }

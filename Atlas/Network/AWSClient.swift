@@ -10,47 +10,43 @@ import Foundation
 import AWSAppSync
 import Combine
 
-protocol AWSClientProtocol {
-    func fetch<Q: GraphQLQuery, D: Codable>(query: Q) -> Future<D, Error>
+protocol APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error>
 }
 
 class AWSClient {
     private var appSyncClient: AWSAppSyncClientProtocol!
-    private var decoder: JSONDecoder = JSONDecoder()
+    private (set) var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
     
     init(appSyncClient: AWSAppSyncClientProtocol) {
         self.appSyncClient = appSyncClient
     }
 }
 
-extension AWSClient: AWSClientProtocol {
-    func fetch<Q: GraphQLQuery, D: Decodable>(query: Q) -> Future<D, Error> {
-        return Future<D, Error> { [weak self] promise in
-            guard let self = self else {
-                promise(.failure(NetworkError.generic))
-                return
-            }
-            
-            self.appSyncClient.request(
-                query: query,
-                cachePolicy: .fetchIgnoringCacheData,
-                queue: .global(qos: .userInitiated)) { result, error in
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    } else {
-                        guard let jsonObject = result else {
-                            promise(.failure(NetworkError.generic))
-                            return
-                        }
-                        do {
-                            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-                            let object = try self.decoder.decode(D.self, from: data)
-                            promise(.success(object))
-                        } catch {
-                            promise(.failure(NetworkError.generic))
-                        }
-                    }
+extension AWSClient: APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error> {
+        return Future<D, Error> { [appSyncClient, decoder] promise in
+            appSyncClient?.request(query: query) { result, error in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                
+                guard let data = result else {
+                    promise(.failure(NetworkError.generic))
+                    return
+                }
+                
+                do {
+                    let object = try decoder.decode(D.self, from: data)
+                    promise(.success(object))
+                } catch {
+                    promise(.failure(error))
+                }
             }
         }
     }

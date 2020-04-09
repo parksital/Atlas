@@ -10,35 +10,32 @@ import Foundation
 import AWSAppSync
 
 protocol AWSAppSyncClientProtocol {
-    func request<Q: GraphQLQuery>(
-        query: Q,
-        cachePolicy: CachePolicy,
-        queue: DispatchQueue,
-        resultHandler: ((JSONObject?, Error?) -> Void)?
+    func request<F: Fetchable & Mockable>(
+        query: F,
+        completion: ((Data?, Error?) -> Void)?
     )
 }
 
 extension AWSAppSyncClient: AWSAppSyncClientProtocol {
-    func request<Q: GraphQLQuery>(
-        query: Q,
-        cachePolicy: CachePolicy,
-        queue: DispatchQueue,
-        resultHandler: ((JSONObject?, Error?) -> Void)?
+    func request<F: Fetchable & Mockable>(
+        query: F,
+        completion: ((Data?, Error?) -> Void)?
     ) {
         fetch(
-            query: query,
-            cachePolicy: cachePolicy,
-            queue: queue
-        ) { result, error in
-            if let error = error {
-                resultHandler?(nil, error)
-            } else {
-                guard let jsonObject = result?.data?.jsonObject else {
-                    resultHandler?(nil, NetworkError.generic)
-                    return
+            query: query.query,
+            cachePolicy: .fetchIgnoringCacheData,
+            queue: .global(qos: .userInitiated)) { result, error in
+                if let error = error {
+                    completion?(nil, error)
+                } else {
+                    guard let jsonObject = result?.data?.jsonObject else {
+                        completion?(nil, NetworkError.generic)
+                        return
+                    }
+                    
+                    let data = try! JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+                    completion?(data, nil)
                 }
-                resultHandler?(jsonObject, nil)
-            }
         }
     }
 }

@@ -20,7 +20,12 @@ protocol EventDetailDataStore: class {
 final class EventDetailInteractor: EventDetailDataStore {
     var event: EventSummary?
     var presenter: EventDetailPresentationLogic?
-    private let eventService: EventService! = EventService()
+    private let eventService: EventService!
+    
+    init(presenter: EventDetailPresentationLogic, eventService: EventService) {
+        self.presenter = presenter
+        self.eventService = eventService
+    }
 }
 
 extension EventDetailInteractor: EventDetailLogic {

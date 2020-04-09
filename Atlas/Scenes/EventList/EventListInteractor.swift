@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol EventListLogic {
     func fetchEvents()
@@ -18,13 +19,16 @@ protocol EventListDataStore {
     var selectedEvent: EventSummary? { get }
 }
 
+typealias EventListInteraction = EventListLogic & EventListDataStore
 final class EventListInteractor: EventListDataStore {
-    var presenter: EventListPresentationLogic?
+    private (set) var presenter: EventListPresentationLogic!
     private (set) var eventService: EventService!
     private (set) var events: [EventList.Response] = []
     private (set) var selectedEvent: EventSummary?
+    private var cancellables: Set<AnyCancellable> = .init()
     
-    init(eventService: EventService? = EventService()) {
+    init(presenter: EventListPresentationLogic, eventService: EventService) {
+        self.presenter = presenter
         self.eventService = eventService
     }
 }
@@ -37,19 +41,25 @@ extension EventListInteractor: EventListLogic {
         }
         
         updateSelectedEvent(event)
-        presenter?.didSelectEvent()
+        presenter.didSelectEvent()
     }
     
     func fetchEvents() {
-        eventService?.fetchEventList { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.presenter?.presentError(error)
-            case .success(let data):
-                self?.updateEvents(data)
-                self?.presentEvents(data)
+        eventService.fetchEventList()
+            .sink(
+                receiveCompletion: {
+                    switch $0 {
+                    case .finished: return
+                    case .failure(let error): self.presenter?.presentError(error)
+                    }
+            },
+                receiveValue: { data in
+                    let items = data.eventSummaryList.eventItems
+                    #warning("TODO: - finish updateEvents()")
+//                    self.updateEvents($0)
+                    self.presentEvents(items)
             }
-        }
+        ).store(in: &cancellables)
     }
 }
 
@@ -62,7 +72,7 @@ private extension EventListInteractor {
         self.selectedEvent = event
     }
     
-    func presentEvents(_ events: [EventList.Response]) {
-        presenter?.presentEventResponse(events)
+    func presentEvents(_ events: [EventItem]) {
+        presenter.presentEventItems(events)
     }
 }
