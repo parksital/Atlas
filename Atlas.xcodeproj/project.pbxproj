@@ -74,6 +74,9 @@
 		A0B661C124002661001C5B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */; };
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
+		A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
+		A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
+		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
@@ -152,6 +155,7 @@
 		A0B661D224002661001C5B40 /* AtlasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtlasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0B98B66243FB475004C072F /* SharedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
@@ -381,6 +385,7 @@
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,
 				A016B873242FB6F300D4057B /* AWSContainer.swift */,
+				A0B98B66243FB475004C072F /* SharedContainer.swift */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -674,6 +679,7 @@
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
+				A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
@@ -716,7 +722,9 @@
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
+				A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
+				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
 				A0297D20241A907A0089F38C /* AWSClient.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,

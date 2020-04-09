@@ -17,6 +17,7 @@ protocol EventDetailDataStore: class {
     var event: EventSummary? { get set }
 }
 
+typealias EventDetailInteraction = EventDetailLogic & EventDetailDataStore
 final class EventDetailInteractor: EventDetailDataStore {
     var event: EventSummary?
     var presenter: EventDetailPresentationLogic?

@@ -11,11 +11,13 @@ import UIKit
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayViewModel(_ viewModel: EventDetail.ViewModel)
+    func setup(interactor: EventDetailLogic)
+    func setup(router: EventDetailRouterProtocol)
 }
 
 final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
-    var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
+    var router: EventDetailRouterProtocol?
     
     private var viewModel: EventDetail.ViewModel? {
         didSet {
@@ -67,12 +69,10 @@ final class EventDetailViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
     }
     
     override func viewDidLoad() {
@@ -87,10 +87,27 @@ final class EventDetailViewController: UIViewController {
     }
 }
 
-private extension EventDetailViewController {
-    func setup() {
+extension EventDetailViewController: EventDetailDisplayLogic {
+    func setup(interactor: EventDetailLogic) {
+        self.interactor = interactor
     }
     
+    func setup(router: EventDetailRouterProtocol) {
+        self.router = router
+    }
+    
+    func displayEventTitle(_ title: String) {
+        navigationItem.title = title
+    }
+    
+    func displayViewModel(_ viewModel: EventDetail.ViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel = viewModel
+        }
+    }
+}
+
+private extension EventDetailViewController {
     func setupViews() {
         view.backgroundColor = .white
         setupScrollViewComponent()
@@ -138,18 +155,6 @@ private extension EventDetailViewController {
             label.applyStyling(.body)
             label.text = $0
             return label
-        }
-    }
-}
-
-extension EventDetailViewController: EventDetailDisplayLogic {
-    func displayEventTitle(_ title: String) {
-        navigationItem.title = title
-    }
-    
-    func displayViewModel(_ viewModel: EventDetail.ViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.viewModel = viewModel
         }
     }
 }

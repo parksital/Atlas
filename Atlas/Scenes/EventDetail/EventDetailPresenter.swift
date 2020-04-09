@@ -11,6 +11,7 @@ import Foundation
 protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
     func presentEventResponse(_ response: EventDetail.Response)
+    func setup(viewController: EventDetailDisplayLogic)
 }
 
 final class EventDetailPresenter {
@@ -24,6 +25,9 @@ final class EventDetailPresenter {
 }
 
 extension EventDetailPresenter: EventDetailPresentationLogic {
+    func setup(viewController: EventDetailDisplayLogic) {
+        self.viewController = viewController
+    }
     func presentEventTitle(title: String) {
         viewController?.displayEventTitle(title)
     }

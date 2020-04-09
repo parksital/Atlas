@@ -55,8 +55,7 @@ extension EventListInteractor: EventListLogic {
             },
                 receiveValue: { data in
                     let items = data.eventSummaryList.eventItems
-                    #warning("TODO: - finish updateEvents()")
-//                    self.updateEvents($0)
+                    self.updateEvents(items)
                     self.presentEvents(items)
             }
         ).store(in: &cancellables)
