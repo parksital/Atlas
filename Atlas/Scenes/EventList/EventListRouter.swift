@@ -24,7 +24,8 @@ final class EventListRouter: EventListRouterProtocol {
     var dataStore: EventListDataStore?
     
     func routeToDetail() {
-        let destinationVC = EventDetailViewController()
+        let container = SharedContainer.shared.container
+        let destinationVC = container.resolve(EventDetailViewController.self)!
         var destinationDS = destinationVC.router?.dataStore
         passDataToDestination(source: dataStore!, destination: &destinationDS!)
         navigateToDestination(source: viewController!, destination: destinationVC)
