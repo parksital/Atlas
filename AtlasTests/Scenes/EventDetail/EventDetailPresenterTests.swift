@@ -29,8 +29,7 @@ class EventDetailPresenterTests: XCTestCase {
         // timestamp end: 1579975200
         
         let uid = UUID().uuidString
-        
-        let response = EventDetail.Response(
+        let response = Event(
             id: uid,
             title: "Mock Event Title",
             startDate: Date(timeIntervalSince1970: 1579964400),
@@ -49,7 +48,7 @@ class EventDetailPresenterTests: XCTestCase {
             artists: []
         )
         
-        let result = sut.getViewModelForResponse(response)
+        let result = sut.getViewModelForEvent(response)
         
         XCTAssertEqual(expectation.description!, result.description!)
     }

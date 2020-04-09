@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol EventDetailLogic: class {
     func viewDidFinishLoading()
@@ -22,24 +23,31 @@ final class EventDetailInteractor: EventDetailDataStore {
     var event: EventSummary?
     var presenter: EventDetailPresentationLogic?
     private let eventService: EventService!
+    private var cancellables: Set<AnyCancellable> = .init()
     
     init(presenter: EventDetailPresentationLogic, eventService: EventService) {
         self.presenter = presenter
         self.eventService = eventService
     }
+    
+    deinit { cancellables.forEach { $0.cancel() } }
+    
 }
 
 extension EventDetailInteractor: EventDetailLogic {
     func fetchEvent() {
-        eventService.fetchEvent(request: .init(id: event!.id)) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let response):
-                self.presentEvent(response)
-            }
-        }
+        eventService.event(byID: event!.id)
+            .sink(
+                receiveCompletion: {
+                    switch $0 {
+                    case .finished: break
+                    case .failure(let error): assertionFailure(error.localizedDescription)
+                    }
+            },
+                receiveValue: { [weak self] response in
+                    self?.presentEvent(response.event)
+                }
+        ).store(in: &cancellables)
     }
     
     func viewDidFinishLoading() {
@@ -48,7 +56,7 @@ extension EventDetailInteractor: EventDetailLogic {
 }
 
 private extension EventDetailInteractor {
-    func presentEvent(_ event: EventDetail.Response) {
-        presenter?.presentEventResponse(event)
+    func presentEvent(_ event: Event) {
+        presenter?.presentEvent(event)
     }
 }
