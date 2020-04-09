@@ -88,8 +88,6 @@ extension EventListInteractorTests {
         func presentEventItems(_ eventItems: [EventItem]) {
             eventsReceived = eventItems
         }
-        func presentEventResponse(_ response: [EventList.Response]) { }
-        
         func didSelectEvent() {
             eventSelected = true
         }

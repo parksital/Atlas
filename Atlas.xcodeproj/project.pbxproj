@@ -60,10 +60,6 @@
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
 		A075E38E240E8201006F891F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
 		A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */ = {isa = PBXBuildFile; fileRef = A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */; };
-		A0857DD1242E3BEA003538C8 /* ListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0857DD0242E3BEA003538C8 /* ListContainer.swift */; };
-		A0857DD3242E3C82003538C8 /* JSONDecoder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0857DD2242E3C82003538C8 /* JSONDecoder+.swift */; };
-		A0857DD4242E40BF003538C8 /* JSONDecoder+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0857DD2242E3C82003538C8 /* JSONDecoder+.swift */; };
-		A0857DD5242E40D2003538C8 /* ListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0857DD0242E3BEA003538C8 /* ListContainer.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
 		A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
@@ -142,8 +138,6 @@
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
-		A0857DD0242E3BEA003538C8 /* ListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContainer.swift; sourceTree = "<group>"; };
-		A0857DD2242E3C82003538C8 /* JSONDecoder+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+.swift"; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
 		A0A79991242E7A2100C54969 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,7 +269,6 @@
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
 				A00C655F2423AE2B00D12C8D /* EventList.swift */,
-				A0857DD0242E3BEA003538C8 /* ListContainer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -427,7 +420,6 @@
 				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
-				A0857DD2242E3C82003538C8 /* JSONDecoder+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -696,11 +688,9 @@
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
-				A0857DD1242E3BEA003538C8 /* ListContainer.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
-				A0857DD3242E3C82003538C8 /* JSONDecoder+.swift in Sources */,
 				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
@@ -729,7 +719,6 @@
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0297D20241A907A0089F38C /* AWSClient.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
-				A0857DD4242E40BF003538C8 /* JSONDecoder+.swift in Sources */,
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
@@ -740,7 +729,6 @@
 				A0255BE324250693001E117D /* StylableProtocol.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
-				A0857DD5242E40D2003538C8 /* ListContainer.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,

@@ -34,8 +34,7 @@ class EventListPresenterTests: XCTestCase {
     func testPresentEventResponse() {
         let spy = ViewControllerSpy()
         sut.viewController = spy
-        
-        sut.presentEventResponse([])
+        sut.presentEventItems([])
         let result = spy.viewModel
         
         XCTAssertNotNil(result)
@@ -45,7 +44,7 @@ class EventListPresenterTests: XCTestCase {
         let spy = ViewControllerSpy()
         sut.viewController = spy
         
-        sut.presentEventResponse([])
+        sut.presentEventItems([])
         let result = spy.viewModel.eventCount
         
         XCTAssertEqual(0, result)
@@ -56,18 +55,9 @@ extension EventListPresenterTests {
     private class ViewControllerSpy: EventListDisplayLogic  {
         var viewModel: EventList.ViewModel = .init()
         
-        func displayViewModel(_ viewModel: EventList.ViewModel) {
-            
-        }
-        
-        func didSelectEvent() {
-            
-        }
-        
-        func displayError(_ error: Error) {
-            
-        }
-        
+        func displayViewModel(_ viewModel: EventList.ViewModel) { }
+        func didSelectEvent() { }
+        func displayError(_ error: Error) { }
         func setup(router: EventListRouterProtocol) { }
         func setup(interactor: EventListLogic) { }
     }
