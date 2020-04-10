@@ -7,23 +7,40 @@
 //
 
 import XCTest
-import FBSnapshotTestCase
+import SnapshotTesting
 
-class EventListSnapshotTests: FBSnapshotTestCase {
-    var sut: UIViewController!
+class EventListSnapshotTests: XCTestCase {
+    private var sut: EventListViewController!
+    private var client: APIClientProtocol!
+    private var service: EventService!
+    private var presenter:EventListPresentationLogic!
+    
     override func setUp() {
         super.setUp()
-        sut = EventListViewController()
-        self.recordMode = false
+        client = AWSClient(appSyncClient: MockAPIClient())
+        service = EventService(client: client)
+        presenter = EventListPresenter()
+        
+//        record = true
     }
 
     override func tearDown() {
         sut = nil
+        presenter = nil
+        service = nil
+        client = nil
         super.tearDown()
     }
     
-    func testViewController() {
-        _ = sut.view
-        FBSnapshotVerifyViewController(sut)
+    func testEventListViewController_noEvents() {
+        sut = EventListViewController()
+        presenter.setup(viewController: sut)
+        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+        
+        sut.loadViewIfNeeded()
+        sut.viewDidLoad()
+        sut.viewWillAppear(false)
+        sut.viewDidAppear(false)
+        assertSnapshot(matching: sut, as: .image(on: .iPhoneSe))
     }
 }

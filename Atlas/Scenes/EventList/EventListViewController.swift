@@ -63,11 +63,8 @@ extension EventListViewController: EventListDisplayLogic {
     }
     
     func displayViewModel(_ viewModel: EventList.ViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.viewModel = viewModel
-            self.tableView.reloadData()
-        }
+        self.viewModel = viewModel
+        self.tableView.reloadData()
     }
     
     func displayError(_ error: Error) {
