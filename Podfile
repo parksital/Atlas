@@ -17,7 +17,7 @@ target 'Atlas' do
   target 'AtlasTests' do
     
     # Pods for testing
-    pod 'iOSSnapshotTestCase'
+    pod 'SnapshotTesting'
   end
 
   target 'AtlasUITests' do

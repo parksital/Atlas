@@ -79,13 +79,8 @@
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "FB_REFERENCE_IMAGE_DIR"
-            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "IMAGE_DIFF_DIR"
-            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/FailureDiffs"
+            key = "SNAPSHOT_ARTIFACTS"
+            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/__Failure__"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
