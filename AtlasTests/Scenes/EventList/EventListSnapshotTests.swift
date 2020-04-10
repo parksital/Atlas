@@ -13,7 +13,7 @@ class EventListSnapshotTests: XCTestCase {
     private var sut: EventListViewController!
     private var client: APIClientProtocol!
     private var service: EventService!
-    private var presenter:EventListPresentationLogic!
+    private var presenter: EventListPresentationLogic!
     
     override func setUp() {
         super.setUp()
@@ -36,11 +36,6 @@ class EventListSnapshotTests: XCTestCase {
         sut = EventListViewController()
         presenter.setup(viewController: sut)
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        
-        sut.loadViewIfNeeded()
-        sut.viewDidLoad()
-        sut.viewWillAppear(false)
-        sut.viewDidAppear(false)
         assertSnapshot(matching: sut, as: .image(on: .iPhoneSe))
     }
 }
