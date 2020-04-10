@@ -34,8 +34,23 @@ class EventListSnapshotTests: XCTestCase {
     
     func testEventListViewController_noEvents() {
         sut = EventListViewController()
+        // don't set up the presenter
+        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+        assertSnapshot(matching: sut, as: .image(on: .iPhoneSe))
+    }
+    
+    func testEventListViewController_events() {
+        sut = EventListViewController()
         presenter.setup(viewController: sut)
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
         assertSnapshot(matching: sut, as: .image(on: .iPhoneSe))
+    }
+    
+    func testEventListViewController_navigationBar() {
+        sut = EventListViewController()
+        presenter.setup(viewController: sut)
+        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+        let vc = UINavigationController(rootViewController: sut)
+        assertSnapshot(matching: vc, as: .image(on: .iPhoneSe))
     }
 }
