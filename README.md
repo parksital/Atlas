@@ -1,2 +1,2 @@
 # Atlas
-![Swift](https://github.com/parksital/Atlas/workflows/Swift/badge.svg)
+![Build](https://github.com/parksital/Atlas/workflows/Build/badge.svg)
