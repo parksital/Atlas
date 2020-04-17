@@ -53,6 +53,7 @@
 		A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED402419723700DB772F /* EventDetailInteractor.swift */; };
 		A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED422419736000DB772F /* EventDetailPresenter.swift */; };
 		A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED44241973D800DB772F /* EventDetailRouter.swift */; };
+		A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0482883244A0F330054199B /* ArtistSectionView.swift */; };
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
@@ -135,6 +136,7 @@
 		A041ED402419723700DB772F /* EventDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailInteractor.swift; sourceTree = "<group>"; };
 		A041ED422419736000DB772F /* EventDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenter.swift; sourceTree = "<group>"; };
 		A041ED44241973D800DB772F /* EventDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailRouter.swift; sourceTree = "<group>"; };
+		A0482883244A0F330054199B /* ArtistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistSectionView.swift; sourceTree = "<group>"; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				A0255BE924267241001E117D /* ScrollViewComponent.swift */,
+				A0482883244A0F330054199B /* ArtistSectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
+				A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
