@@ -54,6 +54,7 @@
 		A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED422419736000DB772F /* EventDetailPresenter.swift */; };
 		A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED44241973D800DB772F /* EventDetailRouter.swift */; };
 		A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0482883244A0F330054199B /* ArtistSectionView.swift */; };
+		A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0482883244A0F330054199B /* ArtistSectionView.swift */; };
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
@@ -718,6 +719,7 @@
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
+				A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
