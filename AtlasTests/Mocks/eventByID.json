@@ -1,0 +1,51 @@
+{
+  "getEvent": {
+    "id": "a313dd4e-a68c-4240-957a-c9b9dba85ca0",
+    "type": "Event",
+    "title": "SPICE",
+    "start_date": "2021-01-21T23:00:00+0100",
+    "end_date": "2021-01-22T04:00:00+0100",
+    "description": "After a long week of hard work, it’s time to SPICE up your weekend! After two HOT editions, you know you can't miss the third one! Friday the 30th of August SPICE will bring you the best Hiphop, R&B and Dancehall at Supperclub Amsterdam!",
+    "venue": {
+      "id": "866c0127-f6a6-4285-8af0-de31c0a4ec77",
+      "name": "supperclub"
+    },
+    "bookings": {
+      "items": [
+        {
+          "artist": {
+            "id": "4df07c81-ad1c-4aa1-97ea-7cc9baeefa39",
+            "first_name": "Lock",
+            "last_name": null,
+            "artist_name": "DJ Lock-J"
+          }
+        },
+        {
+          "artist": {
+            "id": "8cdca896-9c03-4caa-aa24-06f250a3b997",
+            "first_name": "Trumpet",
+            "last_name": null,
+            "artist_name": "DJ Trumpet 808"
+          }
+        },
+        {
+          "artist": {
+            "id": "726c07fa-f30c-4db7-b76c-c6376fcd63b4",
+            "first_name": "Phoebe",
+            "last_name": null,
+            "artist_name": "DJ Phoebe Iron"
+          }
+        },
+        {
+          "artist": {
+            "id": "c4270ef5-4603-422a-a964-fd013e1e62ce",
+            "first_name": "Traffic",
+            "last_name": null,
+            "artist_name": "DJ Trafficorchestra"
+          }
+        }
+      ],
+      "nextToken": null
+    }
+  }
+}
