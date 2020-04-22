@@ -85,6 +85,23 @@ private extension EventListViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.barStyle = .default
         navigationItem.title = "Events"
+        
+        do {
+            navigationItem.rightBarButtonItem = try getRightBarButton()
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
+    }
+    
+    func getRightBarButton() throws -> UIBarButtonItem {
+        precondition(router != nil)
+        
+        return UIBarButtonItem(
+            title: "Account",
+            style: .plain,
+            target: router,
+            action: #selector(router!.routeToAccount)
+        )
     }
     
     func setupTableView(_ tableView: UITableView) {
