@@ -140,7 +140,6 @@
 		A041ED422419736000DB772F /* EventDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenter.swift; sourceTree = "<group>"; };
 		A041ED44241973D800DB772F /* EventDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailRouter.swift; sourceTree = "<group>"; };
 		A0482883244A0F330054199B /* ArtistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistSectionView.swift; sourceTree = "<group>"; };
-		A04828B5244CB5B30054199B /* Atlas copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Atlas copy-Info.plist"; path = "/Users/parvinsital/Desktop/Swift/Projects/Atlas/Atlas copy-Info.plist"; sourceTree = "<absolute>"; };
 		A04828B8244CC9A80054199B /* eventByID.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = eventByID.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "eventByID-empty.json"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
@@ -359,7 +358,6 @@
 				A0B661B22400265F001C5B40 /* Products */,
 				95CEF6FD256C1CF74FDF6037 /* Pods */,
 				991808CDF031BF198AF0FD0A /* Frameworks */,
-				A04828B5244CB5B30054199B /* Atlas copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
