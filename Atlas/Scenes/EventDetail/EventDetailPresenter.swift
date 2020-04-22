@@ -39,7 +39,7 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
     }
 }
 
-extension EventDetailPresenter {   
+extension EventDetailPresenter {
     func getViewModelForEvent(_ event: Event) -> EventDetail.ViewModel {
         EventDetail.ViewModel(
             id: event.id,

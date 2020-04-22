@@ -55,6 +55,8 @@
 		A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED44241973D800DB772F /* EventDetailRouter.swift */; };
 		A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0482883244A0F330054199B /* ArtistSectionView.swift */; };
 		A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0482883244A0F330054199B /* ArtistSectionView.swift */; };
+		A04828B9244CC9A80054199B /* eventByID.json in Resources */ = {isa = PBXBuildFile; fileRef = A04828B8244CC9A80054199B /* eventByID.json */; };
+		A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */ = {isa = PBXBuildFile; fileRef = A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */; };
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
@@ -139,6 +141,8 @@
 		A041ED44241973D800DB772F /* EventDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailRouter.swift; sourceTree = "<group>"; };
 		A0482883244A0F330054199B /* ArtistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistSectionView.swift; sourceTree = "<group>"; };
 		A04828B5244CB5B30054199B /* Atlas copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Atlas copy-Info.plist"; path = "/Users/parvinsital/Desktop/Swift/Projects/Atlas/Atlas copy-Info.plist"; sourceTree = "<absolute>"; };
+		A04828B8244CC9A80054199B /* eventByID.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = eventByID.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "eventByID-empty.json"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -263,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */,
+				A04828B8244CC9A80054199B /* eventByID.json */,
+				A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */,
 				A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */,
 			);
 			path = Mocks;
@@ -550,7 +556,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */,
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
+				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

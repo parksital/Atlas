@@ -18,21 +18,25 @@ class AWSContainer {
         container = Container()
         container.autoregister(APIClientProtocol.self, initializer: AWSClient.init)
         container.register(AWSAppSyncClientProtocol.self, factory: { _ in
-            do {
-                let serviceConfig = try AWSAppSyncServiceConfig()
-                let cacheConfig = try AWSAppSyncCacheConfiguration(
-                    useClientDatabasePrefix: true,
-                    appSyncServiceConfig: serviceConfig
-                )
-                
-                let config = try AWSAppSyncClientConfiguration(
-                    appSyncServiceConfig: serviceConfig,
-                    cacheConfiguration: cacheConfig
-                )
-                
-                return try AWSAppSyncClient(appSyncConfig: config)
-            } catch {
-                fatalError("could not initialise appsyncClient")
+            if ProcessInfo.processInfo.arguments.contains("mock") {
+                return MockAPIClient()
+            } else {
+                do {
+                    let serviceConfig = try AWSAppSyncServiceConfig()
+                    let cacheConfig = try AWSAppSyncCacheConfiguration(
+                        useClientDatabasePrefix: true,
+                        appSyncServiceConfig: serviceConfig
+                    )
+                    
+                    let config = try AWSAppSyncClientConfiguration(
+                        appSyncServiceConfig: serviceConfig,
+                        cacheConfiguration: cacheConfig
+                    )
+                    
+                    return try AWSAppSyncClient(appSyncConfig: config)
+                } catch {
+                    fatalError("could not initialise appsyncClient")
+                }
             }
         })
     }

@@ -9,101 +9,94 @@
 import XCTest
 
 class EventDetailPresenterTests: XCTestCase {
-    var sut: EventDetailPresenter!
+    private var sut: EventDetailPresenter!
+    private var spy: ViewControllerSpy!
+    private var decoder: JSONDecoder!
     
     override func setUp() {
         super.setUp()
         sut = EventDetailPresenter()
+        spy = ViewControllerSpy()
+        decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        sut.setup(viewController: spy)
     }
 
     override func tearDown() {
         sut = nil
+        spy = nil
         super.tearDown()
     }
     
-    func testViewModelCreation() {
-        // "January 25, 2020 at 4:00 PM"
-        // "January 25, 2020 at 7:00 PM"
+    func testInitializationSuccess() {
+        let result = sut.viewController
+        XCTAssertNotNil(result)
+    }
+    
+    func testEventTitlePresentation() {
+        let title = "Howdy"
+        sut.presentEventTitle(title: title)
         
-        // timestamp start: 1579964400
-        // timestamp end: 1579975200
-        
-        let uid = UUID().uuidString
-        let response = Event(
-            id: uid,
-            title: "Mock Event Title",
-            startDate: Date(timeIntervalSince1970: 1579964400),
-            endDate: Date(timeIntervalSince1970: 1579975200),
-            venue: "Mock Venue Name",
-            description: "Mock Event Description.",
-            artists: []
+        let result = spy.eventtitle
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, title)
+    }
+    
+    func testEventPresentation() {
+        // check eventByID.json for ID
+        let eventID = "a313dd4e-a68c-4240-957a-c9b9dba85ca0"
+        let data = MockAPIClient.getDataFromFile(
+            fileName: "eventByID",
+            extension: "json"
         )
+        let event = try! decoder.decode(GetEvent.self, from: data).event
         
-        let expectation = EventDetail.ViewModel(
-            id: uid,
-            title: "Mock Event Title",
-            startDate: "January 25, 2020 at 4:00 PM",
-            venue: "Mock Venue Name",
-            description: "Mock Event Description.",
-            artists: []
+        sut.presentEvent(event)
+        
+        let result = spy.viewModel!.id
+        XCTAssertEqual(result, eventID)
+    }
+    
+    func testEventPresentationWithoutDescription() {
+        let data = MockAPIClient.getDataFromFile(
+            fileName: "eventByID-empty",
+            extension: "json"
         )
+        let event = try! decoder.decode(GetEvent.self, from: data).event
         
-        let result = sut.getViewModelForEvent(response)
-        
-        XCTAssertEqual(expectation.description!, result.description!)
+        sut.presentEvent(event)
+        let result = spy.viewModel?.description
+        XCTAssertEqual(result, "")
     }
     
-    func testDateFormatting_intervalSince1970_startDate() {
-        // Saturday, January 25, 2020 3:00:00 PM
-        // "2020-01-25T15:00:00Z"
-        // timestamp: 1579964400
-        let expectation = "Saturday, January 25, 2020 at 4:00 PM"
+    func testEventViewModelWithoutArtists() {
+        let data = MockAPIClient.getDataFromFile(
+            fileName: "eventByID-empty",
+            extension: "json"
+        )
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let event = try! decoder.decode(GetEvent.self, from: data).event
         
-        let input = Date(timeIntervalSince1970: 1579964400)
-        let result = sut.formatDate(input)
-        
-        XCTAssertEqual(expectation, result)
+        sut.presentEvent(event)
+        let result = spy.viewModel!.artists
+        XCTAssertEqual(result, [])
     }
-    
-    func testDateFormatting_intervalSince1970_endDate() {
-        // "January 25, 2020 at 7:00 PM"
-        // timestamp: 1579975200
-        
-        let expectation = "Saturday, January 25, 2020 at 7:00 PM"
-        
-        let input = Date(timeIntervalSince1970: 1579975200)
-        let result = sut.formatDate(input)
-        
-        XCTAssertEqual(expectation, result)
-    }
-    
-    func testDateFormatting_zeroIntervalSince1970() {
-        // "1970-01-01T00:00:00Z"
-        // timestamp: 0
-        let expectation = "Thursday, January 1, 1970 at 1:00 AM"
+}
 
-        let input = Date(timeIntervalSince1970: 0)
-        let result = sut.formatDate(input)
+extension EventDetailPresenterTests {
+    private class ViewControllerSpy: EventDetailDisplayLogic {
+        var eventtitle: String?
+        var viewModel: EventDetail.ViewModel?
         
-        XCTAssertEqual(expectation, result)
-    }
-    
-    func testCustomFormatting() {
-        // Saturday, January 25, 2020 3:00:00 PM
-        // "2020-01-25T15:00:00Z"
-        // timestamp: 1579964400
+        func displayEventTitle(_ title: String) {
+            eventtitle = title
+        }
         
-        let expectation = "4:00 PM"
-        
-        let input = Date(timeIntervalSince1970: 1579964400)
-        let result = input.formatted(using: { date in
-            let formatter = DateFormatter()
-            formatter.locale = .init(identifier: "en_US")
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
-            return formatter.string(from: date)
-        })
-        
-        XCTAssertEqual(expectation, result)
+        func displayViewModel(_ viewModel: EventDetail.ViewModel) {
+            self.viewModel = viewModel
+        }
+        func setup(interactor: EventDetailLogic) { }
+        func setup(router: EventDetailRouterProtocol) { }
     }
 }

@@ -10,6 +10,13 @@ import Foundation
 import AWSAppSync
 
 final class MockAPIClient {
+    static func getDataFromFile(fileName: String, extension: String) -> Data {
+        let bundle = Bundle(for: MockAPIClient.self)
+        let path = bundle.path(forResource: fileName, ofType: `extension`)
+        let url = URL(fileURLWithPath: path!)
+        return try! Data(contentsOf: url)
+    }
+    
     func getMock(mockable: Mockable) -> Data {
         let bundle = Bundle(for: MockAPIClient.self)
         let path = bundle.path(forResource: mockable.fileName!, ofType: mockable.extension)
