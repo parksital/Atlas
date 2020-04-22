@@ -10,6 +10,7 @@ import UIKit
 
 @objc protocol EventListRouting {
     func routeToDetail()
+    func routeToAccount()
     func setup(viewController: EventListViewController)
 }
 
@@ -30,11 +31,23 @@ final class EventListRouter: EventListRouterProtocol {
         passDataToDestination(source: dataStore!, destination: &destinationDS!)
         navigateToDestination(source: viewController!, destination: destinationVC)
     }
-
+    
+    func routeToAccount() {
+        let destinationVC = UIViewController()
+        destinationVC.view.backgroundColor = .white
+        destinationVC.modalTransitionStyle = .coverVertical
+        destinationVC.modalPresentationStyle = .pageSheet
+        presentDestination(source: viewController!, destination: destinationVC)
+    }
+    
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
         DispatchQueue.global(qos: .userInitiated).async { [destination] in
             destination.event = source.selectedEvent
         }
+    }
+    
+    func presentDestination(source: EventListViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
     }
     
     func navigateToDestination(source: EventListViewController, destination: UIViewController) {
