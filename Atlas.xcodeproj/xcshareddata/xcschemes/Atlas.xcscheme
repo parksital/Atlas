@@ -34,6 +34,13 @@
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "SNAPSHOT_ARTIFACTS"
+            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/__Failure__/"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <Testables>
          <TestableReference
             skipped = "NO">
