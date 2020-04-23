@@ -33,11 +33,8 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let router: SignUpRouting = SignUpRouter()
-        let vc: SignUpDisplayLogic & SignUpViewController = SignUpViewController()
-        
-        router.setup(viewController: vc)
-        vc.setup(router: router)
+        let container = SharedContainer.shared.container
+        let vc = container.resolve(SignUpViewController.self)!
         
         let destinationVC = UINavigationController(rootViewController: vc)
         destinationVC.modalTransitionStyle = .coverVertical

@@ -13,13 +13,24 @@ import UIKit
     func setup(viewController: SignUpViewController)
 }
 
-final class SignUpRouter: SignUpRouting {
+protocol SignUpDataPassing {
+    var dataStore: SignUpDataStore? { get }
+    func setup(dataStore: SignUpDataStore)
+}
+
+typealias SignUpRouterProtocol = NSObject & SignUpRouting & SignUpDataPassing
+final class SignUpRouter: SignUpRouterProtocol {
+    var dataStore: SignUpDataStore?
     private weak var viewController: SignUpViewController?
     
     func dismiss() {
         if let vc = viewController {
             vc.navigationController?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func setup(dataStore: SignUpDataStore) {
+        self.dataStore = dataStore
     }
     
     func setup(viewController: SignUpViewController) {

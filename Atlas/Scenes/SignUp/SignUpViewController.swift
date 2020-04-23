@@ -9,11 +9,13 @@
 import UIKit
 
 protocol SignUpDisplayLogic: class {
-    func setup(router: SignUpRouting)
+    func setup(interactor: SignUpInteraction)
+    func setup(router: SignUpRouterProtocol)
 }
 
 final class SignUpViewController: UIViewController {
-    private var router: SignUpRouting?
+    private var interactor: SignUpInteraction?
+    private var router: SignUpRouterProtocol?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -58,7 +60,11 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
-    func setup(router: SignUpRouting) {
+    func setup(interactor: SignUpInteraction) {
+        self.interactor = interactor
+    }
+    
+    func setup(router: SignUpRouterProtocol) {
         self.router = router
     }
 }
