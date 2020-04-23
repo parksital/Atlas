@@ -33,10 +33,15 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let vc = SignUpViewController()
+        let router: SignUpRouting = SignUpRouter()
+        let vc: SignUpDisplayLogic & SignUpViewController = SignUpViewController()
+        
+        router.setup(viewController: vc)
+        vc.setup(router: router)
+        
         let destinationVC = UINavigationController(rootViewController: vc)
         destinationVC.modalTransitionStyle = .coverVertical
-        destinationVC.modalPresentationStyle = .pageSheet
+        destinationVC.modalPresentationStyle = .fullScreen
         presentDestination(source: viewController!, destination: destinationVC)
     }
     

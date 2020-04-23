@@ -9,10 +9,12 @@
 import UIKit
 
 protocol SignUpDisplayLogic: class {
-    
+    func setup(router: SignUpRouting)
 }
 
 final class SignUpViewController: UIViewController {
+    private var router: SignUpRouting?
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -30,13 +32,16 @@ final class SignUpViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
     }
+    
+    deinit {
+        router = nil
+    }
 }
 
 private extension SignUpViewController {
     func setupViews() {
         setupNavigationBar()
         view.backgroundColor = .white
-        
     }
     
     func setupNavigationBar() {
@@ -45,8 +50,15 @@ private extension SignUpViewController {
         navigationItem.title = "Account"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
-            target: nil,
-            action: nil
+            target: router,
+            action: #selector(router!.dismiss)
         )
+    }
+    
+}
+
+extension SignUpViewController: SignUpDisplayLogic {
+    func setup(router: SignUpRouting) {
+        self.router = router
     }
 }
