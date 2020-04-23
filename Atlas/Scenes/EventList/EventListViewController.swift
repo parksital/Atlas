@@ -45,7 +45,7 @@ final class EventListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar()
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 
@@ -76,13 +76,13 @@ extension EventListViewController: EventListDisplayLogic {
 
 private extension EventListViewController {
     func setupViews() {
+        setupNavigationBar()
         setupTableView(tableView)
     }
     
     func setupNavigationBar() {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.darkText]
-        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.barStyle = .default
         navigationItem.title = "Events"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
