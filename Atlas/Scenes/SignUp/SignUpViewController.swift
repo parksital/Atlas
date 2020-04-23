@@ -23,5 +23,30 @@ final class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+}
+
+private extension SignUpViewController {
+    func setupViews() {
+        setupNavigationBar()
+        view.backgroundColor = .white
+        
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.darkText]
+        navigationController?.navigationBar.barStyle = .default
+        navigationItem.title = "Account"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: nil,
+            action: nil
+        )
     }
 }

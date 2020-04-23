@@ -33,8 +33,8 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let destinationVC = UIViewController()
-        destinationVC.view.backgroundColor = .white
+        let vc = SignUpViewController()
+        let destinationVC = UINavigationController(rootViewController: vc)
         destinationVC.modalTransitionStyle = .coverVertical
         destinationVC.modalPresentationStyle = .pageSheet
         presentDestination(source: viewController!, destination: destinationVC)
