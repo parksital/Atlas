@@ -20,4 +20,8 @@ extension UIStackView {
             return view
             }())
     }
+    
+    func populateWithViews(_ views: [UIView]) {
+        views.forEach { self.addArrangedSubview($0) }
+    }
 }

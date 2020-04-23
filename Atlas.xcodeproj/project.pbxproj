@@ -65,6 +65,8 @@
 		A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5824516714000A6969 /* SignUpInteractor.swift */; };
 		A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */; };
 		A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */; };
+		A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5F2451AB4A000A6969 /* UIFont+.swift */; };
+		A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5F2451AB4A000A6969 /* UIFont+.swift */; };
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
@@ -154,6 +156,8 @@
 		A04BCE55245162C1000A6969 /* SignUpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRouter.swift; sourceTree = "<group>"; };
 		A04BCE5824516714000A6969 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		A04BCE5E245184CC000A6969 /* Atlas.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Atlas.entitlements; sourceTree = "<group>"; };
+		A04BCE5F2451AB4A000A6969 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
@@ -398,6 +402,7 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
@@ -455,6 +460,7 @@
 				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
+				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
+				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
@@ -754,6 +761,7 @@
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */,
@@ -944,6 +952,7 @@
 			baseConfigurationReference = 20AF0E40AC13C366A6F115BB /* Pods-Atlas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Atlas/Atlas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 923A857SVG;
 				INFOPLIST_FILE = Atlas/Info.plist;
@@ -964,6 +973,7 @@
 			baseConfigurationReference = 7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Atlas/Atlas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 923A857SVG;
 				INFOPLIST_FILE = Atlas/Info.plist;

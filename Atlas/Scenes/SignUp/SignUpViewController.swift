@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 protocol SignUpDisplayLogic: class {
     func setup(interactor: SignUpInteraction)
@@ -16,6 +17,52 @@ protocol SignUpDisplayLogic: class {
 final class SignUpViewController: UIViewController {
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
+    
+    private var scrollViewComponent = ScrollViewComponent()
+    private var stackView: UIStackView! = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = UIStackView.spacingUseSystem
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 20,
+            leading: 20,
+            bottom: 20,
+            trailing: 20
+        )
+        return stackView
+    }()
+    
+    private var mainLabel: UILabel = {
+        let label = UILabel()
+        label.applyStyling(.primary)
+        label.adjustsFontForContentSizeCategory = true
+        label.text = "For a personalized experience, \nsign into your account."
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        return label
+    }()
+    
+    private var secondaryLabel: UILabel = {
+        let label = UILabel()
+        label.applyStyling(.secondary)
+        label.adjustsFontForContentSizeCategory = true
+        label.text = "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        return label
+    }()
+    
+    private let authButton: ASAuthorizationAppleIDButton = {
+        let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
+        
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        return button
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,13 +84,17 @@ final class SignUpViewController: UIViewController {
     
     deinit {
         router = nil
+        interactor = nil
     }
 }
 
 private extension SignUpViewController {
     func setupViews() {
-        setupNavigationBar()
         view.backgroundColor = .white
+        setupNavigationBar()
+        setupAuthButton()
+        setupStackView()
+        setupScrollViewComponent()
     }
     
     func setupNavigationBar() {
@@ -57,6 +108,53 @@ private extension SignUpViewController {
         )
     }
     
+    func setupAuthButton() {
+        authButton.addTarget(self, action: #selector(self.handleAppleIDButtonPress), for: .touchUpInside)
+        setupAuthButtonConstraints()
+    }
+    
+    func setupAuthButtonConstraints() {
+        view.addSubview(authButton)
+        authButton.translatesAutoresizingMaskIntoConstraints = false
+        let center = authButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let bottom = authButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20.0)
+        
+        NSLayoutConstraint.activate([center, bottom])
+    }
+    
+    func setupStackView() {
+        stackView.populateWithViews([mainLabel, secondaryLabel, authButton])
+        stackView.addSpacer()
+    }
+    
+    func setupScrollViewComponent() {
+        scrollViewComponent.isScrollEnabled = false
+        scrollViewComponent.setupWithView(stackView)
+        setupScrollComponentConstraints()
+    }
+    
+    func setupScrollComponentConstraints() {
+        view.addSubview(scrollViewComponent)
+        
+        scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
+        let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    @objc func handleAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
@@ -66,5 +164,15 @@ extension SignUpViewController: SignUpDisplayLogic {
     
     func setup(router: SignUpRouterProtocol) {
         self.router = router
+    }
+}
+
+extension SignUpViewController: ASAuthorizationControllerDelegate {
+    
+}
+
+extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
