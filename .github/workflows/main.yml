@@ -19,6 +19,6 @@ jobs:
     - name: Clean project
       run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator clean
     - name: Build For Testing
-      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -derivedDataPath "build" -quiet
+      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
     - name: Run Tests
-      run: xcodebuild test-without-building -xctestrun "build/Build/Products/Atlas_iphonesimulator13.4-x86_64.xctestrun" -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
+      run: xcodebuild test-without-building -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
