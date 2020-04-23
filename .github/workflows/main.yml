@@ -21,4 +21,4 @@ jobs:
     - name: Build For Testing
       run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
     - name: Run Tests
-      run: xcodebuild test-without-building -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
+      run: xcodebuild test-without-building -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
