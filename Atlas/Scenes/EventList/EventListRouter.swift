@@ -33,10 +33,12 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let destinationVC = UIViewController()
-        destinationVC.view.backgroundColor = .white
+        let container = SharedContainer.shared.container
+        let vc = container.resolve(SignUpViewController.self)!
+        
+        let destinationVC = UINavigationController(rootViewController: vc)
         destinationVC.modalTransitionStyle = .coverVertical
-        destinationVC.modalPresentationStyle = .pageSheet
+        destinationVC.modalPresentationStyle = .fullScreen
         presentDestination(source: viewController!, destination: destinationVC)
     }
     
