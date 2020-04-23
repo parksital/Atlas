@@ -50,6 +50,12 @@ query GetEvent($id: ID!) {
       }
       description
     }
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 query ListEvents(
@@ -69,6 +75,41 @@ query ListEvents(
         id
         name
         description
+      }
+      bookings {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+query GetArtist($id: ID!) {
+  getArtist(id: $id) {
+    id
+    first_name
+    last_name
+    artist_name
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+query ListArtists(
+  $filter: ModelArtistFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listArtists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      first_name
+      last_name
+      artist_name
+      bookings {
+        nextToken
       }
     }
     nextToken
@@ -101,6 +142,9 @@ query EventsByStartDate(
         id
         name
         description
+      }
+      bookings {
+        nextToken
       }
     }
     nextToken

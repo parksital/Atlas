@@ -1,5 +1,5 @@
-type Venue 
-@model {
+type Venue
+  @model {
   id: ID!
   name: String!
   events: [Event] @connection(name: "VenueEvents")
@@ -7,8 +7,8 @@ type Venue
 }
 
 type Event 
-@model
-@key(name: "ByStartDate", fields: ["type", "start_date"], queryField: "eventsByStartDate") {
+  @model
+  @key(name: "ByStartDate", fields: ["type", "start_date"], queryField: "eventsByStartDate") {
   id: ID!
   type: String
   title: String!
@@ -16,4 +16,21 @@ type Event
   end_date: AWSDateTime!
   description: String
   venue: Venue! @connection(name: "VenueEvents")
+  bookings: [Booking] @connection(name: "EventBookings")
+}
+
+type Booking
+  @model(queries: null) {
+  id: ID!
+  event: Event! @connection(name: "EventBookings")
+  artist: Artist! @connection(name: "ArtistBookings")
+}
+
+type Artist
+  @model {
+  id: ID!
+  first_name: String!
+  last_name: String
+  artist_name: String!
+  bookings: [Booking] @connection(name: "ArtistBookings")
 }

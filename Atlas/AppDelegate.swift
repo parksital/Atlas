@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import Swinject
+import SwinjectAutoregistration
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let container: Container = {
+        SharedContainer.shared.container
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let rootViewController = EventListViewController()
+        let rootViewController = container.resolve(EventListViewController.self)!
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()

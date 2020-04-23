@@ -69,6 +69,12 @@ subscription OnCreateEvent {
       }
       description
     }
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 subscription OnUpdateEvent {
@@ -87,6 +93,12 @@ subscription OnUpdateEvent {
       }
       description
     }
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 subscription OnDeleteEvent {
@@ -104,6 +116,144 @@ subscription OnDeleteEvent {
         nextToken
       }
       description
+    }
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+subscription OnCreateBooking {
+  onCreateBooking {
+    id
+    event {
+      id
+      type
+      title
+      start_date
+      end_date
+      description
+      venue {
+        id
+        name
+        description
+      }
+      bookings {
+        nextToken
+      }
+    }
+    artist {
+      id
+      first_name
+      last_name
+      artist_name
+      bookings {
+        nextToken
+      }
+    }
+  }
+}
+subscription OnUpdateBooking {
+  onUpdateBooking {
+    id
+    event {
+      id
+      type
+      title
+      start_date
+      end_date
+      description
+      venue {
+        id
+        name
+        description
+      }
+      bookings {
+        nextToken
+      }
+    }
+    artist {
+      id
+      first_name
+      last_name
+      artist_name
+      bookings {
+        nextToken
+      }
+    }
+  }
+}
+subscription OnDeleteBooking {
+  onDeleteBooking {
+    id
+    event {
+      id
+      type
+      title
+      start_date
+      end_date
+      description
+      venue {
+        id
+        name
+        description
+      }
+      bookings {
+        nextToken
+      }
+    }
+    artist {
+      id
+      first_name
+      last_name
+      artist_name
+      bookings {
+        nextToken
+      }
+    }
+  }
+}
+subscription OnCreateArtist {
+  onCreateArtist {
+    id
+    first_name
+    last_name
+    artist_name
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+subscription OnUpdateArtist {
+  onUpdateArtist {
+    id
+    first_name
+    last_name
+    artist_name
+    bookings {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+subscription OnDeleteArtist {
+  onDeleteArtist {
+    id
+    first_name
+    last_name
+    artist_name
+    bookings {
+      items {
+        id
+      }
+      nextToken
     }
   }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol EventListLogic {
     func fetchEvents()
@@ -14,48 +15,55 @@ protocol EventListLogic {
 }
 
 protocol EventListDataStore {
-    var events: [EventSummary] { get }
+    var events: [EventItem] { get }
     var selectedEvent: EventSummary? { get }
 }
 
+typealias EventListInteraction = EventListLogic & EventListDataStore
 final class EventListInteractor: EventListDataStore {
-    var presenter: EventListPresentationLogic?
-    var eventService: EventService?
-    
-    private (set) var events: [EventSummary] = []
+    private (set) var presenter: EventListPresentationLogic!
+    private (set) var eventService: EventService!
+    private (set) var events: [EventItem] = []
     private (set) var selectedEvent: EventSummary?
+    private var cancellables: Set<AnyCancellable> = .init()
     
-    init(eventService: EventService? = EventService()) {
+    init(presenter: EventListPresentationLogic, eventService: EventService) {
+        self.presenter = presenter
         self.eventService = eventService
     }
 }
 
 extension EventListInteractor: EventListLogic {
     func didSelectEvent(_ event: EventSummary) {
+        guard events.contains(where: { $0.id == event.id }) else {
+            presenter?.presentError(NetworkError.generic)
+            return
+        }
+        
         updateSelectedEvent(event)
-        presenter?.didSelectEvent()
+        presenter.didSelectEvent()
     }
     
     func fetchEvents() {
-        eventService?.fetchEventsSummarized { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.presenter?.presentError(error)
-            case .success(let data):
-                self?.updateEvents(data)
-                self?.presentEvents(data)
+        eventService.events()
+            .sink(
+                receiveCompletion: {
+                    switch $0 {
+                    case .finished: return
+                    case .failure(let error): self.presenter?.presentError(error)
+                    }
+            },
+                receiveValue: { data in
+                    let items = data.eventSummaryList.eventItems
+                    self.updateEvents(items)
+                    self.presentEvents(items)
             }
-        }
+        ).store(in: &cancellables)
     }
 }
 
 private extension EventListInteractor {
-    func getEventSummaryAtIndex(_ index: Int) -> EventSummary? {
-        guard index < events.count else { return nil }
-        return events[index]
-    }
-    
-    func updateEvents(_ fetchedEvents: [EventSummary]) {
+    func updateEvents(_ fetchedEvents: [EventItem]) {
         events = fetchedEvents
     }
     
@@ -63,7 +71,7 @@ private extension EventListInteractor {
         self.selectedEvent = event
     }
     
-    func presentEvents(_ events: [EventSummary]) {
-        presenter?.presentEvents(events)
+    func presentEvents(_ events: [EventItem]) {
+        presenter.presentEventItems(events)
     }
 }

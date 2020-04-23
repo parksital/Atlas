@@ -11,18 +11,40 @@ import UIKit
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayViewModel(_ viewModel: EventDetail.ViewModel)
+    func setup(interactor: EventDetailLogic)
+    func setup(router: EventDetailRouterProtocol)
 }
 
 final class EventDetailViewController: UIViewController {
     var interactor: EventDetailLogic?
-    var router: (NSObjectProtocol & EventDetailRouting & EventDetailDataPassing)?
+    var router: EventDetailRouterProtocol?
+    
+    private var viewModel: EventDetail.ViewModel? {
+        didSet {
+            guard let vm = viewModel else { return }
+            titleLabel.text = vm.venue
+            dateTimeLabel.text = vm.startDate
+            descriptionLabel.text = vm.description
+            stackView.addArrangedSubview(ArtistSectionView(artists: vm.artists))
+            stackView.addSpacer()
+        }
+    }
+    
+    private var scrollViewComponent: ScrollViewComponent = { ScrollViewComponent() }()
     
     private var stackView: UIStackView! = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.spacing = 10.0
+        stackView.spacing = UIStackView.spacingUseSystem
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 20,
+            leading: 20,
+            bottom: 20,
+            trailing: 20
+        )
         return stackView
     }()
     
@@ -46,12 +68,10 @@ final class EventDetailViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
     }
     
     override func viewDidLoad() {
@@ -66,64 +86,55 @@ final class EventDetailViewController: UIViewController {
     }
 }
 
-private extension EventDetailViewController {
-    func setup() {
-        let viewController = self
-        let presenter = EventDetailPresenter()
-        let interactor = EventDetailInteractor()
-        let router = EventDetailRouter()
-        
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
-    
-    func setupViews() {
-        view.backgroundColor = .white
-        updatePrioritiesForViews([titleLabel, dateTimeLabel, descriptionLabel])
-        configureStackView(stackView, withSubviews: [titleLabel, dateTimeLabel, descriptionLabel])
-        setupConstraintsFor(stackView, in: view)
-    }
-    
-    func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    func configureStackView(_ stackView: UIStackView, withSubviews views: [UIView]) {
-        views.forEach { stackView.addArrangedSubview($0) }
-        stackView.addArrangedSubview(UIView().spacer())
-    }
-    
-    func setupConstraintsFor(_ stackView: UIStackView, in view: UIView) {
-        view.addSubview(stackView)
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let top = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let leading = stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0.0)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0.0)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        NSLayoutConstraint.activate([top, leading, trailing, bottom])
-    }
-    
-    func updatePrioritiesForViews(_ views: [UIView]) {
-        views.forEach { $0.setContentHuggingPriority(.defaultHigh, for: .vertical) }
-    }
-}
-
 extension EventDetailViewController: EventDetailDisplayLogic {
+    func setup(interactor: EventDetailLogic) {
+        self.interactor = interactor
+    }
+    
+    func setup(router: EventDetailRouterProtocol) {
+        self.router = router
+    }
+    
     func displayEventTitle(_ title: String) {
         navigationItem.title = title
     }
     
     func displayViewModel(_ viewModel: EventDetail.ViewModel) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.titleLabel.text = viewModel.venue
-            self.dateTimeLabel.text = viewModel.startDate
-            self.descriptionLabel.text = viewModel.description
+            self?.viewModel = viewModel
         }
+    }
+}
+
+private extension EventDetailViewController {
+    func setupViews() {
+        view.backgroundColor = .systemYellow
+        setupScrollViewComponent()
+        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func setupScrollViewComponent() {
+        scrollViewComponent.setupWithView(stackView)
+        setupScrollComponentConstraints()
+    }
+    
+    func setupScrollComponentConstraints() {
+        view.addSubview(scrollViewComponent)
+        
+        scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
+        let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func populateStackView(_ stackView: UIStackView, with views: [UIView]) {
+        views.forEach { stackView.addArrangedSubview($0) }
     }
 }

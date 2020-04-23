@@ -8,42 +8,46 @@
 
 import Foundation
 import AWSAppSync
+import Combine
+
+protocol APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error>
+}
 
 class AWSClient {
-    private var appSyncClient: AWSAppSyncClient!
+    private var appSyncClient: AWSAppSyncClientProtocol!
+    private (set) var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
     
-    init() {
-        do {
-            let serviceConfig = try AWSAppSyncServiceConfig()
-            let cacheConfig = try AWSAppSyncCacheConfiguration(useClientDatabasePrefix: true, appSyncServiceConfig: serviceConfig)
-            
-            let config = try AWSAppSyncClientConfiguration(appSyncServiceConfig: serviceConfig, cacheConfiguration: cacheConfig )
-            self.appSyncClient = try AWSAppSyncClient(appSyncConfig: config)
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
+    init(appSyncClient: AWSAppSyncClientProtocol) {
+        self.appSyncClient = appSyncClient
     }
-    
-    func fetch<Q: GraphQLQuery>(
-        query: Q, _
-        completion: @escaping (Result<Q.Data>) -> Void
-    ) {
-        appSyncClient.fetch(
-            query: query,
-            cachePolicy: .fetchIgnoringCacheData,
-            queue: .global(qos: .userInitiated)
-        ) { (result, error) in
-            guard error == nil else {
-                completion(.failure(error!))
-                return
+}
+
+extension AWSClient: APIClientProtocol {
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error> {
+        return Future<D, Error> { [appSyncClient, decoder] promise in
+            appSyncClient?.request(query: query) { result, error in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                
+                guard let data = result else {
+                    promise(.failure(NetworkError.generic))
+                    return
+                }
+                
+                do {
+                    let object = try decoder.decode(D.self, from: data)
+                    promise(.success(object))
+                } catch {
+                    promise(.failure(error))
+                }
             }
-            
-            guard let data = result?.data else {
-                completion(.failure(error!))
-                return
-            }
-            
-            completion(.success(data))
         }
     }
 }

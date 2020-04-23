@@ -9,11 +9,13 @@
 import Foundation
 
 protocol EventListPresentationLogic {
-    func presentEvents(_ events: [EventSummary])
+    func setup(viewController: EventListDisplayLogic)
+    func presentEventItems(_ eventItems: [EventItem])
     func didSelectEvent()
     func presentError(_ error: Error)
 }
 
+#warning("TODO: - Clean me up")
 final class EventListPresenter {
     weak var viewController: EventListDisplayLogic?
     private var dateFormatter: DateFormatter = {
@@ -25,13 +27,17 @@ final class EventListPresenter {
 }
 
 extension EventListPresenter: EventListPresentationLogic {
-    func didSelectEvent() {
-        viewController?.didSelectEvent()
+    func setup(viewController: EventListDisplayLogic) {
+        self.viewController = viewController
     }
     
-    func presentEvents(_ events: [EventSummary]) {
-        let viewModel = createViewModelForResponse(events)
+    func presentEventItems(_ eventItems: [EventItem]) {
+        let viewModel = createViewModelForResponse(eventItems)
         viewController?.displayViewModel(viewModel)
+    }
+    
+    func didSelectEvent() {
+        viewController?.didSelectEvent()
     }
     
     func presentError(_ error: Error) {
@@ -40,25 +46,30 @@ extension EventListPresenter: EventListPresentationLogic {
 }
 
 extension EventListPresenter {
-    func createViewModelForResponse(_ response: [EventSummary]) -> EventList.ViewModel {
+    func createViewModelForResponse(_ response: [EventItem]) -> EventList.ViewModel {
         return EventList.ViewModel(
             events: getEventsDictionary(response),
             sectionHeaders: sectionHeadersForEvents(response)
         )
     }
     
-    func getEventsDictionary(_ events: [EventSummary]) -> [String: [EventSummary]] {
+    func getEventsDictionary(_ events: [EventItem]) -> [String: [EventSummary]] {
         let output = events.reduce(into: [String: [EventSummary]]()) { acc, event in
             let sectionType = sectionForDate(event.startDate).header!
             var events = acc[sectionType] ?? []
-            events.append(event)
+            events.append(EventSummary(
+                id: event.id,
+                title: event.title,
+                startDate: event.startDate,
+                venue: event.venue
+            ))
             acc.updateValue(events, forKey: sectionType)
         }
         
         return output
     }
     
-    func sectionHeadersForEvents(_ events: [EventSummary]) -> [String] {
+    func sectionHeadersForEvents(_ events: [EventItem]) -> [String] {
         var sections = events
             .map { $0.startDate }
             .map(sectionForDate(_:))

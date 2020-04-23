@@ -10,32 +10,55 @@ import UIKit
 
 @objc protocol EventListRouting {
     func routeToDetail()
+    func routeToAccount()
+    func setup(viewController: EventListViewController)
 }
 
 protocol EventListDataPassing {
     var dataStore: EventListDataStore? { get }
+    func setup(dataStore: EventListDataStore)
 }
 
-final class EventListRouter: NSObject, EventListRouting, EventListDataPassing {
-    
+typealias EventListRouterProtocol = NSObject & EventListRouting & EventListDataPassing
+final class EventListRouter: EventListRouterProtocol {
     weak var viewController: EventListViewController?
     var dataStore: EventListDataStore?
-
     
     func routeToDetail() {
-        let destinationVC = EventDetailViewController()
+        let container = SharedContainer.shared.container
+        let destinationVC = container.resolve(EventDetailViewController.self)!
         var destinationDS = destinationVC.router?.dataStore
         passDataToDestination(source: dataStore!, destination: &destinationDS!)
         navigateToDestination(source: viewController!, destination: destinationVC)
     }
-
+    
+    func routeToAccount() {
+        let destinationVC = UIViewController()
+        destinationVC.view.backgroundColor = .white
+        destinationVC.modalTransitionStyle = .coverVertical
+        destinationVC.modalPresentationStyle = .pageSheet
+        presentDestination(source: viewController!, destination: destinationVC)
+    }
+    
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
         DispatchQueue.global(qos: .userInitiated).async { [destination] in
             destination.event = source.selectedEvent
         }
     }
     
+    func presentDestination(source: EventListViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
     func navigateToDestination(source: EventListViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func setup(viewController: EventListViewController) {
+        self.viewController = viewController
+    }
+    
+    func setup(dataStore: EventListDataStore) {
+        self.dataStore = dataStore
     }
 }

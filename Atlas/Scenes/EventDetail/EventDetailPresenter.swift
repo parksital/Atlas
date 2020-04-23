@@ -10,7 +10,8 @@ import Foundation
 
 protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
-    func presentEventResponse(_ response: EventDetail.Response)
+    func presentEvent(_ event: Event)
+    func setup(viewController: EventDetailDisplayLogic)
 }
 
 final class EventDetailPresenter {
@@ -24,24 +25,29 @@ final class EventDetailPresenter {
 }
 
 extension EventDetailPresenter: EventDetailPresentationLogic {
+    func setup(viewController: EventDetailDisplayLogic) {
+        self.viewController = viewController
+    }
     func presentEventTitle(title: String) {
         viewController?.displayEventTitle(title)
     }
     
-    func presentEventResponse(_ response: EventDetail.Response) {
-        let viewModel = getViewModelForResponse(response)
+    func presentEvent(_ event: Event) {
+        let viewModel = getViewModelForEvent(event)
         viewController?.displayViewModel(viewModel)
+        
     }
 }
 
 extension EventDetailPresenter {
-    func getViewModelForResponse(_ response: EventDetail.Response) -> EventDetail.ViewModel {
+    func getViewModelForEvent(_ event: Event) -> EventDetail.ViewModel {
         EventDetail.ViewModel(
-            id: response.id,
-            title: response.title.capitalized,
-            startDate: formatDate(response.startDate),
-            venue: response.venue,
-            description: response.description ?? ""
+            id: event.id,
+            title: event.title.capitalized,
+            startDate: formatDate(event.startDate),
+            venue: event.venue,
+            description: event.description ?? "",
+            artists: event.artists.map { $0.artistName }
         )
     }
     
