@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "atlas0ecbc3c4_identitypool_0ecbc3c4",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "atlas0ecbc3c4",
-    "userPoolName": "atlas0ecbc3c4_userpool_0ecbc3c4",
+    "identityPoolName": "atlas0e11a4cd0e11a4cd_identitypool_a0363ce9",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "atlas00e11a4cd",
+    "userPoolName": "atlas0e11a4cd_userpool_0e11a4cd",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -14,7 +14,7 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
@@ -28,10 +28,22 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "atlas00ecbc3c4_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "atlas00e11a4cd_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "atlas0ecbc3c4",
+    "useDefault": "default",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "atlas0e11a4cd0e11a4cd",
+    "usernameAttributes": [
+        "email"
+    ],
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "userPoolGroupList": [
+        "endusers",
+        "admins"
+    ],
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -44,16 +56,9 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
-    "userPoolGroupList": [],
-    "dependsOn": [],
-    "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": "{}",
-    "hostedUI": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "dependsOn": []
 }

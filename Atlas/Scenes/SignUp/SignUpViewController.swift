@@ -8,6 +8,7 @@
 
 import UIKit
 import AuthenticationServices
+import AWSMobileClient
 
 protocol SignUpDisplayLogic: class {
     func setup(interactor: SignUpInteraction)
@@ -168,7 +169,21 @@ extension SignUpViewController: SignUpDisplayLogic {
 }
 
 extension SignUpViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        guard
+            let credentials = authorization.credential as? ASAuthorizationAppleIDCredential,
+            let tokenData = credentials.identityToken
+            else { return }
+        
+        let token = String(data: tokenData, encoding: .utf8)!
+        
+        // use credentials to create an account for the user
+    }
     
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        
+        
+    }
 }
 
 extension SignUpViewController: ASAuthorizationControllerPresentationContextProviding {
