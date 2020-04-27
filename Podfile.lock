@@ -1,10 +1,21 @@
 PODS:
-  - AWSAppSync (3.0.0):
-    - AWSCore (~> 2.12.0)
+  - AppSyncRealTimeClient (1.1.6):
+    - Starscream (= 3.0.6)
+  - AWSAppSync (3.1.2):
+    - AppSyncRealTimeClient (~> 1.1)
+    - AWSCore (~> 2.13.0)
     - ReachabilitySwift (~> 5.0.0)
     - SQLite.swift (~> 0.12.2)
-    - Starscream (~> 3.0.2)
-  - AWSCore (2.12.7)
+  - AWSAuthCore (2.13.2):
+    - AWSCore (= 2.13.2)
+  - AWSCognitoIdentityProvider (2.13.2):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.13.2)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.13.2)
+  - AWSMobileClient (2.13.2):
+    - AWSAuthCore (= 2.13.2)
+    - AWSCognitoIdentityProvider (= 2.13.2)
   - ReachabilitySwift (5.0.0)
   - SnapshotTesting (1.7.2)
   - SQLite.swift (0.12.2):
@@ -18,14 +29,20 @@ PODS:
 DEPENDENCIES:
   - AWSAppSync
   - AWSCore
+  - AWSMobileClient
   - SnapshotTesting
   - Swinject
   - SwinjectAutoregistration
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppSyncRealTimeClient
     - AWSAppSync
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
     - AWSCore
+    - AWSMobileClient
     - ReachabilitySwift
     - SnapshotTesting
     - SQLite.swift
@@ -34,8 +51,13 @@ SPEC REPOS:
     - SwinjectAutoregistration
 
 SPEC CHECKSUMS:
-  AWSAppSync: 04f615ce0c3a0c815b7bf1ca3d47362a22ed12ca
-  AWSCore: 2f0f88ae94a63a198274d683c7d0e18709d7090b
+  AppSyncRealTimeClient: 4a2ccdc1722750a1f4d76e216f9bfb1cf12f10de
+  AWSAppSync: 4b91c48712913ca4f2bb38273280190e65d59a45
+  AWSAuthCore: 890aaf36fa3a913a5948851a576c02456bed4c5b
+  AWSCognitoIdentityProvider: 68455a8d170bb6cd0ec17d261da0ab3d623232b0
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: 8e878a5b1b99cdf3d7df0c1c86be0bfcd6294c11
+  AWSMobileClient: bdec2a26617590bd3eece9bf208005bc4682d424
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SnapshotTesting: 8caa6661fea7c8019d5b46de77c16bab99c36c5c
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
@@ -43,6 +65,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectAutoregistration: 330f5012642a8b5c89a8a4adb0c5e52df07382c0
 
-PODFILE CHECKSUM: 8d15e158d3f6f2033033ca5fccf5087c575a5073
+PODFILE CHECKSUM: 4a440253b237dbfdffd270038b8216b646318743
 
 COCOAPODS: 1.7.5

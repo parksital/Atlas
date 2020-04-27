@@ -13,6 +13,7 @@ target 'Atlas' do
   pod 'SwinjectAutoregistration'
   pod 'AWSCore'
   pod 'AWSAppSync'
+  pod 'AWSMobileClient'
 
   target 'AtlasTests' do
     
