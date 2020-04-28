@@ -172,12 +172,13 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard
             let credentials = authorization.credential as? ASAuthorizationAppleIDCredential,
-            let tokenData = credentials.identityToken
+            let tokenData = credentials.identityToken,
+            let email = credentials.email
             else { return }
         
         let token = String(data: tokenData, encoding: .utf8)!
-        
-        // use credentials to create an account for the user
+        interactor?.storeToken(token)
+        interactor?.signUp(username: email, password: credentials.user)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

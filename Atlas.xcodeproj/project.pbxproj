@@ -41,6 +41,10 @@
 		A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
+		A0324FCA245781AF00971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
+		A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
+		A0324FCF2458619200971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
+		A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
@@ -140,6 +144,8 @@
 		A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		A030AEA9242CE30300BFCFC5 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		A0324FC9245781AF00971C23 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A0324FCD245860E800971C23 /* AuthClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientProtocol.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
@@ -266,6 +272,7 @@
 				A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */,
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
+				A0324FCD245860E800971C23 /* AuthClientProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -449,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
+				A0324FC9245781AF00971C23 /* AuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -732,6 +740,7 @@
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
+				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
@@ -739,6 +748,7 @@
 				A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
+				A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
 				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
@@ -761,6 +771,7 @@
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
@@ -792,6 +803,7 @@
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */,
 				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 import Foundation
 import AWSAppSync
+import AWSMobileClient
 import Swinject
 
 class AWSContainer {
@@ -39,5 +40,18 @@ class AWSContainer {
                 }
             }
         })
+        
+        container.register(AuthClientProtocol.self) { _ in
+            let client = AWSMobileClient.init()
+            
+            client.initialize { userSate, error in
+                if let state = userSate {
+                    print("userState: ", state)
+                }
+            }
+            return client
+        }.inObjectScope(.weak)
+        
+        container.autoregister(AuthService.self, initializer: AuthService.init)
     }
 }
