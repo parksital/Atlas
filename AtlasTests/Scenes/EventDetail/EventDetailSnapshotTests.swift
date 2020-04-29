@@ -29,7 +29,7 @@ class EventDetailSnapshotTests: XCTestCase {
         sut.interactor?.eventTitle = "SPICE"
         sut.interactor?.eventID = "a313dd4e-a68c-4240-957a-c9b9dba85ca0"
         
-        //        record = true
+        record = true
     }
     
     override func tearDown() {
@@ -45,7 +45,7 @@ class EventDetailSnapshotTests: XCTestCase {
         ])
     }
     
-    func testFetchEentDetailSuccessDark() {
+    func testFetchEventDetailSuccessDark() {
         let vc = UINavigationController(rootViewController: sut)
         vc.overrideUserInterfaceStyle = .dark
         sut.view.setNeedsDisplay()
