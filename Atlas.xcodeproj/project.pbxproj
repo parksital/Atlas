@@ -84,6 +84,7 @@
 		A083379E24594648002E4571 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379C2459463E002E4571 /* AuthError.swift */; };
 		A08337A024594660002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
 		A08337A12459466C002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
+		A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
 		A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
@@ -183,6 +184,7 @@
 		A0833799245945F8002E4571 /* AppleAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthData.swift; sourceTree = "<group>"; };
 		A083379C2459463E002E4571 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		A083379F24594660002E4571 /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
+		A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailSnapshotTests.swift; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
+				A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */,
 			);
 			path = EventDetail;
 			sourceTree = "<group>";
@@ -837,6 +840,7 @@
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
+				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
 				A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */,
