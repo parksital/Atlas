@@ -9,6 +9,13 @@
 import Foundation
 import Combine
 
+struct SignUpData {
+    let uid: String
+    let email: String
+    let fullName: String
+    let token: String
+}
+
 protocol SignUpLogic {
     func signUp(email: String, password: String, token: String)
     func handleIncompleteCredentials()
@@ -33,6 +40,25 @@ final class SignUpInteractor: SignUpDataStore {
 }
 
 extension SignUpInteractor: SignUpLogic {
+    func signUp(signUpData: SignUpData) {
+        let email = signUpData.email
+        let fullName = signUpData.fullName
+        let token = signUpData.token
+        
+
+        #warning("After successful signup+signin, create a profile in DynamoDB, use a profileservice")
+        authService.signUp(email: email, password: "password", token: token)
+            .flatMap { [authService] _ in
+                authService!.signIn(email: email, password: "password", token: token)
+        }
+        .first(where: { $0 == .signedIn })
+        .sink(
+            receiveCompletion: { completion in },
+            receiveValue: { _ in print(fullName) }
+        )
+            .store(in: &cancellables)
+    }
+    
     func signUp(email: String, password: String, token: String) {
         authService.signUp(email: email, password: password, token: token)
             .receive(on: DispatchQueue.main)

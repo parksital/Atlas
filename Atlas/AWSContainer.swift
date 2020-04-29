@@ -45,16 +45,10 @@ class AWSContainer {
             KeychainWrapper(serviceName: "auth")
         }
         container.register(AuthClientProtocol.self) { _ in
-            let client = AWSMobileClient.init()
-//            client.signOut()
-            client.initialize { userSate, error in
-                if let state = userSate {
-                    print("userState: ", state)
-                }
-            }
-            return client
-        }.inObjectScope(.weak)
+            AWSMobileClient.default()
+        }
         
         container.autoregister(AuthService.self, initializer: AuthService.init)
+            .inObjectScope(.weak)
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import AuthenticationServices
 
 enum AuthError: Error {
     case generic
@@ -39,6 +40,32 @@ private extension AuthService {
 }
 
 extension AuthService {
+    func initialize() {
+        authClient.setup()
+        checkCredentials()
+    }
+    
+    func checkCredentials() {
+        guard let uid = keychain.string(forKey: "uid") else  {
+            self.logOut()
+            return
+        }
+            
+        print("check credentials")
+        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid) { credentialState, error in
+            switch credentialState {
+            case .authorized:
+                break
+            case .notFound, .transferred, .revoked:
+                self.logOut()
+                print("appleID revoked, signing out!")
+                fallthrough
+            @unknown default:
+                break
+            }
+        }
+    }
+    
     func signUp(email: String, password: String, token: String) -> AnyPublisher<AuthStatus, AuthError> {
         return authClient.signUp(email: email, password: password)
             .filter { $0 == .confirmed }
@@ -55,9 +82,13 @@ extension AuthService {
         return authClient.signIn(email: email, password: password)
             .first(where: { $0 == .signedIn })
             .handleEvents(receiveOutput: { [weak self] _ in
-                self?.storeToken(token)
-                self?.storeAuthData(email: email, password: password)
+//                self?.storeToken(token)
+//                self?.storeAuthData(email: email, password: password)
             })
             .eraseToAnyPublisher()
+    }
+    
+    func logOut() {
+        authClient.logOut()
     }
 }

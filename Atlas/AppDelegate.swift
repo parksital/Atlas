@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let authClient = container.resolve(AuthClientProtocol.self)!
-        authClient.listen()
+        let authService = container.resolve(AuthService.self)!
+        authService.initialize()
         
         let rootViewController = container.resolve(EventListViewController.self)!
         window = UIWindow(frame: UIScreen.main.bounds)

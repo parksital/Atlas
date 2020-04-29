@@ -12,6 +12,8 @@ import AWSMobileClient
 
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
+    func showActivityIndicator()
+    func hideActivityIndicator()
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -150,7 +152,7 @@ private extension SignUpViewController {
     @objc func handleAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.email]
+        request.requestedScopes = [.fullName, .email]
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -160,6 +162,14 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
+    func showActivityIndicator() {
+        
+    }
+    
+    func hideActivityIndicator() {
+        
+    }
+    
     func signUpSuccessful() {
         router?.dismiss()
     }
@@ -191,7 +201,6 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        
         
     }
 }

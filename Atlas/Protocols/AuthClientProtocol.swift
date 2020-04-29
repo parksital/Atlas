@@ -21,9 +21,10 @@ enum AuthStatus: String {
 protocol AuthClientProtocol {
     var status: CurrentValueSubject<AuthStatus, Error> { get }
     
-    func listen()
+    func setup()
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
+    func logOut()
 }
 
 extension AuthClientProtocol {
@@ -43,19 +44,20 @@ extension AWSMobileClient: AuthClientProtocol {
         return .init(.unknown)
     }
     
-    func listen() {
-        addUserStateListener(self) { [status] userState, authInfo in
-            switch userState {
-            case .signedIn:
-                status.send(.signedIn)
-            case .signedOut:
-                status.send(.signedOut)
-            case .signedOutUserPoolsTokenInvalid:
-                status.send(.signedOut)
-            case .guest:
-                status.send(.unauthenticated)
-            default:
-                status.send(.unknown)
+    func setup() {
+        initialize { [weak self] userState, error in
+            precondition(self != nil)
+            
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            } else if let state = userState {
+                print("AWSMobileClient.initialize - user state: ", state.rawValue)
+                switch state {
+                case .signedIn, .signedOut: break
+                case .signedOutFederatedTokensInvalid: break
+                case .signedOutUserPoolsTokenInvalid: break
+                case .guest, .unknown: self!.logOut()
+                }
             }
         }
     }
@@ -116,5 +118,9 @@ extension AWSMobileClient: AuthClientProtocol {
         }
         .mapError(mapAWSMobileClientError(_:))
         .eraseToAnyPublisher()
+    }
+    
+    func logOut() {
+        self.signOut()
     }
 }
