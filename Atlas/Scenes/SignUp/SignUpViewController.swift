@@ -8,7 +8,6 @@
 
 import UIKit
 import AuthenticationServices
-import AWSMobileClient
 
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()

@@ -11,14 +11,6 @@ import AWSMobileClient
 import AuthenticationServices
 import Combine
 
-enum AuthStatus: String {
-    case unknown
-    case unauthenticated
-    case confirmed
-    case signedIn
-    case signedOut
-}
-
 protocol AuthClientProtocol {
     var status: CurrentValueSubject<AuthStatus, Never> { get }
     

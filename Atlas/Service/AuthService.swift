@@ -9,11 +9,6 @@
 import Foundation
 import Combine
 
-enum AuthError: Error {
-    case generic
-    case signUpError
-}
-
 final class AuthService {
     private let authClient: AuthClientProtocol!
     
