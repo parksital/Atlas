@@ -90,8 +90,8 @@
 		A0B661C124002661001C5B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */; };
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
-		A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
-		A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
+		A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
+		A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
@@ -99,6 +99,10 @@
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
+		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
+		A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
+		A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
+		A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
 		D67B2EEF1A4087F5B57E076D /* Pods_Atlas_AtlasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */; };
 		FCB58863BC11DF4258B6FA5B /* Pods_Atlas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */; };
 /* End PBXBuildFile section */
@@ -181,12 +185,14 @@
 		A0B661D224002661001C5B40 /* AtlasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtlasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0B98B66243FB475004C072F /* SharedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
+		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas_AtlasTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE01D6A39A386AF4534E8C2A /* Pods-AtlasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.debug.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8C5FE42EC600F9FCD056ECE /* Pods-AtlasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.release.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -426,7 +432,7 @@
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,
 				A016B873242FB6F300D4057B /* AWSContainer.swift */,
-				A0B98B66243FB475004C072F /* SharedContainer.swift */,
+				A0B98B66243FB475004C072F /* SceneContainer.swift */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -457,6 +463,8 @@
 			children = (
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
 				A0324FC9245781AF00971C23 /* AuthService.swift */,
+				A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */,
+				A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -727,7 +735,7 @@
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
-				A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */,
+				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
@@ -744,6 +752,7 @@
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
@@ -753,6 +762,7 @@
 				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A04BCE5924516714000A6969 /* SignUpInteractor.swift in Sources */,
+				A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -770,7 +780,9 @@
 				A00C655E24238E1900D12C8D /* SectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
+				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
@@ -779,7 +791,7 @@
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
-				A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */,
+				A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
 				A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */,

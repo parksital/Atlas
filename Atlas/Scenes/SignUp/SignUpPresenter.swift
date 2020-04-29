@@ -10,6 +10,7 @@ import Foundation
 
 protocol SignUpPresentationLogic {
     func setup(viewController: SignUpDisplayLogic)
+    func presentSuccessfulSignUp()
 }
 
 final class SignUpPresenter {
@@ -19,5 +20,9 @@ final class SignUpPresenter {
 extension SignUpPresenter: SignUpPresentationLogic {
     func setup(viewController: SignUpDisplayLogic) {
         self.viewController = viewController
+    }
+    
+    func presentSuccessfulSignUp() {
+        viewController?.signUpSuccessful()
     }
 }

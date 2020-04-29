@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 protocol SignUpLogic {
-    func storeToken(_ token: String)
-    func signUp(username: String, password: String)
+    func signUp(email: String, password: String, token: String)
+    func handleIncompleteCredentials()
 }
 
 protocol SignUpDataStore {
@@ -22,48 +22,31 @@ typealias SignUpInteraction = SignUpLogic & SignUpDataStore
 final class SignUpInteractor: SignUpDataStore {
     private let authService: AuthService!
     private let presenter: SignUpPresentationLogic!
-//    private let keyChain: KeychainService!
     private var cancellables: Set<AnyCancellable> = .init()
     
     init(authService: AuthService, presenter: SignUpPresentationLogic) {
         self.authService = authService
         self.presenter = presenter
     }
+    
+    deinit { cancellables.forEach { $0.cancel() } }
 }
 
 extension SignUpInteractor: SignUpLogic {
-    func storeToken(_ token: String) {
+    func signUp(email: String, password: String, token: String) {
+        authService.signUp(email: email, password: password, token: token)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { _ in  },
+                receiveValue: { [presenter] status in
+                    if status == .signedIn {
+                        presenter?.presentSuccessfulSignUp()
+                    }
+                }
+        ).store(in: &cancellables)
+    }
+    
+    func handleIncompleteCredentials() {
         
     }
-    
-    func signUp(username: String, password: String) {
-        authService
-            .signUp(email: username, password: password)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: break
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                    break
-                }
-            }, receiveValue: { status in
-                switch status {
-                case .unknown:
-                    assertionFailure("unkown after sign up?")
-                    break
-                case .unauthenticated:
-                    assertionFailure("unauthenticated after sign up?")
-                    break
-                case .confirmed:
-                    break
-                case .signedIn:
-                    break
-                // presenter.presentSignedIn
-                default:
-                    break
-                }
-            })
-            .store(in: &cancellables)
-    }
-    
 }

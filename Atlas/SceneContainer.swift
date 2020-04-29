@@ -9,8 +9,8 @@
 import Foundation
 import Swinject
 
-class SharedContainer {
-    static let shared = SharedContainer()
+class SceneContainer {
+    static let shared = SceneContainer()
     let container: Container
     
     private init() {

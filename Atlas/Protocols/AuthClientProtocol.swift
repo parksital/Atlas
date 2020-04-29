@@ -22,8 +22,20 @@ protocol AuthClientProtocol {
     var status: CurrentValueSubject<AuthStatus, Error> { get }
     
     func listen()
-    func signUp(email: String, password: String) -> Future<AuthStatus, Error>
-    func signIn(email: String, password: String) -> Future<AuthStatus, Error>
+    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
+    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
+}
+
+extension AuthClientProtocol {
+    func mapAWSMobileClientError(_ error: Error) -> AuthError {
+        guard let awsError = error as? AWSMobileClientError else { return .generic}
+        switch awsError {
+            // implement the rest
+        default:
+            assertionFailure(awsError.localizedDescription)
+            return AuthError.generic
+        }
+    }
 }
 
 extension AWSMobileClient: AuthClientProtocol {
@@ -47,8 +59,8 @@ extension AWSMobileClient: AuthClientProtocol {
             }
         }
     }
-
-    func signUp(email: String, password: String) -> Future<AuthStatus, Error> {
+    
+    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
         return Future<AuthStatus, Error> { [weak self] promise in
             guard let self = self else {
                 assertionFailure("AuthClient not injected")
@@ -56,9 +68,13 @@ extension AWSMobileClient: AuthClientProtocol {
             }
             
             self.signUp(username: email, password: password) { authResult, authError in
-                if let error = authError {
+                guard authError == nil else {
+                    let error = self.mapAWSMobileClientError(authError!)
                     promise(.failure(error))
-                } else if let result = authResult {
+                    return
+                }
+                
+                if let result = authResult {
                     switch result.signUpConfirmationState {
                     case .confirmed:
                         promise(.success(.confirmed))
@@ -69,21 +85,26 @@ extension AWSMobileClient: AuthClientProtocol {
                     }
                 }
             }
-            
         }
+        .mapError(mapAWSMobileClientError(_:))
+        .eraseToAnyPublisher()
     }
     
-    func signIn(email: String, password: String) -> Future<AuthStatus, Error> {
+    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
         return Future<AuthStatus, Error> { [weak self] promise in
-        guard let self = self else {
-            assertionFailure("AuthClient not injected")
-            return
-        }
+            guard let self = self else {
+                assertionFailure("AuthClient not injected")
+                return
+            }
             
             self.signIn(username: email, password: password) { authResult, authError in
-                if let error = authError {
+                guard authError == nil else {
+                    let error = self.mapAWSMobileClientError(authError!)
                     promise(.failure(error))
-                } else if let result = authResult {
+                    return
+                }
+                
+                if let result = authResult {
                     switch result.signInState {
                     case .signedIn:
                         promise(.success(.signedIn))
@@ -93,5 +114,7 @@ extension AWSMobileClient: AuthClientProtocol {
                 }
             }
         }
+        .mapError(mapAWSMobileClientError(_:))
+        .eraseToAnyPublisher()
     }
 }

@@ -11,6 +11,7 @@ import AuthenticationServices
 import AWSMobileClient
 
 protocol SignUpDisplayLogic: class {
+    func signUpSuccessful()
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -159,6 +160,10 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
+    func signUpSuccessful() {
+        router?.dismiss()
+    }
+    
     func setup(interactor: SignUpInteraction) {
         self.interactor = interactor
     }
@@ -172,13 +177,17 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard
             let credentials = authorization.credential as? ASAuthorizationAppleIDCredential,
-            let tokenData = credentials.identityToken,
-            let email = credentials.email
-            else { return }
+            let tokenData = credentials.identityToken
+            else {
+                interactor?.handleIncompleteCredentials()
+                return
+        }
         
+        let email = credentials.email!
+        let password = credentials.user.appending("A")
         let token = String(data: tokenData, encoding: .utf8)!
-        interactor?.storeToken(token)
-        interactor?.signUp(username: email, password: credentials.user)
+        
+        interactor?.signUp(email: email, password: password, token: token)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
