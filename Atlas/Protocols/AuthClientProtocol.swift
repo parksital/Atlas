@@ -8,6 +8,7 @@
 
 import Foundation
 import AWSMobileClient
+import AuthenticationServices
 import Combine
 
 enum AuthStatus: String {
@@ -19,15 +20,45 @@ enum AuthStatus: String {
 }
 
 protocol AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, Error> { get }
+    var status: CurrentValueSubject<AuthStatus, Never> { get }
     
-    func setup()
+    func initialize() -> CurrentValueSubject<AuthStatus, Never>
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
     func logOut()
 }
 
-extension AuthClientProtocol {
+private extension AuthClientProtocol {
+//    func storeToken(_ token: String) {
+//        guard keychain.serviceName == "auth" else { return }
+//        keychain.set(token, forKey: "siwa-token")
+//    }
+//
+//    func storeAuthData(email: String, password: String) {
+//        guard keychain.serviceName == "auth" else { return }
+//        keychain.set(email, forKey: "email")
+//        keychain.set(password, forKey: "password")
+//    }
+    
+    func checkAppleIDCredentials() {
+        guard let uid = KeychainWrapper.standard.string(forKey: "uid") else {
+            logOut()
+            return
+        }
+            
+        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid) { credentialState, error in
+            switch credentialState {
+            case .authorized:
+                break
+            case .notFound, .transferred, .revoked:
+                self.logOut()
+                break
+            @unknown default:
+                break
+            }
+        }
+    }
+    
     func mapAWSMobileClientError(_ error: Error) -> AuthError {
         guard let awsError = error as? AWSMobileClientError else { return .generic}
         switch awsError {
@@ -40,11 +71,13 @@ extension AuthClientProtocol {
 }
 
 extension AWSMobileClient: AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, Error> {
+    var status: CurrentValueSubject<AuthStatus, Never> {
         return .init(.unknown)
     }
     
-    func setup() {
+    func initialize() -> CurrentValueSubject<AuthStatus, Never> {
+        checkAppleIDCredentials()
+        
         initialize { [weak self] userState, error in
             precondition(self != nil)
             
@@ -53,13 +86,17 @@ extension AWSMobileClient: AuthClientProtocol {
             } else if let state = userState {
                 print("AWSMobileClient.initialize - user state: ", state.rawValue)
                 switch state {
-                case .signedIn, .signedOut: break
+                case .signedIn: break
+                case .signedOut: break
+                    // show sign in view
                 case .signedOutFederatedTokensInvalid: break
                 case .signedOutUserPoolsTokenInvalid: break
                 case .guest, .unknown: self!.logOut()
                 }
             }
         }
+        
+        return status
     }
     
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {

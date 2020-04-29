@@ -41,9 +41,6 @@ class AWSContainer {
             }
         })
         
-        container.register(KeychainWrapper.self) { _ in
-            KeychainWrapper(serviceName: "auth")
-        }
         container.register(AuthClientProtocol.self) { _ in
             AWSMobileClient.default()
         }
