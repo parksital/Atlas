@@ -36,10 +36,20 @@ class EventListSnapshotTests: XCTestCase {
         sut = EventListViewController()
         // don't set up the presenter
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        assertSnapshots(matching: sut, as: [
-            .image(on: .iPhoneSe),
-            .image(on: .iPhoneX),
-            .image(on: .iPhoneXsMax)
+        let vc = UINavigationController(rootViewController: sut)
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
+        ])
+    }
+    
+    func testEventListViewController_noEvents_dark() {
+        sut = EventListViewController()
+        // don't set up the presenter
+        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+        let vc = UINavigationController(rootViewController: sut)
+        vc.overrideUserInterfaceStyle = .dark
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
         ])
     }
     
@@ -47,22 +57,20 @@ class EventListSnapshotTests: XCTestCase {
         sut = EventListViewController()
         presenter.setup(viewController: sut)
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        assertSnapshots(matching: sut, as: [
-            .image(on: .iPhoneSe),
-            .image(on: .iPhoneX),
-            .image(on: .iPhoneXsMax)
+        let vc = UINavigationController(rootViewController: sut)
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
         ])
     }
     
-    func testEventListViewController_navigationBar() {
+    func testEventListViewController_events_dark() {
         sut = EventListViewController()
         presenter.setup(viewController: sut)
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
         let vc = UINavigationController(rootViewController: sut)
+        vc.overrideUserInterfaceStyle = .dark
         assertSnapshots(matching: vc, as: [
-            .image(on: .iPhoneSe),
-            .image(on: .iPhoneX),
-            .image(on: .iPhoneXsMax)
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
         ])
     }
 }

@@ -7,27 +7,50 @@
 //
 
 import XCTest
+import SnapshotTesting
 
+
+// MARK: - Note:
+/*
+ for some reason the snapshot for the  first device
+ does not show async loaded data.
+ 
+ we have to use: sut.view.setNeedsDisplay()
+ source: https://github.com/pointfreeco/swift-snapshot-testing/issues/297
+*/
 class EventDetailSnapshotTests: XCTestCase {
-
+    private var sut: EventDetailViewController!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        sut = SceneContainer.shared.container
+            .resolve(EventDetailViewController.self)!
+        
+        sut.interactor?.eventTitle = "SPICE"
+        sut.interactor?.eventID = "a313dd4e-a68c-4240-957a-c9b9dba85ca0"
+
+//        record = true
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testFetchEventDetailSuccess() {
+        let vc = UINavigationController(rootViewController: sut)
+        sut.view.setNeedsDisplay() // see note above
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
+        ])
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testFetchEentDetailSuccessDark() {
+        let vc = UINavigationController(rootViewController: sut)
+        vc.overrideUserInterfaceStyle = .dark
+        sut.view.setNeedsDisplay()
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
+        ])
     }
-
 }
