@@ -17,11 +17,7 @@ final class AuthService {
     }
 }
 
-extension AuthService {
-    func initialize() {
-        authClient.initialize()
-    }
-    
+private extension AuthService {
     func generatePassword() -> String {
         PasswordGenerator.shared.generatePassword(
             includeNumbers: true,
@@ -39,6 +35,12 @@ extension AuthService {
     
     func storePassword(_ password: String) {
         KeychainWrapper.standard.set(password, forKey: "password")
+    }
+}
+
+extension AuthService {
+    func initialize() {
+        authClient.initialize()
     }
     
     func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
