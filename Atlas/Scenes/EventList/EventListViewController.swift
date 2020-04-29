@@ -81,8 +81,7 @@ private extension EventListViewController {
     }
     
     func setupNavigationBar() {
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.darkText]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.label]
         navigationController?.navigationBar.barStyle = .default
         navigationItem.title = "Events"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
