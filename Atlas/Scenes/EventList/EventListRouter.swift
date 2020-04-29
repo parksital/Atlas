@@ -25,7 +25,7 @@ final class EventListRouter: EventListRouterProtocol {
     var dataStore: EventListDataStore?
     
     func routeToDetail() {
-        let container = SharedContainer.shared.container
+        let container = SceneContainer.shared.container
         let destinationVC = container.resolve(EventDetailViewController.self)!
         var destinationDS = destinationVC.router?.dataStore
         passDataToDestination(source: dataStore!, destination: &destinationDS!)
@@ -33,7 +33,7 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let container = SharedContainer.shared.container
+        let container = SceneContainer.shared.container
         let vc = container.resolve(SignUpViewController.self)!
         
         let destinationVC = UINavigationController(rootViewController: vc)

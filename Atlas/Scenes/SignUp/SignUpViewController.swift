@@ -8,9 +8,11 @@
 
 import UIKit
 import AuthenticationServices
-import AWSMobileClient
 
 protocol SignUpDisplayLogic: class {
+    func signUpSuccessful()
+    func showActivityIndicator()
+    func hideActivityIndicator()
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -149,7 +151,7 @@ private extension SignUpViewController {
     @objc func handleAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.email]
+        request.requestedScopes = [.fullName, .email]
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -159,6 +161,18 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
+    func showActivityIndicator() {
+        
+    }
+    
+    func hideActivityIndicator() {
+        
+    }
+    
+    func signUpSuccessful() {
+        router?.dismiss()
+    }
+    
     func setup(interactor: SignUpInteraction) {
         self.interactor = interactor
     }
@@ -173,15 +187,22 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
         guard
             let credentials = authorization.credential as? ASAuthorizationAppleIDCredential,
             let tokenData = credentials.identityToken
-            else { return }
+            else {
+                interactor?.handleCredentialsError()
+                return
+        }
         
-        let token = String(data: tokenData, encoding: .utf8)!
+        let authData = AppleAuthData(
+            uid: credentials.user,
+            email: credentials.email!,
+            fullName: credentials.fullName!,
+            token: String(data: tokenData, encoding: .utf8)!
+        )
         
-        // use credentials to create an account for the user
+        interactor?.signUpWithAppleID(authData: authData)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        
         
     }
 }
