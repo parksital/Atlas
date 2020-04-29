@@ -13,6 +13,7 @@ protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
     func showActivityIndicator()
     func hideActivityIndicator()
+    func updateView(_ viewModel: SignUpViewModel)
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -20,6 +21,13 @@ protocol SignUpDisplayLogic: class {
 final class SignUpViewController: UIViewController {
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
+    private var viewModel: SignUpViewModel? {
+        didSet {
+            guard let vm = viewModel else { return }
+            mainLabel.text = vm.mainText
+            secondaryLabel.text = vm.secondaryText
+        }
+    }
     
     private var scrollViewComponent = ScrollViewComponent()
     private var stackView: UIStackView! = {
@@ -41,20 +49,12 @@ final class SignUpViewController: UIViewController {
     private var mainLabel: UILabel = {
         let label = UILabel()
         label.applyStyling(.primary)
-        label.adjustsFontForContentSizeCategory = true
-        label.text = "For a personalized experience, \nsign into your account."
-        label.setContentHuggingPriority(.defaultLow, for: .vertical)
-        label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         return label
     }()
     
     private var secondaryLabel: UILabel = {
         let label = UILabel()
         label.applyStyling(.secondary)
-        label.adjustsFontForContentSizeCategory = true
-        label.text = "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        label.setContentHuggingPriority(.defaultLow, for: .vertical)
-        label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -78,6 +78,7 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        interactor?.viewDidFinishLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +96,7 @@ private extension SignUpViewController {
     func setupViews() {
         view.backgroundColor = .white
         setupNavigationBar()
+        setupLabels()
         setupAuthButton()
         setupStackView()
         setupScrollViewComponent()
@@ -109,6 +111,14 @@ private extension SignUpViewController {
             target: router,
             action: #selector(router!.dismiss)
         )
+    }
+    
+    func setupLabels() {
+        [mainLabel, secondaryLabel].forEach { label in
+            label.adjustsFontForContentSizeCategory = true
+            label.setContentHuggingPriority(.defaultLow, for: .vertical)
+            label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        }
     }
     
     func setupAuthButton() {
@@ -161,6 +171,12 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
+    func updateView(_ viewModel: SignUpViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel = viewModel
+        }
+    }
+    
     func showActivityIndicator() {
         
     }

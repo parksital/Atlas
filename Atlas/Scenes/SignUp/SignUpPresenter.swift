@@ -8,9 +8,15 @@
 
 import Foundation
 
+struct SignUpViewModel {
+    let mainText: String
+    let secondaryText: String
+}
+
 protocol SignUpPresentationLogic {
     func setup(viewController: SignUpDisplayLogic)
     func presentSuccessfulSignUp()
+    func presentView()
 }
 
 final class SignUpPresenter {
@@ -24,5 +30,13 @@ extension SignUpPresenter: SignUpPresentationLogic {
     
     func presentSuccessfulSignUp() {
         viewController?.signUpSuccessful()
+    }
+    
+    func presentView() {
+        let viewModel = SignUpViewModel(
+            mainText: "For a personalized experience, \nsign into your account.",
+            secondaryText: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        )
+        viewController?.updateView(viewModel)
     }
 }
