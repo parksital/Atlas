@@ -103,6 +103,8 @@
 		A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
 		A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
 		A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
+		A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */; };
+		A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */; };
 		D67B2EEF1A4087F5B57E076D /* Pods_Atlas_AtlasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */; };
 		FCB58863BC11DF4258B6FA5B /* Pods_Atlas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */; };
 /* End PBXBuildFile section */
@@ -193,6 +195,7 @@
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas_AtlasTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE01D6A39A386AF4534E8C2A /* Pods-AtlasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.debug.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8C5FE42EC600F9FCD056ECE /* Pods-AtlasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.release.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -463,8 +466,6 @@
 			children = (
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
 				A0324FC9245781AF00971C23 /* AuthService.swift */,
-				A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */,
-				A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -472,6 +473,9 @@
 		A0FEA88A241BF87400B3F3A1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */,
+				A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */,
+				A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */,
 				A03CC8F0241FDF5E00A1D287 /* Date+.swift */,
 				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
@@ -743,6 +747,7 @@
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
+				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
@@ -785,6 +790,7 @@
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
+				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */,

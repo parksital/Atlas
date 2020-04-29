@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct AuthData {
+struct AppleAuthData {
     let uid: String
     let email: String
     let fullName: PersonNameComponents
@@ -25,8 +25,7 @@ struct AuthData {
 }
 
 protocol SignUpLogic {
-    func signUp(signUpData: AuthData)
-    func signUp(email: String, password: String, token: String)
+    func signUpWithAppleID(authData: AppleAuthData)
     func handleCredentialsError()
 }
 
@@ -49,38 +48,13 @@ final class SignUpInteractor: SignUpDataStore {
 }
 
 extension SignUpInteractor: SignUpLogic {
-    func signUp(signUpData: AuthData) {
-        let email = signUpData.email
-        let firstName = signUpData.firstName
-        let lastName = signUpData.lastName
-        let token = signUpData.token
-        
-        let password = ""
-
-        #warning("After successful signup+signin, create a profile in DynamoDB, use a profileservice")
-        authService.signUp(email: email, password: "password", token: token)
-            .flatMap { [authService] _ in
-                authService!.signIn(email: email, password: "password", token: token)
-        }
-        .first(where: { $0 == .signedIn })
-        .sink(
-            receiveCompletion: { completion in },
-            receiveValue: { _ in print(firstName) }
-        )
+    func signUpWithAppleID(authData: AppleAuthData) {
+        authService.signUpWithAppleID(authData)
+            .sink(receiveCompletion: { _ in },
+                receiveValue: { [presenter] _ in
+                    presenter?.presentSuccessfulSignUp()
+            })
             .store(in: &cancellables)
-    }
-    
-    func signUp(email: String, password: String, token: String) {
-        authService.signUp(email: email, password: password, token: token)
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { _ in  },
-                receiveValue: { [presenter] status in
-                    if status == .signedIn {
-                        presenter?.presentSuccessfulSignUp()
-                    }
-                }
-        ).store(in: &cancellables)
     }
     
     func handleCredentialsError() {

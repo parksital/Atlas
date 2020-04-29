@@ -193,14 +193,14 @@ extension SignUpViewController: ASAuthorizationControllerDelegate {
                 return
         }
         
-        let data = AuthData(
+        let authData = AppleAuthData(
             uid: credentials.user,
             email: credentials.email!,
             fullName: credentials.fullName!,
             token: String(data: tokenData, encoding: .utf8)!
         )
         
-        interactor?.signUp(signUpData: data)
+        interactor?.signUpWithAppleID(authData: authData)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

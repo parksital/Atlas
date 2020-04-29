@@ -12,7 +12,6 @@ import Combine
 enum AuthError: Error {
     case generic
     case signUpError
-    case unknownAfterSignIn
 }
 
 final class AuthService {
@@ -28,26 +27,50 @@ extension AuthService {
         authClient.initialize()
     }
     
-    func signUp(email: String, password: String, token: String) -> AnyPublisher<AuthStatus, AuthError> {
-        return authClient.signUp(email: email, password: password)
-            .filter { $0 == .confirmed }
-            .flatMap { [unowned self] _ in
-                self.signIn(
-                    email: email,
-                    password: password,
-                    token: token)
-        }
-        .eraseToAnyPublisher()
+    func generatePassword() -> String {
+        PasswordGenerator.shared.generatePassword(
+            includeNumbers: true,
+            includePunctuation: true,
+            includeSymbols: false,
+            length: 10
+        )
     }
     
-    func signIn(email: String, password: String, token: String) -> AnyPublisher<AuthStatus, AuthError> {
-        return authClient.signIn(email: email, password: password)
+    func storeAppleAuthData(_ authData: AppleAuthData) {
+        KeychainWrapper.standard.set(authData.token, forKey: "token")
+        KeychainWrapper.standard.set(authData.uid, forKey: "uid")
+        KeychainWrapper.standard.set(authData.email, forKey: "email")
+    }
+    
+    func storePassword(_ password: String) {
+        KeychainWrapper.standard.set(password, forKey: "password")
+    }
+    
+    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+        let password = generatePassword()
+        return self.signUp(email: authData.email, password: password)
+            .first(where: { $0 == .confirmed })
+            .flatMap({ _ in
+                return self.signIn(email: authData.email, password: password)
+            })
             .first(where: { $0 == .signedIn })
             .handleEvents(receiveOutput: { [weak self] _ in
-//                self?.storeToken(token)
-//                self?.storeAuthData(email: email, password: password)
+                guard let self = self else {
+                    assertionFailure()
+                    return
+                }
+                self.storeAppleAuthData(authData)
+                self.storePassword(password)
             })
             .eraseToAnyPublisher()
+    }
+    
+    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
+        return authClient.signUp(email: email, password: password)
+    }
+    
+    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
+        return authClient.signIn(email: email, password: password)
     }
     
     func logOut() {
