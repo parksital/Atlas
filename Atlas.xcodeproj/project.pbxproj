@@ -78,6 +78,8 @@
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
 		A075E38E240E8201006F891F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
 		A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */ = {isa = PBXBuildFile; fileRef = A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */; };
+		A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0833799245945F8002E4571 /* AppleAuthData.swift */; };
+		A083379B24594605002E4571 /* AppleAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0833799245945F8002E4571 /* AppleAuthData.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
 		A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
@@ -174,6 +176,7 @@
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
+		A0833799245945F8002E4571 /* AppleAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthData.swift; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -312,6 +315,7 @@
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
 				A00C655F2423AE2B00D12C8D /* EventList.swift */,
+				A0833799245945F8002E4571 /* AppleAuthData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -734,6 +738,7 @@
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
+				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
@@ -788,6 +793,7 @@
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,

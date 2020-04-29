@@ -9,21 +9,6 @@
 import Foundation
 import Combine
 
-struct AppleAuthData {
-    let uid: String
-    let email: String
-    let fullName: PersonNameComponents
-    let token: String
-    
-    var firstName: String {
-        fullName.givenName!
-    }
-    
-    var lastName: String {
-        fullName.familyName!
-    }
-}
-
 protocol SignUpLogic {
     func signUpWithAppleID(authData: AppleAuthData)
     func handleCredentialsError()
