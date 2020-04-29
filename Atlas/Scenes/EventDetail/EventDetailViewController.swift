@@ -108,7 +108,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
 
 private extension EventDetailViewController {
     func setupViews() {
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .systemBackground
         setupScrollViewComponent()
         populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
     }

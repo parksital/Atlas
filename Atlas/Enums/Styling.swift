@@ -28,6 +28,6 @@ extension Styling {
     }
     
     var fontColor: UIColor {
-        return .darkText
+        return .label
     }
 }
