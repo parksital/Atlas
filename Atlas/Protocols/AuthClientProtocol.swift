@@ -33,30 +33,27 @@ private extension AuthClientProtocol {
 }
 
 private extension AWSMobileClient {
-    func checkAppleIDCredentials() {
-        guard let uid = KeychainWrapper.standard.string(forKey: "uid") else {
-            logOut()
-            return
-        }
-        
-        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid) { [weak self]  credentialState, error in
-            guard let self = self else { return }
-            switch credentialState {
-            case .authorized:
-                self.intializeAWSMobileClient()
-            case .notFound, .transferred, .revoked:
-                self.logOut()
-                self.intializeAWSMobileClient()
-            @unknown default:
-                break
-            }
+    private func observeAppleIDSessionRevocation() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(logOut),
+            name: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
+            object: nil
+        )
+    }
+    
+    func checkAppleIDCredentials(
+        uid: String,
+        completion: @escaping (ASAuthorizationAppleIDProvider.CredentialState) -> Void
+    ) {
+        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid) { credentialState, error in
+            completion(credentialState)
         }
     }
     
     func intializeAWSMobileClient() {
         initialize { [weak self] userState, error in
             guard let self = self else { return }
-            
             if let error = error {
                 assertionFailure(error.localizedDescription)
             } else if let state = userState {
@@ -78,7 +75,23 @@ extension AWSMobileClient: AuthClientProtocol {
     }
     
     func initialize() {
-        checkAppleIDCredentials()
+        guard let uid = KeychainWrapper.standard.string(forKey: "uid") else {
+            logOut()
+            return
+        }
+        
+        checkAppleIDCredentials(uid: uid, completion: { credentialState in
+            switch credentialState {
+            case .authorized:
+                self.intializeAWSMobileClient()
+                self.observeAppleIDSessionRevocation()
+            case .notFound, .transferred, .revoked:
+                self.logOut()
+                self.intializeAWSMobileClient()
+            @unknown default:
+                break
+            }
+        })
     }
     
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
@@ -139,7 +152,9 @@ extension AWSMobileClient: AuthClientProtocol {
         .eraseToAnyPublisher()
     }
     
-    func logOut() {
+    
+    /// Logs out the user from AWS Cognito User Pool
+    @objc func logOut() {
         _ = KeychainWrapper.standard.removeAllKeys()
         self.signOut()
     }
