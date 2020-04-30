@@ -10,7 +10,7 @@ import UIKit
 
 final class ArtistSectionView: UIView {
     private let cornerRadius: CGFloat = 8.0
-    private let fillColor: CGColor = UIColor.white.cgColor
+    private let fillColor: CGColor = UIColor.secondarySystemBackground.cgColor
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

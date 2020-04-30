@@ -19,8 +19,8 @@ protocol EventListDisplayLogic: class {
 }
 
 final class EventListViewController: UIViewController {
-    private var interactor: EventListLogic?
-    private var router: EventListRouterProtocol?
+    private (set) var interactor: EventListLogic?
+    private (set) var router: EventListRouterProtocol?
     
     private (set) var viewModel: EventList.ViewModel = .init()
     

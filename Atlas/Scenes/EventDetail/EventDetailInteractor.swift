@@ -15,12 +15,14 @@ protocol EventDetailLogic: class {
 }
 
 protocol EventDetailDataStore: class {
-    var event: EventSummary? { get set }
+    var eventID: String? { get set }
+    var eventTitle: String? { get set }
 }
 
 typealias EventDetailInteraction = EventDetailLogic & EventDetailDataStore
 final class EventDetailInteractor: EventDetailDataStore {
-    var event: EventSummary?
+    var eventID: String?
+    var eventTitle: String?
     var presenter: EventDetailPresentationLogic?
     private let eventService: EventService!
     private var cancellables: Set<AnyCancellable> = .init()
@@ -36,7 +38,11 @@ final class EventDetailInteractor: EventDetailDataStore {
 
 extension EventDetailInteractor: EventDetailLogic {
     func fetchEvent() {
-        eventService.event(byID: event!.id)
+        guard let id = eventID else {
+            assertionFailure("eventID not set by router")
+            return
+        }
+        eventService.event(byID: id)
             .sink(
                 receiveCompletion: {
                     switch $0 {
@@ -51,7 +57,11 @@ extension EventDetailInteractor: EventDetailLogic {
     }
     
     func viewDidFinishLoading() {
-        presenter?.presentEventTitle(title: event!.title)
+        guard let title = eventTitle else {
+            assertionFailure("eventTitle not set by router")
+            return
+        }
+        presenter?.presentEventTitle(title: title)
     }
 }
 

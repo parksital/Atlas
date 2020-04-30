@@ -11,12 +11,12 @@ import UIKit
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayViewModel(_ viewModel: EventDetail.ViewModel)
-    func setup(interactor: EventDetailLogic)
+    func setup(interactor: EventDetailInteraction)
     func setup(router: EventDetailRouterProtocol)
 }
 
 final class EventDetailViewController: UIViewController {
-    var interactor: EventDetailLogic?
+    var interactor: EventDetailInteraction?
     var router: EventDetailRouterProtocol?
     
     private var viewModel: EventDetail.ViewModel? {
@@ -87,7 +87,7 @@ final class EventDetailViewController: UIViewController {
 }
 
 extension EventDetailViewController: EventDetailDisplayLogic {
-    func setup(interactor: EventDetailLogic) {
+    func setup(interactor: EventDetailInteraction) {
         self.interactor = interactor
     }
     
@@ -108,7 +108,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
 
 private extension EventDetailViewController {
     func setupViews() {
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .systemBackground
         setupScrollViewComponent()
         populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
     }

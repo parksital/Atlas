@@ -44,7 +44,8 @@ final class EventListRouter: EventListRouterProtocol {
     
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
         DispatchQueue.global(qos: .userInitiated).async { [destination] in
-            destination.event = source.selectedEvent
+            destination.eventID = source.selectedEvent?.id
+            destination.eventTitle = source.selectedEvent?.title
         }
     }
     
