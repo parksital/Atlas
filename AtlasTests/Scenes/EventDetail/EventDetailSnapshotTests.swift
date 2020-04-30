@@ -37,20 +37,20 @@ class EventDetailSnapshotTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testFetchEventDetailSuccess() {
-//        let vc = UINavigationController(rootViewController: sut)
-//        sut.view.setNeedsDisplay() // see note above
-//        assertSnapshots(matching: vc, as: [
-//            .wait(for: 0.5, on: .image(on: .iPhoneX))
-//        ])
-//    }
-//
-//    func testFetchEventDetailSuccessDark() {
-//        let vc = UINavigationController(rootViewController: sut)
-//        vc.overrideUserInterfaceStyle = .dark
-//        sut.view.setNeedsDisplay()
-//        assertSnapshots(matching: vc, as: [
-//            .wait(for: 0.5, on: .image(on: .iPhoneX))
-//        ])
-//    }
+    func testFetchEventDetailSuccess() {
+        let vc = UINavigationController(rootViewController: sut)
+        sut.view.setNeedsDisplay() // see note above
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
+        ])
+    }
+
+    func testFetchEventDetailSuccessDark() {
+        let vc = UINavigationController(rootViewController: sut)
+        vc.overrideUserInterfaceStyle = .dark
+        sut.view.setNeedsDisplay()
+        assertSnapshots(matching: vc, as: [
+            .wait(for: 0.5, on: .image(on: .iPhoneX))
+        ])
+    }
 }
