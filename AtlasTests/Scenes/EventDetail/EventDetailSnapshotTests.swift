@@ -9,7 +9,6 @@
 import XCTest
 import SnapshotTesting
 
-
 // MARK: - Note:
 /*
  for some reason the snapshot for the  first device
@@ -41,7 +40,7 @@ class EventDetailSnapshotTests: XCTestCase {
 //        let vc = UINavigationController(rootViewController: sut)
 //        sut.view.setNeedsDisplay() // see note above
 //        assertSnapshots(matching: vc, as: [
-//            .wait(for: 0.5, on: .image(on: .iPhoneX))
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
 //        ])
 //    }
 //
@@ -50,7 +49,7 @@ class EventDetailSnapshotTests: XCTestCase {
 //        vc.overrideUserInterfaceStyle = .dark
 //        sut.view.setNeedsDisplay()
 //        assertSnapshots(matching: vc, as: [
-//            .wait(for: 0.5, on: .image(on: .iPhoneX))
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
 //        ])
 //    }
 }

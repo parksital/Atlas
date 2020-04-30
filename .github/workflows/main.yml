@@ -16,9 +16,11 @@ jobs:
       run: echo "$AWS_CONFIG" | base64 -o awsconfiguration.json
       env:
         AWS_CONFIG: ${{ secrets.AWS_CONFIG }}
+    - name: Set Xcode version
+      run: sudo xcode-select -switch /Applications/Xcode_11.4.1.app
     - name: Clean project
       run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator clean
     - name: Build For Testing
-      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3"
+      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=latest"
     - name: Run Tests
-      run: xcodebuild test-without-building -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3"
+      run: xcodebuild test-without-building -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=latest"
