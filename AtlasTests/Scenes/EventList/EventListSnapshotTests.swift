@@ -38,7 +38,7 @@ class EventListSnapshotTests: XCTestCase {
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
         let vc = UINavigationController(rootViewController: sut)
         assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhoneSe))
+            .wait(for: 0.5, on: .image(on: .iPhone8))
         ])
     }
     
@@ -49,7 +49,7 @@ class EventListSnapshotTests: XCTestCase {
         let vc = UINavigationController(rootViewController: sut)
         vc.overrideUserInterfaceStyle = .dark
         assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhoneSe))
+            .wait(for: 0.5, on: .image(on: .iPhone8))
         ])
     }
     
@@ -59,7 +59,7 @@ class EventListSnapshotTests: XCTestCase {
         sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
         let vc = UINavigationController(rootViewController: sut)
         assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhoneSe))
+            .wait(for: 0.5, on: .image(on: .iPhone8))
         ])
     }
     
@@ -70,7 +70,7 @@ class EventListSnapshotTests: XCTestCase {
         let vc = UINavigationController(rootViewController: sut)
         vc.overrideUserInterfaceStyle = .dark
         assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhoneSe))
+            .wait(for: 0.5, on: .image(on: .iPhone8))
         ])
     }
 }
