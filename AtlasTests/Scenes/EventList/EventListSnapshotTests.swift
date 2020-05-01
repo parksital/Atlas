@@ -32,45 +32,45 @@ class EventListSnapshotTests: XCTestCase {
         super.tearDown()
     }
     
-    func testEventListViewController_noEvents() {
-        sut = EventListViewController()
-        // don't set up the presenter
-        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        let vc = UINavigationController(rootViewController: sut)
-        assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhone8))
-        ])
-    }
-    
-    func testEventListViewController_noEvents_dark() {
-        sut = EventListViewController()
-        // don't set up the presenter
-        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        let vc = UINavigationController(rootViewController: sut)
-        vc.overrideUserInterfaceStyle = .dark
-        assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhone8))
-        ])
-    }
-    
-    func testEventListViewController_events() {
-        sut = EventListViewController()
-        presenter.setup(viewController: sut)
-        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        let vc = UINavigationController(rootViewController: sut)
-        assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhone8))
-        ])
-    }
-    
-    func testEventListViewController_events_dark() {
-        sut = EventListViewController()
-        presenter.setup(viewController: sut)
-        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
-        let vc = UINavigationController(rootViewController: sut)
-        vc.overrideUserInterfaceStyle = .dark
-        assertSnapshots(matching: vc, as: [
-            .wait(for: 0.5, on: .image(on: .iPhone8))
-        ])
-    }
+//    func testEventListViewController_noEvents() {
+//        sut = EventListViewController()
+//        // don't set up the presenter
+//        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+//        let vc = UINavigationController(rootViewController: sut)
+//        assertSnapshots(matching: vc, as: [
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
+//        ])
+//    }
+//    
+//    func testEventListViewController_noEvents_dark() {
+//        sut = EventListViewController()
+//        // don't set up the presenter
+//        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+//        let vc = UINavigationController(rootViewController: sut)
+//        vc.overrideUserInterfaceStyle = .dark
+//        assertSnapshots(matching: vc, as: [
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
+//        ])
+//    }
+//    
+//    func testEventListViewController_events() {
+//        sut = EventListViewController()
+//        presenter.setup(viewController: sut)
+//        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+//        let vc = UINavigationController(rootViewController: sut)
+//        assertSnapshots(matching: vc, as: [
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
+//        ])
+//    }
+//    
+//    func testEventListViewController_events_dark() {
+//        sut = EventListViewController()
+//        presenter.setup(viewController: sut)
+//        sut.setup(interactor: EventListInteractor(presenter: presenter, eventService: service))
+//        let vc = UINavigationController(rootViewController: sut)
+//        vc.overrideUserInterfaceStyle = .dark
+//        assertSnapshots(matching: vc, as: [
+//            .wait(for: 0.5, on: .image(on: .iPhone8))
+//        ])
+//    }
 }
