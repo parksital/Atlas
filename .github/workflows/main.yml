@@ -19,7 +19,13 @@ jobs:
     - name: Set Xcode version
       run: sudo xcode-select -switch /Applications/Xcode_11.4.1.app
     - name: Run fastlane
-      run: fastlane tests
+      run: bundle exec fastlane tests
+    - name: Archive xcresults
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: testresults
+        path: testresults
     # - name: Build For Testing
     #   run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.4.1"
     # - name: Run Tests

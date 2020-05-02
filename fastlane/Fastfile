@@ -18,7 +18,33 @@ default_platform(:ios)
 platform :ios do
   desc "Description of what the lane does"
   lane :tests do
+    tests_passed = scan(scheme: "Atlas", fail_build: false)
+    
+    if not tests_passed
+      derived_data_path = lane_context[SharedValues::SCAN_DERIVED_DATA_PATH]
+      archive_xcresults(derived_data_path: derived_data_path)
+      UI.user_error!("Tests failed")
+    end
+
     scan
     # add actions here: https://docs.fastlane.tools/actions
   end
+
+  lane :archive_xcresults do |options|
+    test_logs_folder_path = "#{options[:derived_data_path]}/Logs/Test"
+
+    if File.exist?(test_logs_folder_path)
+        project_dir = File.expand_path("..", Dir.pwd)
+        test_results_folder = "#{project_dir}/testresults"
+        Dir.mkdir(test_results_folder)
+        xcresults = Dir["#{test_logs_folder_path}/*.xcresult"]
+        xcresults.each do |xcresult|
+            puts "copying #{xcresult} to #{test_results_folder}"
+            FileUtils.cp_r(xcresult, test_results_folder)
+        end
+
+    else
+        puts "No test logs folder"
+    end
+end
 end
