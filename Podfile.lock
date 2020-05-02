@@ -35,7 +35,7 @@ DEPENDENCIES:
   - SwinjectAutoregistration
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AppSyncRealTimeClient
     - AWSAppSync
     - AWSAuthCore
@@ -67,4 +67,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4a440253b237dbfdffd270038b8216b646318743
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.9.1
