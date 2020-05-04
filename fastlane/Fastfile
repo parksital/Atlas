@@ -25,8 +25,6 @@ platform :ios do
       archive_xcresults(derived_data_path: derived_data_path)
       UI.user_error!("Tests failed")
     end
-
-    scan
     # add actions here: https://docs.fastlane.tools/actions
   end
 
