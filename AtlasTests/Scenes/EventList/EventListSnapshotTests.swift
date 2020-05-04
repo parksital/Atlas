@@ -41,7 +41,7 @@ class EventListSnapshotTests: XCTestCase {
 //            .wait(for: 0.5, on: .image(on: .iPhone8))
 //        ])
 //    }
-//    
+//
 //    func testEventListViewController_noEvents_dark() {
 //        sut = EventListViewController()
 //        // don't set up the presenter
@@ -52,7 +52,7 @@ class EventListSnapshotTests: XCTestCase {
 //            .wait(for: 0.5, on: .image(on: .iPhone8))
 //        ])
 //    }
-//    
+//
 //    func testEventListViewController_events() {
 //        sut = EventListViewController()
 //        presenter.setup(viewController: sut)
@@ -62,7 +62,7 @@ class EventListSnapshotTests: XCTestCase {
 //            .wait(for: 0.5, on: .image(on: .iPhone8))
 //        ])
 //    }
-//    
+//
 //    func testEventListViewController_events_dark() {
 //        sut = EventListViewController()
 //        presenter.setup(viewController: sut)

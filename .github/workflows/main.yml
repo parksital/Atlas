@@ -1,10 +1,10 @@
 name: Build
 
-on: [push]
-  # pull_request:
-    # branches: 
-    # - develop
-    # - master
+on:
+  pull_request:
+    branches: 
+    - develop
+    - master
 jobs:
   build:
     runs-on: macos-latest
@@ -18,9 +18,13 @@ jobs:
         AWS_CONFIG: ${{ secrets.AWS_CONFIG }}
     - name: Set Xcode version
       run: sudo xcode-select -switch /Applications/Xcode_11.4.1.app
-    - name: Clean project
-      run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator clean
-    - name: Build For Testing
-      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.4.1"
-    - name: Run Tests
-      run: xcodebuild test-without-building -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.4.1"
+    - name: Setup fastlane dependencies
+      run: bundle install
+    - name: Run lanes
+      run: bundle exec fastlane tests
+    - name: Archive xcresults
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: testresults
+        path: testresults
