@@ -42,9 +42,8 @@ platform :ios do
             puts "copying #{xcresult} to #{test_results_folder}"
             FileUtils.cp_r(xcresult, test_results_folder)
         end
-
     else
         puts "No test logs folder"
     end
-end
+  end
 end

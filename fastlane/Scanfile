@@ -12,7 +12,7 @@ devices(["iPhone 11"])
 
 clean(true)
 
-output_types("html")
-open_report(true)
+# output_types("html")
+open_report(false)
 # Enable skip_build to skip debug builds for faster test performance
 # skip_build(true)
