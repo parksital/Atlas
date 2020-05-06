@@ -22,37 +22,13 @@ protocol SignUpDisplayLogic: class {
 final class SignUpViewController: UIViewController {
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
-    private var viewModel: SignUpViewModel? {
-        didSet {
-            guard let vm = viewModel else { return }
-            mainLabel.text = vm.mainText
-            secondaryLabel.text = vm.secondaryText
-        }
-    }
     
-    private var scrollViewComponent = ScrollViewComponent()
-    private var stackView: UIStackView! = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .leading
-        stackView.spacing = UIStackView.spacingUseSystem
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 20,
-            leading: 20,
-            bottom: 20,
-            trailing: 20
-        )
-        return stackView
-    }()
-    
+    private var aloeStackView = AloeStackView()
     private var mainLabel = UILabel(styling: .primary)
     private var secondaryLabel = UILabel(styling: .secondary)
-    
+    private var authView = UIView()
     private let authButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         
@@ -88,10 +64,8 @@ private extension SignUpViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-//        setupLabels()
         setupAuthButton()
-        setupStackView()
-        setupScrollViewComponent()
+        setupAloeStackView()
     }
     
     func setupNavigationBar() {
@@ -103,6 +77,33 @@ private extension SignUpViewController {
             target: router,
             action: #selector(router!.dismiss)
         )
+    }
+    
+    func setupAloeStackView() {
+        aloeStackView.hidesSeparatorsByDefault = true
+        aloeStackView.alwaysBounceVertical = true
+        aloeStackView.backgroundColor = .systemBackground
+        aloeStackView.rowBackgroundColor = .systemBackground
+        aloeStackView.separatorColor = .separator
+        setupAloeStackViewConstraints()
+        
+        aloeStackView.addRows([
+            mainLabel,
+            secondaryLabel,
+            authView
+        ], animated: true)
+    }
+    
+    func setupAloeStackViewConstraints() {
+        view.addSubview(aloeStackView)
+        
+        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
     func setupLabels() {
@@ -119,35 +120,13 @@ private extension SignUpViewController {
     }
     
     func setupAuthButtonConstraints() {
-        view.addSubview(authButton)
+        authView.addSubview(authButton)
         authButton.translatesAutoresizingMaskIntoConstraints = false
-        let center = authButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        let bottom = authButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20.0)
-        
-        NSLayoutConstraint.activate([center, bottom])
-    }
-    
-    func setupStackView() {
-        stackView.populateWithViews([mainLabel, secondaryLabel, authButton])
-        stackView.addSpacer()
-    }
-    
-    func setupScrollViewComponent() {
-        scrollViewComponent.isScrollEnabled = false
-        scrollViewComponent.setupWithView(stackView)
-        setupScrollComponentConstraints()
-    }
-    
-    func setupScrollComponentConstraints() {
-        view.addSubview(scrollViewComponent)
-        
-        scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
-        let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        
-        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+
+        let centerX = authButton.centerXAnchor.constraint(equalTo: authView.centerXAnchor)
+        let centerY = authButton.centerYAnchor.constraint(equalTo: authView.centerYAnchor)
+
+        NSLayoutConstraint.activate([centerX, centerY])
     }
     
     @objc func handleAppleIDButtonPress() {
@@ -170,8 +149,7 @@ private extension SignUpViewController {
 extension SignUpViewController: SignUpDisplayLogic {
     func updateWithViewModel(_ viewModel: SignUpViewModel) {
         DispatchQueue.main.async { [weak self] in
-            self?.viewModel = viewModel
-//            self?.updateViewsForViewModel(viewModel)
+            self?.updateViewsForViewModel(viewModel)
         }
     }
     
