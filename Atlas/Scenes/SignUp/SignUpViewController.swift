@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import AloeStackView
 import AuthenticationServices
 
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
     func showActivityIndicator()
     func hideActivityIndicator()
-    func updateView(_ viewModel: SignUpViewModel)
+    func updateWithViewModel(_ viewModel: SignUpViewModel)
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -46,17 +47,8 @@ final class SignUpViewController: UIViewController {
         return stackView
     }()
     
-    private var mainLabel: UILabel = {
-        let label = UILabel()
-        label.applyStyling(.primary)
-        return label
-    }()
-    
-    private var secondaryLabel: UILabel = {
-        let label = UILabel()
-        label.applyStyling(.secondary)
-        return label
-    }()
+    private var mainLabel = UILabel(styling: .primary)
+    private var secondaryLabel = UILabel(styling: .secondary)
     
     private let authButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
@@ -94,16 +86,16 @@ final class SignUpViewController: UIViewController {
 
 private extension SignUpViewController {
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupNavigationBar()
-        setupLabels()
+//        setupLabels()
         setupAuthButton()
         setupStackView()
         setupScrollViewComponent()
     }
     
     func setupNavigationBar() {
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.darkText]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.label]
         navigationController?.navigationBar.barStyle = .default
         navigationItem.title = "Account"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -168,12 +160,18 @@ private extension SignUpViewController {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
+    
+    func updateViewsForViewModel(_ viewModel: SignUpViewModel) {
+        mainLabel.text = viewModel.mainText
+        secondaryLabel.text = viewModel.secondaryText
+    }
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
-    func updateView(_ viewModel: SignUpViewModel) {
+    func updateWithViewModel(_ viewModel: SignUpViewModel) {
         DispatchQueue.main.async { [weak self] in
             self?.viewModel = viewModel
+//            self?.updateViewsForViewModel(viewModel)
         }
     }
     

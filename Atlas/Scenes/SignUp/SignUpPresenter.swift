@@ -37,6 +37,6 @@ extension SignUpPresenter: SignUpPresentationLogic {
             mainText: "For a personalized experience, \nsign into your account.",
             secondaryText: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
-        viewController?.updateView(viewModel)
+        viewController?.updateWithViewModel(viewModel)
     }
 }
