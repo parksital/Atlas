@@ -6,7 +6,7 @@
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
-import UIKit
+import AloeStackView
 
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
@@ -19,52 +19,11 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailInteraction?
     var router: EventDetailRouterProtocol?
     
-    private var viewModel: EventDetail.ViewModel? {
-        didSet {
-            guard let vm = viewModel else { return }
-            titleLabel.text = vm.venue
-            dateTimeLabel.text = vm.startDate
-            descriptionLabel.text = vm.description
-            stackView.addArrangedSubview(ArtistSectionView(artists: vm.artists))
-            stackView.addSpacer()
-        }
-    }
-    
-    private var scrollViewComponent: ScrollViewComponent = { ScrollViewComponent() }()
-    
-    private var stackView: UIStackView! = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .leading
-        stackView.spacing = UIStackView.spacingUseSystem
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 20,
-            leading: 20,
-            bottom: 20,
-            trailing: 20
-        )
-        return stackView
-    }()
-    
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.applyStyling(.title)
-        return label
-    }()
-    
-    private var dateTimeLabel: UILabel = {
-        let label = UILabel()
-        label.applyStyling(.headline)
-        return label
-    }()
-    
-    private var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.applyStyling(.body)
-        return label
-    }()
+    private let stackView = AloeStackView()
+    private var titleLabel = UILabel(styling: .title)
+    private var dateTimeLabel = UILabel(styling: .headline)
+    private var descriptionLabel = UILabel(styling: .body)
+    private var artistHeaderLabel = UILabel.init(styling: .headline)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -86,6 +45,59 @@ final class EventDetailViewController: UIViewController {
     }
 }
 
+private extension EventDetailViewController {
+    func setupViews() {
+        view.backgroundColor = .systemBackground
+        setupStackView()
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func setupStackView() {
+        stackView.hidesSeparatorsByDefault = true
+        stackView.alwaysBounceVertical = true
+        stackView.backgroundColor = .systemBackground
+        stackView.rowBackgroundColor = .systemBackground
+        stackView.separatorColor = .separator
+        setupStackViewConstraints()
+        
+        stackView.addRows([
+            titleLabel,
+            dateTimeLabel,
+            descriptionLabel,
+            artistHeaderLabel
+        ], animated: true)
+    }
+    
+    func setupStackViewConstraints() {
+        view.addSubview(stackView)
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func updateViewsForViewModel(_ viewModel: EventDetail.ViewModel) {
+        titleLabel.text = viewModel.venue
+        dateTimeLabel.text = viewModel.startDate
+        descriptionLabel.text = viewModel.description
+        artistHeaderLabel.text = "Artists"
+        
+        viewModel.artists.forEach { [stackView] in
+            let label = UILabel(styling: .body)
+            label.text = $0
+            stackView.addRow(label, animated: true)
+            stackView.showSeparator(forRow: label)
+        }
+    }
+}
+
 extension EventDetailViewController: EventDetailDisplayLogic {
     func setup(interactor: EventDetailInteraction) {
         self.interactor = interactor
@@ -101,40 +113,7 @@ extension EventDetailViewController: EventDetailDisplayLogic {
     
     func displayViewModel(_ viewModel: EventDetail.ViewModel) {
         DispatchQueue.main.async { [weak self] in
-            self?.viewModel = viewModel
+            self?.updateViewsForViewModel(viewModel)
         }
-    }
-}
-
-private extension EventDetailViewController {
-    func setupViews() {
-        view.backgroundColor = .systemBackground
-        setupScrollViewComponent()
-        populateStackView(stackView, with: [titleLabel, dateTimeLabel, descriptionLabel])
-    }
-    
-    func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    func setupScrollViewComponent() {
-        scrollViewComponent.setupWithView(stackView)
-        setupScrollComponentConstraints()
-    }
-    
-    func setupScrollComponentConstraints() {
-        view.addSubview(scrollViewComponent)
-        
-        scrollViewComponent.translatesAutoresizingMaskIntoConstraints = false
-        let leading = scrollViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = scrollViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = scrollViewComponent.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = scrollViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        
-        NSLayoutConstraint.activate([leading, trailing, top, bottom])
-    }
-    
-    func populateStackView(_ stackView: UIStackView, with views: [UIView]) {
-        views.forEach { stackView.addArrangedSubview($0) }
     }
 }

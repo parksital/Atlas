@@ -14,6 +14,7 @@ target 'Atlas' do
   pod 'AWSCore'
   pod 'AWSAppSync'
   pod 'AWSMobileClient'
+  pod 'AloeStackView'
 
   target 'AtlasTests' do
     
