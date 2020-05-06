@@ -1,4 +1,5 @@
 PODS:
+  - AloeStackView (1.2.0)
   - AppSyncRealTimeClient (1.1.6):
     - Starscream (= 3.0.6)
   - AWSAppSync (3.1.2):
@@ -27,6 +28,7 @@ PODS:
     - Swinject (~> 2.7)
 
 DEPENDENCIES:
+  - AloeStackView
   - AWSAppSync
   - AWSCore
   - AWSMobileClient
@@ -49,8 +51,11 @@ SPEC REPOS:
     - Starscream
     - Swinject
     - SwinjectAutoregistration
+  trunk:
+    - AloeStackView
 
 SPEC CHECKSUMS:
+  AloeStackView: 8a4ce0efa08128dd78d538372f60c76c224034bb
   AppSyncRealTimeClient: 4a2ccdc1722750a1f4d76e216f9bfb1cf12f10de
   AWSAppSync: 4b91c48712913ca4f2bb38273280190e65d59a45
   AWSAuthCore: 890aaf36fa3a913a5948851a576c02456bed4c5b
@@ -65,6 +70,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectAutoregistration: 330f5012642a8b5c89a8a4adb0c5e52df07382c0
 
-PODFILE CHECKSUM: 4a440253b237dbfdffd270038b8216b646318743
+PODFILE CHECKSUM: de4644fef623120a5fba232fb840093aa87ad39d
 
 COCOAPODS: 1.9.1
