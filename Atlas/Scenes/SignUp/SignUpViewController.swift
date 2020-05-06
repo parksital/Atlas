@@ -106,14 +106,6 @@ private extension SignUpViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupLabels() {
-        [mainLabel, secondaryLabel].forEach { label in
-            label.adjustsFontForContentSizeCategory = true
-            label.setContentHuggingPriority(.defaultLow, for: .vertical)
-            label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        }
-    }
-    
     func setupAuthButton() {
         authButton.addTarget(self, action: #selector(self.handleAppleIDButtonPress), for: .touchUpInside)
         setupAuthButtonConstraints()
