@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "1F4C3B43-33D6-40FF-A24C-CB1CEE485704",
+      "name" : "nl_Region",
+      "options" : {
+        "region" : "NL"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "mock"
+      }
+    ],
+    "environmentVariableEntries" : [
+      {
+        "key" : "SNAPSHOT_ARTIFACTS",
+        "value" : "$(SOURCE_ROOT)\/$(PROJECT_NAME)Tests\/__Failure__\/"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Atlas.xcodeproj",
+        "identifier" : "A0B661C624002661001C5B40",
+        "name" : "AtlasTests"
+      }
+    }
+  ],
+  "version" : 1
+}

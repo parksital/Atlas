@@ -179,6 +179,7 @@
 		A04BCE5F2451AB4A000A6969 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
+		A06617C324618DE3009D150E /* Atlas.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Atlas.xctestplan; path = Scenes/Atlas.xctestplan; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
 		A0833799245945F8002E4571 /* AppleAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthData.swift; sourceTree = "<group>"; };
@@ -458,6 +459,7 @@
 		A0B661CA24002661001C5B40 /* AtlasTests */ = {
 			isa = PBXGroup;
 			children = (
+				A06617C324618DE3009D150E /* Atlas.xctestplan */,
 				A030AEA2242C09F100BFCFC5 /* Mocks */,
 				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
