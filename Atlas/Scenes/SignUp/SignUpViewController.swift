@@ -27,13 +27,7 @@ final class SignUpViewController: UIViewController {
     private var mainLabel = UILabel(styling: .primary)
     private var secondaryLabel = UILabel(styling: .secondary)
     private var authView = UIView()
-    private let authButton: ASAuthorizationAppleIDButton = {
-        let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        
-        return button
-    }()
+    private var authButton: ASAuthorizationAppleIDButton!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -54,6 +48,16 @@ final class SignUpViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        let userInterfaceHasChanged = traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)
+
+        if userInterfaceHasChanged {
+            setupAppleIDAuthButton()
+        }
+    }
+    
     deinit {
         router = nil
         interactor = nil
@@ -64,8 +68,12 @@ private extension SignUpViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-        setupAuthButton()
         setupAloeStackView()
+        
+        setupMainLabel()
+        setupSecondaryLabel()
+        setupAppleIDAuthButton()
+        setupAuthView()
     }
     
     func setupNavigationBar() {
@@ -86,12 +94,6 @@ private extension SignUpViewController {
         aloeStackView.rowBackgroundColor = .systemBackground
         aloeStackView.separatorColor = .separator
         setupAloeStackViewConstraints()
-        
-        aloeStackView.addRows([
-            mainLabel,
-            secondaryLabel,
-            authView
-        ], animated: true)
     }
     
     func setupAloeStackViewConstraints() {
@@ -106,19 +108,43 @@ private extension SignUpViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupAuthButton() {
+    func setupMainLabel() {
+        aloeStackView.addRow(mainLabel, animated: true)
+    }
+    
+    func setupSecondaryLabel() {
+        aloeStackView.addRow(secondaryLabel, animated: true)
+    }
+    
+    func setupAuthView() {
+        aloeStackView.addRow(authView, animated: true)
+    }
+    
+    func setupAppleIDAuthButton() {
+        authView.subviews.forEach { $0.removeFromSuperview() }
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            authButton = ASAuthorizationAppleIDButton(type: .default, style: .white)
+        default:
+            authButton = ASAuthorizationAppleIDButton(type: .default, style: .black)
+        }
+        
         authButton.addTarget(self, action: #selector(self.handleAppleIDButtonPress), for: .touchUpInside)
+        
         setupAuthButtonConstraints()
     }
     
     func setupAuthButtonConstraints() {
         authView.addSubview(authButton)
         authButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        let width = authButton.widthAnchor.constraint(equalToConstant: 200.0)
+        let height = authButton.heightAnchor.constraint(equalToConstant: 44.0)
+        let top = authButton.topAnchor.constraint(equalTo: authView.topAnchor)
+        let bottom = authButton.bottomAnchor.constraint(equalTo: authView.bottomAnchor)
         let centerX = authButton.centerXAnchor.constraint(equalTo: authView.centerXAnchor)
-        let centerY = authButton.centerYAnchor.constraint(equalTo: authView.centerYAnchor)
-
-        NSLayoutConstraint.activate([centerX, centerY])
+        
+        NSLayoutConstraint.activate([centerX, width, height, top, bottom])
     }
     
     @objc func handleAppleIDButtonPress() {
