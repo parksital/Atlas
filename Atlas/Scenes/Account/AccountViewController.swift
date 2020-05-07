@@ -6,4 +6,27 @@
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol AccountDisplayLogic {
+    
+}
+
+final class AccountViewController: UIViewController {
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+}

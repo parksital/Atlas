@@ -7,3 +7,16 @@
 //
 
 import UIKit
+
+@objc protocol AccountRouting {
+    
+}
+
+protocol AccountDataPassing {
+    
+}
+
+typealias AccountRouterProtocol = NSObject & AccountRouting & AccountDataPassing
+final class AccountRouter {
+    
+}

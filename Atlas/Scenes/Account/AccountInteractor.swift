@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+protocol AccountLogic {
+    
+}
+
+protocol AccountDataStore {
+    
+}
+
+typealias AccountInteraction = AccountLogic & AccountDataStore
+final class AccountInteractor {
+    
+}
