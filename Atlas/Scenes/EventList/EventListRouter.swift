@@ -34,12 +34,8 @@ final class EventListRouter: EventListRouterProtocol {
     
     func routeToAccount() {
         let container = SceneContainer.shared.container
-        let vc = container.resolve(SignUpViewController.self)!
-        
-        let destinationVC = UINavigationController(rootViewController: vc)
-        destinationVC.modalTransitionStyle = .coverVertical
-        destinationVC.modalPresentationStyle = .fullScreen
-        presentDestination(source: viewController!, destination: destinationVC)
+        let vc = container.resolve(AccountViewController.self)!
+        navigateToDestination(source: viewController!, destination: vc)
     }
     
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
@@ -53,7 +49,7 @@ final class EventListRouter: EventListRouterProtocol {
         source.present(destination, animated: true, completion: nil)
     }
     
-    func navigateToDestination(source: EventListViewController, destination: UIViewController) {
+    func navigateToDestination(source: UIViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
