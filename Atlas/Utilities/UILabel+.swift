@@ -8,7 +8,15 @@
 
 import UIKit
 
-extension UILabel: StylableProtocol {
+extension UILabel {
+    convenience init(styling: Styling) {
+        self.init()
+        self.font = styling.font
+        self.textColor = styling.fontColor
+        self.textAlignment = .natural
+        self.numberOfLines = 0
+    }
+    
     func applyStyling(_ styling: Styling) {
         self.font = styling.font
         self.textColor = styling.fontColor

@@ -10,7 +10,7 @@ import UIKit
 
 final class ArtistSectionView: UIView {
     private let cornerRadius: CGFloat = 8.0
-    private let fillColor: CGColor = UIColor.white.cgColor
+    private let fillColor: CGColor = UIColor.secondarySystemBackground.cgColor
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -68,7 +68,7 @@ private extension ArtistSectionView {
     func addShadow() {
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-        shadowLayer.fillColor = fillColor
+        shadowLayer.fillColor = UIColor.secondarySystemBackground.cgColor
         shadowLayer.shadowColor = UIColor.black.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 0.0, height: 5.0)

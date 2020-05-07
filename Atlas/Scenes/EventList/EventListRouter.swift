@@ -25,7 +25,7 @@ final class EventListRouter: EventListRouterProtocol {
     var dataStore: EventListDataStore?
     
     func routeToDetail() {
-        let container = SharedContainer.shared.container
+        let container = SceneContainer.shared.container
         let destinationVC = container.resolve(EventDetailViewController.self)!
         var destinationDS = destinationVC.router?.dataStore
         passDataToDestination(source: dataStore!, destination: &destinationDS!)
@@ -33,18 +33,15 @@ final class EventListRouter: EventListRouterProtocol {
     }
     
     func routeToAccount() {
-        let container = SharedContainer.shared.container
-        let vc = container.resolve(SignUpViewController.self)!
-        
-        let destinationVC = UINavigationController(rootViewController: vc)
-        destinationVC.modalTransitionStyle = .coverVertical
-        destinationVC.modalPresentationStyle = .fullScreen
-        presentDestination(source: viewController!, destination: destinationVC)
+        let container = SceneContainer.shared.container
+        let vc = container.resolve(AccountViewController.self)!
+        navigateToDestination(source: viewController!, destination: vc)
     }
     
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {
         DispatchQueue.global(qos: .userInitiated).async { [destination] in
-            destination.event = source.selectedEvent
+            destination.eventID = source.selectedEvent?.id
+            destination.eventTitle = source.selectedEvent?.title
         }
     }
     
@@ -52,7 +49,7 @@ final class EventListRouter: EventListRouterProtocol {
         source.present(destination, animated: true, completion: nil)
     }
     
-    func navigateToDestination(source: EventListViewController, destination: UIViewController) {
+    func navigateToDestination(source: UIViewController, destination: UIViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     

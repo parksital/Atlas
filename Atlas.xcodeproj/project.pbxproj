@@ -22,8 +22,6 @@
 		A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
-		A0255BE22425068A001E117D /* StylableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE12425068A001E117D /* StylableProtocol.swift */; };
-		A0255BE324250693001E117D /* StylableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE12425068A001E117D /* StylableProtocol.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
 		A0255BE7242506DA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
 		A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
@@ -41,7 +39,19 @@
 		A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
+		A0324FCA245781AF00971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
+		A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
+		A0324FCF2458619200971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
+		A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
+		A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
+		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
+		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
+		A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
+		A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
+		A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
+		A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
+		A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -65,6 +75,8 @@
 		A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5824516714000A6969 /* SignUpInteractor.swift */; };
 		A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */; };
 		A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */; };
+		A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5F2451AB4A000A6969 /* UIFont+.swift */; };
+		A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BCE5F2451AB4A000A6969 /* UIFont+.swift */; };
 		A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
 		A0503DC0242A75E400FF1BA3 /* ScrollViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE924267241001E117D /* ScrollViewComponent.swift */; };
 		A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */; };
@@ -72,6 +84,13 @@
 		A075E3882409B107006F891F /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = A075E3872409B106006F891F /* awsconfiguration.json */; };
 		A075E38E240E8201006F891F /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A075E38D240E8201006F891F /* API.swift */; };
 		A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */ = {isa = PBXBuildFile; fileRef = A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */; };
+		A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0833799245945F8002E4571 /* AppleAuthData.swift */; };
+		A083379B24594605002E4571 /* AppleAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0833799245945F8002E4571 /* AppleAuthData.swift */; };
+		A083379D2459463E002E4571 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379C2459463E002E4571 /* AuthError.swift */; };
+		A083379E24594648002E4571 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379C2459463E002E4571 /* AuthError.swift */; };
+		A08337A024594660002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
+		A08337A12459466C002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
+		A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
 		A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
@@ -84,8 +103,8 @@
 		A0B661C124002661001C5B40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */; };
 		A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661CB24002661001C5B40 /* AtlasTests.swift */; };
 		A0B661D724002661001C5B40 /* AtlasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661D624002661001C5B40 /* AtlasUITests.swift */; };
-		A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
-		A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SharedContainer.swift */; };
+		A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
+		A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
@@ -93,6 +112,12 @@
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
+		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
+		A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
+		A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
+		A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */; };
+		A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */; };
+		A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */; };
 		D67B2EEF1A4087F5B57E076D /* Pods_Atlas_AtlasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */; };
 		FCB58863BC11DF4258B6FA5B /* Pods_Atlas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */; };
 /* End PBXBuildFile section */
@@ -129,7 +154,6 @@
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
 		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
-		A0255BE12425068A001E117D /* StylableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylableProtocol.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0255BE924267241001E117D /* ScrollViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewComponent.swift; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
@@ -138,7 +162,13 @@
 		A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		A030AEA9242CE30300BFCFC5 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		A0324FC9245781AF00971C23 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A0324FCD245860E800971C23 /* AuthClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientProtocol.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
+		A03A02F12464119F00C5B7E9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
+		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
+		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
@@ -154,10 +184,17 @@
 		A04BCE55245162C1000A6969 /* SignUpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRouter.swift; sourceTree = "<group>"; };
 		A04BCE5824516714000A6969 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		A04BCE5E245184CC000A6969 /* Atlas.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Atlas.entitlements; sourceTree = "<group>"; };
+		A04BCE5F2451AB4A000A6969 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		A0503DC5242A87C900FF1BA3 /* EventListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenterTests.swift; sourceTree = "<group>"; };
+		A06617C324618DE3009D150E /* Atlas.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Atlas.xctestplan; path = Scenes/Atlas.xctestplan; sourceTree = "<group>"; };
 		A075E3872409B106006F891F /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
+		A0833799245945F8002E4571 /* AppleAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthData.swift; sourceTree = "<group>"; };
+		A083379C2459463E002E4571 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		A083379F24594660002E4571 /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
+		A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailSnapshotTests.swift; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,12 +208,15 @@
 		A0B661D224002661001C5B40 /* AtlasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtlasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0B98B66243FB475004C072F /* SharedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
+		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Atlas_AtlasTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE01D6A39A386AF4534E8C2A /* Pods-AtlasTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.debug.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8C5FE42EC600F9FCD056ECE /* Pods-AtlasTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtlasTests.release.xcconfig"; path = "Target Support Files/Pods-AtlasTests/Pods-AtlasTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -241,6 +281,7 @@
 			children = (
 				A00C655C24238DE900D12C8D /* SectionType.swift */,
 				A0255BDD24250290001E117D /* Styling.swift */,
+				A083379F24594660002E4571 /* AuthStatus.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -248,6 +289,7 @@
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				A03A02F02464115500C5B7E9 /* Account */,
 				A04BCE51245148A0000A6969 /* SignUp */,
 				A041ED3B24196FD900DB772F /* EventDetail */,
 				A03B2C88240EC93800A6A411 /* EventList */,
@@ -258,10 +300,10 @@
 		A0255BE02425066F001E117D /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A0255BE12425068A001E117D /* StylableProtocol.swift */,
 				A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */,
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
+				A0324FCD245860E800971C23 /* AuthClientProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -292,8 +334,20 @@
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
 				A00C655F2423AE2B00D12C8D /* EventList.swift */,
+				A0833799245945F8002E4571 /* AppleAuthData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A03A02F02464115500C5B7E9 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				A03A02F12464119F00C5B7E9 /* AccountViewController.swift */,
+				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
+				A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */,
+				A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		A03B2C88240EC93800A6A411 /* EventList */ = {
@@ -312,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				A03EECF324127AF300FCDD8C /* NetworkError.swift */,
+				A083379C2459463E002E4571 /* AuthError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -369,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				A0297D08241A7DA10089F38C /* EventDetailPresenterTests.swift */,
+				A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */,
 			);
 			path = EventDetail;
 			sourceTree = "<group>";
@@ -398,6 +454,7 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
@@ -414,7 +471,7 @@
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,
 				A016B873242FB6F300D4057B /* AWSContainer.swift */,
-				A0B98B66243FB475004C072F /* SharedContainer.swift */,
+				A0B98B66243FB475004C072F /* SceneContainer.swift */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -422,6 +479,7 @@
 		A0B661CA24002661001C5B40 /* AtlasTests */ = {
 			isa = PBXGroup;
 			children = (
+				A06617C324618DE3009D150E /* Atlas.xctestplan */,
 				A030AEA2242C09F100BFCFC5 /* Mocks */,
 				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
@@ -444,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
+				A0324FC9245781AF00971C23 /* AuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -451,10 +510,14 @@
 		A0FEA88A241BF87400B3F3A1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A0FAFC4824592222006F46B1 /* PasswordGenerator.swift */,
+				A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */,
+				A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */,
 				A03CC8F0241FDF5E00A1D287 /* Date+.swift */,
 				A0C8B7F82423DED100B4882D /* Sequence+.swift */,
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
+				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -703,39 +766,51 @@
 			files = (
 				A04BCE53245148BC000A6969 /* SignUpViewController.swift in Sources */,
 				A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */,
+				A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */,
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
+				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
+				A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
+				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
-				A0B98B67243FB475004C072F /* SharedContainer.swift in Sources */,
+				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
-				A0255BE22425068A001E117D /* StylableProtocol.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
+				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
+				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
+				A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */,
+				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */,
+				A08337A024594660002E4571 /* AuthStatus.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
+				A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
+				A083379D2459463E002E4571 /* AuthError.swift in Sources */,
 				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A04BCE5924516714000A6969 /* SignUpInteractor.swift in Sources */,
+				A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -746,21 +821,30 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
+				A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
 				A09038FD2420E68300743881 /* EventListViewController.swift in Sources */,
+				A083379E24594648002E4571 /* AuthError.swift in Sources */,
 				A00C655E24238E1900D12C8D /* SectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
+				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
+				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
+				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
+				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
+				A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
-				A0B98B68243FB72B004C072F /* SharedContainer.swift in Sources */,
+				A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
 				A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */,
@@ -775,15 +859,19 @@
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
-				A0255BE324250693001E117D /* StylableProtocol.swift in Sources */,
+				A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */,
+				A08337A12459466C002E4571 /* AuthStatus.swift in Sources */,
+				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
+				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */,
 				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -944,6 +1032,7 @@
 			baseConfigurationReference = 20AF0E40AC13C366A6F115BB /* Pods-Atlas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Atlas/Atlas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 923A857SVG;
 				INFOPLIST_FILE = Atlas/Info.plist;
@@ -964,6 +1053,7 @@
 			baseConfigurationReference = 7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Atlas/Atlas.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 923A857SVG;
 				INFOPLIST_FILE = Atlas/Info.plist;

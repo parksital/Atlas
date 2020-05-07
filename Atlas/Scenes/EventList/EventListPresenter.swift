@@ -20,6 +20,7 @@ final class EventListPresenter {
     weak var viewController: EventListDisplayLogic?
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         return formatter

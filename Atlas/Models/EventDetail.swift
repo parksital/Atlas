@@ -94,7 +94,7 @@ extension Event.Artist: Decodable {
 
 enum EventDetail {
     struct Request: Fetchable, Mockable {
-        var fileName: String? { return "" }
+        var fileName: String? { return "eventByID" }
         var `extension`: String {return "json" }
         
         private var id: String

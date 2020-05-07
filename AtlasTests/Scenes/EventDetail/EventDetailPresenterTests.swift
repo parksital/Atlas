@@ -82,6 +82,22 @@ class EventDetailPresenterTests: XCTestCase {
         let result = spy.viewModel!.artists
         XCTAssertEqual(result, [])
     }
+    
+    func testEventDateFormatting() {
+        let data = MockAPIClient.getDataFromFile(
+            fileName: "eventByID-empty",
+            extension: "json"
+        )
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let event = try! decoder.decode(GetEvent.self, from: data).event
+        
+        sut.presentEvent(event)
+        
+        let result = spy.viewModel!.startDate
+        let expectation = "Thursday, 21 January 2021 at 23:00"
+        XCTAssertEqual(result, expectation)
+    }
 }
 
 extension EventDetailPresenterTests {
@@ -96,7 +112,7 @@ extension EventDetailPresenterTests {
         func displayViewModel(_ viewModel: EventDetail.ViewModel) {
             self.viewModel = viewModel
         }
-        func setup(interactor: EventDetailLogic) { }
+        func setup(interactor: EventDetailInteraction) { }
         func setup(router: EventDetailRouterProtocol) { }
     }
 }

@@ -16,9 +16,15 @@ jobs:
       run: echo "$AWS_CONFIG" | base64 -o awsconfiguration.json
       env:
         AWS_CONFIG: ${{ secrets.AWS_CONFIG }}
-    - name: Clean project
-      run: xcodebuild -workspace Atlas.xcworkspace -scheme Atlas -sdk iphonesimulator clean
-    - name: Build For Testing
-      run: xcodebuild build-for-testing -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
-    - name: Run Tests
-      run: xcodebuild test-without-building -workspace Atlas.xcworkspace -scheme Atlas -destination "platform=iOS Simulator,name=iPhone 8,OS=13.3" -quiet
+    - name: Set Xcode version
+      run: sudo xcode-select -switch /Applications/Xcode_11.4.1.app
+    - name: Setup fastlane dependencies
+      run: bundle install
+    - name: Run lanes
+      run: bundle exec fastlane tests
+    - name: Archive xcresults
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: testresults
+        path: testresults
