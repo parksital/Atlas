@@ -29,6 +29,5 @@ final class AccountInteractor: AccountDataStore {
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
-        authService.getStatus()
     }
 }
