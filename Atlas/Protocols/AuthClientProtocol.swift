@@ -12,9 +12,10 @@ import AuthenticationServices
 import Combine
 
 protocol AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, Never> { get }
+    var status: CurrentValueSubject<AuthStatus, AuthError> { get }
     
     func initialize()
+    func listen()
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
     func logOut()
@@ -57,20 +58,26 @@ private extension AWSMobileClient {
             if let error = error {
                 assertionFailure(error.localizedDescription)
             } else if let state = userState {
-                switch state {
-                case .signedIn: break
-                case .signedOut: break // show sign in view
-                case .signedOutFederatedTokensInvalid: break
-                case .signedOutUserPoolsTokenInvalid: break
-                case .guest, .unknown: self.logOut()
-                }
+                self.handleUserState(state)
             }
+        }
+    }
+    
+    func handleUserState(_ userState: UserState) {
+        print("Listener: ", userState.rawValue)
+        switch userState {
+        case .signedIn:
+            status.send(.signedIn)
+        case .signedOut:
+            status.send(.signedOut)
+        default: self.logOut()
         }
     }
 }
 
+
 extension AWSMobileClient: AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, Never> {
+    var status: CurrentValueSubject<AuthStatus, AuthError> {
         return .init(.unknown)
     }
     
@@ -92,6 +99,12 @@ extension AWSMobileClient: AuthClientProtocol {
                 break
             }
         })
+    }
+    
+    func listen() {
+        self.addUserStateListener(self) { [weak self] userState, userInfo in
+            self?.handleUserState(userState)
+        }
     }
     
     func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
@@ -157,5 +170,6 @@ extension AWSMobileClient: AuthClientProtocol {
     @objc func logOut() {
         _ = KeychainWrapper.standard.removeAllKeys()
         self.signOut()
+        status.send(.signedOut)
     }
 }

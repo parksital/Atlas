@@ -39,9 +39,6 @@ private extension AuthService {
 }
 
 extension AuthService {
-    func initialize() {
-        authClient.initialize()
-    }
     
     func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
         let password = generatePassword()
