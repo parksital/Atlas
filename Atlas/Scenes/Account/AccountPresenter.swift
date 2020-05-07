@@ -9,9 +9,15 @@
 import Foundation
 
 protocol AccountPresentationLogic {
-    
+    func setup(viewController: AccountDisplayLogic)
 }
 
 final class AccountPresenter {
-    
+    private weak var viewController: AccountDisplayLogic?
+}
+
+extension AccountPresenter: AccountPresentationLogic {
+    func setup(viewController: AccountDisplayLogic) {
+        self.viewController = viewController
+    }
 }

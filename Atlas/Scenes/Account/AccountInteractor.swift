@@ -17,6 +17,14 @@ protocol AccountDataStore {
 }
 
 typealias AccountInteraction = AccountLogic & AccountDataStore
-final class AccountInteractor {
+final class AccountInteractor: AccountDataStore {
+    private var presenter: AccountPresentationLogic!
+    
+    init(presenter: AccountPresentationLogic) {
+        self.presenter = presenter
+    }
+}
+
+extension AccountInteractor: AccountLogic {
     
 }

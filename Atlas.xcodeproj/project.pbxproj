@@ -48,6 +48,10 @@
 		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
+		A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
+		A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
+		A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
+		A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -817,6 +821,7 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
+				A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
@@ -837,6 +842,7 @@
 				A0482885244A5F0D0054199B /* ArtistSectionView.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
+				A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
 				A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
@@ -853,7 +859,9 @@
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
+				A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */,
 				A08337A12459466C002E4571 /* AuthStatus.swift in Sources */,
+				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,

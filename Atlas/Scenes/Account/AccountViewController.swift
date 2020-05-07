@@ -8,11 +8,14 @@
 
 import UIKit
 
-protocol AccountDisplayLogic {
-    
+protocol AccountDisplayLogic: class {
+    func setup(interactor: AccountInteraction)
+    func setup(router: AccountRouterProtocol)
 }
 
 final class AccountViewController: UIViewController {
+    private var interactor: AccountInteraction?
+    private var router: AccountRouterProtocol?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -28,5 +31,14 @@ final class AccountViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+}
+
+extension AccountViewController: AccountDisplayLogic {
+    func setup(interactor: AccountInteraction) {
+        self.interactor = interactor
+    }
+    func setup(router: AccountRouterProtocol) {
+        self.router = router
     }
 }
