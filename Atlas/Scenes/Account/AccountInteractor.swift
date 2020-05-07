@@ -9,7 +9,7 @@
 import Foundation
 
 protocol AccountLogic {
-    
+    func viewDidFinishLoading()
 }
 
 protocol AccountDataStore {
@@ -18,13 +18,17 @@ protocol AccountDataStore {
 
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
-    private var presenter: AccountPresentationLogic!
+    private let presenter: AccountPresentationLogic!
+    private let authService: AuthService!
     
-    init(presenter: AccountPresentationLogic) {
+    init(authService: AuthService, presenter: AccountPresentationLogic) {
+        self.authService = authService
         self.presenter = presenter
     }
 }
 
 extension AccountInteractor: AccountLogic {
-    
+    func viewDidFinishLoading() {
+        authService.getStatus()
+    }
 }
