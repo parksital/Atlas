@@ -11,11 +11,13 @@ import UIKit
 protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
+    func displaySignedOutView()
 }
 
 final class AccountViewController: UIViewController {
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
+    private var statusLabel: UILabel = UILabel()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -28,6 +30,7 @@ final class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        interactor?.viewDidFinishLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,11 +42,21 @@ private extension AccountViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-        
+        setupStatusLabel()
     }
     
     func setupNavigationBar() {
         navigationItem.title = "Account"
+    }
+    
+    func setupStatusLabel() {
+        view.addSubview(statusLabel)
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let top = statusLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0)
+        let centerX = statusLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0.0)
+        
+        NSLayoutConstraint.activate([top, centerX])
     }
 }
 
@@ -53,5 +66,11 @@ extension AccountViewController: AccountDisplayLogic {
     }
     func setup(router: AccountRouterProtocol) {
         self.router = router
+    }
+    
+    func displaySignedOutView() {
+        DispatchQueue.main.async { [statusLabel] in
+            statusLabel.text = "signed out"
+        }
     }
 }
