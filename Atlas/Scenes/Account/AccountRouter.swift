@@ -10,7 +10,6 @@ import UIKit
 
 @objc protocol AccountRouting {
     func setup(viewController: AccountViewController)
-    func back()
     func routeToSignUp()
 }
 
