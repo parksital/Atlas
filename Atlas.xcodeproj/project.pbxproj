@@ -44,6 +44,10 @@
 		A0324FCF2458619200971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
 		A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
+		A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
+		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
+		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
+		A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -157,6 +161,10 @@
 		A0324FC9245781AF00971C23 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A0324FCD245860E800971C23 /* AuthClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientProtocol.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
+		A03A02F12464119F00C5B7E9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
+		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
+		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
@@ -277,6 +285,7 @@
 		A00DFE7C2416E17A005A729E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				A03A02F02464115500C5B7E9 /* Account */,
 				A04BCE51245148A0000A6969 /* SignUp */,
 				A041ED3B24196FD900DB772F /* EventDetail */,
 				A03B2C88240EC93800A6A411 /* EventList */,
@@ -324,6 +333,17 @@
 				A0833799245945F8002E4571 /* AppleAuthData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A03A02F02464115500C5B7E9 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				A03A02F12464119F00C5B7E9 /* AccountViewController.swift */,
+				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
+				A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */,
+				A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		A03B2C88240EC93800A6A411 /* EventList */ = {
@@ -742,6 +762,7 @@
 			files = (
 				A04BCE53245148BC000A6969 /* SignUpViewController.swift in Sources */,
 				A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */,
+				A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */,
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
@@ -751,7 +772,9 @@
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
+				A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
+				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
@@ -766,6 +789,7 @@
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
+				A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */,
 				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
