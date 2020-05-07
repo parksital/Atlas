@@ -27,10 +27,23 @@ final class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+}
+
+private extension AccountViewController {
+    func setupViews() {
+        view.backgroundColor = .systemBackground
+        setupNavigationBar()
+        
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.title = "Account"
     }
 }
 

@@ -36,7 +36,6 @@ final class EventListRouter: EventListRouterProtocol {
         let container = SceneContainer.shared.container
         let vc = container.resolve(AccountViewController.self)!
         navigateToDestination(source: viewController!, destination: vc)
-        //        presentDestination(source: viewController!, destination: destinationVC)
     }
     
     func passDataToDestination(source: EventListDataStore, destination: inout EventDetailDataStore) {

@@ -11,6 +11,7 @@ import UIKit
 @objc protocol AccountRouting {
     func setup(viewController: AccountViewController)
     func back()
+    func routeToSignUp()
 }
 
 protocol AccountDataPassing {
@@ -31,7 +32,19 @@ final class AccountRouter: AccountRouterProtocol {
         self.viewController = viewController
     }
     
-    func back() {
-        
+    func routeToSignUp() {
+        let container = SceneContainer.shared.container
+        let destinationVC = container.resolve(AccountViewController.self)!
+        presentDestination(source: viewController!, destination: destinationVC)
+    }
+    
+    
+    //MARK: - These functions are used in every router, perhaps make a base router
+    func presentDestination(source: UIViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
+    }
+    
+    func navigateToDestination(source: UIViewController, destination: UIViewController) {
+        source.navigationController?.pushViewController(destination, animated: true)
     }
 }
