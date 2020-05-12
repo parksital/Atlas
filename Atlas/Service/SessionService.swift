@@ -10,24 +10,8 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-final class SessionService {
+final class AppleAuthService {
     typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
-    
-    private var uid: String? {
-        return KeychainWrapper.standard.string(forKey: "uid")
-    }
-    
-    private (set) var status = PassthroughSubject<AppleIDCredentialState, Error>()
-    private var cancellables = Set<AnyCancellable>()
-    
-    deinit { cancellables.forEach { $0.cancel() } }
-    
-    func initialize() {
-        checkAppleIDAuthStatus(forUID: self.uid).print()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { print("apple credential state: ", $0.rawValue) })
-            .store(in: &cancellables)
-    }
     
     func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
         return Future<AppleIDCredentialState, Error> { promise in
@@ -50,5 +34,62 @@ final class SessionService {
             queue: OperationQueue.current,
             using: revocationHandler
         )
+    }
+}
+
+final class SessionService {
+    private let appleAuthService: AppleAuthService!
+    private let awsMobileClient: AuthClientProtocol!
+    private var uid: String? {
+        KeychainWrapper.standard.string(forKey: "uid")
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(appleAuthService: AppleAuthService, awsMobileClient: AuthClientProtocol) {
+        self.appleAuthService = appleAuthService
+        self.awsMobileClient = awsMobileClient
+    }
+    
+    deinit { cancellables.forEach { $0.cancel() } }
+}
+
+extension SessionService {
+    func initialize() {
+        // grab auth type and uid
+        
+        // start observing with awsMobileClient
+        awsMobileClient.initialize()
+        
+        appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] status in
+                    guard let self = self else { return }
+                    switch status {
+                    case .revoked:
+                        _ = self.wipeKeychain()
+                        self.revokeAWSCredentials()
+                        //
+                    case .notFound:
+                        _ = self.wipeKeychain()
+                        self.revokeAWSCredentials()
+                        //
+                    case .authorized:
+                        // carry on to verify awsCredentials
+                        break
+                    default: break
+                    }
+            })
+            .store(in: &cancellables)
+    }
+}
+
+private extension SessionService {
+    func revokeAWSCredentials() {
+        awsMobileClient.signOut()
+    }
+    
+    func wipeKeychain() -> Bool {
+        KeychainWrapper.standard.removeAllKeys()
     }
 }

@@ -19,8 +19,10 @@ class SceneContainer {
         //MARK: - Services
         container.autoregister(EventService.self, initializer: EventService.init)
         container.autoregister(SessionService.self, initializer: SessionService.init)
-        container.autoregister(AuthService.self, initializer: AuthService.init)
             .inObjectScope(.weak)
+        container.autoregister(AppleAuthService.self, initializer: AppleAuthService.init)
+        container.autoregister(AuthService.self, initializer: AuthService.init)
+            
         
         //MARK: - Eventlist Dependencies
         container.autoregister(EventListInteraction.self, initializer: EventListInteractor.init)

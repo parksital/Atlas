@@ -90,8 +90,8 @@
 		A083379B24594605002E4571 /* AppleAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0833799245945F8002E4571 /* AppleAuthData.swift */; };
 		A083379D2459463E002E4571 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379C2459463E002E4571 /* AuthError.swift */; };
 		A083379E24594648002E4571 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379C2459463E002E4571 /* AuthError.swift */; };
-		A08337A024594660002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
-		A08337A12459466C002E4571 /* AuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AuthStatus.swift */; };
+		A08337A024594660002E4571 /* AWSAuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AWSAuthState.swift */; };
+		A08337A12459466C002E4571 /* AWSAuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A083379F24594660002E4571 /* AWSAuthState.swift */; };
 		A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */; };
 		A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09038F82420D58E00743881 /* EventListInteractorTests.swift */; };
 		A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
@@ -196,7 +196,7 @@
 		A075E38D240E8201006F891F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = SOURCE_ROOT; };
 		A0833799245945F8002E4571 /* AppleAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthData.swift; sourceTree = "<group>"; };
 		A083379C2459463E002E4571 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
-		A083379F24594660002E4571 /* AuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatus.swift; sourceTree = "<group>"; };
+		A083379F24594660002E4571 /* AWSAuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAuthState.swift; sourceTree = "<group>"; };
 		A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailSnapshotTests.swift; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,7 +284,7 @@
 			children = (
 				A00C655C24238DE900D12C8D /* SectionType.swift */,
 				A0255BDD24250290001E117D /* Styling.swift */,
-				A083379F24594660002E4571 /* AuthStatus.swift */,
+				A083379F24594660002E4571 /* AWSAuthState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -806,7 +806,7 @@
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A0482884244A0F330054199B /* ArtistSectionView.swift in Sources */,
-				A08337A024594660002E4571 /* AuthStatus.swift in Sources */,
+				A08337A024594660002E4571 /* AWSAuthState.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0255BEA24267241001E117D /* ScrollViewComponent.swift in Sources */,
 				A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */,
@@ -866,7 +866,7 @@
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
 				A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */,
-				A08337A12459466C002E4571 /* AuthStatus.swift in Sources */,
+				A08337A12459466C002E4571 /* AWSAuthState.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
