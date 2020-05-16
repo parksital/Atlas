@@ -40,7 +40,7 @@ private extension AuthService {
 
 extension AuthService {
     
-    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
         let password = generatePassword()
         return self.signUp(email: authData.email, password: password)
             .first(where: { $0 == .confirmed })
@@ -59,15 +59,14 @@ extension AuthService {
             .eraseToAnyPublisher()
     }
     
-    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
+    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
         return authClient.signUp(email: email, password: password)
     }
     
-    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
+    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
         return authClient.signIn(email: email, password: password)
     }
     
     func logOut() {
-        authClient.logOut()
     }
 }
