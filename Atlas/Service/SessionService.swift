@@ -10,33 +10,6 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-final class AppleAuthService {
-    typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
-    
-    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
-        return Future<AppleIDCredentialState, Error> { promise in
-            guard uid != nil else {
-                promise(.success(.notFound))
-                return
-            }
-            
-            ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid!) { credentialState, error in
-                guard error == nil else { return }
-                promise(.success(credentialState))
-            }
-        }
-    }
-    
-    func observeAppleIDAuthRevocation(revocationHandler: @escaping (Notification) -> Void) {
-        NotificationCenter.default.addObserver(
-            forName: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
-            object: self,
-            queue: OperationQueue.current,
-            using: revocationHandler
-        )
-    }
-}
-
 final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
@@ -56,40 +29,50 @@ final class SessionService {
 
 extension SessionService {
     func initialize() {
-        // grab auth type and uid
-        
-        // start observing with awsMobileClient
-        awsMobileClient.initialize()
-        
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
+            .map({ $0 == .authorized })
+            .zip(awsMobileClient.initialize())
             .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] status in
+                  receiveValue: { [weak self] appleAuth, awsAuth in
                     guard let self = self else { return }
-                    switch status {
-                    case .revoked:
-                        _ = self.wipeKeychain()
+                    if appleAuth {
+                        self.handleAWSAuthState(awsAuth)
+                    } else {
                         self.revokeAWSCredentials()
-                        //
-                    case .notFound:
-                        _ = self.wipeKeychain()
-                        self.revokeAWSCredentials()
-                        //
-                    case .authorized:
-                        // carry on to verify awsCredentials
-                        break
-                    default: break
+                        self.wipeKeychain()
                     }
             })
+            .store(in: &cancellables)
+    }
+    
+    func observe() {
+        awsMobileClient.observe()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { print($0.rawValue) })
             .store(in: &cancellables)
     }
 }
 
 private extension SessionService {
+    func handleAWSAuthState(_ authState: AWSAuthState) -> Void {
+        switch authState {
+        case .signedOut, .expiredToken: // sign back in
+            print("apple auth success -> aws auth sign fail")
+            default: break
+        }
+    }
+    
+    func getAWSCredentials() -> (String, String) {
+        let email = KeychainWrapper.standard.string(forKey: "email")!
+        let password = KeychainWrapper.standard.string(forKey: "password")!
+        return (email, password)
+    }
+    
     func revokeAWSCredentials() {
         awsMobileClient.signOut()
     }
     
-    func wipeKeychain() -> Bool {
-        KeychainWrapper.standard.removeAllKeys()
+    func wipeKeychain() {
+        _ = KeychainWrapper.standard.removeAllKeys()
     }
 }

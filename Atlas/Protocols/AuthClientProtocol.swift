@@ -13,6 +13,7 @@ import Combine
 
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, Error>
+    func observe() -> Future<AWSAuthState, Error>
     func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -38,27 +39,26 @@ extension AWSMobileClient: AuthClientProtocol {
                 if let error = error {
                     promise(.failure(error))
                 } else if let state = userState {
-                    print("awsmobileclient init- status: ",state.rawValue)
                     switch state {
-                    case .signedIn:
-                        // we initialised with a user signed in, carry on
-                        break
-                    case .signedOut:
-                        // we initialised with a user signed out
-                        break
-                    case .signedOutUserPoolsTokenInvalid:
-                        // sign in again with appleID credentials, handle in sessionservice
-                        break
-                    case .signedOutFederatedTokensInvalid:
-                        // were not using this
-                        break
-                    case .guest:
-                        // were not using this
-                        break
-                    case .unknown:
-                        // initial user state before awsmobileclient is initialized
-                        break
+                    case .signedIn: promise(.success(.signedIn))
+                    case .signedOut: promise(.success(.signedOut))
+                    case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
+                    default: break
                     }
+                }
+            }
+        }
+    }
+    
+    func observe() -> Future<AWSAuthState, Error> {
+        return Future<AWSAuthState, Error> { [weak self] promise in
+            guard let self = self else { return }
+            self.addUserStateListener(self) { userState, userInfo in
+                switch userState {
+                case .signedIn: promise(.success(.signedIn))
+                case .signedOut: promise(.success(.signedOut))
+                case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
+                default: break
                 }
             }
         }
