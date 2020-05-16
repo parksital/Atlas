@@ -12,8 +12,8 @@ import AuthenticationServices
 import Combine
 
 protocol AuthClientProtocol {
-    func initialize() -> Future<AWSAuthState, Error>
-    func observe() -> Future<AWSAuthState, Error>
+    func initialize() -> Future<AWSAuthState, AuthError>
+    func observe() -> Future<AWSAuthState, AuthError>
     func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -32,12 +32,13 @@ private extension AuthClientProtocol {
 }
 
 extension AWSMobileClient: AuthClientProtocol {
-    func initialize() -> Future<AWSAuthState, Error> {
-        return Future<AWSAuthState, Error> { [weak self] promise in
+    func initialize() -> Future<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError> { [weak self] promise in
             guard let self = self else { return }
             self.initialize { userState, error in
                 if let error = error {
-                    promise(.failure(error))
+                    let authErrror = self.mapAWSMobileClientError(error)
+                    promise(.failure(authErrror))
                 } else if let state = userState {
                     switch state {
                     case .signedIn: promise(.success(.signedIn))
@@ -50,8 +51,8 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func observe() -> Future<AWSAuthState, Error> {
-        return Future<AWSAuthState, Error> { [weak self] promise in
+    func observe() -> Future<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError> { [weak self] promise in
             guard let self = self else { return }
             self.addUserStateListener(self) { userState, userInfo in
                 switch userState {

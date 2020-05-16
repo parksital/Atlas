@@ -13,6 +13,7 @@ import Combine
 final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
+    private let status = PassthroughSubject<AWSAuthState, AuthError>()
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
     }

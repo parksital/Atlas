@@ -13,8 +13,8 @@ import Combine
 typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
 final class AppleAuthService {
     
-    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
-        return Future<AppleIDCredentialState, Error> { promise in
+    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
+        return Future<AppleIDCredentialState, AuthError> { promise in
             guard uid != nil else {
                 promise(.success(.notFound))
                 return
