@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AloeStackView
 
 protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
@@ -17,7 +18,11 @@ protocol AccountDisplayLogic: class {
 final class AccountViewController: UIViewController {
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
-    private var statusLabel: UILabel = UILabel()
+    
+    private let aloeStackView = AloeStackView()
+    private let mainLabel = UILabel()
+    private let infoLabel = UILabel()
+    private let signInButton = UIButton(type: .roundedRect)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -42,21 +47,63 @@ private extension AccountViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-        setupStatusLabel()
+        setupAloeStackview()
+        setupMainLabel()
+        setupInfolabel()
+        setupSignInButton()
     }
     
     func setupNavigationBar() {
         navigationItem.title = "Account"
     }
     
-    func setupStatusLabel() {
-        view.addSubview(statusLabel)
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+    func setupAloeStackview() {
+        aloeStackView.hidesSeparatorsByDefault = true
+        aloeStackView.alwaysBounceVertical = true
+        aloeStackView.backgroundColor = .systemBackground
+        aloeStackView.rowBackgroundColor = .systemBackground
+        aloeStackView.separatorColor = .separator
         
-        let top = statusLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0)
-        let centerX = statusLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0.0)
+        setupAloeStackViewConstraints()
+    }
+    
+    func setupAloeStackViewConstraints() {
+        view.addSubview(aloeStackView)
         
-        NSLayoutConstraint.activate([top, centerX])
+        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func setupMainLabel() {
+        mainLabel.applyStyling(.title)
+        aloeStackView.addRow(mainLabel)
+    }
+    
+    func setupInfolabel() {
+        infoLabel.applyStyling(.headline)
+        aloeStackView.addRow(infoLabel)
+        aloeStackView.showSeparator(forRow: infoLabel)
+    }
+    
+    func setupSignInButton() {
+        signInButton.addTarget(
+            self,
+            action: #selector(self.signUpTapped),
+            for: .touchUpInside
+        )
+        
+        
+        signInButton.setTitle("Get started", for: .normal)
+        aloeStackView.addRow(signInButton)
+    }
+    
+    @objc func signUpTapped() {
+        interactor?.goToSignUp()
     }
 }
 
@@ -69,8 +116,11 @@ extension AccountViewController: AccountDisplayLogic {
     }
     
     func displaySignedOutView() {
-        DispatchQueue.main.async { [statusLabel] in
-            statusLabel.text = "signed out"
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.mainLabel.text = "It seems that you're not a member yet"
+            self.infoLabel.text = "Please sign in to blablablba "
+            
         }
     }
 }
