@@ -12,13 +12,11 @@ import AuthenticationServices
 import Combine
 
 protocol AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, AuthError> { get }
-    
-    func initialize()
-    func listen()
-    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
-    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError>
-    func logOut()
+    func initialize() -> Future<AWSAuthState, AuthError>
+    func observe() -> Future<AWSAuthState, AuthError>
+    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
+    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
+    func signOut()
 }
 
 private extension AuthClientProtocol {
@@ -33,82 +31,42 @@ private extension AuthClientProtocol {
     }
 }
 
-private extension AWSMobileClient {
-    private func observeAppleIDSessionRevocation() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(logOut),
-            name: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
-            object: nil
-        )
-    }
-    
-    func checkAppleIDCredentials(
-        uid: String,
-        completion: @escaping (ASAuthorizationAppleIDProvider.CredentialState) -> Void
-    ) {
-        ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid) { credentialState, error in
-            completion(credentialState)
-        }
-    }
-    
-    func intializeAWSMobileClient() {
-        initialize { [weak self] userState, error in
-            guard let self = self else { return }
-            if let error = error {
-                assertionFailure(error.localizedDescription)
-            } else if let state = userState {
-                self.handleUserState(state)
-            }
-        }
-    }
-    
-    func handleUserState(_ userState: UserState) {
-        print("Listener: ", userState.rawValue)
-        switch userState {
-        case .signedIn:
-            status.send(.signedIn)
-        case .signedOut:
-            status.send(.signedOut)
-        default: self.logOut()
-        }
-    }
-}
-
-
 extension AWSMobileClient: AuthClientProtocol {
-    var status: CurrentValueSubject<AuthStatus, AuthError> {
-        return .init(.unknown)
-    }
-    
-    func initialize() {
-        guard let uid = KeychainWrapper.standard.string(forKey: "uid") else {
-            logOut()
-            return
-        }
-        
-        checkAppleIDCredentials(uid: uid, completion: { credentialState in
-            switch credentialState {
-            case .authorized:
-                self.intializeAWSMobileClient()
-                self.observeAppleIDSessionRevocation()
-            case .notFound, .transferred, .revoked:
-                self.logOut()
-                self.intializeAWSMobileClient()
-            @unknown default:
-                break
+    func initialize() -> Future<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError> { [weak self] promise in
+            guard let self = self else { return }
+            self.initialize { userState, error in
+                if let error = error {
+                    let authErrror = self.mapAWSMobileClientError(error)
+                    promise(.failure(authErrror))
+                } else if let state = userState {
+                    switch state {
+                    case .signedIn: promise(.success(.signedIn))
+                    case .signedOut: promise(.success(.signedOut))
+                    case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
+                    default: break
+                    }
+                }
             }
-        })
-    }
-    
-    func listen() {
-        self.addUserStateListener(self) { [weak self] userState, userInfo in
-            self?.handleUserState(userState)
         }
     }
     
-    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
-        return Future<AuthStatus, Error> { [weak self] promise in
+    func observe() -> Future<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError> { [weak self] promise in
+            guard let self = self else { return }
+            self.addUserStateListener(self) { userState, userInfo in
+                switch userState {
+                case .signedIn: promise(.success(.signedIn))
+                case .signedOut: promise(.success(.signedOut))
+                case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
+                default: break
+                }
+            }
+        }
+    }
+    
+    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, Error> { [weak self] promise in
             guard let self = self else {
                 assertionFailure("AuthClient not injected")
                 return
@@ -126,7 +84,7 @@ extension AWSMobileClient: AuthClientProtocol {
                     case .confirmed:
                         promise(.success(.confirmed))
                     case .unconfirmed:
-                        promise(.success(.unauthenticated))
+                        promise(.success(.signedOut))
                     case .unknown:
                         promise(.success(.unknown))
                     }
@@ -137,8 +95,8 @@ extension AWSMobileClient: AuthClientProtocol {
         .eraseToAnyPublisher()
     }
     
-    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
-        return Future<AuthStatus, Error> { [weak self] promise in
+    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, Error> { [weak self] promise in
             guard let self = self else {
                 assertionFailure("AuthClient not injected")
                 return
@@ -163,13 +121,5 @@ extension AWSMobileClient: AuthClientProtocol {
         }
         .mapError(mapAWSMobileClientError(_:))
         .eraseToAnyPublisher()
-    }
-    
-    
-    /// Logs out the user from AWS Cognito User Pool
-    @objc func logOut() {
-        _ = KeychainWrapper.standard.removeAllKeys()
-        self.signOut()
-        status.send(.signedOut)
     }
 }
