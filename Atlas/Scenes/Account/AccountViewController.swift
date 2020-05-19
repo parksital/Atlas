@@ -12,6 +12,8 @@ import AloeStackView
 protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
+    func showSignUpView()
+    func displayAccount(viewModel: String)
     func displaySignedOutView()
 }
 
@@ -20,7 +22,7 @@ final class AccountViewController: UIViewController {
     private var router: AccountRouterProtocol?
     
     private let aloeStackView = AloeStackView()
-    private let mainLabel = UILabel()
+    private let greetingLabel = UILabel()
     private let infoLabel = UILabel()
     private let signInButton = UIButton(type: .roundedRect)
     
@@ -48,7 +50,7 @@ private extension AccountViewController {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
         setupAloeStackview()
-        setupMainLabel()
+        setupGreetingLabel()
         setupInfolabel()
         setupSignInButton()
     }
@@ -79,9 +81,9 @@ private extension AccountViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupMainLabel() {
-        mainLabel.applyStyling(.title)
-        aloeStackView.addRow(mainLabel)
+    func setupGreetingLabel() {
+        greetingLabel.applyStyling(.primary)
+        aloeStackView.addRow(greetingLabel)
     }
     
     func setupInfolabel() {
@@ -98,12 +100,18 @@ private extension AccountViewController {
         )
         
         
-        signInButton.setTitle("Get started", for: .normal)
+        signInButton.setTitle("Sign me up!", for: .normal)
         aloeStackView.addRow(signInButton)
     }
     
     @objc func signUpTapped() {
         interactor?.goToSignUp()
+    }
+    
+    func updateViewForUser(user: String) {
+        aloeStackView.removeRow(signInButton)
+        greetingLabel.text = "Hello, \(user)"
+        
     }
 }
 
@@ -115,12 +123,21 @@ extension AccountViewController: AccountDisplayLogic {
         self.router = router
     }
     
+    func showSignUpView() {
+        router?.routeToSignUp()
+    }
+    
+    func displayAccount(viewModel: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateViewForUser(user: viewModel)
+        }
+    }
+    
     func displaySignedOutView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.mainLabel.text = "It seems that you're not a member yet"
-            self.infoLabel.text = "Please sign in to blablablba "
-            
+            self.greetingLabel.text = "Greetings, it seems you're not signed up yet."
         }
     }
 }

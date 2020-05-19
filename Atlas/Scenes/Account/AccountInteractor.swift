@@ -30,15 +30,10 @@ final class AccountInteractor: AccountDataStore {
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
-        // get user auth status
-        
-        // present user info
-        // OR
-        // present unauth view
         presenter.presentSignedOutView()
     }
     
     func goToSignUp() {
-        
+        presenter.presentSignUpView()
     }
 }
