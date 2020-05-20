@@ -14,7 +14,6 @@ protocol AccountDisplayLogic: class {
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
     func displayAccount(viewModel: String)
-    func displaySignedOutView()
 }
 
 final class AccountViewController: UIViewController {
@@ -22,9 +21,8 @@ final class AccountViewController: UIViewController {
     private var router: AccountRouterProtocol?
     
     private let aloeStackView = AloeStackView()
-    private let greetingLabel = UILabel()
-    private let infoLabel = UILabel()
-    private let signInButton = UIButton(type: .roundedRect)
+    private var emptyAccountView = EmptyAccountView()
+    private var userInfoView = AccountUserInfoView()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -42,6 +40,7 @@ final class AccountViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -50,9 +49,7 @@ private extension AccountViewController {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
         setupAloeStackview()
-        setupGreetingLabel()
-        setupInfolabel()
-        setupSignInButton()
+        setupEmptyAccountView(withAction: interactor?.goToSignUp)
     }
     
     func setupNavigationBar() {
@@ -81,37 +78,16 @@ private extension AccountViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupGreetingLabel() {
-        greetingLabel.applyStyling(.primary)
-        aloeStackView.addRow(greetingLabel)
-    }
-    
-    func setupInfolabel() {
-        infoLabel.applyStyling(.headline)
-        aloeStackView.addRow(infoLabel)
-        aloeStackView.showSeparator(forRow: infoLabel)
-    }
-    
-    func setupSignInButton() {
-        signInButton.addTarget(
-            self,
-            action: #selector(self.signUpTapped),
-            for: .touchUpInside
-        )
-        
-        
-        signInButton.setTitle("Sign me up!", for: .normal)
-        aloeStackView.addRow(signInButton)
-    }
-    
-    @objc func signUpTapped() {
-        interactor?.goToSignUp()
+    func setupEmptyAccountView(withAction action: (() -> (Void))?) {
+        // emptyAccountView.configure with some strings to display
+        emptyAccountView.action = action
+        emptyAccountView.configure()
+        aloeStackView.addRow(emptyAccountView, animated: true)
     }
     
     func updateViewForUser(user: String) {
-        aloeStackView.removeRow(signInButton)
-        greetingLabel.text = "Hello, \(user)"
-        
+        aloeStackView.removeRow(emptyAccountView, animated: true)
+        aloeStackView.addRow(userInfoView, animated: true)
     }
 }
 
@@ -131,13 +107,6 @@ extension AccountViewController: AccountDisplayLogic {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.updateViewForUser(user: viewModel)
-        }
-    }
-    
-    func displaySignedOutView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.greetingLabel.text = "Greetings, it seems you're not signed up yet."
         }
     }
 }

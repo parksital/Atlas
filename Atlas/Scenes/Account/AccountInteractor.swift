@@ -30,10 +30,9 @@ final class AccountInteractor: AccountDataStore {
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
-        presenter.presentSignedOutView()
     }
     
     func goToSignUp() {
-        presenter.presentSignUpView()
+        presenter.goToSignUp()
     }
 }

@@ -10,9 +10,7 @@ import Foundation
 
 protocol AccountPresentationLogic {
     func setup(viewController: AccountDisplayLogic)
-    func presentSignUpView()
-    func presentAccountView(forUser user: String)
-    func presentSignedOutView()
+    func goToSignUp()
 }
 
 final class AccountPresenter {
@@ -24,15 +22,7 @@ extension AccountPresenter: AccountPresentationLogic {
         self.viewController = viewController
     }
     
-    func presentSignUpView() {
+    func goToSignUp() {
         viewController?.showSignUpView()
-    }
-    
-    func presentAccountView(forUser user: String) {
-        viewController?.displayAccount(viewModel: user)
-    }
-    
-    func presentSignedOutView() {
-        viewController?.displaySignedOutView()
     }
 }
