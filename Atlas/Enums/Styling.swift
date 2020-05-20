@@ -19,11 +19,11 @@ enum Styling {
 extension Styling {
     var font: UIFont {
         switch self {
-        case .title: return .preferredFont(forTextStyle: .title1)
-        case .primary: return .preferredFont(for: .title3, weight: .bold)
+        case .title: return .preferredFont(for: .title1, weight: .regular)
+        case .primary: return .preferredFont(for: .headline, weight: .bold)
         case .secondary: return .preferredFont(for: .headline, weight: .regular)
-        case .headline: return .preferredFont(forTextStyle: .headline)
-        case .body: return .preferredFont(forTextStyle: .body)
+        case .headline: return .preferredFont(for: .headline, weight: .regular)
+        case .body: return .preferredFont(for: .body, weight: .regular)
         }
     }
     

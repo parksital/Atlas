@@ -8,8 +8,9 @@
 
 import Foundation
 
-protocol AccountLogic {
+protocol AccountLogic: class {
     func viewDidFinishLoading()
+    func goToSignUp()
 }
 
 protocol AccountDataStore {
@@ -19,15 +20,19 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let authService: AuthService!
+    private let sessionService: SessionService!
     
-    init(authService: AuthService, presenter: AccountPresentationLogic) {
-        self.authService = authService
+    init(sessionService: SessionService, presenter: AccountPresentationLogic) {
+        self.sessionService = sessionService
         self.presenter = presenter
     }
 }
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
+    }
+    
+    func goToSignUp() {
+        presenter.goToSignUp()
     }
 }
