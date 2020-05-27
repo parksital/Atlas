@@ -1,12 +1,17 @@
 {
     "auth": {
+        "atlas1c1adc23": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": []
+        },
         "userPoolGroups": {
             "service": "Cognito-UserPool-Groups",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
                 {
                     "category": "auth",
-                    "resourceName": "atlas0e11a4cd0e11a4cd",
+                    "resourceName": "atlas1c1adc23",
                     "attributes": [
                         "UserPoolId",
                         "AppClientIDWeb",
@@ -15,11 +20,6 @@
                     ]
                 }
             ]
-        },
-        "atlas0e11a4cd0e11a4cd": {
-            "service": "Cognito",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": []
         }
     },
     "api": {
@@ -39,5 +39,6 @@
                 }
             }
         }
-    }
+    },
+    "function": {}
 }
