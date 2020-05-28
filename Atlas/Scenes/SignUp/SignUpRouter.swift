@@ -27,7 +27,6 @@ final class SignUpRouter: SignUpRouterProtocol {
         if let vc = viewController {
             DispatchQueue.main.async {
                 vc.dismiss(animated: true, completion: nil)
-//                vc.navigationController?.dismiss(animated: true, completion: nil)
             }
         }
     }
