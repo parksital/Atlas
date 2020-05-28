@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "atlas0e11a4cd0e11a4cd_identitypool_a0363ce9",
+    "identityPoolName": "atlas1c1adc23_identitypool_1c1adc23",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "atlas00e11a4cd",
-    "userPoolName": "atlas0e11a4cd_userpool_0e11a4cd",
+    "resourceNameTruncated": "atlas1c1adc23",
+    "userPoolName": "atlas1c1adc23_userpool_1c1adc23",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -14,11 +14,13 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": true,
+    "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "family_name",
+        "given_name"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,22 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "atlas00e11a4cd_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "atlas11c1adc23_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "useDefault": "default",
+    "resourceName": "atlas1c1adc23",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "atlas0e11a4cd0e11a4cd",
-    "usernameAttributes": [
-        "email"
-    ],
-    "userPoolGroups": true,
-    "adminQueries": false,
-    "triggers": "{}",
-    "hostedUI": false,
-    "userPoolGroupList": [
-        "endusers",
-        "admins"
-    ],
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -56,6 +46,15 @@
             "Arn"
         ]
     },
+    "useDefault": "default",
+    "usernameAttributes": [
+        "email"
+    ],
+    "triggers": "{}",
+    "userPoolGroupList": [
+        "endusers",
+        "admins"
+    ],
     "parentStack": {
         "Ref": "AWS::StackId"
     },

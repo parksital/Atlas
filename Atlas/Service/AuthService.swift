@@ -42,7 +42,8 @@ extension AuthService {
     
     func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
         let password = generatePassword()
-        return self.signUp(email: authData.email, password: password)
+        
+        return self.signUp(email: authData.email, password: password, attributes: authData.attributes)
             .first(where: { $0 == .confirmed })
             .flatMap({ _ in
                 return self.signIn(email: authData.email, password: password)
@@ -59,8 +60,8 @@ extension AuthService {
             .eraseToAnyPublisher()
     }
     
-    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
-        return authClient.signUp(email: email, password: password)
+    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
+        return authClient.signUp(email: email, password: password, attributes: attributes)
     }
     
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {

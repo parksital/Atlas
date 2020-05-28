@@ -14,7 +14,7 @@ import Combine
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
     func observe() -> Future<AWSAuthState, AuthError>
-    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
+    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
 }
@@ -65,30 +65,34 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func signUp(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
+    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
         return Future<AWSAuthState, Error> { [weak self] promise in
             guard let self = self else {
                 assertionFailure("AuthClient not injected")
                 return
             }
             
-            self.signUp(username: email, password: password) { authResult, authError in
-                guard authError == nil else {
-                    let error = self.mapAWSMobileClientError(authError!)
-                    promise(.failure(error))
-                    return
-                }
-                
-                if let result = authResult {
-                    switch result.signUpConfirmationState {
-                    case .confirmed:
-                        promise(.success(.confirmed))
-                    case .unconfirmed:
-                        promise(.success(.signedOut))
-                    case .unknown:
-                        promise(.success(.unknown))
+            self.signUp(
+                username: email,
+                password: password,
+                userAttributes: attributes
+            ) { authResult, authError in
+                    guard authError == nil else {
+                        let error = self.mapAWSMobileClientError(authError!)
+                        promise(.failure(error))
+                        return
                     }
-                }
+                    
+                    if let result = authResult {
+                        switch result.signUpConfirmationState {
+                        case .confirmed:
+                            promise(.success(.confirmed))
+                        case .unconfirmed:
+                            promise(.success(.signedOut))
+                        case .unknown:
+                            promise(.success(.unknown))
+                        }
+                    }
             }
         }
         .mapError(mapAWSMobileClientError(_:))

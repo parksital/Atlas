@@ -22,3 +22,16 @@ struct AppleAuthData {
         fullName.familyName!
     }
 }
+
+protocol AuthAttributes {
+    var attributes: [String: String] { get }
+}
+
+extension AppleAuthData: AuthAttributes {
+    var attributes: [String : String] {
+        return [
+            "family_name": lastName,
+            "given_name": firstName
+        ]
+    }
+}

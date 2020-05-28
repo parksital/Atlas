@@ -1,21 +1,21 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authatlas0e11a4cd0e11a4cdUserPoolId": {
+        "authatlas1c1adc23UserPoolId": {
             "Type": "String",
-            "Default": "authatlas0e11a4cd0e11a4cdUserPoolId"
+            "Default": "authatlas1c1adc23UserPoolId"
         },
-        "authatlas0e11a4cd0e11a4cdIdentityPoolId": {
+        "authatlas1c1adc23IdentityPoolId": {
             "Type": "String",
-            "Default": "authatlas0e11a4cd0e11a4cdIdentityPoolId"
+            "Default": "authatlas1c1adc23IdentityPoolId"
         },
-        "authatlas0e11a4cd0e11a4cdAppClientID": {
+        "authatlas1c1adc23AppClientID": {
             "Type": "String",
-            "Default": "authatlas0e11a4cd0e11a4cdAppClientID"
+            "Default": "authatlas1c1adc23AppClientID"
         },
-        "authatlas0e11a4cd0e11a4cdAppClientIDWeb": {
+        "authatlas1c1adc23AppClientIDWeb": {
             "Type": "String",
-            "Default": "authatlas0e11a4cd0e11a4cdAppClientIDWeb"
+            "Default": "authatlas1c1adc23AppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -51,7 +51,7 @@
                 ]
               },
               "UserPoolId" : {
-                "Ref": "authatlas0e11a4cd0e11a4cdUserPoolId"
+                "Ref": "authatlas1c1adc23UserPoolId"
               } 
             }
         },
@@ -63,7 +63,7 @@
                         "",
                         [
                           {
-                            "Ref": "authatlas0e11a4cd0e11a4cdUserPoolId"
+                            "Ref": "authatlas1c1adc23UserPoolId"
                           },
                           "-endusersGroupRole"
                         ]
@@ -97,7 +97,7 @@
                 ]
               },
               "UserPoolId" : {
-                "Ref": "authatlas0e11a4cd0e11a4cdUserPoolId"
+                "Ref": "authatlas1c1adc23UserPoolId"
               } 
             }
         },
@@ -109,7 +109,7 @@
                         "",
                         [
                           {
-                            "Ref": "authatlas0e11a4cd0e11a4cdUserPoolId"
+                            "Ref": "authatlas1c1adc23UserPoolId"
                           },
                           "-adminsGroupRole"
                         ]
@@ -146,7 +146,7 @@
                                 "",
                                 [
                                   
-                                  "atlas0e11a4cd0e11a4cd",
+                                  "atlas1c1adc23",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -305,16 +305,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authatlas0e11a4cd0e11a4cdIdentityPoolId"
+                    "Ref": "authatlas1c1adc23IdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authatlas0e11a4cd0e11a4cdUserPoolId"
+                    "Ref": "authatlas1c1adc23UserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authatlas0e11a4cd0e11a4cdAppClientIDWeb"
+                    "Ref": "authatlas1c1adc23AppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authatlas0e11a4cd0e11a4cdAppClientID"
+                    "Ref": "authatlas1c1adc23AppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
