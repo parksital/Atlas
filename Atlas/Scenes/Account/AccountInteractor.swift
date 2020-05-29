@@ -20,16 +20,21 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let sessionService: SessionService!
+    private let profileService: ProfileService!
     
-    init(sessionService: SessionService, presenter: AccountPresentationLogic) {
-        self.sessionService = sessionService
+    init(profileService: ProfileService, presenter: AccountPresentationLogic) {
+        self.profileService = profileService
         self.presenter = presenter
     }
 }
 
+private extension AccountInteractor {
+
+}
+
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
+        profileService.getCurrentUser()
     }
     
     func goToSignUp() {

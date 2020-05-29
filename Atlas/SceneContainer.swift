@@ -17,6 +17,7 @@ class SceneContainer {
         container = Container(parent: AWSContainer.shared.container)
         
         //MARK: - Services
+        container.autoregister(ProfileService.self, initializer: ProfileService.init)
         container.autoregister(EventService.self, initializer: EventService.init)
         container.autoregister(SessionService.self, initializer: SessionService.init)
             .inObjectScope(.weak)

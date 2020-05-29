@@ -79,15 +79,15 @@ private extension AccountViewController {
     }
     
     func setupEmptyAccountView(withAction action: (() -> (Void))?) {
-        // emptyAccountView.configure with some strings to display
         emptyAccountView.action = action
         emptyAccountView.configure()
         aloeStackView.addRow(emptyAccountView, animated: true)
     }
     
     func updateViewForUser(user: String) {
-        aloeStackView.removeRow(emptyAccountView, animated: true)
+        aloeStackView.removeAllRows(animated: false)
         aloeStackView.addRow(userInfoView, animated: true)
+        // add all other views
     }
 }
 

@@ -13,7 +13,7 @@ import Combine
 final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
-    private let status = PassthroughSubject<AWSAuthState, AuthError>()
+    private (set) var status = PassthroughSubject<AWSAuthState, AuthError>()
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
     }
@@ -48,8 +48,7 @@ extension SessionService {
     
     func observe() {
         awsMobileClient.observe()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { print($0.rawValue) })
+            .subscribe(status)
             .store(in: &cancellables)
     }
 }
