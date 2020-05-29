@@ -10,12 +10,12 @@ import Foundation
 import Combine
 
 final class ProfileService {
-    private let authClient: AuthClientProtocol!
+    private let sessionService: SessionService!
     private let client: APIClientProtocol!
     private var cancellables = Set<AnyCancellable>()
     
-    init(authClient: AuthClientProtocol, client: APIClientProtocol) {
-        self.authClient = authClient
+    init(sessionService: SessionService, client: APIClientProtocol) {
+        self.sessionService = sessionService
         self.client = client
     }
     
@@ -29,8 +29,9 @@ private extension ProfileService {
 
 extension ProfileService {
     func getCurrentUser() {
-        authClient.getUID()
-            .sink(receiveValue: { uid in print(uid) })
+        sessionService.getUID()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { print("uid", $0) })
             .store(in: &cancellables)
     }
 }

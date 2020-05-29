@@ -14,7 +14,7 @@ import Combine
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
     func observe() -> Future<AWSAuthState, AuthError>
-    func getUID() -> Future<String, Never>
+    func getCognitoSUB() -> Future<String?, Never>
     func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -66,15 +66,17 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func getUID() -> Future<String, Never> {
-        return Future<String, Never> { [weak self] promise in
+    func getCognitoSUB() -> Future<String?, Never> {
+        return Future<String?, Never> { [weak self] promise in
             self?.getUserAttributes(completionHandler: { attributes, error in
                 guard error == nil else {
-                    print("error grabbing uid: ", error!.localizedDescription)
+                    print("Attibutes Error: ", error!.localizedDescription)
+                    promise(.success(nil))
                     return
                 }
                 
                 guard let dict = attributes, let value = dict["sub"] else {
+                    promise(.success(nil))
                     return
                 }
                 
