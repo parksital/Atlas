@@ -7,7 +7,7 @@
 # Remove the # in front of the line to enable the option
 workspace("Atlas.xcworkspace")
 scheme("Atlas")
-sdk("iphonesimulator13.5")
+sdk("iphonesimulator13.4")
 devices(["iPhone 11"])
 
 clean(true)
