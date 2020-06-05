@@ -28,10 +28,16 @@ private extension ProfileService {
 }
 
 extension ProfileService {
-    func getCurrentUser() {
+    func getCurrentUser() -> AnyPublisher<User, AuthError> {
         sessionService.getUID()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { print("uid", $0) })
-            .store(in: &cancellables)
+            .flatMap(self.getUser(byID:))
+            .map({ $0.user })
+            .eraseToAnyPublisher()
+    }
+    
+    func getUser(byID id: String) -> AnyPublisher<GetUser, AuthError> {
+        return client.fetch(query: Account.Request(id: id))
+            .mapError(AuthError.init(error:))
+            .eraseToAnyPublisher()
     }
 }

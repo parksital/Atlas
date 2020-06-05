@@ -2,21 +2,24 @@
 subscription OnCreateUser {
   onCreateUser {
     id
-    name
+    firstName
+    familyName
     points
   }
 }
 subscription OnUpdateUser {
   onUpdateUser {
     id
-    name
+    firstName
+    familyName
     points
   }
 }
 subscription OnDeleteUser {
   onDeleteUser {
     id
-    name
+    firstName
+    familyName
     points
   }
 }

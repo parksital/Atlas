@@ -1,7 +1,8 @@
 type User 
   @model {
   id: ID!
-  name: String!
+  firstName: String!
+  familyName: String!
   points: Int!
 }
 

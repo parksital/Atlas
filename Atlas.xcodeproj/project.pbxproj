@@ -59,6 +59,8 @@
 		A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */; };
 		A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
+		A03A805D24851CCD0050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
+		A03A805E24851CD10050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -179,6 +181,7 @@
 		A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUserInfoView.swift; sourceTree = "<group>"; };
 		A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAccountView.swift; sourceTree = "<group>"; };
+		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 			children = (
 				A03E2AD4241007A900B45712 /* EventSummary.swift */,
 				A0297D04241A61070089F38C /* EventDetail.swift */,
+				A03A805C24851CCD0050B464 /* User.swift */,
 				A00C655F2423AE2B00D12C8D /* EventList.swift */,
 				A0833799245945F8002E4571 /* AppleAuthData.swift */,
 			);
@@ -799,6 +803,7 @@
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
+				A03A805D24851CCD0050B464 /* User.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
 				A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
@@ -897,6 +902,7 @@
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
+				A03A805E24851CD10050B464 /* User.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,

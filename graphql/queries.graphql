@@ -2,7 +2,8 @@
 query GetUser($id: ID!) {
   getUser(id: $id) {
     id
-    name
+    firstName
+    familyName
     points
   }
 }
@@ -14,7 +15,8 @@ query ListUsers(
   listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
+      firstName
+      familyName
       points
     }
     nextToken

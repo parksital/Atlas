@@ -584,8 +584,8 @@ public struct ModelStringInput: GraphQLMapConvertible {
 public struct CreateUserInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID? = nil, name: String, points: Int) {
-    graphQLMap = ["id": id, "name": name, "points": points]
+  public init(id: GraphQLID? = nil, firstName: String, familyName: String, points: Int) {
+    graphQLMap = ["id": id, "firstName": firstName, "familyName": familyName, "points": points]
   }
 
   public var id: GraphQLID? {
@@ -597,12 +597,21 @@ public struct CreateUserInput: GraphQLMapConvertible {
     }
   }
 
-  public var name: String {
+  public var firstName: String {
     get {
-      return graphQLMap["name"] as! String
+      return graphQLMap["firstName"] as! String
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "firstName")
+    }
+  }
+
+  public var familyName: String {
+    get {
+      return graphQLMap["familyName"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "familyName")
     }
   }
 
@@ -619,16 +628,25 @@ public struct CreateUserInput: GraphQLMapConvertible {
 public struct ModelUserConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(name: ModelStringInput? = nil, points: ModelIntInput? = nil, and: [ModelUserConditionInput?]? = nil, or: [ModelUserConditionInput?]? = nil, not: ModelUserConditionInput? = nil) {
-    graphQLMap = ["name": name, "points": points, "and": and, "or": or, "not": not]
+  public init(firstName: ModelStringInput? = nil, familyName: ModelStringInput? = nil, points: ModelIntInput? = nil, and: [ModelUserConditionInput?]? = nil, or: [ModelUserConditionInput?]? = nil, not: ModelUserConditionInput? = nil) {
+    graphQLMap = ["firstName": firstName, "familyName": familyName, "points": points, "and": and, "or": or, "not": not]
   }
 
-  public var name: ModelStringInput? {
+  public var firstName: ModelStringInput? {
     get {
-      return graphQLMap["name"] as! ModelStringInput?
+      return graphQLMap["firstName"] as! ModelStringInput?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "firstName")
+    }
+  }
+
+  public var familyName: ModelStringInput? {
+    get {
+      return graphQLMap["familyName"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "familyName")
     }
   }
 
@@ -761,8 +779,8 @@ public struct ModelIntInput: GraphQLMapConvertible {
 public struct UpdateUserInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: GraphQLID, name: String? = nil, points: Int? = nil) {
-    graphQLMap = ["id": id, "name": name, "points": points]
+  public init(id: GraphQLID, firstName: String? = nil, familyName: String? = nil, points: Int? = nil) {
+    graphQLMap = ["id": id, "firstName": firstName, "familyName": familyName, "points": points]
   }
 
   public var id: GraphQLID {
@@ -774,12 +792,21 @@ public struct UpdateUserInput: GraphQLMapConvertible {
     }
   }
 
-  public var name: String? {
+  public var firstName: String? {
     get {
-      return graphQLMap["name"] as! String?
+      return graphQLMap["firstName"] as! String?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "firstName")
+    }
+  }
+
+  public var familyName: String? {
+    get {
+      return graphQLMap["familyName"] as! String?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "familyName")
     }
   }
 
@@ -1481,8 +1508,8 @@ public struct DeleteArtistInput: GraphQLMapConvertible {
 public struct ModelUserFilterInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(id: ModelIDInput? = nil, name: ModelStringInput? = nil, points: ModelIntInput? = nil, and: [ModelUserFilterInput?]? = nil, or: [ModelUserFilterInput?]? = nil, not: ModelUserFilterInput? = nil) {
-    graphQLMap = ["id": id, "name": name, "points": points, "and": and, "or": or, "not": not]
+  public init(id: ModelIDInput? = nil, firstName: ModelStringInput? = nil, familyName: ModelStringInput? = nil, points: ModelIntInput? = nil, and: [ModelUserFilterInput?]? = nil, or: [ModelUserFilterInput?]? = nil, not: ModelUserFilterInput? = nil) {
+    graphQLMap = ["id": id, "firstName": firstName, "familyName": familyName, "points": points, "and": and, "or": or, "not": not]
   }
 
   public var id: ModelIDInput? {
@@ -1494,12 +1521,21 @@ public struct ModelUserFilterInput: GraphQLMapConvertible {
     }
   }
 
-  public var name: ModelStringInput? {
+  public var firstName: ModelStringInput? {
     get {
-      return graphQLMap["name"] as! ModelStringInput?
+      return graphQLMap["firstName"] as! ModelStringInput?
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "name")
+      graphQLMap.updateValue(newValue, forKey: "firstName")
+    }
+  }
+
+  public var familyName: ModelStringInput? {
+    get {
+      return graphQLMap["familyName"] as! ModelStringInput?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "familyName")
     }
   }
 
@@ -2225,7 +2261,7 @@ public final class GetEventDetailsQuery: GraphQLQuery {
 
 public final class CreateUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {\n  createUser(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {\n  createUser(input: $input, condition: $condition) {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public var input: CreateUserInput
   public var condition: ModelUserConditionInput?
@@ -2271,7 +2307,8 @@ public final class CreateUserMutation: GraphQLMutation {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -2281,8 +2318,8 @@ public final class CreateUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -2303,12 +2340,21 @@ public final class CreateUserMutation: GraphQLMutation {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -2326,7 +2372,7 @@ public final class CreateUserMutation: GraphQLMutation {
 
 public final class UpdateUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {\n  updateUser(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {\n  updateUser(input: $input, condition: $condition) {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public var input: UpdateUserInput
   public var condition: ModelUserConditionInput?
@@ -2372,7 +2418,8 @@ public final class UpdateUserMutation: GraphQLMutation {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -2382,8 +2429,8 @@ public final class UpdateUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -2404,12 +2451,21 @@ public final class UpdateUserMutation: GraphQLMutation {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -2427,7 +2483,7 @@ public final class UpdateUserMutation: GraphQLMutation {
 
 public final class DeleteUserMutation: GraphQLMutation {
   public static let operationString =
-    "mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {\n  deleteUser(input: $input, condition: $condition) {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {\n  deleteUser(input: $input, condition: $condition) {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public var input: DeleteUserInput
   public var condition: ModelUserConditionInput?
@@ -2473,7 +2529,8 @@ public final class DeleteUserMutation: GraphQLMutation {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -2483,8 +2540,8 @@ public final class DeleteUserMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -2505,12 +2562,21 @@ public final class DeleteUserMutation: GraphQLMutation {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -6143,7 +6209,7 @@ public final class DeleteArtistMutation: GraphQLMutation {
 
 public final class GetUserQuery: GraphQLQuery {
   public static let operationString =
-    "query GetUser($id: ID!) {\n  getUser(id: $id) {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "query GetUser($id: ID!) {\n  getUser(id: $id) {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public var id: GraphQLID
 
@@ -6187,7 +6253,8 @@ public final class GetUserQuery: GraphQLQuery {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -6197,8 +6264,8 @@ public final class GetUserQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -6219,12 +6286,21 @@ public final class GetUserQuery: GraphQLQuery {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -6242,7 +6318,7 @@ public final class GetUserQuery: GraphQLQuery {
 
 public final class ListUsersQuery: GraphQLQuery {
   public static let operationString =
-    "query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {\n  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      name\n      points\n    }\n    nextToken\n  }\n}"
+    "query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {\n  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      firstName\n      familyName\n      points\n    }\n    nextToken\n  }\n}"
 
   public var filter: ModelUserFilterInput?
   public var limit: Int?
@@ -6336,7 +6412,8 @@ public final class ListUsersQuery: GraphQLQuery {
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+          GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
           GraphQLField("points", type: .nonNull(.scalar(Int.self))),
         ]
 
@@ -6346,8 +6423,8 @@ public final class ListUsersQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String, points: Int) {
-          self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+        public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+          self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
         }
 
         public var __typename: String {
@@ -6368,12 +6445,21 @@ public final class ListUsersQuery: GraphQLQuery {
           }
         }
 
-        public var name: String {
+        public var firstName: String {
           get {
-            return snapshot["name"]! as! String
+            return snapshot["firstName"]! as! String
           }
           set {
-            snapshot.updateValue(newValue, forKey: "name")
+            snapshot.updateValue(newValue, forKey: "firstName")
+          }
+        }
+
+        public var familyName: String {
+          get {
+            return snapshot["familyName"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "familyName")
           }
         }
 
@@ -8173,7 +8259,7 @@ public final class EventsByStartDateQuery: GraphQLQuery {
 
 public final class OnCreateUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnCreateUser {\n  onCreateUser {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "subscription OnCreateUser {\n  onCreateUser {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public init() {
   }
@@ -8210,7 +8296,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -8220,8 +8307,8 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -8242,12 +8329,21 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -8265,7 +8361,7 @@ public final class OnCreateUserSubscription: GraphQLSubscription {
 
 public final class OnUpdateUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnUpdateUser {\n  onUpdateUser {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "subscription OnUpdateUser {\n  onUpdateUser {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public init() {
   }
@@ -8302,7 +8398,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -8312,8 +8409,8 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -8334,12 +8431,21 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 
@@ -8357,7 +8463,7 @@ public final class OnUpdateUserSubscription: GraphQLSubscription {
 
 public final class OnDeleteUserSubscription: GraphQLSubscription {
   public static let operationString =
-    "subscription OnDeleteUser {\n  onDeleteUser {\n    __typename\n    id\n    name\n    points\n  }\n}"
+    "subscription OnDeleteUser {\n  onDeleteUser {\n    __typename\n    id\n    firstName\n    familyName\n    points\n  }\n}"
 
   public init() {
   }
@@ -8394,7 +8500,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("firstName", type: .nonNull(.scalar(String.self))),
+        GraphQLField("familyName", type: .nonNull(.scalar(String.self))),
         GraphQLField("points", type: .nonNull(.scalar(Int.self))),
       ]
 
@@ -8404,8 +8511,8 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
         self.snapshot = snapshot
       }
 
-      public init(id: GraphQLID, name: String, points: Int) {
-        self.init(snapshot: ["__typename": "User", "id": id, "name": name, "points": points])
+      public init(id: GraphQLID, firstName: String, familyName: String, points: Int) {
+        self.init(snapshot: ["__typename": "User", "id": id, "firstName": firstName, "familyName": familyName, "points": points])
       }
 
       public var __typename: String {
@@ -8426,12 +8533,21 @@ public final class OnDeleteUserSubscription: GraphQLSubscription {
         }
       }
 
-      public var name: String {
+      public var firstName: String {
         get {
-          return snapshot["name"]! as! String
+          return snapshot["firstName"]! as! String
         }
         set {
-          snapshot.updateValue(newValue, forKey: "name")
+          snapshot.updateValue(newValue, forKey: "firstName")
+        }
+      }
+
+      public var familyName: String {
+        get {
+          return snapshot["familyName"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "familyName")
         }
       }
 

@@ -5,7 +5,8 @@ mutation CreateUser(
 ) {
   createUser(input: $input, condition: $condition) {
     id
-    name
+    firstName
+    familyName
     points
   }
 }
@@ -15,7 +16,8 @@ mutation UpdateUser(
 ) {
   updateUser(input: $input, condition: $condition) {
     id
-    name
+    firstName
+    familyName
     points
   }
 }
@@ -25,7 +27,8 @@ mutation DeleteUser(
 ) {
   deleteUser(input: $input, condition: $condition) {
     id
-    name
+    firstName
+    familyName
     points
   }
 }

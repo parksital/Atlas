@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol AccountLogic: class {
     func viewDidFinishLoading()
@@ -21,11 +22,14 @@ typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
     private let profileService: ProfileService!
+    private var cancellables = Set<AnyCancellable>()
     
     init(profileService: ProfileService, presenter: AccountPresentationLogic) {
         self.profileService = profileService
         self.presenter = presenter
     }
+    
+    deinit { cancellables.forEach({ $0.cancel() }) }
 }
 
 private extension AccountInteractor {
@@ -35,6 +39,15 @@ private extension AccountInteractor {
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
         profileService.getCurrentUser()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: print("finished")
+                case .failure(let error): assertionFailure(error.localizedDescription)
+                }
+            }, receiveValue: { user in
+                print(user.id)
+            })
+            .store(in: &cancellables)
     }
     
     func goToSignUp() {

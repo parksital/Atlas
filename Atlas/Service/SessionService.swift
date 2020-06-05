@@ -51,9 +51,8 @@ extension SessionService {
             .store(in: &cancellables)
     }
     
-    func getUID() -> AnyPublisher<String?, Never> {
+    func getUID() -> AnyPublisher<String, AuthError> {
         return status
-            .replaceError(with: .unknown)
             .filter({ $0 == .signedIn })
             .flatMap { [unowned self] _ in self.awsMobileClient.getCognitoSUB() }
             .eraseToAnyPublisher()
