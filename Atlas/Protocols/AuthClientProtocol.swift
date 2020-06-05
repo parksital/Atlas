@@ -14,6 +14,7 @@ import Combine
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
     func observe() -> Future<AWSAuthState, AuthError>
+    func getCognitoSUB() -> Future<String, AuthError>
     func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -62,6 +63,25 @@ extension AWSMobileClient: AuthClientProtocol {
                 default: break
                 }
             }
+        }
+    }
+    
+    func getCognitoSUB() -> Future<String, AuthError> {
+        return Future<String, AuthError> { [weak self] promise in
+            self?.getUserAttributes(completionHandler: { attributes, error in
+                guard error == nil else {
+                    print("Attibutes Error: ", error!.localizedDescription)
+                    promise(.failure(AuthError.attributesError))
+                    return
+                }
+                
+                guard let dict = attributes, let value = dict["sub"] else {
+                    promise(.failure(AuthError.attributesError))
+                    return
+                }
+                
+                promise(.success(value))
+            })
         }
     }
     

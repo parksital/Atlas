@@ -11,4 +11,10 @@ import Foundation
 enum AuthError: Error {
     case generic
     case signUpError
+    case attributesError
+    case mapped(String)
+    
+    init(error: Error) {
+        self = .mapped(error.localizedDescription)
+    }
 }

@@ -13,7 +13,7 @@ import Combine
 final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
-    private let status = PassthroughSubject<AWSAuthState, AuthError>()
+    private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
     }
@@ -30,9 +30,14 @@ final class SessionService {
 
 extension SessionService {
     func initialize() {
+        awsMobileClient.initialize()
+            .merge(with: awsMobileClient.observe())
+            .subscribe(status)
+            .store(in: &cancellables)
+        
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
-            .map({ $0 == .authorized })
-            .zip(awsMobileClient.initialize())
+            .allSatisfy({ $0 == .authorized })
+            .zip(status)
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] appleAuth, awsAuth in
                     guard let self = self else { return }
@@ -46,11 +51,11 @@ extension SessionService {
             .store(in: &cancellables)
     }
     
-    func observe() {
-        awsMobileClient.observe()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { print($0.rawValue) })
-            .store(in: &cancellables)
+    func getUID() -> AnyPublisher<String, AuthError> {
+        return status
+            .filter({ $0 == .signedIn })
+            .flatMap { [unowned self] _ in self.awsMobileClient.getCognitoSUB() }
+            .eraseToAnyPublisher()
     }
 }
 
