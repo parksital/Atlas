@@ -36,26 +36,28 @@ private extension AuthService {
     func storePassword(_ password: String) {
         KeychainWrapper.standard.set(password, forKey: "password")
     }
+    
+    func storeCognitoSUB(_ sub: String) {
+        print("saving sub: ", sub)
+        KeychainWrapper.standard.set(sub, forKey: "sub")
+    }
 }
 
 extension AuthService {
-    
-    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
+    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<String, AuthError> {
         let password = generatePassword()
-        
-        return self.signUp(email: authData.email, password: password, attributes: authData.attributes)
-            .first(where: { $0 == .confirmed })
-            .flatMap({ _ in
-                return self.signIn(email: authData.email, password: password)
-            })
-            .first(where: { $0 == .signedIn })
-            .handleEvents(receiveOutput: { [weak self] _ in
-                guard let self = self else {
-                    assertionFailure()
-                    return
-                }
-                self.storeAppleAuthData(authData)
-                self.storePassword(password)
+
+        return signUp(email: authData.email, password: password, attributes: authData.attributes)
+            .filter({ $0 == .confirmed})
+            .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
+            .filter({ $0 == .signedIn })
+            .flatMap({ [authClient] _ in authClient!.getCognitoSUB() })
+            .handleEvents(receiveOutput: { [weak self] output in
+                self!.storeAppleAuthData(authData)
+                self!.storePassword(password)
+                self!.storeCognitoSUB(output)
+                }, receiveCompletion: { completion in
+                    
             })
             .eraseToAnyPublisher()
     }

@@ -71,7 +71,7 @@ extension AWSMobileClient: AuthClientProtocol {
             self?.getUserAttributes(completionHandler: { attributes, error in
                 guard error == nil else {
                     print("Attibutes Error: ", error!.localizedDescription)
-                    promise(.failure(AuthError.attributesError))
+                    promise(.failure(AuthError(error: error!)))
                     return
                 }
                 
