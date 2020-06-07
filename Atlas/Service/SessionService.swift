@@ -17,6 +17,9 @@ final class SessionService {
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
     }
+    var sub: String? {
+        KeychainWrapper.standard.string(forKey: "sub")
+    }
     
     private var cancellables = Set<AnyCancellable>()
     

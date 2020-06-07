@@ -21,10 +21,12 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
+    private let sessionService: SessionService!
     private let profileService: ProfileService!
     private var cancellables = Set<AnyCancellable>()
     
-    init(profileService: ProfileService, presenter: AccountPresentationLogic) {
+    init(sessionService: SessionService, profileService: ProfileService, presenter: AccountPresentationLogic) {
+        self.sessionService = sessionService
         self.profileService = profileService
         self.presenter = presenter
     }
@@ -33,21 +35,28 @@ final class AccountInteractor: AccountDataStore {
 }
 
 private extension AccountInteractor {
-
+    
+    
+    func getUserByID(id: String?) {
+        guard let id = id else { return }
+        
+        profileService.getUserByID(id: id)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: print("finished")
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                }
+            }, receiveValue: { [presenter] user in
+                presenter?.presentUser(user)
+            })
+            .store(in: &cancellables)
+    }
 }
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
-        profileService.getCurrentUser()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: print("finished")
-                case .failure(let error): assertionFailure(error.localizedDescription)
-                }
-            }, receiveValue: { user in
-                print(user.id)
-            })
-            .store(in: &cancellables)
+        getUserByID(id: sessionService.sub)
     }
     
     func goToSignUp() {
