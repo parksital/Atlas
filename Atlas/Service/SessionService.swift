@@ -14,10 +14,13 @@ final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
     private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
+    private (set) var cognitoSUB = CurrentValueSubject<String?, AuthError>(nil)
+    
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
     }
-    var sub: String? {
+    
+    private var sub: String? {
         KeychainWrapper.standard.string(forKey: "sub")
     }
     
@@ -33,11 +36,21 @@ final class SessionService {
 
 extension SessionService {
     func initialize() {
+        setupInitialization()
+        setupAuthObserver()
+        setupSUBObserver()
+    }
+}
+
+private extension SessionService {
+    func setupInitialization() {
         awsMobileClient.initialize()
-            .merge(with: awsMobileClient.observe())
-            .subscribe(status)
-            .store(in: &cancellables)
-        
+        .merge(with: awsMobileClient.observe())
+        .subscribe(status)
+        .store(in: &cancellables)
+    }
+    
+    func setupAuthObserver() {
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
             .allSatisfy({ $0 == .authorized })
             .zip(status)
@@ -54,21 +67,31 @@ extension SessionService {
             .store(in: &cancellables)
     }
     
-    func getUID() -> AnyPublisher<String, AuthError> {
-        return status
+    func setupSUBObserver() {
+        status
             .filter({ $0 == .signedIn })
-            .flatMap { [unowned self] _ in self.awsMobileClient.getCognitoSUB() }
-            .eraseToAnyPublisher()
+            .flatMap({ [weak self] _ in self!.fetchSub() })
+            .subscribe(cognitoSUB)
+            .store(in: &cancellables)
     }
-}
-
-private extension SessionService {
+    
     func handleAWSAuthState(_ authState: AWSAuthState) -> Void {
         switch authState {
         case .signedOut, .expiredToken: // sign back in
             print("apple auth success -> aws auth sign fail")
             default: break
         }
+    }
+    
+    func fetchSub() -> AnyPublisher<String?, AuthError> {
+        guard let sub = self.sub else {
+            return awsMobileClient.getCognitoSUB()
+                .eraseToAnyPublisher()
+        }
+        
+        return Just<String?>(sub)
+            .setFailureType(to: AuthError.self)
+            .eraseToAnyPublisher()
     }
     
     func getAWSCredentials() -> (String, String) {

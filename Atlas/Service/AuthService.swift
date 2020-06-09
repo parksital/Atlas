@@ -44,21 +44,12 @@ private extension AuthService {
 }
 
 extension AuthService {
-    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<String, AuthError> {
+    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
         let password = generatePassword()
 
         return signUp(email: authData.email, password: password, attributes: authData.attributes)
             .filter({ $0 == .confirmed})
             .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
-            .filter({ $0 == .signedIn })
-            .flatMap({ [authClient] _ in authClient!.getCognitoSUB() })
-            .handleEvents(receiveOutput: { [weak self] output in
-                self!.storeAppleAuthData(authData)
-                self!.storePassword(password)
-                self!.storeCognitoSUB(output)
-                }, receiveCompletion: { completion in
-                    
-            })
             .eraseToAnyPublisher()
     }
     

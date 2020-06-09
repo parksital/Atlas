@@ -86,8 +86,9 @@ private extension AccountViewController {
     
     func updateViewForUser(user: User) {
         aloeStackView.removeAllRows(animated: false)
+        
+        userInfoView.setup(firstName: user.firstName, lastName: user.familyName)
         aloeStackView.addRow(userInfoView, animated: true)
-        // add all other views
     }
 }
 

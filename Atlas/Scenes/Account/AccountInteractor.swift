@@ -35,15 +35,13 @@ final class AccountInteractor: AccountDataStore {
 }
 
 private extension AccountInteractor {
-    
-    
-    func getUserByID(id: String?) {
-        guard let id = id else { return }
-        
-        profileService.getUserByID(id: id)
+    func observe() {
+        sessionService.cognitoSUB
+            .compactMap({ $0 })
+            .flatMap(profileService.getUserByID(id:))
             .sink(receiveCompletion: { completion in
                 switch completion {
-                case .finished: print("finished")
+                case .finished: print("account interactor finished")
                 case .failure(let error):
                     assertionFailure(error.localizedDescription)
                 }
@@ -56,7 +54,7 @@ private extension AccountInteractor {
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
-        getUserByID(id: sessionService.sub)
+        observe()
     }
     
     func goToSignUp() {

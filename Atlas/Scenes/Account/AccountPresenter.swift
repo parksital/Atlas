@@ -24,7 +24,7 @@ extension AccountPresenter: AccountPresentationLogic {
     }
     
     func presentUser(_ user: User) {
-        
+        viewController?.displayAccount(for: user)
     }
     
     func goToSignUp() {
