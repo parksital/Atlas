@@ -44,8 +44,5 @@ class AWSContainer {
         container.register(AuthClientProtocol.self) { _ in
             AWSMobileClient.default()
         }
-        
-        container.autoregister(AuthService.self, initializer: AuthService.init)
-            .inObjectScope(.weak)
     }
 }

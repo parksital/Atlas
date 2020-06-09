@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import AloeStackView
 
 protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
+    func showSignUpView()
+    func displayAccount(for user: User)
 }
 
 final class AccountViewController: UIViewController {
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
+    
+    private let aloeStackView = AloeStackView()
+    private var emptyAccountView = EmptyAccountView()
+    private var userInfoView = AccountUserInfoView()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -28,10 +35,12 @@ final class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        interactor?.viewDidFinishLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -39,11 +48,47 @@ private extension AccountViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
-        
+        setupAloeStackview()
+        setupEmptyAccountView(withAction: interactor?.goToSignUp)
     }
     
     func setupNavigationBar() {
         navigationItem.title = "Account"
+    }
+    
+    func setupAloeStackview() {
+        aloeStackView.hidesSeparatorsByDefault = true
+        aloeStackView.alwaysBounceVertical = true
+        aloeStackView.backgroundColor = .systemBackground
+        aloeStackView.rowBackgroundColor = .systemBackground
+        aloeStackView.separatorColor = .separator
+        
+        setupAloeStackViewConstraints()
+    }
+    
+    func setupAloeStackViewConstraints() {
+        view.addSubview(aloeStackView)
+        
+        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func setupEmptyAccountView(withAction action: (() -> (Void))?) {
+        emptyAccountView.action = action
+        emptyAccountView.configure()
+        aloeStackView.addRow(emptyAccountView, animated: true)
+    }
+    
+    func updateViewForUser(user: User) {
+        aloeStackView.removeAllRows(animated: false)
+        
+        userInfoView.setup(firstName: user.firstName, lastName: user.familyName)
+        aloeStackView.addRow(userInfoView, animated: true)
     }
 }
 
@@ -53,5 +98,16 @@ extension AccountViewController: AccountDisplayLogic {
     }
     func setup(router: AccountRouterProtocol) {
         self.router = router
+    }
+    
+    func showSignUpView() {
+        router?.routeToSignUp()
+    }
+    
+    func displayAccount(for user: User) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateViewForUser(user: user)
+        }
     }
 }

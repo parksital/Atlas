@@ -1,3 +1,11 @@
+type User 
+  @model {
+  id: ID!
+  firstName: String!
+  familyName: String!
+  points: Int!
+}
+
 type Venue
   @model {
   id: ID!

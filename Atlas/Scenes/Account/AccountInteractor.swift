@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import Combine
 
-protocol AccountLogic {
+protocol AccountLogic: class {
     func viewDidFinishLoading()
+    func goToSignUp()
 }
 
 protocol AccountDataStore {
@@ -19,15 +21,43 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let authService: AuthService!
+    private let sessionService: SessionService!
+    private let profileService: ProfileService!
+    private var cancellables = Set<AnyCancellable>()
     
-    init(authService: AuthService, presenter: AccountPresentationLogic) {
-        self.authService = authService
+    init(sessionService: SessionService, profileService: ProfileService, presenter: AccountPresentationLogic) {
+        self.sessionService = sessionService
+        self.profileService = profileService
         self.presenter = presenter
+    }
+    
+    deinit { cancellables.forEach({ $0.cancel() }) }
+}
+
+private extension AccountInteractor {
+    func observe() {
+        sessionService.cognitoSUB
+            .compactMap({ $0 })
+            .flatMap(profileService.getUserByID(id:))
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: print("account interactor finished")
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                }
+            }, receiveValue: { [presenter] user in
+                presenter?.presentUser(user)
+            })
+            .store(in: &cancellables)
     }
 }
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
+        observe()
+    }
+    
+    func goToSignUp() {
+        presenter.goToSignUp()
     }
 }

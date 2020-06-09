@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum AuthStatus: String {
+enum AWSAuthState: String {
     case unknown
-    case unauthenticated
-    case confirmed
-    case signedIn
     case signedOut
+    case signedIn
+    case confirmed
+    case expiredToken
 }

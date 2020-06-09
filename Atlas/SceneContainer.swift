@@ -16,8 +16,16 @@ class SceneContainer {
     private init() {
         container = Container(parent: AWSContainer.shared.container)
         
-        //MARK: - Eventlist Dependencies
+        //MARK: - Services
+        container.autoregister(ProfileService.self, initializer: ProfileService.init)
         container.autoregister(EventService.self, initializer: EventService.init)
+        container.autoregister(SessionService.self, initializer: SessionService.init)
+            .inObjectScope(.weak)
+        container.autoregister(AppleAuthService.self, initializer: AppleAuthService.init)
+        container.autoregister(AuthService.self, initializer: AuthService.init)
+            
+        
+        //MARK: - Eventlist Dependencies
         container.autoregister(EventListInteraction.self, initializer: EventListInteractor.init)
         container.autoregister(EventListPresentationLogic.self, initializer: EventListPresenter.init)
         container.autoregister(EventListRouterProtocol.self, initializer: EventListRouter.init)

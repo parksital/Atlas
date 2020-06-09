@@ -36,38 +36,31 @@ private extension AuthService {
     func storePassword(_ password: String) {
         KeychainWrapper.standard.set(password, forKey: "password")
     }
+    
+    func storeCognitoSUB(_ sub: String) {
+        print("saving sub: ", sub)
+        KeychainWrapper.standard.set(sub, forKey: "sub")
+    }
 }
 
 extension AuthService {
-    
-    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
         let password = generatePassword()
-        return self.signUp(email: authData.email, password: password)
-            .first(where: { $0 == .confirmed })
-            .flatMap({ _ in
-                return self.signIn(email: authData.email, password: password)
-            })
-            .first(where: { $0 == .signedIn })
-            .handleEvents(receiveOutput: { [weak self] _ in
-                guard let self = self else {
-                    assertionFailure()
-                    return
-                }
-                self.storeAppleAuthData(authData)
-                self.storePassword(password)
-            })
+
+        return signUp(email: authData.email, password: password, attributes: authData.attributes)
+            .filter({ $0 == .confirmed})
+            .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
             .eraseToAnyPublisher()
     }
     
-    func signUp(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
-        return authClient.signUp(email: email, password: password)
+    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
+        return authClient.signUp(email: email, password: password, attributes: attributes)
     }
     
-    func signIn(email: String, password: String) -> AnyPublisher<AuthStatus, AuthError> {
+    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
         return authClient.signIn(email: email, password: password)
     }
     
     func logOut() {
-        authClient.logOut()
     }
 }

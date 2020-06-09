@@ -33,8 +33,9 @@ final class AccountRouter: AccountRouterProtocol {
     
     func routeToSignUp() {
         let container = SceneContainer.shared.container
-        let destinationVC = container.resolve(AccountViewController.self)!
-        presentDestination(source: viewController!, destination: destinationVC)
+        let vc = container.resolve(SignUpViewController.self)!
+        let destination = UINavigationController(rootViewController: vc)
+        presentDestination(source: viewController!, destination: destination)
     }
     
     
