@@ -13,7 +13,7 @@ protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
-    func displayAccount(viewModel: String)
+    func displayAccount(for user: User)
 }
 
 final class AccountViewController: UIViewController {
@@ -84,10 +84,11 @@ private extension AccountViewController {
         aloeStackView.addRow(emptyAccountView, animated: true)
     }
     
-    func updateViewForUser(user: String) {
+    func updateViewForUser(user: User) {
         aloeStackView.removeAllRows(animated: false)
+        
+        userInfoView.setup(firstName: user.firstName, lastName: user.familyName)
         aloeStackView.addRow(userInfoView, animated: true)
-        // add all other views
     }
 }
 
@@ -103,10 +104,10 @@ extension AccountViewController: AccountDisplayLogic {
         router?.routeToSignUp()
     }
     
-    func displayAccount(viewModel: String) {
+    func displayAccount(for user: User) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.updateViewForUser(user: viewModel)
+            self.updateViewForUser(user: user)
         }
     }
 }

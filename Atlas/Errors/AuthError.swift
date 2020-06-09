@@ -12,9 +12,12 @@ enum AuthError: Error {
     case generic
     case signUpError
     case attributesError
-    case mapped(String)
+    case noUser
+    case mapped(Error)
     
     init(error: Error) {
-        self = .mapped(error.localizedDescription)
+        self = .mapped(error)
     }
 }
+
+

@@ -13,8 +13,8 @@ import Combine
 
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
-    func observe() -> Future<AWSAuthState, AuthError>
-    func getCognitoSUB() -> Future<String, AuthError>
+    func observe() -> CurrentValueSubject<AWSAuthState, AuthError>
+    func getCognitoSUB() -> Future<String?, AuthError>
     func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -52,35 +52,36 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func observe() -> Future<AWSAuthState, AuthError> {
-        return Future<AWSAuthState, AuthError> { [weak self] promise in
-            guard let self = self else { return }
-            self.addUserStateListener(self) { userState, userInfo in
-                switch userState {
-                case .signedIn: promise(.success(.signedIn))
-                case .signedOut: promise(.success(.signedOut))
-                case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
-                default: break
-                }
+    func observe() -> CurrentValueSubject<AWSAuthState, AuthError> {
+        let cvs = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
+        
+        self.addUserStateListener(self) { userState, userInfo in
+            switch userState {
+            case .signedIn: cvs.send(.signedIn)
+            case .signedOut: cvs.send(.signedOut)
+            case .signedOutUserPoolsTokenInvalid: cvs.send(.expiredToken)
+            default: break
             }
         }
+        
+        return cvs
     }
     
-    func getCognitoSUB() -> Future<String, AuthError> {
-        return Future<String, AuthError> { [weak self] promise in
+    func getCognitoSUB() -> Future<String?, AuthError> {
+        return Future<String?, AuthError> { [weak self] promise in
             self?.getUserAttributes(completionHandler: { attributes, error in
                 guard error == nil else {
                     print("Attibutes Error: ", error!.localizedDescription)
+                    promise(.failure(AuthError(error: error!)))
+                    return
+                }
+                
+                guard let dict = attributes else {
                     promise(.failure(AuthError.attributesError))
                     return
                 }
                 
-                guard let dict = attributes, let value = dict["sub"] else {
-                    promise(.failure(AuthError.attributesError))
-                    return
-                }
-                
-                promise(.success(value))
+                promise(.success(dict["sub"]))
             })
         }
     }
