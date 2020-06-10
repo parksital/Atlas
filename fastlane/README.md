@@ -26,6 +26,11 @@ Description of what the lane does
 fastlane ios archive_xcresults
 ```
 
+### ios beta
+```
+fastlane ios beta
+```
+
 
 ----
 
