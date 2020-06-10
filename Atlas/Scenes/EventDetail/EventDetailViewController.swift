@@ -19,7 +19,7 @@ final class EventDetailViewController: UIViewController {
     var interactor: EventDetailInteraction?
     var router: EventDetailRouterProtocol?
     
-    private let stackView = AloeStackView()
+    private let aloeStackView = AloeStackView()
     private var titleLabel = UILabel(styling: .title)
     private var dateTimeLabel = UILabel(styling: .headline)
     private var descriptionLabel = UILabel(styling: .body)
@@ -56,29 +56,22 @@ private extension EventDetailViewController {
     }
     
     func setupStackView() {
-        stackView.hidesSeparatorsByDefault = true
-        stackView.alwaysBounceVertical = true
-        stackView.backgroundColor = .systemBackground
-        stackView.rowBackgroundColor = .systemBackground
-        stackView.separatorColor = .separator
+        aloeStackView.hidesSeparatorsByDefault = true
+        aloeStackView.alwaysBounceVertical = true
+        aloeStackView.backgroundColor = .systemBackground
+        aloeStackView.rowBackgroundColor = .systemBackground
+        aloeStackView.separatorColor = .separator
         setupStackViewConstraints()
-        
-        stackView.addRows([
-            titleLabel,
-            dateTimeLabel,
-            descriptionLabel,
-            artistHeaderLabel
-        ], animated: true)
     }
     
     func setupStackViewConstraints() {
-        view.addSubview(stackView)
+        view.addSubview(aloeStackView)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
@@ -89,11 +82,18 @@ private extension EventDetailViewController {
         descriptionLabel.text = viewModel.description
         artistHeaderLabel.text = "Artists"
         
-        viewModel.artists.forEach { [stackView] in
+        aloeStackView.addRows([
+            titleLabel,
+            dateTimeLabel,
+            descriptionLabel,
+            artistHeaderLabel
+        ], animated: true)
+        
+        viewModel.artists.forEach { [aloeStackView] in
             let label = UILabel(styling: .body)
             label.text = $0
-            stackView.addRow(label, animated: true)
-            stackView.showSeparator(forRow: label)
+            aloeStackView.addRow(label, animated: true)
+            aloeStackView.showSeparator(forRow: label)
         }
     }
 }
