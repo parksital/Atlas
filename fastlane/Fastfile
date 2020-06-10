@@ -44,4 +44,12 @@ platform :ios do
         puts "No test logs folder"
     end
   end
+
+  lane :beta do
+    sync_code_signing(type: "appstore") 
+    build_app(scheme: "Atlas", workspace: "Atlas.xcworkspace", include_bitcode: true)
+    increment_build_number
+    increment_version_number(bump_type: "patch")
+    upload_to_testflight
+  end
 end
