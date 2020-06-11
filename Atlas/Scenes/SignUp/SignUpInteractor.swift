@@ -45,6 +45,8 @@ extension SignUpInteractor: SignUpLogic {
                     presenter?.presentSuccessfulSignUp()
             })
             .store(in: &cancellables)
+        
+        presenter.presentLoadingIndicator()
     }
     
     func handleCredentialsError() {
