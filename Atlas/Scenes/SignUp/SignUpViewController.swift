@@ -13,7 +13,6 @@ import AuthenticationServices
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
     func displayActivityIndicator()
-    func hideActivityIndicator()
     func setupWithViewModel(_ viewModel: SignUpViewModel)
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
@@ -175,10 +174,16 @@ private extension SignUpViewController {
         secondaryLabel.text = viewModel.secondaryText
     }
     
-    func disableUIElements() {
+    func disableDismissal() {
         self.isModalInPresentation = true
         view.isUserInteractionEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func hideActivityIndicator() {
+        DispatchQueue.main.async { [weak activityIndicator] in
+            activityIndicator?.stopAnimating()
+        }
     }
 }
 
@@ -190,15 +195,9 @@ extension SignUpViewController: SignUpDisplayLogic {
     }
     
     func displayActivityIndicator() {
-        disableUIElements()
+        disableDismissal()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
-    }
-    
-    func hideActivityIndicator() {
-        DispatchQueue.main.async { [weak activityIndicator] in
-            activityIndicator?.stopAnimating()
-        }
     }
     
     func signUpSuccessful() {
