@@ -174,6 +174,12 @@ private extension SignUpViewController {
         mainLabel.text = viewModel.mainText
         secondaryLabel.text = viewModel.secondaryText
     }
+    
+    func disableUIElements() {
+        self.isModalInPresentation = true
+        view.isUserInteractionEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
@@ -184,7 +190,7 @@ extension SignUpViewController: SignUpDisplayLogic {
     }
     
     func displayActivityIndicator() {
-        view.isUserInteractionEnabled = false
+        disableUIElements()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
     }
