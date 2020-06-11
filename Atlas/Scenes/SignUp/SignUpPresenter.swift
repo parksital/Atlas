@@ -15,6 +15,7 @@ struct SignUpViewModel {
 
 protocol SignUpPresentationLogic {
     func setup(viewController: SignUpDisplayLogic)
+    func presentLoadingIndicator()
     func presentSuccessfulSignUp()
     func presentView()
 }
@@ -28,15 +29,19 @@ extension SignUpPresenter: SignUpPresentationLogic {
         self.viewController = viewController
     }
     
+    func presentLoadingIndicator() {
+        viewController?.displayActivityIndicator()
+    }
+    
     func presentSuccessfulSignUp() {
         viewController?.signUpSuccessful()
     }
     
     func presentView() {
         let viewModel = SignUpViewModel(
-            mainText: "For a personalized experience, \nsign into your account.",
-            secondaryText: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            mainText: "[Value proposition main text]",
+            secondaryText: "[Value proposition secondary text]"
         )
-        viewController?.updateWithViewModel(viewModel)
+        viewController?.setupWithViewModel(viewModel)
     }
 }

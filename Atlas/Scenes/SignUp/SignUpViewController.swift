@@ -12,9 +12,8 @@ import AuthenticationServices
 
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
-    func showActivityIndicator()
-    func hideActivityIndicator()
-    func updateWithViewModel(_ viewModel: SignUpViewModel)
+    func displayActivityIndicator()
+    func setupWithViewModel(_ viewModel: SignUpViewModel)
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
@@ -28,6 +27,7 @@ final class SignUpViewController: UIViewController {
     private var secondaryLabel = UILabel(styling: .secondary)
     private var authView = UIView()
     private var authButton: ASAuthorizationAppleIDButton!
+    private var activityIndicator = UIActivityIndicatorView(style: .medium)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -132,12 +132,13 @@ private extension SignUpViewController {
         authButton.addTarget(self, action: #selector(self.handleAppleIDButtonPress), for: .touchUpInside)
         
         setupAuthButtonConstraints()
+        setupActivityIndicatorConstraints()
     }
     
     func setupAuthButtonConstraints() {
         authView.addSubview(authButton)
-        authButton.translatesAutoresizingMaskIntoConstraints = false
         
+        authButton.translatesAutoresizingMaskIntoConstraints = false
         let width = authButton.widthAnchor.constraint(equalToConstant: 200.0)
         let height = authButton.heightAnchor.constraint(equalToConstant: 44.0)
         let top = authButton.topAnchor.constraint(equalTo: authView.topAnchor)
@@ -145,6 +146,16 @@ private extension SignUpViewController {
         let centerX = authButton.centerXAnchor.constraint(equalTo: authView.centerXAnchor)
         
         NSLayoutConstraint.activate([centerX, width, height, top, bottom])
+    }
+    
+    func setupActivityIndicatorConstraints() {
+        authView.addSubview(activityIndicator)
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        let leading = activityIndicator.leadingAnchor.constraint(equalTo: authButton.trailingAnchor, constant: 16.0)
+        let centerY = activityIndicator.centerYAnchor.constraint(equalTo: authButton.centerYAnchor)
+        
+        NSLayoutConstraint.activate([leading, centerY])
     }
     
     @objc func handleAppleIDButtonPress() {
@@ -158,28 +169,39 @@ private extension SignUpViewController {
         authorizationController.performRequests()
     }
     
-    func updateViewsForViewModel(_ viewModel: SignUpViewModel) {
+    func updateValuesWithViewModel(_ viewModel: SignUpViewModel) {
         mainLabel.text = viewModel.mainText
         secondaryLabel.text = viewModel.secondaryText
+    }
+    
+    func disableDismissal() {
+        self.isModalInPresentation = true
+        view.isUserInteractionEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func hideActivityIndicator() {
+        DispatchQueue.main.async { [weak activityIndicator] in
+            activityIndicator?.stopAnimating()
+        }
     }
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
-    func updateWithViewModel(_ viewModel: SignUpViewModel) {
+    func setupWithViewModel(_ viewModel: SignUpViewModel) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateViewsForViewModel(viewModel)
+            self?.updateValuesWithViewModel(viewModel)
         }
     }
     
-    func showActivityIndicator() {
-        
-    }
-    
-    func hideActivityIndicator() {
-        
+    func displayActivityIndicator() {
+        disableDismissal()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
     }
     
     func signUpSuccessful() {
+        hideActivityIndicator()
         router?.dismiss()
     }
     
