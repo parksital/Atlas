@@ -28,6 +28,7 @@ final class MockAPIClient {
 extension MockAPIClient: AWSAppSyncClientProtocol {
     func request<F: Fetchable & Mockable>(
         query: F,
+        cachePolicy: CachePolicy = .fetchIgnoringCacheData,
         completion: ((Data?, Error?) -> Void)?) {
         let data = getMock(mockable: query)
         completion?(data, nil)
