@@ -12,6 +12,7 @@ import AWSAppSync
 protocol AWSAppSyncClientProtocol {
     func request<F: Fetchable & Mockable>(
         query: F,
+        cachePolicy: CachePolicy,
         completion: ((Data?, Error?) -> Void)?
     )
 }
@@ -19,12 +20,13 @@ protocol AWSAppSyncClientProtocol {
 extension AWSAppSyncClient: AWSAppSyncClientProtocol {
     func request<F: Fetchable & Mockable>(
         query: F,
+        cachePolicy: CachePolicy,
         completion: ((Data?, Error?) -> Void)?
     ) {
         fetch(
             query: query.query,
-            cachePolicy: .fetchIgnoringCacheData,
-            queue: .global(qos: .userInitiated)) { result, error in
+            cachePolicy: cachePolicy,
+            queue: .global(qos: .userInteractive)) { result, error in
                 if let error = error {
                     completion?(nil, error)
                 } else {

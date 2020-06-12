@@ -12,6 +12,7 @@ import Combine
 
 protocol APIClientProtocol {
     func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error>
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F, cachePolicy: CachePolicy) -> Future<D, Error>
 }
 
 class AWSClient {
@@ -29,8 +30,12 @@ class AWSClient {
 
 extension AWSClient: APIClientProtocol {
     func fetch<F: Fetchable & Mockable, D: Decodable>(query: F) -> Future<D, Error> {
+        fetch(query: query, cachePolicy: .fetchIgnoringCacheData)
+    }
+    
+    func fetch<F: Fetchable & Mockable, D: Decodable>(query: F, cachePolicy: CachePolicy = .fetchIgnoringCacheData) -> Future<D, Error> {
         return Future<D, Error> { [appSyncClient, decoder] promise in
-            appSyncClient?.request(query: query) { result, error in
+            appSyncClient?.request(query: query, cachePolicy: cachePolicy) { result, error in
                 guard error == nil else {
                     promise(.failure(error!))
                     return
