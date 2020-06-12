@@ -148,6 +148,5 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         let events = viewModel.eventsForSection(indexPath.section)
         
         interactor?.didSelectEvent(events[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

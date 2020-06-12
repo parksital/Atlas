@@ -33,6 +33,7 @@ final class EventSummaryCell: UITableViewCell {
 
 private extension EventSummaryCell {
     func setupViews() {
+        self.selectionStyle = .none
         setupStackViewConstraints()
         setupContainerViewConstraints()
         setupEventTitleLabel()
