@@ -53,10 +53,9 @@ extension EventListInteractor: EventListLogic {
                     case .failure(let error): self.presenter?.presentError(error)
                     }
             },
-                receiveValue: { data in
-                    let items = data.eventSummaryList.eventItems
-                    self.updateEvents(items)
-                    self.presentEvents(items)
+                receiveValue: { eventItems in
+                    self.updateEvents(eventItems)
+                    self.presentEvents(eventItems)
             }
         ).store(in: &cancellables)
     }

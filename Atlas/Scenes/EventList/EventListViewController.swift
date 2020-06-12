@@ -95,6 +95,7 @@ private extension EventListViewController {
     func setupTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         setupConstraintsFor(tableView, in: view)
         
         tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
@@ -133,19 +134,19 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         let events = viewModel.eventsForSection(indexPath.section)
         
         if events.isEmpty {
-            cell.setupEmtpy(withLocalizedString: "No events")
-            cell.isUserInteractionEnabled = false
+            let emptyCell = UITableViewCell(style: .default, reuseIdentifier: "default")
+            emptyCell.textLabel?.text = "No events"
+            emptyCell.isUserInteractionEnabled = false
+            return emptyCell
         } else {
             cell.setup(eventSummary: events[indexPath.row])
+            return cell
         }
-
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let events = viewModel.eventsForSection(indexPath.section)
         
         interactor?.didSelectEvent(events[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
