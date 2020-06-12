@@ -119,6 +119,13 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         return viewModel.sectionHeaders.count
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        
+        header.contentView.backgroundColor = .systemBackground
+        header.textLabel?.textColor = .label
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return viewModel.sectionHeaders[section]
     }
