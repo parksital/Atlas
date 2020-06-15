@@ -45,9 +45,9 @@ extension SessionService {
 private extension SessionService {
     func setupInitialization() {
         awsMobileClient.initialize()
-        .merge(with: awsMobileClient.observe())
-        .subscribe(status)
-        .store(in: &cancellables)
+            .merge(with: awsMobileClient.observe())
+            .subscribe(status)
+            .store(in: &cancellables)
     }
     
     func setupAuthObserver() {
