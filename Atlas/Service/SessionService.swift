@@ -51,11 +51,22 @@ private extension SessionService {
     }
     
     func setupAuthObserver() {
+        appleAuthService.observeAppleIDRevocation()
+            .sink(receiveValue: { [weak self] _ in
+                self?.revokeAWSCredentials()
+                self?.wipeKeychain()
+            })
+            .store(in: &cancellables)
+        
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
             .allSatisfy({ $0 == .authorized })
             .combineLatest(status)
-            .sink(receiveCompletion: { _ in
-                
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    break
+                }
             }, receiveValue: { [weak self] appleAuth, awsAuth in
                 guard let self = self else { return }
                     if appleAuth {
