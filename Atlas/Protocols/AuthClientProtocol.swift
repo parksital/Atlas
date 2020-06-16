@@ -13,8 +13,8 @@ import Combine
 
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
-    func observe() -> CurrentValueSubject<AWSAuthState, AuthError>
-    func getCognitoSUB() -> Future<String?, AuthError>
+    func observe() -> PassthroughSubject<AWSAuthState, AuthError>
+    func getCognitoSUB() -> Future<String, AuthError>
     func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
@@ -52,23 +52,23 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func observe() -> CurrentValueSubject<AWSAuthState, AuthError> {
-        let cvs = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
+    func observe() -> PassthroughSubject<AWSAuthState, AuthError> {
+        let pts = PassthroughSubject<AWSAuthState, AuthError>()
         
         self.addUserStateListener(self) { userState, userInfo in
             switch userState {
-            case .signedIn: cvs.send(.signedIn)
-            case .signedOut: cvs.send(.signedOut)
-            case .signedOutUserPoolsTokenInvalid: cvs.send(.expiredToken)
+            case .signedIn: pts.send(.signedIn)
+            case .signedOut: pts.send(.signedOut)
+            case .signedOutUserPoolsTokenInvalid: pts.send(.expiredToken)
             default: break
             }
         }
         
-        return cvs
+        return pts
     }
     
-    func getCognitoSUB() -> Future<String?, AuthError> {
-        return Future<String?, AuthError> { [weak self] promise in
+    func getCognitoSUB() -> Future<String, AuthError> {
+        return Future<String, AuthError> { [weak self] promise in
             self?.getUserAttributes(completionHandler: { attributes, error in
                 guard error == nil else {
                     print("Attibutes Error: ", error!.localizedDescription)
@@ -76,12 +76,13 @@ extension AWSMobileClient: AuthClientProtocol {
                     return
                 }
                 
-                guard let dict = attributes else {
+                guard let dict = attributes, let sub = dict["sub"] else {
                     promise(.failure(AuthError.attributesError))
                     return
                 }
                 
-                promise(.success(dict["sub"]))
+                KeychainWrapper.standard.set(sub, forKey: "sub")
+                promise(.success(sub))
             })
         }
     }

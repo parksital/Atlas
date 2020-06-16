@@ -37,7 +37,7 @@ final class AccountInteractor: AccountDataStore {
 private extension AccountInteractor {
     func observe() {
         sessionService.cognitoSUB
-            .compactMap({ $0 })
+            .filter({ !$0.isEmpty })
             .flatMap(profileService.getUserByID(id:))
             .sink(receiveCompletion: { completion in
                 switch completion {

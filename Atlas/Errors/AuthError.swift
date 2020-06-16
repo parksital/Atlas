@@ -12,7 +12,7 @@ enum AuthError: Error {
     case generic
     case signUpError
     case attributesError
-    case noUser
+    case noAppleUID
     case mapped(Error)
     
     init(error: Error) {
