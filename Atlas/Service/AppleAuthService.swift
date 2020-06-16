@@ -16,7 +16,7 @@ final class AppleAuthService {
     func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
         return Future<AppleIDCredentialState, AuthError> { promise in
             guard uid != nil else {
-                promise(.success(.notFound))
+                promise(.failure(.noAppleUID))
                 return
             }
             

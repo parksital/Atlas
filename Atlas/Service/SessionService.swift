@@ -14,7 +14,7 @@ final class SessionService {
     private let appleAuthService: AppleAuthService!
     private let awsMobileClient: AuthClientProtocol!
     private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
-    private (set) var cognitoSUB = CurrentValueSubject<String?, AuthError>(nil)
+    private (set) var cognitoSUB = CurrentValueSubject<String, AuthError>("")
     
     private var uid: String? {
         KeychainWrapper.standard.string(forKey: "uid")
@@ -53,16 +53,17 @@ private extension SessionService {
     func setupAuthObserver() {
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
             .allSatisfy({ $0 == .authorized })
-            .zip(status)
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] appleAuth, awsAuth in
-                    guard let self = self else { return }
+            .combineLatest(status)
+            .sink(receiveCompletion: { _ in
+                
+            }, receiveValue: { [weak self] appleAuth, awsAuth in
+                guard let self = self else { return }
                     if appleAuth {
                         self.handleAWSAuthState(awsAuth)
                     } else {
                         self.revokeAWSCredentials()
                         self.wipeKeychain()
-                    }
+                }
             })
             .store(in: &cancellables)
     }
@@ -83,13 +84,13 @@ private extension SessionService {
         }
     }
     
-    func fetchSub() -> AnyPublisher<String?, AuthError> {
+    func fetchSub() -> AnyPublisher<String, AuthError> {
         guard let sub = self.sub else {
             return awsMobileClient.getCognitoSUB()
                 .eraseToAnyPublisher()
         }
         
-        return Just<String?>(sub)
+        return Just<String>(sub)
             .setFailureType(to: AuthError.self)
             .eraseToAnyPublisher()
     }
