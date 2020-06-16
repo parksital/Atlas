@@ -16,7 +16,7 @@ final class AppleAuthService {
     func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
         return Future<AppleIDCredentialState, AuthError> { promise in
             guard uid != nil else {
-                promise(.failure(.noAppleUID))
+                promise(.success(.notFound))
                 return
             }
             
@@ -27,12 +27,9 @@ final class AppleAuthService {
         }
     }
     
-    func observeAppleIDAuthRevocation(revocationHandler: @escaping (Notification) -> Void) {
-        NotificationCenter.default.addObserver(
-            forName: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
-            object: self,
-            queue: OperationQueue.current,
-            using: revocationHandler
-        )
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
+        NotificationCenter.default
+            .publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)
+            .eraseToAnyPublisher()
     }
 }
