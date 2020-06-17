@@ -13,7 +13,7 @@ protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
-    func displayAccount(for user: User)
+    func displayAccount(for user: User?)
 }
 
 final class AccountViewController: UIViewController {
@@ -49,7 +49,6 @@ private extension AccountViewController {
         view.backgroundColor = .systemBackground
         setupNavigationBar()
         setupAloeStackview()
-        setupEmptyAccountView(withAction: interactor?.goToSignUp)
     }
     
     func setupNavigationBar() {
@@ -81,11 +80,16 @@ private extension AccountViewController {
     func setupEmptyAccountView(withAction action: (() -> (Void))?) {
         emptyAccountView.action = action
         emptyAccountView.configure()
-        aloeStackView.addRow(emptyAccountView, animated: true)
     }
     
-    func updateViewForUser(user: User) {
+    func updateViewForUser(user: User?) {
         aloeStackView.removeAllRows(animated: false)
+        
+        guard let user = user else {
+            setupEmptyAccountView(withAction: interactor?.goToSignUp)
+            aloeStackView.addRow(emptyAccountView, animated: true)
+            return
+        }
         
         userInfoView.setup(firstName: user.firstName, lastName: user.familyName)
         aloeStackView.addRow(userInfoView, animated: true)
@@ -104,7 +108,7 @@ extension AccountViewController: AccountDisplayLogic {
         router?.routeToSignUp()
     }
     
-    func displayAccount(for user: User) {
+    func displayAccount(for user: User?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.updateViewForUser(user: user)

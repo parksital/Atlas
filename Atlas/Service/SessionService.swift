@@ -60,12 +60,12 @@ private extension SessionService {
         
         appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
             .allSatisfy({ $0 == .authorized })
-            .combineLatest(status)
+            .zip(status)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished: break
                 case .failure(let error):
-                    break
+                    assertionFailure(error.localizedDescription)
                 }
             }, receiveValue: { [weak self] appleAuth, awsAuth in
                 guard let self = self else { return }
