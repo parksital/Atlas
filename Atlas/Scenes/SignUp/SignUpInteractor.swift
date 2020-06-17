@@ -39,7 +39,7 @@ extension SignUpInteractor: SignUpLogic {
     }
     
     func signUpWithAppleID(authData: AppleAuthData) {
-        authService.signUpWithAppleID(authData)
+        authService.initiateSignIn(with: authData)
             .sink(receiveCompletion: { _ in },
                 receiveValue: { [presenter] _ in
                     presenter?.presentSuccessfulSignUp()
