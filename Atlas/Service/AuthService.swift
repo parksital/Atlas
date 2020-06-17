@@ -11,6 +11,9 @@ import Combine
 
 final class AuthService {
     private let authClient: AuthClientProtocol!
+    @Keychained(key: "uid") var uid: String?
+    @Keychained(key: "email") var email: String?
+    @Keychained(key: "password") var password: String?
     
     init(authClient: AuthClientProtocol) {
         self.authClient = authClient
@@ -26,29 +29,29 @@ private extension AuthService {
             length: 10
         )
     }
-    
-    func storeAppleAuthData(_ authData: AppleAuthData) {
-        KeychainWrapper.standard.set(authData.token, forKey: "token")
-        KeychainWrapper.standard.set(authData.uid, forKey: "uid")
-        KeychainWrapper.standard.set(authData.email, forKey: "email")
-    }
-    
-    func storePassword(_ password: String) {
-        KeychainWrapper.standard.set(password, forKey: "password")
-    }
 }
 
 extension AuthService {
+    func initiateSignIn(with authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
+        if authData.uid == self.uid,
+            let email = _email.wrappedValue,
+            let password = _password.wrappedValue {
+            return signIn(email: email, password: password)
+        } else {
+            return signUpWithAppleID(authData)
+        }
+    }
+    
     func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
         let password = generatePassword()
-
         return signUp(email: authData.email, password: password, attributes: authData.attributes)
             .filter({ $0 == .confirmed})
             .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
             .filter({ $0 == .signedIn })
             .handleEvents(receiveOutput: { [weak self ] _ in
-                self?.storeAppleAuthData(authData)
-                self?.storePassword(password)
+                self?.uid = authData.uid
+                self?.email = authData.email
+                self?.password = password
             })
             .eraseToAnyPublisher()
     }
