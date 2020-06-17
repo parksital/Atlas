@@ -50,6 +50,6 @@ platform :ios do
     build_app(scheme: "Atlas", workspace: "Atlas.xcworkspace", include_bitcode: true)
     increment_build_number
     increment_version_number(bump_type: "patch")
-    upload_to_testflight
+    upload_to_testflight(distribute_external: true, groups: "feedback-providers")
   end
 end
