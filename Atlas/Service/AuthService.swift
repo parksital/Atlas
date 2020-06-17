@@ -49,7 +49,7 @@ extension AuthService {
             .handleEvents(receiveOutput: { [weak self ] _ in
                 self?.storeAppleAuthData(authData)
                 self?.storePassword(password)
-        })
+            })
             .eraseToAnyPublisher()
     }
     

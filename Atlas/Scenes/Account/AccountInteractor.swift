@@ -36,18 +36,24 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
+        sessionService.status
+            .map({ $0 == .signedIn })
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] signedIn in
+                    if signedIn {
+                        self?.getUser()
+                    } else {
+                        self?.presenter.presentUser(nil)
+                    }
+            }).store(in: &cancellables)
+    }
+    
+    func getUser() {
         sessionService.cognitoSUB
             .filter({ !$0.isEmpty })
             .flatMap(profileService.getUserByID(id:))
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: print("account interactor finished")
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                }
-            }, receiveValue: { [presenter] user in
-                presenter?.presentUser(user)
-            })
+            .sink(receiveCompletion: { _ in  },
+                  receiveValue: presenter.presentUser(_:))
             .store(in: &cancellables)
     }
 }
