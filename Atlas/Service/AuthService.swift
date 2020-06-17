@@ -36,11 +36,6 @@ private extension AuthService {
     func storePassword(_ password: String) {
         KeychainWrapper.standard.set(password, forKey: "password")
     }
-    
-    func storeCognitoSUB(_ sub: String) {
-        print("saving sub: ", sub)
-        KeychainWrapper.standard.set(sub, forKey: "sub")
-    }
 }
 
 extension AuthService {
@@ -50,6 +45,11 @@ extension AuthService {
         return signUp(email: authData.email, password: password, attributes: authData.attributes)
             .filter({ $0 == .confirmed})
             .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
+            .filter({ $0 == .signedIn })
+            .handleEvents(receiveOutput: { [weak self ] _ in
+                self?.storeAppleAuthData(authData)
+                self?.storePassword(password)
+            })
             .eraseToAnyPublisher()
     }
     

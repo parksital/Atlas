@@ -22,8 +22,12 @@ class EventService {
         self.client = client
     }
     
-    func events() -> Future<GetEventList, Error> {
-        return client.fetch(query: EventList.Request(token: token))
+    func events() -> AnyPublisher<[EventItem], Error> {
+        let f: Future<GetEventList, Error> = client.fetch(query: EventList.Request(token: token))
+        
+        return f
+            .map({ $0.eventSummaryList.eventItems })
+            .eraseToAnyPublisher()
     }
     
     func event(byID id: String) -> Future<GetEvent, Error> {

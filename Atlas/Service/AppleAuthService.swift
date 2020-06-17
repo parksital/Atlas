@@ -27,12 +27,9 @@ final class AppleAuthService {
         }
     }
     
-    func observeAppleIDAuthRevocation(revocationHandler: @escaping (Notification) -> Void) {
-        NotificationCenter.default.addObserver(
-            forName: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
-            object: self,
-            queue: OperationQueue.current,
-            using: revocationHandler
-        )
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
+        NotificationCenter.default
+            .publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)
+            .eraseToAnyPublisher()
     }
 }

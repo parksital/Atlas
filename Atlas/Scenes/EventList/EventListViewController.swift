@@ -95,6 +95,7 @@ private extension EventListViewController {
     func setupTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         setupConstraintsFor(tableView, in: view)
         
         tableView.register(EventSummaryCell.self, forCellReuseIdentifier: "cell")
@@ -118,6 +119,13 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         return viewModel.sectionHeaders.count
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        
+        header.contentView.backgroundColor = .systemBackground
+        header.textLabel?.textColor = .label
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return viewModel.sectionHeaders[section]
     }
@@ -133,19 +141,19 @@ extension EventListViewController: UITableViewDelegate, UITableViewDataSource {
         let events = viewModel.eventsForSection(indexPath.section)
         
         if events.isEmpty {
-            cell.setupEmtpy(withLocalizedString: "No events")
-            cell.isUserInteractionEnabled = false
+            let emptyCell = UITableViewCell(style: .default, reuseIdentifier: "default")
+            emptyCell.textLabel?.text = "No events"
+            emptyCell.isUserInteractionEnabled = false
+            return emptyCell
         } else {
             cell.setup(eventSummary: events[indexPath.row])
+            return cell
         }
-
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let events = viewModel.eventsForSection(indexPath.section)
         
         interactor?.didSelectEvent(events[indexPath.row])
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
