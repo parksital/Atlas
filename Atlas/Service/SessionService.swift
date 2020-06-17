@@ -16,9 +16,8 @@ final class SessionService {
     private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
     private (set) var cognitoSUB = CurrentValueSubject<String, AuthError>("")
     
-    private var uid: String? {
-        KeychainWrapper.standard.string(forKey: "uid")
-    }
+    @Keychained(key: "uid") var uid: String?
+    @Keychained(key: "sub") var sub1: String?
     
     private var sub: String? {
         KeychainWrapper.standard.string(forKey: "sub")
@@ -54,7 +53,6 @@ private extension SessionService {
         appleAuthService.observeAppleIDRevocation()
             .sink(receiveValue: { [weak self] _ in
                 self?.revokeAWSCredentials()
-                self?.wipeKeychain()
             })
             .store(in: &cancellables)
         
@@ -73,7 +71,6 @@ private extension SessionService {
                         self.handleAWSAuthState(awsAuth)
                     } else {
                         self.revokeAWSCredentials()
-                        self.wipeKeychain()
                 }
             })
             .store(in: &cancellables)
@@ -91,6 +88,8 @@ private extension SessionService {
         switch authState {
         case .signedOut, .expiredToken: // sign back in
             print("apple auth success -> aws auth sign fail")
+            revokeAWSCredentials()
+            wipeKeychain()
             default: break
         }
     }
@@ -104,12 +103,6 @@ private extension SessionService {
         return Just<String>(sub)
             .setFailureType(to: AuthError.self)
             .eraseToAnyPublisher()
-    }
-    
-    func getAWSCredentials() -> (String, String) {
-        let email = KeychainWrapper.standard.string(forKey: "email")!
-        let password = KeychainWrapper.standard.string(forKey: "password")!
-        return (email, password)
     }
     
     func revokeAWSCredentials() {
