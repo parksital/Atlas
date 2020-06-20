@@ -122,6 +122,8 @@
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
 		A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
 		A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
+		A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
+		A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
 		A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
@@ -231,6 +233,7 @@
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		A0E1E26E249E465500FCBA25 /* EventList-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventList-DI.swift"; sourceTree = "<group>"; };
+		A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventDetail-DI.swift"; sourceTree = "<group>"; };
 		A0F6FECF247591FF00302B70 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -405,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				A041ED3C2419718800DB772F /* EventDetailViewController.swift */,
+				A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */,
 				A041ED402419723700DB772F /* EventDetailInteractor.swift */,
 				A041ED44241973D800DB772F /* EventDetailRouter.swift */,
 				A041ED422419736000DB772F /* EventDetailPresenter.swift */,
@@ -816,6 +820,7 @@
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
+				A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A03A0309246C0C9D00C5B7E9 /* AppleAuthService.swift in Sources */,
@@ -868,6 +873,7 @@
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
+				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
 				A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
