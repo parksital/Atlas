@@ -121,6 +121,7 @@
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
 		A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
+		A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
 		A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
@@ -873,6 +874,7 @@
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
+				A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */,
 				A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
 				A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */,

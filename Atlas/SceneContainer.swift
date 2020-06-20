@@ -26,7 +26,7 @@ class SceneContainer {
             
         
         //MARK: - Eventlist Dependencies
-        EventListDI.setDependencies(inContaienr: container)
+        EventListDI.setDependencies(inContaiener: container)
         
         //MARK: - EventDetail Dependencies
         container.autoregister(EventDetailInteraction.self, initializer: EventDetailInteractor.init)

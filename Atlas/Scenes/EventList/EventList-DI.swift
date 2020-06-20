@@ -10,7 +10,7 @@ import Foundation
 import Swinject
 
 class EventListDI {
-    static func setDependencies(inContaienr container: Container) {
+    static func setDependencies(inContaiener container: Container) {
         container.autoregister(EventListInteraction.self, initializer: EventListInteractor.init)
         container.autoregister(EventListPresentationLogic.self, initializer: EventListPresenter.init)
         container.autoregister(EventListRouterProtocol.self, initializer: EventListRouter.init)
