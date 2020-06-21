@@ -93,7 +93,7 @@ private extension AccountViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
 }
-//MARK: - CollectionView Methods
+
 private extension AccountViewController {
     func applySnapshot(user: User?) {
         guard let user = user else { return }
@@ -127,12 +127,6 @@ private extension AccountViewController {
             }
         })
     }
-}
-
-//MARK: - NSCollectionLayoutSection Creation
-enum AccountSectionType: Int {
-    case userProfileSection
-    case settingsSection
 }
 
 private extension AccountViewController {
