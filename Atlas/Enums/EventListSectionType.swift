@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SectionType {
+enum EventListSectionType {
     case tonight
     case tomorrow
     case date(String?)
@@ -26,5 +26,5 @@ enum SectionType {
     }
 }
 
-extension SectionType: Equatable { }
-extension SectionType: Hashable { }
+extension EventListSectionType: Equatable { }
+extension EventListSectionType: Hashable { }

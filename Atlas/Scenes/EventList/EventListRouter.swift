@@ -34,7 +34,7 @@ final class EventListRouter: EventListRouterProtocol {
     
     func routeToAccount() {
         let container = SceneContainer.shared.container
-        let vc = container.resolve(AccountViewController.self)!
+        let vc = container.resolve(AccountViewControllerCV.self)!
         navigateToDestination(source: viewController!, destination: vc)
     }
     

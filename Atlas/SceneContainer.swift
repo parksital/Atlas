@@ -35,7 +35,7 @@ class SceneContainer {
         container.autoregister(AccountInteraction.self, initializer: AccountInteractor.init)
         container.autoregister(AccountPresentationLogic.self, initializer: AccountPresenter.init)
         container.autoregister(AccountRouterProtocol.self, initializer: AccountRouter.init)
-        container.register(AccountViewController.self) { _ in AccountViewController() }
+        container.register(AccountViewControllerCV.self) { _ in AccountViewControllerCV() }
             .initCompleted { r, vc in
                 let interactor = r.resolve(AccountInteraction.self)!
                 let router = r.resolve(AccountRouterProtocol.self)!
