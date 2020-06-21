@@ -43,12 +43,10 @@
 		A0324FCF2458619200971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
 		A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
-		A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
 		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
 		A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
-		A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
 		A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03A03062469EA9000C5B7E9 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A03052469EA9000C5B7E9 /* SessionService.swift */; };
@@ -124,8 +122,8 @@
 		A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
 		A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
 		A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
-		A0E1E275249E859500FCBA25 /* AccountViewController-cv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController-cv.swift */; };
-		A0E1E276249E85B600FCBA25 /* AccountViewController-cv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController-cv.swift */; };
+		A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController.swift */; };
+		A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController.swift */; };
 		A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
@@ -180,7 +178,6 @@
 		A0324FC9245781AF00971C23 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A0324FCD245860E800971C23 /* AuthClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientProtocol.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
-		A03A02F12464119F00C5B7E9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
 		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
 		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
@@ -236,7 +233,7 @@
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		A0E1E26E249E465500FCBA25 /* EventList-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventList-DI.swift"; sourceTree = "<group>"; };
 		A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventDetail-DI.swift"; sourceTree = "<group>"; };
-		A0E1E274249E859500FCBA25 /* AccountViewController-cv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountViewController-cv.swift"; sourceTree = "<group>"; };
+		A0E1E274249E859500FCBA25 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		A0F6FECF247591FF00302B70 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -359,8 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				A03A030B247423E800C5B7E9 /* Views */,
-				A03A02F12464119F00C5B7E9 /* AccountViewController.swift */,
-				A0E1E274249E859500FCBA25 /* AccountViewController-cv.swift */,
+				A0E1E274249E859500FCBA25 /* AccountViewController.swift */,
 				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
 				A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */,
 				A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */,
@@ -815,7 +811,7 @@
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
-				A0E1E275249E859500FCBA25 /* AccountViewController-cv.swift in Sources */,
+				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
@@ -832,7 +828,6 @@
 				A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
-				A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */,
 				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
 				A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
@@ -861,7 +856,6 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
-				A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
@@ -912,7 +906,7 @@
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
-				A0E1E276249E85B600FCBA25 /* AccountViewController-cv.swift in Sources */,
+				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
 				A03A805E24851CD10050B464 /* User.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,

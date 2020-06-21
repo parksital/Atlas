@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol AccountRouting {
-    func setup(viewController: AccountViewControllerCV)
+    func setup(viewController: AccountViewController)
     func routeToSignUp()
 }
 
@@ -20,14 +20,14 @@ protocol AccountDataPassing {
 
 typealias AccountRouterProtocol = NSObject & AccountRouting & AccountDataPassing
 final class AccountRouter: AccountRouterProtocol {
-    weak var viewController: AccountViewControllerCV?
+    weak var viewController: AccountViewController?
     var dataStore: AccountDataStore?
     
     func setup(dataStore: AccountDataStore) {
         self.dataStore = dataStore
     }
         
-    func setup(viewController: AccountViewControllerCV) {
+    func setup(viewController: AccountViewController) {
         self.viewController = viewController
     }
     
