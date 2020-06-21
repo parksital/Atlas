@@ -12,6 +12,10 @@
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */; };
+		A00BED5124A01321002B538D /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */; };
+		A00BED5224A0133E002B538D /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */; };
+		A00BED5424A01363002B538D /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */; };
+		A00BED5524A01381002B538D /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */; };
 		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
 		A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
 		A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
@@ -53,8 +57,6 @@
 		A03A0307246AFEFA00C5B7E9 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A03052469EA9000C5B7E9 /* SessionService.swift */; };
 		A03A0309246C0C9D00C5B7E9 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */; };
 		A03A030A246C0CB200C5B7E9 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */; };
-		A03A030D2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */; };
-		A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */; };
 		A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A805D24851CCD0050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
@@ -162,6 +164,8 @@
 		7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Atlas.release.xcconfig"; path = "Target Support Files/Pods-Atlas/Pods-Atlas.release.xcconfig"; sourceTree = "<group>"; };
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
+		A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
 		A00C655C24238DE900D12C8D /* EventListSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSectionType.swift; sourceTree = "<group>"; };
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
@@ -183,7 +187,6 @@
 		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03A03052469EA9000C5B7E9 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
-		A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUserInfoView.swift; sourceTree = "<group>"; };
 		A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAccountView.swift; sourceTree = "<group>"; };
 		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -367,7 +370,8 @@
 		A03A030B247423E800C5B7E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */,
+				A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */,
+				A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */,
 				A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */,
 			);
 			path = Views;
@@ -799,6 +803,7 @@
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
+				A00BED5424A01363002B538D /* SettingCollectionViewCell.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
@@ -833,7 +838,6 @@
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
-				A03A030D2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A08337A024594660002E4571 /* AWSAuthState.swift in Sources */,
@@ -845,6 +849,7 @@
 				A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A04BCE5924516714000A6969 /* SignUpInteractor.swift in Sources */,
+				A00BED5124A01321002B538D /* UserProfileCollectionViewCell.swift in Sources */,
 				A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
@@ -873,7 +878,6 @@
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
-				A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
@@ -892,9 +896,11 @@
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,
 				A04BCE57245165B9000A6969 /* SignUpRouter.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
+				A00BED5524A01381002B538D /* SettingCollectionViewCell.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
 				A0297D17241A90280089F38C /* API.swift in Sources */,
 				A03A030A246C0CB200C5B7E9 /* AppleAuthService.swift in Sources */,
+				A00BED5224A0133E002B538D /* UserProfileCollectionViewCell.swift in Sources */,
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
