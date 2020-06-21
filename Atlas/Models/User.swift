@@ -22,9 +22,8 @@ struct User {
     let points: Int
 }
 
-extension User: Decodable {
-    
-}
+extension User: Decodable { }
+extension User: Hashable { }
 
 enum Account {
     struct Request: Fetchable, Mockable {

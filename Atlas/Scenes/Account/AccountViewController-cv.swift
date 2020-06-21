@@ -9,9 +9,15 @@
 import UIKit
 
 final class AccountViewControllerCV: UIViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<AccountSectionType, User>
+    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<AccountSectionType, User>
+    
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
     private var collectionView: UICollectionView!
+    
+    private var dataSource: DataSource!
+    private var snapshot = DataSourceSnapshot()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -29,6 +35,7 @@ final class AccountViewControllerCV: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -46,11 +53,11 @@ private extension AccountViewControllerCV {
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         
+        configureDataSource()
         registerCollectionViewCells()
         setupCollectionViewConstraints()
     }
@@ -78,9 +85,41 @@ private extension AccountViewControllerCV {
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
+    
+    func applySnapshot(user: User?) {
+        guard let user = user else { return }
+        snapshot = DataSourceSnapshot()
+        snapshot.appendSections([.userProfileSection])
+        snapshot.appendItems([user], toSection: .userProfileSection)
+        dataSource.apply(snapshot)
+    }
 }
 //MARK: - CollectionView Methods
-extension AccountViewControllerCV: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AccountViewControllerCV: UICollectionViewDelegate {
+    func configureDataSource() {
+        dataSource = DataSource.init(collectionView: collectionView, cellProvider: { (collectionView, indexPath, user) -> UICollectionViewCell? in
+            switch indexPath.section {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: UserProfileCollectionViewCell.id,
+                    for: indexPath
+                    ) as? UserProfileCollectionViewCell ?? UserProfileCollectionViewCell()
+                
+                cell.setup(firstName: "Parvin", lastName: "Sital")
+                return cell
+            case 1:
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: SettingCollectionViewCell.id,
+                    for: indexPath
+                    ) as? SettingCollectionViewCell ?? SettingCollectionViewCell()
+                
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+        })
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
@@ -90,26 +129,6 @@ extension AccountViewControllerCV: UICollectionViewDelegate, UICollectionViewDat
         case 0: return 1
         case 1: return 3
         default: return 0
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: UserProfileCollectionViewCell.id,
-                for: indexPath
-                ) as? UserProfileCollectionViewCell ?? UserProfileCollectionViewCell()
-            cell.setup(firstName: "parv", lastName: "Sital")
-            return cell
-        case 1:
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SettingCollectionViewCell.id,
-                for: indexPath
-            )
-            return cell
-        default:
-            return UICollectionViewCell()
         }
     }
 }
@@ -194,7 +213,7 @@ extension AccountViewControllerCV: AccountDisplayLogic {
     }
     
     func displayAccount(for user: User?) {
-        
+        applySnapshot(user: user)
     }
 }
 
@@ -207,7 +226,6 @@ class UserProfileCollectionViewCell: UICollectionViewCell, Identifiable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemRed
         setupViews()
     }
     
@@ -270,7 +288,6 @@ class SettingCollectionViewCell: UICollectionViewCell, Identifiable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBlue
     }
     
     required init?(coder: NSCoder) {
