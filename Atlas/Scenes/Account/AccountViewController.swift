@@ -16,15 +16,14 @@ protocol AccountDisplayLogic: class {
 }
 
 final class AccountViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<AccountSectionType, User>
-    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<AccountSectionType, User>
+    typealias DataSource = UICollectionViewDiffableDataSource<AccountSectionType, AccountItem>
+    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<AccountSectionType, AccountItem>
     
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
-    private var collectionView: UICollectionView!
     
+    private var collectionView: UICollectionView!
     private var dataSource: DataSource!
-    private var snapshot = DataSourceSnapshot()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,6 +70,11 @@ private extension AccountViewController {
     
     func registerCollectionViewCells() {
         collectionView.register(
+            UnAuthUserCollectionViewCell.self,
+            forCellWithReuseIdentifier: UnAuthUserCollectionViewCell.id
+        )
+        
+        collectionView.register(
             UserProfileCollectionViewCell.self,
             forCellWithReuseIdentifier: UserProfileCollectionViewCell.id
         )
@@ -93,42 +97,57 @@ private extension AccountViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
 }
-
+//MARK: - CollectionViewDataSource Methods
 private extension AccountViewController {
     func applySnapshot(user: User?) {
-        guard let user = user else { return }
-        
-        snapshot = DataSourceSnapshot()
+        dataSource.apply(getSnapshotForUser(user))
+    }
+    
+    func getSnapshotForUser(_ user: User?) -> DataSourceSnapshot {
+        var snapshot = DataSourceSnapshot()
         snapshot.appendSections([.userProfileSection])
-        snapshot.appendItems([user], toSection: .userProfileSection)
-        dataSource.apply(snapshot)
+        snapshot.appendItems([AccountItem(user: user)], toSection: .userProfileSection)
+        return snapshot
     }
     
     func configureDataSource() {
-        dataSource = DataSource.init(collectionView: collectionView, cellProvider: { (collectionView, indexPath, user) -> UICollectionViewCell? in
-            switch indexPath.section {
-            case 0:
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            switch item {
+                
+            case .noProfile:
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: UnAuthUserCollectionViewCell.id,
+                    for: indexPath
+                    ) as? UnAuthUserCollectionViewCell ?? UnAuthUserCollectionViewCell()
+                cell.configure()
+                return cell
+                
+            case .profile(let user):
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: UserProfileCollectionViewCell.id,
                     for: indexPath
                     ) as? UserProfileCollectionViewCell ?? UserProfileCollectionViewCell()
-                
-                cell.setup(firstName: "Parvin", lastName: "Sital")
+                cell.setup(firstName: user.firstName, lastName: user.familyName)
                 return cell
-            case 1:
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: SettingCollectionViewCell.id,
-                    for: indexPath
-                    ) as? SettingCollectionViewCell ?? SettingCollectionViewCell()
                 
-                return cell
-            default:
+            case .setting(_):
                 return UICollectionViewCell()
             }
         })
     }
+    
+    func configuredCell(forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: UnAuthUserCollectionViewCell.id,
+            for: indexPath
+            ) as? UnAuthUserCollectionViewCell ?? UnAuthUserCollectionViewCell()
+        cell.action = interactor?.goToSignUp
+        cell.configure()
+        return cell
+    }
 }
 
+//MARK: - CollectionViewLayout Methods
 private extension AccountViewController {
     func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout.init { [weak self] (section, env) -> NSCollectionLayoutSection? in
@@ -139,16 +158,16 @@ private extension AccountViewController {
     
     func createSectionForType(_ accountSectionType: AccountSectionType?) -> NSCollectionLayoutSection? {
         guard let type = accountSectionType else { return nil }
-    
+        
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+        )
+        
         switch type {
         case .userProfileSection:
-            let item = NSCollectionLayoutItem.init(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
-            )
-            
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1.0),
@@ -157,33 +176,19 @@ private extension AccountViewController {
                 subitems: [item]
             )
             
-            group.contentInsets.leading = 16
-            group.contentInsets.trailing = 16
-            group.contentInsets.bottom = 16
-            
-            let section = NSCollectionLayoutSection.init(group: group)
-            section.orthogonalScrollingBehavior = .paging
+            let section = NSCollectionLayoutSection(group: group)
             return section
+            
         case .settingsSection:
-            let item = NSCollectionLayoutItem.init(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
-            )
-            
-            item.contentInsets.leading = 16
-            item.contentInsets.trailing = 16
-            item.contentInsets.bottom = 16
-            
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(100.0)),
+                    heightDimension: .fractionalHeight(1.0)
+                ),
                 subitems: [item]
             )
             
-            let section = NSCollectionLayoutSection.init(group: group)
+            let section = NSCollectionLayoutSection(group: group)
             return section
         }
     }

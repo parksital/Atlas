@@ -12,3 +12,17 @@ enum AccountSectionType: Int {
     case userProfileSection
     case settingsSection
 }
+
+enum AccountItem: Hashable {
+    case noProfile
+    case profile(User)
+    case setting(String)
+    
+    init(user: User?) {
+        guard let profile = user else {
+            self = .noProfile
+            return
+        }
+        self = .profile(profile)
+    }
+}

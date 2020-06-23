@@ -18,6 +18,8 @@
 		A00BED5524A01381002B538D /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */; };
 		A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
 		A00BED5824A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
+		A00BED5A24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */; };
+		A00BED5B24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */; };
 		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
 		A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
 		A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
@@ -169,6 +171,7 @@
 		A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00BED5624A013CD002B538D /* AccountSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSectionType.swift; sourceTree = "<group>"; };
+		A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnAuthUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
 		A00C655C24238DE900D12C8D /* EventListSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSectionType.swift; sourceTree = "<group>"; };
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
@@ -377,6 +380,7 @@
 				A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */,
 				A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */,
 				A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */,
+				A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -822,6 +826,7 @@
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
+				A00BED5A24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
@@ -920,6 +925,7 @@
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
+				A00BED5B24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */,
 				A03A805E24851CD10050B464 /* User.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,
