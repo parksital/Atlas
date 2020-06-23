@@ -58,7 +58,6 @@ private extension AccountViewController {
     
     func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -118,16 +117,6 @@ private extension AccountViewController {
                 return UICollectionViewCell()
             }
         }
-    }
-    
-    func configuredCell(forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: NoProfileCollectionViewCell.id,
-            for: indexPath
-            ) as? NoProfileCollectionViewCell ?? NoProfileCollectionViewCell()
-        cell.action = interactor?.goToSignUp
-        cell.configure()
-        return cell
     }
 }
 
