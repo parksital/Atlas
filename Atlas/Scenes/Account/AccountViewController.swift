@@ -69,20 +69,9 @@ private extension AccountViewController {
     }
     
     func registerCollectionViewCells() {
-        collectionView.register(
-            UnAuthUserCollectionViewCell.self,
-            forCellWithReuseIdentifier: UnAuthUserCollectionViewCell.id
-        )
-        
-        collectionView.register(
-            UserProfileCollectionViewCell.self,
-            forCellWithReuseIdentifier: UserProfileCollectionViewCell.id
-        )
-        
-        collectionView.register(
-            SettingCollectionViewCell.self,
-            forCellWithReuseIdentifier: SettingCollectionViewCell.id
-        )
+        collectionView.registerCell(cell: NoProfileCollectionViewCell.self)
+        collectionView.registerCell(cell: UserProfileCollectionViewCell.self)
+        collectionView.registerCell(cell: SettingCollectionViewCell.self)
     }
     
     func setupCollectionViewConstraints() {
@@ -111,36 +100,31 @@ private extension AccountViewController {
     }
     
     func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: collectionView) { [interactor] (collectionView, indexPath, item) -> UICollectionViewCell? in
             switch item {
                 
             case .noProfile:
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: UnAuthUserCollectionViewCell.id,
-                    for: indexPath
-                    ) as? UnAuthUserCollectionViewCell ?? UnAuthUserCollectionViewCell()
+                let cell: NoProfileCollectionViewCell = collectionView.dequeueCell(atIndexPath: indexPath)
+                cell.action = interactor?.goToSignUp
                 cell.configure()
                 return cell
                 
             case .profile(let user):
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: UserProfileCollectionViewCell.id,
-                    for: indexPath
-                    ) as? UserProfileCollectionViewCell ?? UserProfileCollectionViewCell()
+                let cell: UserProfileCollectionViewCell = collectionView.dequeueCell(atIndexPath: indexPath)
                 cell.setup(firstName: user.firstName, lastName: user.familyName)
                 return cell
                 
             case .setting(_):
                 return UICollectionViewCell()
             }
-        })
+        }
     }
     
     func configuredCell(forIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: UnAuthUserCollectionViewCell.id,
+            withReuseIdentifier: NoProfileCollectionViewCell.id,
             for: indexPath
-            ) as? UnAuthUserCollectionViewCell ?? UnAuthUserCollectionViewCell()
+            ) as? NoProfileCollectionViewCell ?? NoProfileCollectionViewCell()
         cell.action = interactor?.goToSignUp
         cell.configure()
         return cell
@@ -162,7 +146,7 @@ private extension AccountViewController {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(1.0)
+                heightDimension: .estimated(80.0)
             )
         )
         

@@ -18,8 +18,12 @@
 		A00BED5524A01381002B538D /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */; };
 		A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
 		A00BED5824A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
-		A00BED5A24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */; };
-		A00BED5B24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */; };
+		A00BED5A24A1098A002B538D /* NoProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* NoProfileCollectionViewCell.swift */; };
+		A00BED5B24A1098A002B538D /* NoProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* NoProfileCollectionViewCell.swift */; };
+		A00BED5D24A22BDA002B538D /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5C24A22BDA002B538D /* CollectionView+.swift */; };
+		A00BED5E24A22BDA002B538D /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5C24A22BDA002B538D /* CollectionView+.swift */; };
+		A00BED6024A22C3A002B538D /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */; };
+		A00BED6124A22C3A002B538D /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */; };
 		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
 		A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
 		A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
@@ -171,7 +175,9 @@
 		A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		A00BED5624A013CD002B538D /* AccountSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSectionType.swift; sourceTree = "<group>"; };
-		A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnAuthUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		A00BED5924A1098A002B538D /* NoProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		A00BED5C24A22BDA002B538D /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
+		A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
 		A00C655C24238DE900D12C8D /* EventListSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSectionType.swift; sourceTree = "<group>"; };
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
@@ -335,6 +341,7 @@
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
 				A0324FCD245860E800971C23 /* AuthClientProtocol.swift */,
+				A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -380,7 +387,7 @@
 				A00BED5024A01321002B538D /* UserProfileCollectionViewCell.swift */,
 				A00BED5324A01363002B538D /* SettingCollectionViewCell.swift */,
 				A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */,
-				A00BED5924A1098A002B538D /* UnAuthUserCollectionViewCell.swift */,
+				A00BED5924A1098A002B538D /* NoProfileCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -558,6 +565,7 @@
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
+				A00BED5C24A22BDA002B538D /* CollectionView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -817,6 +825,7 @@
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */,
+				A00BED5D24A22BDA002B538D /* CollectionView+.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03A805D24851CCD0050B464 /* User.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
@@ -826,13 +835,14 @@
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
-				A00BED5A24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */,
+				A00BED5A24A1098A002B538D /* NoProfileCollectionViewCell.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */,
+				A00BED6024A22C3A002B538D /* ConfigurableCell.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
@@ -885,6 +895,7 @@
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
+				A00BED5E24A22BDA002B538D /* CollectionView+.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
@@ -922,10 +933,11 @@
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
+				A00BED6124A22C3A002B538D /* ConfigurableCell.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
-				A00BED5B24A1098A002B538D /* UnAuthUserCollectionViewCell.swift in Sources */,
+				A00BED5B24A1098A002B538D /* NoProfileCollectionViewCell.swift in Sources */,
 				A03A805E24851CD10050B464 /* User.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,

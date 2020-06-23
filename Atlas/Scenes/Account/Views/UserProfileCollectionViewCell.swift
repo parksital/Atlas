@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UserProfileCollectionViewCell: UICollectionViewCell, Identifiable {
+final class UserProfileCollectionViewCell: UICollectionViewCell, ConfigurableCell {
     static var id: String = "UserProfileCollectionViewCell"
     
     private let stackView = UIStackView()

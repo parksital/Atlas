@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SettingCollectionViewCell: UICollectionViewCell, Identifiable {
+final class SettingCollectionViewCell: UICollectionViewCell, ConfigurableCell {
     static var id: String = "SettingCollectionViewCell"
     
     override init(frame: CGRect) {
