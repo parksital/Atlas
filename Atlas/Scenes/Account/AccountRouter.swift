@@ -11,6 +11,7 @@ import UIKit
 @objc protocol AccountRouting {
     func setup(viewController: AccountViewController)
     func routeToSignUp()
+    func routeToSelectedSetting()
 }
 
 protocol AccountDataPassing {
@@ -36,6 +37,25 @@ final class AccountRouter: AccountRouterProtocol {
         let vc = container.resolve(SignUpViewController.self)!
         let destination = UINavigationController(rootViewController: vc)
         presentDestination(source: viewController!, destination: destination)
+    }
+    
+    func routeToSelectedSetting() {
+        var destination: UIViewController!
+        
+        switch dataStore?.selectedSetting {
+        case "Saved":
+            destination = UIViewController()
+            destination.view.backgroundColor = .systemRed
+        case "History":
+            destination = UIViewController()
+            destination.view.backgroundColor = .systemTeal
+        case "Preferences":
+            destination = UIViewController()
+            destination.view.backgroundColor = .systemYellow
+        default: break
+        }
+        
+        navigateToDestination(source: viewController!, destination: destination)
     }
     
     
