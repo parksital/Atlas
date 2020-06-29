@@ -71,6 +71,7 @@ private extension SessionService {
                         self.handleAWSAuthState(awsAuth)
                     } else {
                         self.revokeAWSCredentials()
+                        self.wipeKeychain()
                 }
             })
             .store(in: &cancellables)

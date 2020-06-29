@@ -114,14 +114,18 @@ private extension AccountViewController {
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
-    func appendSnapshot(forSection sectionType: AccountSectionType, with items: [AccountItem]) {
+    func appendSnapshot(forSection sectionType: AccountSectionType, with items: [AccountItem], animated: Bool = false) {
         currentSnapshot?.appendItems(items, toSection: sectionType)
-        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: animated)
     }
     
     func updateSnapshot(user: User?) {
+        currentSnapshot?.deleteSections([.userProfileSection])
+        currentSnapshot?.insertSections([.userProfileSection], beforeSection: .settingsSection)
+        
         let item: AccountItem = user == nil ? .noProfile : .profile(user!)
         appendSnapshot(forSection: .userProfileSection, with: [item])
+        
     }
 }
 
