@@ -114,23 +114,14 @@ private extension AccountViewController {
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
-    func updateSnapshot(settings: [String]) {
-        currentSnapshot?.appendItems(
-            settings.map(AccountItem.init(setting:)),
-            toSection: .settingsSection
-        )
+    func appendSnapshot(forSection sectionType: AccountSectionType, with items: [AccountItem]) {
+        currentSnapshot?.appendItems(items, toSection: sectionType)
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
     func updateSnapshot(user: User?) {
-        guard let profile = user else {
-            currentSnapshot?.appendItems([.noProfile], toSection: .userProfileSection)
-            dataSource?.apply(currentSnapshot!, animatingDifferences: false)
-            return
-        }
-        
-        currentSnapshot?.appendItems([.profile(profile)], toSection: .userProfileSection)
-        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+        let item: AccountItem = user == nil ? .noProfile : .profile(user!)
+        appendSnapshot(forSection: .userProfileSection, with: [item])
     }
 }
 
@@ -155,7 +146,10 @@ extension AccountViewController: AccountDisplayLogic {
     
     func displaySettings(settings: [String]) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateSnapshot(settings: settings)
+            self?.appendSnapshot(
+                forSection: .settingsSection,
+                with: settings.map(AccountItem.init(setting:))
+            )
         }
     }
 }
