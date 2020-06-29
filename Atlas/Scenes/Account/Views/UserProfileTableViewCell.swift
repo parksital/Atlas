@@ -1,29 +1,35 @@
 //
-//  AccountUserInfoView.swift
+//  UserProfileTableViewCell.swift
 //  Atlas
 //
-//  Created by Parvin Sital on 19/05/2020.
+//  Created by Parvin Sital on 22/06/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
 import UIKit
 
-final class AccountUserInfoView: UIView {
+final class UserProfileTableViewCell: UITableViewCell {
     private let stackView = UIStackView()
     private let firstNamelabel = UILabel()
     private let lastNameLabel = UILabel()
     
-    init() {
-        super.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(
+            style: .default,
+            reuseIdentifier: String(describing: UserProfileTableViewCell.self)
+        )
         setupViews()
     }
     
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
     }
 }
-private extension AccountUserInfoView {
+
+private extension UserProfileTableViewCell {
     func setupViews() {
+        self.selectionStyle = .none
         setupStackView()
         setupFirstNameLabel()
         setupLastNameLabel()
@@ -39,12 +45,12 @@ private extension AccountUserInfoView {
     }
     
     func setupStackViewConstraints() {
-        self.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        let top = stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
@@ -60,13 +66,13 @@ private extension AccountUserInfoView {
         lastNameLabel.backgroundColor = .clear
         stackView.addArrangedSubview(lastNameLabel)
     }
+
 }
 
-extension AccountUserInfoView {
+extension UserProfileTableViewCell {
     func setup(firstName: String, lastName: String) {
         self.firstNamelabel.text = firstName
         self.lastNameLabel.text = lastName
     }
 }
-
 

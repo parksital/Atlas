@@ -56,11 +56,20 @@ private extension AccountInteractor {
                   receiveValue: presenter.presentUser(_:))
             .store(in: &cancellables)
     }
+    
+    func presentSettings() {
+        presenter.presentSettings([
+            "Saved",
+            "History",
+            "Preferences"
+        ])
+    }
 }
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
         observe()
+        presentSettings()
     }
     
     func goToSignUp() {

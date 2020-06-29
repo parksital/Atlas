@@ -12,9 +12,19 @@
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */; };
+		A00BED5124A01321002B538D /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */; };
+		A00BED5224A0133E002B538D /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */; };
+		A00BED5424A01363002B538D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingTableViewCell.swift */; };
+		A00BED5524A01381002B538D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5324A01363002B538D /* SettingTableViewCell.swift */; };
+		A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
+		A00BED5824A013CD002B538D /* AccountSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5624A013CD002B538D /* AccountSectionType.swift */; };
+		A00BED5A24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* NoProfileTableViewCell.swift */; };
+		A00BED5B24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5924A1098A002B538D /* NoProfileTableViewCell.swift */; };
+		A00BED6024A22C3A002B538D /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */; };
+		A00BED6124A22C3A002B538D /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */; };
 		A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655924238D9300D12C8D /* SectionTypeTests.swift */; };
-		A00C655D24238DE900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
-		A00C655E24238E1900D12C8D /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* SectionType.swift */; };
+		A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
+		A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655C24238DE900D12C8D /* EventListSectionType.swift */; };
 		A00C65602423AE2B00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
 		A00C65612423AE3A00D12C8D /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00C655F2423AE2B00D12C8D /* EventList.swift */; };
 		A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
@@ -43,20 +53,16 @@
 		A0324FCF2458619200971C23 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FC9245781AF00971C23 /* AuthService.swift */; };
 		A0324FD0245861F500971C23 /* AuthClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0324FCD245860E800971C23 /* AuthClientProtocol.swift */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
-		A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
 		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
 		A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */; };
-		A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F12464119F00C5B7E9 /* AccountViewController.swift */; };
 		A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
 		A03A03062469EA9000C5B7E9 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A03052469EA9000C5B7E9 /* SessionService.swift */; };
 		A03A0307246AFEFA00C5B7E9 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A03052469EA9000C5B7E9 /* SessionService.swift */; };
 		A03A0309246C0C9D00C5B7E9 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */; };
 		A03A030A246C0CB200C5B7E9 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */; };
-		A03A030D2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */; };
-		A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */; };
 		A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A805D24851CCD0050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
@@ -117,6 +123,8 @@
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
+		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
+		A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
@@ -124,6 +132,8 @@
 		A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E26E249E465500FCBA25 /* EventList-DI.swift */; };
 		A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
 		A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */; };
+		A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController.swift */; };
+		A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E274249E859500FCBA25 /* AccountViewController.swift */; };
 		A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6FECF247591FF00302B70 /* ProfileService.swift */; };
 		A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */; };
@@ -162,8 +172,13 @@
 		7A8B9AFFE0BA61DD04AE4614 /* Pods-Atlas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Atlas.release.xcconfig"; path = "Target Support Files/Pods-Atlas/Pods-Atlas.release.xcconfig"; sourceTree = "<group>"; };
 		8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtlasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
+		A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		A00BED5324A01363002B538D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		A00BED5624A013CD002B538D /* AccountSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSectionType.swift; sourceTree = "<group>"; };
+		A00BED5924A1098A002B538D /* NoProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProfileTableViewCell.swift; sourceTree = "<group>"; };
+		A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		A00C655924238D9300D12C8D /* SectionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTypeTests.swift; sourceTree = "<group>"; };
-		A00C655C24238DE900D12C8D /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
+		A00C655C24238DE900D12C8D /* EventListSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSectionType.swift; sourceTree = "<group>"; };
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
 		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
@@ -178,13 +193,11 @@
 		A0324FC9245781AF00971C23 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A0324FCD245860E800971C23 /* AuthClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientProtocol.swift; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
-		A03A02F12464119F00C5B7E9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
 		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
 		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03A03052469EA9000C5B7E9 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		A03A0308246C0C9D00C5B7E9 /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
-		A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountUserInfoView.swift; sourceTree = "<group>"; };
 		A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAccountView.swift; sourceTree = "<group>"; };
 		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -229,11 +242,13 @@
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
+		A0D7CA1424AA3810006288FE /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		A0E1E26E249E465500FCBA25 /* EventList-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventList-DI.swift"; sourceTree = "<group>"; };
 		A0E1E271249E5A2400FCBA25 /* EventDetail-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventDetail-DI.swift"; sourceTree = "<group>"; };
+		A0E1E274249E859500FCBA25 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		A0F6FECF247591FF00302B70 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		A0FAFC4224588951006F46B1 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		A0FAFC44245889A9006F46B1 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -300,9 +315,10 @@
 		A00C65622423AE6A00D12C8D /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				A00C655C24238DE900D12C8D /* SectionType.swift */,
+				A00C655C24238DE900D12C8D /* EventListSectionType.swift */,
 				A0255BDD24250290001E117D /* Styling.swift */,
 				A083379F24594660002E4571 /* AWSAuthState.swift */,
+				A00BED5624A013CD002B538D /* AccountSectionType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -325,6 +341,7 @@
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
 				A0324FCD245860E800971C23 /* AuthClientProtocol.swift */,
+				A00BED5F24A22C3A002B538D /* ConfigurableCell.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -356,7 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				A03A030B247423E800C5B7E9 /* Views */,
-				A03A02F12464119F00C5B7E9 /* AccountViewController.swift */,
+				A0E1E274249E859500FCBA25 /* AccountViewController.swift */,
 				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
 				A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */,
 				A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */,
@@ -367,8 +384,10 @@
 		A03A030B247423E800C5B7E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A03A030C2474240500C5B7E9 /* AccountUserInfoView.swift */,
+				A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */,
+				A00BED5324A01363002B538D /* SettingTableViewCell.swift */,
 				A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */,
+				A00BED5924A1098A002B538D /* NoProfileTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -546,6 +565,7 @@
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
+				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -799,10 +819,12 @@
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
+				A00BED5424A01363002B538D /* SettingTableViewCell.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
+				A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03A805D24851CCD0050B464 /* User.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
@@ -811,15 +833,19 @@
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
+				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
+				A00BED5A24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
 				A0DBC4892401CC86002419C6 /* EventService.swift in Sources */,
 				A04BCE5C2451679C000A6969 /* SignUpPresenter.swift in Sources */,
+				A00BED6024A22C3A002B538D /* ConfigurableCell.swift in Sources */,
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
+				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
 				A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
@@ -827,13 +853,11 @@
 				A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
-				A03A02F22464119F00C5B7E9 /* AccountViewController.swift in Sources */,
 				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
 				A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
-				A03A030D2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A08337A024594660002E4571 /* AWSAuthState.swift in Sources */,
@@ -842,9 +866,10 @@
 				A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
 				A083379D2459463E002E4571 /* AuthError.swift in Sources */,
-				A00C655D24238DE900D12C8D /* SectionType.swift in Sources */,
+				A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A04BCE5924516714000A6969 /* SignUpInteractor.swift in Sources */,
+				A00BED5124A01321002B538D /* UserProfileTableViewCell.swift in Sources */,
 				A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
 			);
@@ -856,7 +881,6 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
-				A03A02FA2464168300C5B7E9 /* AccountViewController.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
@@ -864,17 +888,17 @@
 				A0AD0788249A6AF3009DA2CA /* Keychained.swift in Sources */,
 				A09038FD2420E68300743881 /* EventListViewController.swift in Sources */,
 				A083379E24594648002E4571 /* AuthError.swift in Sources */,
-				A00C655E24238E1900D12C8D /* SectionType.swift in Sources */,
+				A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
-				A03A030E2474240500C5B7E9 /* AccountUserInfoView.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
@@ -893,12 +917,15 @@
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,
 				A04BCE57245165B9000A6969 /* SignUpRouter.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
+				A00BED5524A01381002B538D /* SettingTableViewCell.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
 				A0297D17241A90280089F38C /* API.swift in Sources */,
 				A03A030A246C0CB200C5B7E9 /* AppleAuthService.swift in Sources */,
+				A00BED5224A0133E002B538D /* UserProfileTableViewCell.swift in Sources */,
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
+				A00BED5824A013CD002B538D /* AccountSectionType.swift in Sources */,
 				A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */,
 				A08337A12459466C002E4571 /* AWSAuthState.swift in Sources */,
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
@@ -906,8 +933,11 @@
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
+				A00BED6124A22C3A002B538D /* ConfigurableCell.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
+				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,
 				A00C655A24238D9300D12C8D /* SectionTypeTests.swift in Sources */,
+				A00BED5B24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */,
 				A03A805E24851CD10050B464 /* User.swift in Sources */,
 				A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */,
 				A08337A3245A28DB002E4571 /* EventDetailSnapshotTests.swift in Sources */,
