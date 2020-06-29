@@ -59,9 +59,9 @@ private extension AccountInteractor {
     
     func presentSettings() {
         presenter.presentSettings([
-            "Preferences",
             "Saved",
-            "History"
+            "History",
+            "Preferences"
         ])
     }
 }

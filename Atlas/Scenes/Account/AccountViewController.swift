@@ -17,11 +17,15 @@ protocol AccountDisplayLogic: class {
 }
 
 final class AccountViewController: UIViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<AccountSectionType, AccountItem>
-    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<AccountSectionType, AccountItem>
+    typealias DataSource = UITableViewDiffableDataSource<AccountSectionType, AccountItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<AccountSectionType, AccountItem>
     
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
+    
+    private var dataSource: DataSource?
+    private var currentSnapshot: Snapshot?
+    
     private var tableView: UITableView! = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
@@ -60,56 +64,73 @@ private extension AccountViewController {
     }
     
     func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
         registerTableViewViewCells()
         setupTableViewConstraints()
+        configureTableViewDatasource()
+        setInitialSnapshot()
     }
     
     func registerTableViewViewCells() {
-        tableView.register(
-            NoProfileTableViewCell.self,
-            forCellReuseIdentifier: String(describing: NoProfileTableViewCell.self)
-        )
-        
-        tableView.register(
-            UserProfileTableViewCell.self,
-            forCellReuseIdentifier: String(describing: UserProfileTableViewCell.self)
-        )
-        
-        tableView.register(
-            SettingTableViewCell.self,
-            forCellReuseIdentifier: String(describing: SettingTableViewCell.self)
-        )
+        tableView.register(cellType: NoProfileTableViewCell.self)
+        tableView.register(cellType: UserProfileTableViewCell.self)
+        tableView.register(cellType: SettingTableViewCell.self)
     }
     
     func setupTableViewConstraints() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let leading = tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         let top = tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
-}
-
-extension AccountViewController: UITableViewDelegate {
     
-}
-
-extension AccountViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+    func configureTableViewDatasource() {
+        dataSource = DataSource(tableView: tableView) { [interactor] (tableView, indexPath, item) -> UITableViewCell? in
+            switch item {
+            case .noProfile:
+                let cell: NoProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.action = interactor?.goToSignUp
+                cell.configure()
+                return cell
+            case .profile(let user):
+                let cell: UserProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.setup(firstName: user.firstName, lastName: user.familyName)
+                return cell
+            case .setting(let title):
+                let cell: SettingTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.configure(title: title)
+                return cell
+            }
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NoProfileTableViewCell.self)) as? NoProfileTableViewCell ?? NoProfileTableViewCell()
-        cell.action = interactor?.goToSignUp
-        cell.configure()
-        return cell
+    func setInitialSnapshot() {
+        currentSnapshot = Snapshot()
+        currentSnapshot?.appendSections(AccountSectionType.allCases)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+    }
+    
+    func updateSnapshot(settings: [String]) {
+        currentSnapshot?.appendItems(
+            settings.map(AccountItem.init(setting:)),
+            toSection: .settingsSection
+        )
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+    }
+    
+    func updateSnapshot(user: User?) {
+        guard let profile = user else {
+            currentSnapshot?.appendItems([.noProfile], toSection: .userProfileSection)
+            dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+            return
+        }
+        
+        currentSnapshot?.appendItems([.profile(profile)], toSection: .userProfileSection)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
 }
 
@@ -127,8 +148,14 @@ extension AccountViewController: AccountDisplayLogic {
     }
     
     func displayAccount(for user: User?) {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateSnapshot(user: user)
+        }
     }
     
     func displaySettings(settings: [String]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateSnapshot(settings: settings)
+        }
     }
 }

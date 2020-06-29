@@ -13,11 +13,12 @@ final class UserProfileTableViewCell: UITableViewCell {
     private let firstNamelabel = UILabel()
     private let lastNameLabel = UILabel()
     
-    init() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(
             style: .default,
             reuseIdentifier: String(describing: UserProfileTableViewCell.self)
         )
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -28,6 +29,7 @@ final class UserProfileTableViewCell: UITableViewCell {
 
 private extension UserProfileTableViewCell {
     func setupViews() {
+        self.selectionStyle = .none
         setupStackView()
         setupFirstNameLabel()
         setupLastNameLabel()
@@ -43,12 +45,12 @@ private extension UserProfileTableViewCell {
     }
     
     func setupStackViewConstraints() {
-        self.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        let top = stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }

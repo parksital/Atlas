@@ -123,6 +123,8 @@
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
+		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
+		A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4852401CC57002419C6 /* EventListPresenter.swift */; };
 		A0DBC4892401CC86002419C6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC4882401CC86002419C6 /* EventService.swift */; };
@@ -240,6 +242,7 @@
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
+		A0D7CA1424AA3810006288FE /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
 		A0DBC4882401CC86002419C6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
@@ -562,6 +565,7 @@
 				A0255BE5242506CA001E117D /* UILabel+.swift */,
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
+				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -841,6 +845,7 @@
 				A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
+				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
 				A0E1E272249E5A2400FCBA25 /* EventDetail-DI.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
@@ -889,6 +894,7 @@
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
