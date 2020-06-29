@@ -31,7 +31,7 @@ private extension NoProfileTableViewCell {
         setupLabel()
         setupButton()
     }
-    
+        
     func setupStackView() {
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -44,10 +44,10 @@ private extension NoProfileTableViewCell {
     func setupStackViewConstraints() {
         contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
-        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor)
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 15.0)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -15.0)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 15.0)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -15.0)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
