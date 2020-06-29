@@ -1,5 +1,5 @@
 //
-//  UserProfileCollectionViewCell.swift
+//  UserProfileTableViewCell.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 22/06/2020.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-final class UserProfileCollectionViewCell: UICollectionViewCell, ConfigurableCell {
-    static var id: String = "UserProfileCollectionViewCell"
-    
+final class UserProfileTableViewCell: UITableViewCell {
     private let stackView = UIStackView()
     private let firstNamelabel = UILabel()
     private let lastNameLabel = UILabel()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
+    init() {
+        super.init(
+            style: .default,
+            reuseIdentifier: String(describing: UserProfileTableViewCell.self)
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +26,7 @@ final class UserProfileCollectionViewCell: UICollectionViewCell, ConfigurableCel
     }
 }
 
-private extension UserProfileCollectionViewCell {
+private extension UserProfileTableViewCell {
     func setupViews() {
         setupStackView()
         setupFirstNameLabel()
@@ -67,7 +67,7 @@ private extension UserProfileCollectionViewCell {
 
 }
 
-extension UserProfileCollectionViewCell {
+extension UserProfileTableViewCell {
     func setup(firstName: String, lastName: String) {
         self.firstNamelabel.text = firstName
         self.lastNameLabel.text = lastName

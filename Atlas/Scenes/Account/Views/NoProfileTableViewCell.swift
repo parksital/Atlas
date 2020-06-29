@@ -1,5 +1,5 @@
 //
-//  NoProfileCollectionViewCell.swift
+//  NoProfileTableViewCell.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 22/06/2020.
@@ -8,15 +8,14 @@
 
 import UIKit
 
-final class NoProfileCollectionViewCell: UICollectionViewCell, ConfigurableCell {
-    static var id: String = "NoProfileCollectionViewCell"
+final class NoProfileTableViewCell: UITableViewCell {
     private let stackView = UIStackView()
     private let mainLabel = UILabel()
     private let button = UIButton(type: .system)
     var action: (() -> Void)?
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
     
@@ -25,8 +24,9 @@ final class NoProfileCollectionViewCell: UICollectionViewCell, ConfigurableCell 
     }
 }
 
-private extension NoProfileCollectionViewCell {
+private extension NoProfileTableViewCell {
     func setupViews() {
+        self.selectionStyle = .none
         setupStackView()
         setupLabel()
         setupButton()
@@ -42,13 +42,12 @@ private extension NoProfileCollectionViewCell {
     }
     
     func setupStackViewConstraints() {
-        self.addSubview(stackView)
-        
+        contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        let top = stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
-        let bottom = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
@@ -85,7 +84,7 @@ private extension NoProfileCollectionViewCell {
     }
 }
 
-extension NoProfileCollectionViewCell {
+extension NoProfileTableViewCell {
     func configure() {
         mainLabel.text = "You're not signed up"
     }

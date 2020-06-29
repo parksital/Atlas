@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AccountSectionType: Int {
+enum AccountSectionType: Int, CaseIterable {
     case userProfileSection
     case settingsSection
 }
@@ -24,5 +24,9 @@ enum AccountItem: Hashable {
             return
         }
         self = .profile(profile)
+    }
+    
+    init(setting: String) {
+        self = .setting(setting)
     }
 }

@@ -13,6 +13,7 @@ protocol AccountDisplayLogic: class {
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
     func displayAccount(for user: User?)
+    func displaySettings(settings: [String])
 }
 
 final class AccountViewController: UIViewController {
@@ -21,9 +22,11 @@ final class AccountViewController: UIViewController {
     
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
-    
-    private var collectionView: UICollectionView!
-    private var dataSource: DataSource!
+    private var tableView: UITableView! = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -49,121 +52,64 @@ private extension AccountViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigation()
-        setupCollectionView()
+        setupTableView()
     }
     
     func setupNavigation() {
         navigationItem.title = "Account"
     }
     
-    func setupCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        
-        configureDataSource()
-        registerCollectionViewCells()
-        setupCollectionViewConstraints()
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        registerTableViewViewCells()
+        setupTableViewConstraints()
     }
     
-    func registerCollectionViewCells() {
-        collectionView.registerCell(cell: NoProfileCollectionViewCell.self)
-        collectionView.registerCell(cell: UserProfileCollectionViewCell.self)
-        collectionView.registerCell(cell: SettingCollectionViewCell.self)
+    func registerTableViewViewCells() {
+        tableView.register(
+            NoProfileTableViewCell.self,
+            forCellReuseIdentifier: String(describing: NoProfileTableViewCell.self)
+        )
+        
+        tableView.register(
+            UserProfileTableViewCell.self,
+            forCellReuseIdentifier: String(describing: UserProfileTableViewCell.self)
+        )
+        
+        tableView.register(
+            SettingTableViewCell.self,
+            forCellReuseIdentifier: String(describing: SettingTableViewCell.self)
+        )
     }
     
-    func setupCollectionViewConstraints() {
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+    func setupTableViewConstraints() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let leading = tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let top = tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
 }
-//MARK: - CollectionViewDataSource Methods
-private extension AccountViewController {
-    func applySnapshot(user: User?) {
-        dataSource.apply(getSnapshotForUser(user))
-    }
+
+extension AccountViewController: UITableViewDelegate {
     
-    func getSnapshotForUser(_ user: User?) -> DataSourceSnapshot {
-        var snapshot = DataSourceSnapshot()
-        snapshot.appendSections([.userProfileSection])
-        snapshot.appendItems([AccountItem(user: user)], toSection: .userProfileSection)
-        return snapshot
-    }
-    
-    func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { [interactor] (collectionView, indexPath, item) -> UICollectionViewCell? in
-            switch item {
-                
-            case .noProfile:
-                let cell: NoProfileCollectionViewCell = collectionView.dequeueCell(atIndexPath: indexPath)
-                cell.action = interactor?.goToSignUp
-                cell.configure()
-                return cell
-                
-            case .profile(let user):
-                let cell: UserProfileCollectionViewCell = collectionView.dequeueCell(atIndexPath: indexPath)
-                cell.setup(firstName: user.firstName, lastName: user.familyName)
-                return cell
-                
-            case .setting(_):
-                return UICollectionViewCell()
-            }
-        }
-    }
 }
 
-//MARK: - CollectionViewLayout Methods
-private extension AccountViewController {
-    func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout.init { [weak self] (section, env) -> NSCollectionLayoutSection? in
-            let section = self?.createSectionForType(AccountSectionType(rawValue: section))
-            return section
-        }
+extension AccountViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
     
-    func createSectionForType(_ accountSectionType: AccountSectionType?) -> NSCollectionLayoutSection? {
-        guard let type = accountSectionType else { return nil }
-        
-        let item = NSCollectionLayoutItem(
-            layoutSize: .init(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(80.0)
-            )
-        )
-        
-        switch type {
-        case .userProfileSection:
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(0.1)
-                ),
-                subitems: [item]
-            )
-            
-            let section = NSCollectionLayoutSection(group: group)
-            return section
-            
-        case .settingsSection:
-            let group = NSCollectionLayoutGroup.vertical(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                ),
-                subitems: [item]
-            )
-            
-            let section = NSCollectionLayoutSection(group: group)
-            return section
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NoProfileTableViewCell.self)) as? NoProfileTableViewCell ?? NoProfileTableViewCell()
+        cell.action = interactor?.goToSignUp
+        cell.configure()
+        return cell
     }
 }
 
@@ -181,6 +127,8 @@ extension AccountViewController: AccountDisplayLogic {
     }
     
     func displayAccount(for user: User?) {
-        applySnapshot(user: user)
+    }
+    
+    func displaySettings(settings: [String]) {
     }
 }
