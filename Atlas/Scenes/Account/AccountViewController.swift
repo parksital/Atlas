@@ -125,7 +125,6 @@ private extension AccountViewController {
         
         let item: AccountItem = user == nil ? .noProfile : .profile(user!)
         appendSnapshot(forSection: .userProfileSection, with: [item])
-        
     }
 }
 
