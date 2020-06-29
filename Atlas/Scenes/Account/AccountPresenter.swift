@@ -13,6 +13,7 @@ protocol AccountPresentationLogic {
     func presentUser(_ user: User?)
     func presentSettings(_ settings: [String])
     func goToSignUp()
+    func presentSelectedSetting()
 }
 
 final class AccountPresenter {
@@ -34,5 +35,9 @@ extension AccountPresenter: AccountPresentationLogic {
     
     func goToSignUp() {
         viewController?.showSignUpView()
+    }
+    
+    func presentSelectedSetting() {
+        viewController?.showSelectedSetting()
     }
 }

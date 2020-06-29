@@ -14,6 +14,7 @@ protocol AccountDisplayLogic: class {
     func showSignUpView()
     func displayAccount(for user: User?)
     func displaySettings(settings: [String])
+    func showSelectedSetting()
 }
 
 final class AccountViewController: UIViewController {
@@ -64,6 +65,7 @@ private extension AccountViewController {
     }
     
     func setupTableView() {
+        tableView.delegate = self
         registerTableViewViewCells()
         setupTableViewConstraints()
         configureTableViewDatasource()
@@ -128,6 +130,12 @@ private extension AccountViewController {
     }
 }
 
+extension AccountViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        interactor?.didSelectItem(atIndex: indexPath)
+    }
+}
+
 extension AccountViewController: AccountDisplayLogic {
     func setup(interactor: AccountInteraction) {
         self.interactor = interactor
@@ -154,5 +162,9 @@ extension AccountViewController: AccountDisplayLogic {
                 with: settings.map(AccountItem.init(setting:))
             )
         }
+    }
+    
+    func showSelectedSetting() {
+        router?.routeToSelectedSetting()
     }
 }
