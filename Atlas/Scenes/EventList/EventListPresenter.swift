@@ -83,14 +83,14 @@ extension EventListPresenter {
             .unique()
     }
     
-    func sectionForDate(_ date: Date) -> SectionType {
+    func sectionForDate(_ date: Date) -> EventListSectionType {
         if Calendar.current.isDateInToday(date) {
             return .tonight
         } else if Calendar.current.isDateInTomorrow(date) {
             return .tomorrow
         } else {
             let date = date.formatted(using: dateFormatter.string(from:))
-            return SectionType.date(date)
+            return EventListSectionType.date(date)
         }
     }
 }

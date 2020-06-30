@@ -11,7 +11,7 @@ import XCTest
 class SectionTypeTests: XCTestCase {
     
     func testInitializedWithCustomStringNoValue() {
-        let sectionType = SectionType.date(nil)
+        let sectionType = EventListSectionType.date(nil)
         let result = sectionType.header
         
         XCTAssertNil(result)
@@ -19,7 +19,7 @@ class SectionTypeTests: XCTestCase {
     
     func testInitializedWithCustomStringEmpty() {
         let string = ""
-        let sectionType = SectionType.date(string)
+        let sectionType = EventListSectionType.date(string)
         let result = sectionType.header
         
         XCTAssertNil(result)
@@ -27,7 +27,7 @@ class SectionTypeTests: XCTestCase {
     
     func testInitializedWithCustomStringValue() {
         let string = "Date"
-        let sectionType = SectionType.date(string)
+        let sectionType = EventListSectionType.date(string)
         let result = sectionType.header
         
         XCTAssertEqual(result, string)

@@ -12,10 +12,12 @@ import Combine
 protocol AccountLogic: class {
     func viewDidFinishLoading()
     func goToSignUp()
+    func didSelectItem(atIndex index: IndexPath)
 }
 
 protocol AccountDataStore {
-    
+    var settings: [String] { get }
+    var selectedSetting: String { get }
 }
 
 typealias AccountInteraction = AccountLogic & AccountDataStore
@@ -23,6 +25,12 @@ final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
     private let sessionService: SessionService!
     private let profileService: ProfileService!
+    private (set) var settings: [String] = [
+        "Saved",
+        "History",
+        "Preferences"
+    ]
+    private (set) var selectedSetting: String = ""
     private var cancellables = Set<AnyCancellable>()
     
     init(sessionService: SessionService, profileService: ProfileService, presenter: AccountPresentationLogic) {
@@ -56,14 +64,30 @@ private extension AccountInteractor {
                   receiveValue: presenter.presentUser(_:))
             .store(in: &cancellables)
     }
+    
+    func presentSettings() {
+        presenter.presentSettings(settings)
+    }
 }
 
 extension AccountInteractor: AccountLogic {
     func viewDidFinishLoading() {
         observe()
+        presentSettings()
     }
     
     func goToSignUp() {
         presenter.goToSignUp()
+    }
+    
+    func didSelectItem(atIndex index: IndexPath) {
+        guard
+            index.section > 0,
+            index.row >= 0,
+            index.row < settings.count
+            else { return }
+        
+        selectedSetting = settings[index.row]
+        presenter.presentSelectedSetting()
     }
 }

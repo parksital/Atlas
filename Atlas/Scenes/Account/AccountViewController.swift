@@ -2,27 +2,36 @@
 //  AccountViewController.swift
 //  Atlas
 //
-//  Created by Parvin Sital on 07/05/2020.
+//  Created by Parvin Sital on 20/06/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
 import UIKit
-import AloeStackView
 
 protocol AccountDisplayLogic: class {
     func setup(interactor: AccountInteraction)
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
     func displayAccount(for user: User?)
+    func displaySettings(settings: [String])
+    func showSelectedSetting()
 }
 
 final class AccountViewController: UIViewController {
+    typealias DataSource = UITableViewDiffableDataSource<AccountSectionType, AccountItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<AccountSectionType, AccountItem>
+    
     private var interactor: AccountInteraction?
     private var router: AccountRouterProtocol?
     
-    private let aloeStackView = AloeStackView()
-    private var emptyAccountView = EmptyAccountView()
-    private var userInfoView = AccountUserInfoView()
+    private var dataSource: DataSource?
+    private var currentSnapshot: Snapshot?
+    
+    private var tableView: UITableView! = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -47,52 +56,83 @@ final class AccountViewController: UIViewController {
 private extension AccountViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
-        setupNavigationBar()
-        setupAloeStackview()
+        setupNavigation()
+        setupTableView()
     }
     
-    func setupNavigationBar() {
+    func setupNavigation() {
         navigationItem.title = "Account"
     }
     
-    func setupAloeStackview() {
-        aloeStackView.hidesSeparatorsByDefault = true
-        aloeStackView.alwaysBounceVertical = true
-        aloeStackView.backgroundColor = .systemBackground
-        aloeStackView.rowBackgroundColor = .systemBackground
-        aloeStackView.separatorColor = .separator
-        
-        setupAloeStackViewConstraints()
+    func setupTableView() {
+        tableView.delegate = self
+        registerTableViewViewCells()
+        setupTableViewConstraints()
+        configureTableViewDatasource()
+        setInitialSnapshot()
     }
     
-    func setupAloeStackViewConstraints() {
-        view.addSubview(aloeStackView)
+    func registerTableViewViewCells() {
+        tableView.register(cellType: NoProfileTableViewCell.self)
+        tableView.register(cellType: UserProfileTableViewCell.self)
+        tableView.register(cellType: SettingTableViewCell.self)
+    }
+    
+    func setupTableViewConstraints() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let leading = tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        let top = tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupEmptyAccountView(withAction action: (() -> (Void))?) {
-        emptyAccountView.action = action
-        emptyAccountView.configure()
+    func configureTableViewDatasource() {
+        dataSource = DataSource(tableView: tableView) { [interactor] (tableView, indexPath, item) -> UITableViewCell? in
+            switch item {
+            case .noProfile:
+                let cell: NoProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.action = interactor?.goToSignUp
+                cell.configure()
+                return cell
+            case .profile(let user):
+                let cell: UserProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.setup(firstName: user.firstName, lastName: user.familyName)
+                return cell
+            case .setting(let title):
+                let cell: SettingTableViewCell = tableView.getCell(forIndexPath: indexPath)
+                cell.configure(title: title)
+                return cell
+            }
+        }
     }
     
-    func updateViewForUser(user: User?) {
-        aloeStackView.removeAllRows(animated: false)
+    func setInitialSnapshot() {
+        currentSnapshot = Snapshot()
+        currentSnapshot?.appendSections(AccountSectionType.allCases)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+    }
+    
+    func appendSnapshot(forSection sectionType: AccountSectionType, with items: [AccountItem], animated: Bool = false) {
+        currentSnapshot?.appendItems(items, toSection: sectionType)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: animated)
+    }
+    
+    func updateSnapshot(user: User?) {
+        currentSnapshot?.deleteSections([.userProfileSection])
+        currentSnapshot?.insertSections([.userProfileSection], beforeSection: .settingsSection)
         
-        guard let user = user else {
-            setupEmptyAccountView(withAction: interactor?.goToSignUp)
-            aloeStackView.addRow(emptyAccountView, animated: true)
-            return
-        }
-        
-        userInfoView.setup(firstName: user.firstName, lastName: user.familyName)
-        aloeStackView.addRow(userInfoView, animated: true)
+        let item: AccountItem = user == nil ? .noProfile : .profile(user!)
+        appendSnapshot(forSection: .userProfileSection, with: [item])
+    }
+}
+
+extension AccountViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        interactor?.didSelectItem(atIndex: indexPath)
     }
 }
 
@@ -100,6 +140,7 @@ extension AccountViewController: AccountDisplayLogic {
     func setup(interactor: AccountInteraction) {
         self.interactor = interactor
     }
+    
     func setup(router: AccountRouterProtocol) {
         self.router = router
     }
@@ -110,8 +151,20 @@ extension AccountViewController: AccountDisplayLogic {
     
     func displayAccount(for user: User?) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.updateViewForUser(user: user)
+            self?.updateSnapshot(user: user)
         }
+    }
+    
+    func displaySettings(settings: [String]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.appendSnapshot(
+                forSection: .settingsSection,
+                with: settings.map(AccountItem.init(setting:))
+            )
+        }
+    }
+    
+    func showSelectedSetting() {
+        router?.routeToSelectedSetting()
     }
 }
