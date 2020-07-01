@@ -30,6 +30,7 @@
 		A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
+		A023E1CE24ACC4EA001A5BAF /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
@@ -182,6 +183,7 @@
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
 		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
+		A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
@@ -332,6 +334,14 @@
 				A03B2C88240EC93800A6A411 /* EventList */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A023E1CC24ACC416001A5BAF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		A0255BE02425066F001E117D /* Protocols */ = {
@@ -524,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				A06617C324618DE3009D150E /* Atlas.xctestplan */,
+				A023E1CC24ACC416001A5BAF /* Services */,
 				A030AEA2242C09F100BFCFC5 /* Mocks */,
 				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
@@ -930,6 +941,7 @@
 				A08337A12459466C002E4571 /* AWSAuthState.swift in Sources */,
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
+				A023E1CE24ACC4EA001A5BAF /* SessionServiceTests.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,

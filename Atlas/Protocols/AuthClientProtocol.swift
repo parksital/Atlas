@@ -20,6 +20,40 @@ protocol AuthClientProtocol {
     func signOut()
 }
 
+final class MockAuthClient: AuthClientProtocol {
+    func initialize() -> Future<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError>.init { (promise) in
+            promise(.success(.unknown))
+        }
+    }
+    
+    func observe() -> PassthroughSubject<AWSAuthState, AuthError> {
+        let pts = PassthroughSubject<AWSAuthState, AuthError>()
+        pts.send(.unknown)
+        return pts
+    }
+    
+    func getCognitoSUB() -> Future<String, AuthError> {
+        return Future<String, AuthError>.init { (promise) in
+            promise(.success("sub"))
+        }
+    }
+    
+    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
+        return Just<AWSAuthState>(.confirmed)
+            .setFailureType(to: AuthError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
+        return Just<AWSAuthState>(.confirmed)
+            .setFailureType(to: AuthError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func signOut() { }
+}
+
 private extension AuthClientProtocol {
     func mapAWSMobileClientError(_ error: Error) -> AuthError {
         guard let awsError = error as? AWSMobileClientError else { return .generic}

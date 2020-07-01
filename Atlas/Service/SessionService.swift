@@ -10,8 +10,14 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-final class SessionService {
-    private let appleAuthService: AppleAuthService!
+protocol SessionServiceProtocol: class {
+    var status: CurrentValueSubject<AWSAuthState, AuthError> { get }
+    var cognitoSUB: CurrentValueSubject<String, AuthError> { get }
+    func setupInitialization()
+}
+
+final class SessionService: SessionServiceProtocol {
+    private let appleAuthService: AppleAuthServiceProtocol!
     private let awsMobileClient: AuthClientProtocol!
     private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
     private (set) var cognitoSUB = CurrentValueSubject<String, AuthError>("")
@@ -25,7 +31,7 @@ final class SessionService {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleAuthService: AppleAuthService, awsMobileClient: AuthClientProtocol) {
+    init(appleAuthService: AppleAuthServiceProtocol, awsMobileClient: AuthClientProtocol) {
         self.appleAuthService = appleAuthService
         self.awsMobileClient = awsMobileClient
     }
@@ -39,9 +45,7 @@ extension SessionService {
         setupAuthObserver()
         setupSUBObserver()
     }
-}
-
-private extension SessionService {
+    
     func setupInitialization() {
         awsMobileClient.initialize()
             .merge(with: awsMobileClient.observe())
