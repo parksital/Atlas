@@ -154,6 +154,28 @@ class SessionServiceTests: XCTestCase {
         XCTAssertTrue(awsMobileClient.signOutCalled)
     }
     
+    func test_appleAuthRevoked_mobileClient_signOut() {
+        let validUID = "abcxyz"
+        
+        let appleAuthService = StubAppleAuthService(validUID: validUID)
+        let awsMobileClient = StubAuthClient(value: .signedIn)
+        
+        sut = SessionService(
+            appleAuthService: appleAuthService,
+            awsMobileClient: awsMobileClient
+        )
+        
+        let status = sut.initialize(withUID: validUID)
+        sut.observeRevocation()
+        let spy = StateSpy(publisher: status)
+        // make sure to observe future authstatus values
+        _ = appleAuthService.observeAppleIDRevocation()
+        
+        XCTAssertTrue(awsMobileClient.signOutCalled)
+        XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
     // MARK: - Helpers
     final class StateSpy<T> {
         private (set) var values: [T] = []
