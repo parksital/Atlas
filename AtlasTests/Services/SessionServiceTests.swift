@@ -14,10 +14,6 @@ class SessionServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        sut = SessionService(
-            appleAuthService: MockAppleAuthService(),
-            awsMobileClient: MockAuthClient()
-        )
     }
     
     override func tearDown() {
@@ -25,32 +21,158 @@ class SessionServiceTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_intialStatus_unknown() {
-        let status = sut.status.eraseToAnyPublisher()
-        let spy =  StatusSpy(publisher: status)
+    func test_mobileClientInitialization_error() {
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(),
+            awsMobileClient: StubAuthClient(error: AuthError.generic)
+        )
         
-        XCTAssertEqual(spy.values, [.unknown])
+        let status = sut.initialize(withUID: nil)
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.error, AuthError.generic)
     }
     
-    func test_statusInitialized() {
-        let status = sut.status.eraseToAnyPublisher()
-        let spy =  StatusSpy(publisher: status)
+    func test_mobileClientObservation_unknown() {
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(),
+            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.unknown])
+        )
         
-        sut.setupInitialization()
+        let status = sut.initialize(withUID: nil)
+        let spy = StateSpy(publisher: status)
         
-        XCTAssertEqual(spy.values, [.unknown])
+        XCTAssertEqual(spy.values, [.signedOut])
     }
     
-    class StatusSpy {
-        private (set) var values: [AWSAuthState] = []
-        private var cancellabes = Set<AnyCancellable>()
+    func test_mobileClientObservation_signIn() {
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(),
+            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn])
+        )
         
-        init(publisher: AnyPublisher<AWSAuthState, AuthError>) {
+        let status = sut.observe()
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.values, [.signedOut, .confirmed, .signedIn])
+    }
+    
+    func test_appleAuthInitialization_invalidUID() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .unknown)
+        )
+        
+        let status = sut.getAppleCredentialState(forUID: "")
+        let spy = StateSpy(publisher: status)
+        XCTAssertEqual(spy.values, [.notFound])
+    }
+    
+    func test_appleAuthInitialization_validUID() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .unknown)
+        )
+        
+        let status = sut.getAppleCredentialState(forUID: validUID)
+        let spy = StateSpy(publisher: status)
+        XCTAssertEqual(spy.values, [.authorized])
+    }
+    
+    func test_appleAuthInitialized_mobileClientInitialized_valid() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .signedIn)
+        )
+        
+        let status = sut.initialize(withUID: validUID)
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.values, [.signedIn])
+    }
+    
+    func test_appleAuthInitialized_invalid_mobileClient_initialized() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .unknown)
+        )
+        
+        let status = sut.initialize(withUID: nil) //invalid uid
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
+    func test_appleAuthInitialized_valid_mobileClient_initialized_signedOut() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .signedOut)
+        )
+        
+        let status = sut.initialize(withUID: validUID)
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
+    func test_appleAuth_valid_mobileClient_signedOut_observe_signIn() {
+        let validUID = "abcxyz"
+        
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: StubAuthClient(value: .signedOut, observedValues: [.confirmed, .signedIn])
+        )
+        
+        let status = sut.initialize(withUID: validUID)
+        let spy = StateSpy(publisher: status)
+        
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
+    func test_appleAuth_invalid_mobileClient_signOut() {
+        let validUID = "abcxyz"
+        
+        let awsMobileClient = StubAuthClient(value: .signedIn)
+        sut = SessionService(
+            appleAuthService: StubAppleAuthService(validUID: validUID),
+            awsMobileClient: awsMobileClient
+        )
+        
+        let status = sut.initialize(withUID: nil)
+        let spy = StateSpy(publisher: status)
+        XCTAssertEqual(spy.values, [.signedOut])
+        XCTAssertTrue(awsMobileClient.signOutCalled)
+    }
+    
+    // MARK: - Helpers
+    final class StateSpy<T> {
+        private (set) var values: [T] = []
+        private (set) var error: AuthError?
+        private var cancellables = Set<AnyCancellable>()
+        
+        init(publisher: AnyPublisher<T, AuthError>) {
             publisher
-                .sink(receiveCompletion: { _ in },
-                      receiveValue: { [weak self] value in
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        switch completion {
+                        case .failure(let error): self?.error = error
+                        case .finished: break
+                        }
+                    },
+                    receiveValue: { [weak self] value in
                         self?.values.append(value)
-                }).store(in: &cancellabes)
+                    }
+            ).store(in: &cancellables)
         }
     }
 }

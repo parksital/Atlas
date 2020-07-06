@@ -13,45 +13,11 @@ import Combine
 
 protocol AuthClientProtocol {
     func initialize() -> Future<AWSAuthState, AuthError>
-    func observe() -> PassthroughSubject<AWSAuthState, AuthError>
+    func observe() -> AnyPublisher<AWSAuthState, AuthError>
     func getCognitoSUB() -> Future<String, AuthError>
     func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError>
     func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError>
     func signOut()
-}
-
-final class MockAuthClient: AuthClientProtocol {
-    func initialize() -> Future<AWSAuthState, AuthError> {
-        return Future<AWSAuthState, AuthError>.init { (promise) in
-            promise(.success(.unknown))
-        }
-    }
-    
-    func observe() -> PassthroughSubject<AWSAuthState, AuthError> {
-        let pts = PassthroughSubject<AWSAuthState, AuthError>()
-        pts.send(.unknown)
-        return pts
-    }
-    
-    func getCognitoSUB() -> Future<String, AuthError> {
-        return Future<String, AuthError>.init { (promise) in
-            promise(.success("sub"))
-        }
-    }
-    
-    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
-        return Just<AWSAuthState>(.confirmed)
-            .setFailureType(to: AuthError.self)
-            .eraseToAnyPublisher()
-    }
-    
-    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
-        return Just<AWSAuthState>(.confirmed)
-            .setFailureType(to: AuthError.self)
-            .eraseToAnyPublisher()
-    }
-    
-    func signOut() { }
 }
 
 private extension AuthClientProtocol {
@@ -86,19 +52,18 @@ extension AWSMobileClient: AuthClientProtocol {
         }
     }
     
-    func observe() -> PassthroughSubject<AWSAuthState, AuthError> {
-        let pts = PassthroughSubject<AWSAuthState, AuthError>()
-        
-        self.addUserStateListener(self) { userState, userInfo in
-            switch userState {
-            case .signedIn: pts.send(.signedIn)
-            case .signedOut: pts.send(.signedOut)
-            case .signedOutUserPoolsTokenInvalid: pts.send(.expiredToken)
-            default: break
+    func observe() -> AnyPublisher<AWSAuthState, AuthError> {
+        return Future<AWSAuthState, AuthError>.init { [weak self] (promise) in
+            guard let self = self else { return }
+            self.addUserStateListener(self) { userState, userInfo in
+                switch userState {
+                case .signedIn: promise(.success(.signedIn))
+                case .signedOut: promise(.success(.signedOut))
+                case .signedOutUserPoolsTokenInvalid: promise(.success(.expiredToken))
+                default: break
+                }
             }
-        }
-        
-        return pts
+        }.eraseToAnyPublisher()
     }
     
     func getCognitoSUB() -> Future<String, AuthError> {

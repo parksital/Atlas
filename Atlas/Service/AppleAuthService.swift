@@ -15,21 +15,6 @@ protocol AppleAuthServiceProtocol: class {
     func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
 }
 
-final class MockAppleAuthService: AppleAuthServiceProtocol {
-    func checkAppleIDAuthStatus(
-        forUID uid: String?
-    ) -> Future<AppleIDCredentialState, AuthError> {
-        return Future<AppleIDCredentialState, AuthError> { promise in
-            
-        }
-    }
-    
-    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
-        return Just<Notification>(Notification(name: ASAuthorizationAppleIDProvider.credentialRevokedNotification))
-            .eraseToAnyPublisher()
-    }
-}
-
 typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
 final class AppleAuthService {
     
