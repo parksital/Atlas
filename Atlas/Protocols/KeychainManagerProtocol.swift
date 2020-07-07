@@ -36,15 +36,15 @@ final class KeychainManager: KeychainManagerProtocol {
     }
 }
 
-//@propertyWrapper struct Keychained {
-//    let key: String
-//    let storage = KeychainWrapper.standard
-//    var wrappedValue: String? {
-//        get { storage.string(forKey: key) }
-//        set {
-//            if let value = newValue {
-//                storage.set(value, forKey: key)
-//            }
-//        }
-//    }
-//}
+@propertyWrapper struct Keychained {
+    let key: String
+    let storage = KeychainWrapper.standard
+    var wrappedValue: String? {
+        get { storage.string(forKey: key) }
+        set {
+            if let value = newValue {
+                storage.set(value, forKey: key)
+            }
+        }
+    }
+}

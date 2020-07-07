@@ -12,6 +12,8 @@ import Combine
 final class StubAuthClient: AuthClientProtocol {
     private (set) var signOutCalled: Bool = false
     private (set) var signOutCalledCount: Int = 0
+    private (set) var observeCalledCount: Int = 0
+    
     private (set) var result: Result<AWSAuthState, AuthError>
     private var observedValues: [AWSAuthState] = []
     

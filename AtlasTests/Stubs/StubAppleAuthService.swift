@@ -12,9 +12,15 @@ import AuthenticationServices
 
 final class StubAppleAuthService: AppleAuthServiceProtocol {
     private (set) var validUID: String
+    private (set) var revoke: Bool
     
-    init(validUID: String = "", initialState: AppleIDCredentialState = .notFound) {
+    init(
+        validUID: String = "",
+        initialState: AppleIDCredentialState = .notFound,
+        revoke: Bool = false
+    ) {
         self.validUID = validUID
+        self.revoke = revoke
     }
     
     func checkAppleIDAuthStatus(
@@ -30,7 +36,11 @@ final class StubAppleAuthService: AppleAuthServiceProtocol {
     }
     
     func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
-        return Just<Notification>(Notification(name: ASAuthorizationAppleIDProvider.credentialRevokedNotification))
-            .eraseToAnyPublisher()
+        return Future<Notification, Never>({ [weak self] promise in
+            guard let self = self else { return }
+            if self.revoke {
+                promise(.success(Notification(name: ASAuthorizationAppleIDProvider.credentialRevokedNotification)))
+            }
+        }).eraseToAnyPublisher()
     }
 }

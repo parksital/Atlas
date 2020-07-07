@@ -10,6 +10,7 @@ import XCTest
 import Combine
 
 class SessionServiceTests: XCTestCase {
+    private let validUID = "abcxyz"
     var sut: SessionServiceProtocol!
     
     override func setUp() {
@@ -24,10 +25,10 @@ class SessionServiceTests: XCTestCase {
     func test_mobileClientInitialization_error() {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(error: AuthError.generic)
+            awsMobileClient: StubAuthClient(error: AuthError.generic), keychainManager: StubKeychain()
         )
         
-        let status = sut.initialize(withUID: nil)
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.error, AuthError.generic)
@@ -36,10 +37,11 @@ class SessionServiceTests: XCTestCase {
     func test_mobileClientObservation_unknown() {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.unknown])
+            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.unknown]),
+            keychainManager: StubKeychain()
         )
         
-        let status = sut.initialize(withUID: nil)
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.values, [.signedOut])
@@ -48,7 +50,8 @@ class SessionServiceTests: XCTestCase {
     func test_mobileClientObservation_signIn() {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn])
+            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn]),
+            keychainManager: StubKeychain()
         )
         
         let status = sut.observe()
@@ -58,11 +61,10 @@ class SessionServiceTests: XCTestCase {
     }
     
     func test_appleAuthInitialization_invalidUID() {
-        let validUID = "abcxyz"
-        
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown)
+            awsMobileClient: StubAuthClient(value: .unknown),
+            keychainManager: StubKeychain()
         )
         
         let status = sut.getAppleCredentialState(forUID: "")
@@ -71,11 +73,10 @@ class SessionServiceTests: XCTestCase {
     }
     
     func test_appleAuthInitialization_validUID() {
-        let validUID = "abcxyz"
-        
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown)
+            awsMobileClient: StubAuthClient(value: .unknown),
+            keychainManager: StubKeychain()
         )
         
         let status = sut.getAppleCredentialState(forUID: validUID)
@@ -84,98 +85,97 @@ class SessionServiceTests: XCTestCase {
     }
     
     func test_appleAuthInitialized_mobileClientInitialized_valid() {
-        let validUID = "abcxyz"
+        let keychain = StubKeychain()
         
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .signedIn)
+            awsMobileClient: StubAuthClient(value: .signedIn),
+            keychainManager: keychain
         )
         
-        let status = sut.initialize(withUID: validUID)
+        keychain.setValue(validUID, forKey: "uid")
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.values, [.signedIn])
     }
     
     func test_appleAuthInitialized_invalid_mobileClient_initialized() {
-        let validUID = "abcxyz"
+        let keychain = StubKeychain()
         
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown)
+            awsMobileClient: StubAuthClient(value: .unknown),
+            keychainManager: keychain
         )
         
-        let status = sut.initialize(withUID: nil) //invalid uid
+        let status = sut.initialize() //invalid uid
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.values, [.signedOut])
     }
     
     func test_appleAuthInitialized_valid_mobileClient_initialized_signedOut() {
-        let validUID = "abcxyz"
-        
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .signedOut)
+            awsMobileClient: StubAuthClient(value: .signedOut),
+            keychainManager: StubKeychain()
         )
         
-        let status = sut.initialize(withUID: validUID)
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.values, [.signedOut])
     }
     
     func test_appleAuth_valid_mobileClient_signedOut_observe_signIn() {
-        let validUID = "abcxyz"
-        
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .signedOut, observedValues: [.confirmed, .signedIn])
+            awsMobileClient: StubAuthClient(value: .signedOut, observedValues: [.confirmed, .signedIn]),
+            keychainManager: StubKeychain()
         )
         
-        let status = sut.initialize(withUID: validUID)
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         
         XCTAssertEqual(spy.values, [.signedOut])
     }
     
     func test_appleAuth_invalid_mobileClient_signOut() {
-        let validUID = "abcxyz"
-        
         let awsMobileClient = StubAuthClient(value: .signedIn)
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: awsMobileClient
+            awsMobileClient: awsMobileClient,
+            keychainManager: StubKeychain()
         )
         
-        let status = sut.initialize(withUID: nil)
+        let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         XCTAssertEqual(spy.values, [.signedOut])
         XCTAssertTrue(awsMobileClient.signOutCalled)
     }
     
     func test_appleAuthRevoked_mobileClient_signOut() {
-        let validUID = "abcxyz"
-        
-        let appleAuthService = StubAppleAuthService(validUID: validUID)
+        let appleAuthService = StubAppleAuthService(validUID: validUID, revoke: true)
         let awsMobileClient = StubAuthClient(value: .signedIn)
-        
+        let keychain = StubKeychain()
         sut = SessionService(
             appleAuthService: appleAuthService,
-            awsMobileClient: awsMobileClient
+            awsMobileClient: awsMobileClient,
+            keychainManager: keychain
         )
         
-        let status = sut.initialize(withUID: validUID)
-        sut.observeRevocation()
+        keychain.setValue(validUID, forKey: "uid")
+        let status = sut.observe()
         let spy = StateSpy(publisher: status)
-        // make sure to observe future authstatus values
-        _ = appleAuthService.observeAppleIDRevocation()
         
         XCTAssertTrue(awsMobileClient.signOutCalled)
         XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
-        XCTAssertEqual(spy.values, [.signedOut])
+        XCTAssertEqual(spy.values, [.signedIn, .signedOut])
     }
-    
+}
+
+private extension SessionServiceTests {
     // MARK: - Helpers
     final class StateSpy<T> {
         private (set) var values: [T] = []

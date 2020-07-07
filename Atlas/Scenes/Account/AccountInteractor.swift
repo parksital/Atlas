@@ -44,7 +44,7 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
-        sessionService.status
+        sessionService.observe()
             .map({ $0 == .signedIn })
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] signedIn in
@@ -53,7 +53,8 @@ private extension AccountInteractor {
                     } else {
                         self?.presenter.presentUser(nil)
                     }
-            }).store(in: &cancellables)
+            })
+            .store(in: &cancellables)
     }
     
     func getUser() {
