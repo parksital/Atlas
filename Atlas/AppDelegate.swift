@@ -13,7 +13,7 @@ import SwinjectAutoregistration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var sessionService: SessionService!
+    var sessionService: SessionServiceProtocol!
     
     let container: Container = {
         SceneContainer.shared.container
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // grab an instance of session service to start observing user status
-        sessionService = container.resolve(SessionService.self)!
+        sessionService = container.resolve(SessionServiceProtocol.self)!
         sessionService.initialize()
         
         let rootViewController = container.resolve(EventListViewController.self)!

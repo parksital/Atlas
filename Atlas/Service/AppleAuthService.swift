@@ -16,7 +16,7 @@ protocol AppleAuthServiceProtocol: class {
 }
 
 typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
-final class AppleAuthService {
+final class AppleAuthService: AppleAuthServiceProtocol {
     
     func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
         return Future<AppleIDCredentialState, AuthError> { promise in

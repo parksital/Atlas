@@ -23,7 +23,7 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let sessionService: SessionService!
+    private let sessionService: SessionServiceProtocol!
     private let profileService: ProfileService!
     private (set) var settings: [String] = [
         "Saved",
@@ -33,7 +33,7 @@ final class AccountInteractor: AccountDataStore {
     private (set) var selectedSetting: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    init(sessionService: SessionService, profileService: ProfileService, presenter: AccountPresentationLogic) {
+    init(sessionService: SessionServiceProtocol, profileService: ProfileService, presenter: AccountPresentationLogic) {
         self.sessionService = sessionService
         self.profileService = profileService
         self.presenter = presenter

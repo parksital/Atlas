@@ -23,7 +23,6 @@ final class SessionService: SessionServiceProtocol {
     private let awsMobileClient: AuthClientProtocol!
     private let keychainManager: KeychainManagerProtocol!
     
-    private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
     private (set) var cognitoSUB = CurrentValueSubject<String, AuthError>("")
 
     private var cancellables = Set<AnyCancellable>()
