@@ -31,11 +31,12 @@ final class UserProfileTableViewCell: UITableViewCell {
 private extension UserProfileTableViewCell {
     func setupViews() {
         self.selectionStyle = .none
+    
         setupContainerViewConstraints()
         setupStackView()
         setupFirstNameLabel()
         setupLastNameLabel()
-        applyCardStyle()
+//        applyCardStyle()
     }
     
     func applyCardStyle() {
@@ -57,10 +58,9 @@ private extension UserProfileTableViewCell {
     
     func setupContainerViewConstraints() {
         contentView.addSubview(containerView)
-        
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = containerView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16.0)
-        let trailing = containerView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16.0)
+        let leading = containerView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor)
+        let trailing = containerView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
         let top = containerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10.0)
         let bottom = containerView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -10.0)
         
