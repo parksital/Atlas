@@ -10,92 +10,107 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-final class SessionService {
-    private let appleAuthService: AppleAuthService!
+protocol SessionServiceProtocol: class {
+    var cognitoSUB: CurrentValueSubject<String, AuthError> { get }
+    
+    func initialize() -> AnyPublisher<AWSAuthState, AuthError>
+    func getAppleCredentialState(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError>
+    func observe() -> AnyPublisher<AWSAuthState, AuthError>
+    func fetchSub() -> AnyPublisher<String, AuthError>
+}
+
+final class SessionService: SessionServiceProtocol {
+    private let appleAuthService: AppleAuthServiceProtocol!
     private let awsMobileClient: AuthClientProtocol!
-    private (set) var status = CurrentValueSubject<AWSAuthState, AuthError>(.unknown)
+    private let keychainManager: KeychainManagerProtocol!
+    
     private (set) var cognitoSUB = CurrentValueSubject<String, AuthError>("")
-    
-    @Keychained(key: "uid") var uid: String?
-    @Keychained(key: "sub") var sub1: String?
-    
-    private var sub: String? {
-        KeychainWrapper.standard.string(forKey: "sub")
-    }
-    
+
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleAuthService: AppleAuthService, awsMobileClient: AuthClientProtocol) {
+    init(
+        appleAuthService: AppleAuthServiceProtocol,
+        awsMobileClient: AuthClientProtocol,
+        keychainManager: KeychainManagerProtocol
+    ) {
         self.appleAuthService = appleAuthService
         self.awsMobileClient = awsMobileClient
+        self.keychainManager = keychainManager
+        setup()
     }
     
     deinit { cancellables.forEach { $0.cancel() } }
 }
 
 extension SessionService {
-    func initialize() {
-        setupInitialization()
-        setupAuthObserver()
-        setupSUBObserver()
-    }
-}
-
-private extension SessionService {
-    func setupInitialization() {
-        awsMobileClient.initialize()
-            .merge(with: awsMobileClient.observe())
-            .subscribe(status)
-            .store(in: &cancellables)
-    }
-    
-    func setupAuthObserver() {
-        appleAuthService.observeAppleIDRevocation()
-            .sink(receiveValue: { [weak self] _ in
-                self?.revokeAWSCredentials()
-            })
-            .store(in: &cancellables)
+    func setup() {
+        observe()
+            .sink(receiveCompletion: { _ in },
+               receiveValue: { [unowned self] value in
+                if value == .signedOut {
+                    print("appleID revoked")
+                    self.awsMobileClient.signOut()
+                }
+            }).store(in: &cancellables)
         
-        appleAuthService.checkAppleIDAuthStatus(forUID: self.uid)
-            .allSatisfy({ $0 == .authorized })
-            .zip(status)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: break
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                }
-            }, receiveValue: { [weak self] appleAuth, awsAuth in
-                guard let self = self else { return }
-                    if appleAuth {
-                        self.handleAWSAuthState(awsAuth)
-                    } else {
-                        self.revokeAWSCredentials()
-                }
-            })
-            .store(in: &cancellables)
-    }
-    
-    func setupSUBObserver() {
-        status
+        
+        observe()
             .filter({ $0 == .signedIn })
             .flatMap({ [weak self] _ in self!.fetchSub() })
             .subscribe(cognitoSUB)
             .store(in: &cancellables)
     }
     
-    func handleAWSAuthState(_ authState: AWSAuthState) -> Void {
+    func initialize() -> AnyPublisher<AWSAuthState, AuthError> {
+        let userID = keychainManager.getValue(forKey: "uid")
+        
+        return getAppleCredentialState(forUID: userID)
+            .allSatisfy({ $0 == .authorized })
+            .zip(awsMobileClient.initialize())
+            .map({ [unowned self] authorized, awsAuthState in
+                if authorized {
+                    return self.handleAuthState(awsAuthState)
+                } else {
+                    return .signedOut
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    func getAppleCredentialState(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError> {
+        appleAuthService.checkAppleIDAuthStatus(forUID: uid)
+            .eraseToAnyPublisher()
+    }
+    
+    func observe() -> AnyPublisher<AWSAuthState, AuthError> {
+        initialize().share()
+            .merge(with: observeRevocation(), awsMobileClient.observe())
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+    
+    func observeRevocation() -> AnyPublisher<AWSAuthState, AuthError> {
+        appleAuthService.observeAppleIDRevocation()
+            .setFailureType(to: AuthError.self)
+            .map({ _ in .signedOut })
+            .eraseToAnyPublisher()
+    }
+    
+    /// Handles the AWSAuthState after a successful AppleID authorization.
+    /// - Parameter authState: the incoming AWSAuthState
+    /// - Returns: new AWSAuthState after performing some actions
+    func handleAuthState(_ authState: AWSAuthState) -> AWSAuthState {
         switch authState {
-        case .signedOut, .expiredToken: // sign back in
-            print("apple auth success -> aws auth sign fail")
-            revokeAWSCredentials()
-            wipeKeychain()
-            default: break
+        case .signedOut, .expiredToken:
+            // sign in first
+            return .signedIn
+        default:
+            return authState
         }
     }
     
     func fetchSub() -> AnyPublisher<String, AuthError> {
-        guard let sub = self.sub else {
+        guard let sub = keychainManager.getValue(forKey: "sub") else {
             return awsMobileClient.getCognitoSUB()
                 .eraseToAnyPublisher()
         }
@@ -103,13 +118,5 @@ private extension SessionService {
         return Just<String>(sub)
             .setFailureType(to: AuthError.self)
             .eraseToAnyPublisher()
-    }
-    
-    func revokeAWSCredentials() {
-        awsMobileClient.signOut()
-    }
-    
-    func wipeKeychain() {
-        _ = KeychainWrapper.standard.removeAllKeys()
     }
 }

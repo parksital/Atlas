@@ -10,8 +10,13 @@ import Foundation
 import AuthenticationServices
 import Combine
 
+protocol AppleAuthServiceProtocol: class {
+    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError>
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
+}
+
 typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
-final class AppleAuthService {
+final class AppleAuthService: AppleAuthServiceProtocol {
     
     func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
         return Future<AppleIDCredentialState, AuthError> { promise in
