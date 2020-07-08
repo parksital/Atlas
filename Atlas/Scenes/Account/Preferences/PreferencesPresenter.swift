@@ -8,14 +8,16 @@
 
 import Foundation
 
-protocol PreferencesPresenterProtocol {
-    
+protocol PreferencesPresentationLogic {
+    func presentAlert()
 }
 
 final class PreferencesPresenter {
-    
+    private weak var viewController: PreferencesDisplayLogic?
 }
 
-extension PreferencesPresenter: PreferencesPresenterProtocol {
-    
+extension PreferencesPresenter: PreferencesPresentationLogic {
+    func presentAlert() {
+        viewController?.displayAlert()
+    }
 }

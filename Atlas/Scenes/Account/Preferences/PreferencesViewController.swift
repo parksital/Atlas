@@ -10,6 +10,7 @@ import UIKit
 
 protocol PreferencesDisplayLogic: class {
     func setup(interactor: PreferencesInteraction)
+    func displayAlert()
 }
 
 final class PreferencesViewController: UIViewController {
@@ -110,6 +111,10 @@ private extension PreferencesViewController {
 }
 
 extension PreferencesViewController: PreferencesDisplayLogic {
+    func displayAlert() {
+        
+    }
+    
     func setup(interactor: PreferencesInteraction) {
         self.interactor = interactor
     }
