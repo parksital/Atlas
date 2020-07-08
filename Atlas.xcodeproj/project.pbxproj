@@ -126,6 +126,7 @@
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
+		A0C1C8D224B617310082B492 /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
@@ -250,6 +251,7 @@
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0D7CA1424AA3810006288FE /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */,
+				A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
+				A0C1C8D224B617310082B492 /* PreferencesInteractor.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
 				A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,

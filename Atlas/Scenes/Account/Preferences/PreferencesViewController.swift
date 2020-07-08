@@ -8,13 +8,40 @@
 
 import UIKit
 
+enum PreferenceSectionType: Int, CaseIterable {
+    case preferences
+}
+
+enum PreferenceItem: Hashable {
+    case wipeKeychain
+}
+
 final class PreferencesViewController: UIViewController {
-    private let wipeKeychainButton = UIButton(type: .roundedRect)
+    typealias DataSource = UITableViewDiffableDataSource<PreferenceSectionType, PreferenceItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<PreferenceSectionType, PreferenceItem>
+    
+    //    private var interactor: PreferencesInteraction?
+    //    private var router: PreferencesRouter?
+    
+    private var dataSource: DataSource?
+    private var currentSnapshot: Snapshot?
+    
     private let stackView = UIStackView()
+    private let wipeKeychainButton = UIButton(type: .roundedRect)
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -22,7 +49,7 @@ private extension PreferencesViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigation()
-        setupStackView()
+        setupTableView()
         setupWipeKeychainButton()
     }
     
@@ -30,23 +57,39 @@ private extension PreferencesViewController {
         navigationItem.title = "Preferences"
     }
     
-    func setupStackView() {
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fill
-        stackView.spacing = 10.0
-        
-        setupStackViewConstraints()
+    func setupTableView() {
+        setupTableViewConstraints()
+        configureTableViewDatasource()
+        setInitialSnapshot()
     }
     
-    func setupStackViewConstraints() {
-        view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15.0)
-        let trailing = stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15.0)
-        let top = stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15.0)
+    func setupTableViewConstraints() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([leading, trailing, top])
+        let leading = tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let trailing = tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        let top = tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func configureTableViewDatasource() {
+        dataSource = DataSource(tableView: tableView) { (tableView, indexPath, item) -> UITableViewCell? in
+            switch item {
+            case .wipeKeychain:
+                let cell = UITableViewCell.init(style: .subtitle, reuseIdentifier: "")
+                
+                return cell
+            }
+        }
+    }
+    
+    func setInitialSnapshot() {
+        currentSnapshot = Snapshot()
+        currentSnapshot?.appendSections(PreferenceSectionType.allCases)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
     func setupWipeKeychainButton() {
