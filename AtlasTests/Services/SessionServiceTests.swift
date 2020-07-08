@@ -47,19 +47,6 @@ class SessionServiceTests: XCTestCase {
         XCTAssertEqual(spy.values, [.signedOut])
     }
     
-    func test_mobileClientObservation_signIn() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn]),
-            keychainManager: MockKeychain()
-        )
-        
-        let status = sut.observe()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.values, [.signedOut, .confirmed, .signedIn])
-    }
-    
     func test_appleAuthInitialization_invalidUID() {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
@@ -149,7 +136,7 @@ class SessionServiceTests: XCTestCase {
             keychainManager: MockKeychain()
         )
         
-        let status = sut.initialize()
+        let status = sut.observe()
         let spy = StateSpy(publisher: status)
         XCTAssertEqual(spy.values, [.signedOut])
         XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
