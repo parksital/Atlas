@@ -138,6 +138,8 @@
 		A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76024B644F40066B29C /* PreferencesRouter.swift */; };
 		A0D0B76324B6475A0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
 		A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
+		A0D0B76624B674140066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
+		A0D0B76724B6741C0066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
 		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
@@ -267,6 +269,7 @@
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0D0B76024B644F40066B29C /* PreferencesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRouter.swift; sourceTree = "<group>"; };
 		A0D0B76224B6475A0066B29C /* Preferences-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences-DI.swift"; sourceTree = "<group>"; };
+		A0D0B76524B674140066B29C /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A0D7CA1424AA3810006288FE /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
@@ -633,6 +636,7 @@
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
+				A0D0B76524B674140066B29C /* String+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -893,6 +897,7 @@
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
 				A0C1C8D224B617310082B492 /* PreferencesInteractor.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
+				A0D0B76624B674140066B29C /* String+.swift in Sources */,
 				A0D0B76324B6475A0066B29C /* Preferences-DI.swift in Sources */,
 				A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
@@ -990,6 +995,7 @@
 				A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
+				A0D0B76724B6741C0066B29C /* String+.swift in Sources */,
 				A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */,
 				A0297D20241A907A0089F38C /* AWSClient.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,

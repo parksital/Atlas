@@ -12,6 +12,8 @@ protocol PreferencesDisplayLogic: class {
     func setup(interactor: PreferencesInteraction)
     func setup(router: PreferencesRouterProtocol)
     func displayAlert()
+    func displayWipeCompleted()
+    func displayWipeFailure()
 }
 
 final class PreferencesViewController: UIViewController {
@@ -24,8 +26,6 @@ final class PreferencesViewController: UIViewController {
     private var dataSource: DataSource?
     private var currentSnapshot: Snapshot?
     
-    private let stackView = UIStackView()
-    private let wipeKeychainButton = UIButton(type: .roundedRect)
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
@@ -105,10 +105,35 @@ private extension PreferencesViewController {
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
-    @objc func wipeKeychain() {
-        DispatchQueue.global(qos: .utility).async {
-            _ = KeychainWrapper.standard.removeAllKeys()
-        }
+    func createAlert() -> UIAlertController {
+        let alert = UIAlertController(
+            title: "Passphrase required",
+            message: "This is a temporary measure. Please contact the developer to obtain the passphrase.",
+            preferredStyle: .alert
+        )
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Passphrase"
+        })
+        
+        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel)
+
+        let wipe = UIAlertAction(
+            title: "Wipe Keychain",
+            style: .destructive,
+            handler: { [alert, interactor] action in
+                guard
+                    let passphrase = alert.textFields?.first?.text
+                    else { return }
+                
+                interactor?.checkPassphrase(passphrase)
+            }
+        )
+        
+        alert.addAction(wipe)
+        alert.addAction(cancel)
+        
+        return alert
     }
 }
 
@@ -122,31 +147,15 @@ extension PreferencesViewController: PreferencesDisplayLogic {
     }
     
     func displayAlert() {
-        let alert = UIAlertController(
-            title: "Passphrase required",
-            message: "Please contact the developer to obtain the passphrase",
-            preferredStyle: .alert
-        )
-        
-        alert.addTextField(configurationHandler: { textField in
-            textField.placeholder = "Passphrase"
-        })
-        
-        let cancel = UIAlertAction(
-            title: "Cancel",
-            style: .cancel,
-            handler: { action in }
-        )
-        
-        let wipe = UIAlertAction(
-            title: "Wipe Keychain",
-            style: .destructive,
-            handler: { action in }
-        )
-        
-        alert.addAction(cancel)
-        alert.addAction(wipe)
-        
+        let alert = createAlert()
         router?.presentAlert(alert)
+    }
+    
+    func displayWipeCompleted() {
+        print("wipe successful")
+    }
+    
+    func displayWipeFailure() {
+        print("wrong passphrase")
     }
 }

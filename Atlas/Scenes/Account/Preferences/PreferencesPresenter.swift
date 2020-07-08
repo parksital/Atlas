@@ -11,14 +11,14 @@ import Foundation
 protocol PreferencesPresentationLogic {
     func setup(viewController: PreferencesDisplayLogic)
     func presentAlert()
+    func presentWipeCompleted()
+    func presentWipeFailure()
 }
 
 final class PreferencesPresenter {
     private weak var viewController: PreferencesDisplayLogic?
     
-    init() {
-        
-    }
+    init() { }
 }
 
 extension PreferencesPresenter: PreferencesPresentationLogic {
@@ -28,5 +28,13 @@ extension PreferencesPresenter: PreferencesPresentationLogic {
     
     func presentAlert() {
         viewController?.displayAlert()
+    }
+    
+    func presentWipeCompleted() {
+        viewController?.displayWipeCompleted()
+    }
+    
+    func presentWipeFailure() {
+        viewController?.displayWipeFailure()
     }
 }
