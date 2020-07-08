@@ -8,74 +8,15 @@
 
 import UIKit
 
-final class WipeKeychainCell: UITableViewCell {
-    private let button = UIButton(type: .system)
-    var action: (() -> Void)?
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-private extension WipeKeychainCell {
-    func setupViews() {
-        self.selectionStyle = .none
-        setupButton()
-    }
-    
-    func setupButton() {
-        button.setTitle("Wipe Keychain", for: .normal)
-        button.tintColor = .systemRed
-        button.addTarget(
-            self,
-            action: #selector(self.buttonTapped),
-            for: .touchUpInside
-        )
-        
-        setupButtonConstraints()
-    }
-    
-    func setupButtonConstraints() {
-        contentView.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        let leading = button.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor)
-        let top = button.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor)
-        let bottom = button.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
-        let height = button.heightAnchor.constraint(equalToConstant: 44.0)
-        
-        NSLayoutConstraint.activate([leading, top, bottom, height])
-    }
-    
-    @objc func buttonTapped() {
-        action?()
-    }
-}
-
-extension WipeKeychainCell {
-    func configure() {
-        
-    }
-}
-
-enum PreferenceSectionType: Int, CaseIterable {
-    case preferences
-}
-
-enum PreferenceItem: Hashable {
-    case wipeKeychain
+protocol PreferencesDisplayLogic: class {
+    func setup(interactor: PreferencesInteraction)
 }
 
 final class PreferencesViewController: UIViewController {
     typealias DataSource = UITableViewDiffableDataSource<PreferenceSectionType, PreferenceItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<PreferenceSectionType, PreferenceItem>
     
-    //    private var interactor: PreferencesInteraction?
+    private var interactor: PreferencesInteraction?
     //    private var router: PreferencesRouter?
     
     private var dataSource: DataSource?
@@ -88,6 +29,14 @@ final class PreferencesViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,11 +84,11 @@ private extension PreferencesViewController {
     }
     
     func configureTableViewDatasource() {
-        dataSource = DataSource(tableView: tableView) { (tableView, indexPath, item) -> UITableViewCell? in
+        dataSource = DataSource(tableView: tableView) { [interactor] (tableView, indexPath, item) -> UITableViewCell? in
             switch item {
             case .wipeKeychain:
                 let cell: WipeKeychainCell = tableView.getCell(forIndexPath: indexPath)
-                cell.action = { print("wipe keychain") }
+                cell.action = interactor?.wipeKeychainButtonTapped
                 cell.configure()
                 return cell
             }
@@ -157,5 +106,11 @@ private extension PreferencesViewController {
         DispatchQueue.global(qos: .utility).async {
             _ = KeychainWrapper.standard.removeAllKeys()
         }
+    }
+}
+
+extension PreferencesViewController: PreferencesDisplayLogic {
+    func setup(interactor: PreferencesInteraction) {
+        self.interactor = interactor
     }
 }
