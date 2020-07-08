@@ -17,7 +17,7 @@ protocol PreferencesDataStore {
 }
 
 typealias PreferencesInteraction = PreferencesLogic & PreferencesDataStore
-final class PreferencesInteractor: PreferencesLogic {
+final class PreferencesInteractor: PreferencesInteraction {
     private let presenter: PreferencesPresentationLogic!
     
     init(presenter: PreferencesPresentationLogic) {
@@ -27,7 +27,7 @@ final class PreferencesInteractor: PreferencesLogic {
 
 extension PreferencesInteractor {
     func viewDidFinishLoading() {
-        
+        print("interactor alfalfjslk")
     }
     
     func wipeKeychainButtonTapped() {

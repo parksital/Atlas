@@ -51,6 +51,9 @@ class SceneContainer {
                 presenter.setup(viewController: vc)
         }
         
+        //MARK: - Preferences Depenedencies
+        PreferencesDI.setDependencies(inContainer: container)
+        
         //MARK: - SignUp Dependencies
         container.autoregister(SignUpInteraction.self, initializer: SignUpInteractor.init)
         container.autoregister(SignUpPresentationLogic.self, initializer: SignUpPresenter.init)

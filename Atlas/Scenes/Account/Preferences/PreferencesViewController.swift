@@ -10,6 +10,7 @@ import UIKit
 
 protocol PreferencesDisplayLogic: class {
     func setup(interactor: PreferencesInteraction)
+    func setup(router: PreferencesRouterProtocol)
     func displayAlert()
 }
 
@@ -18,7 +19,7 @@ final class PreferencesViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<PreferenceSectionType, PreferenceItem>
     
     private var interactor: PreferencesInteraction?
-    //    private var router: PreferencesRouter?
+    private var router: PreferencesRouterProtocol?
     
     private var dataSource: DataSource?
     private var currentSnapshot: Snapshot?
@@ -42,6 +43,7 @@ final class PreferencesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        interactor?.viewDidFinishLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,11 +113,40 @@ private extension PreferencesViewController {
 }
 
 extension PreferencesViewController: PreferencesDisplayLogic {
-    func displayAlert() {
-        
-    }
-    
     func setup(interactor: PreferencesInteraction) {
         self.interactor = interactor
+    }
+    
+    func setup(router: PreferencesRouterProtocol) {
+        self.router = router
+    }
+    
+    func displayAlert() {
+        let alert = UIAlertController(
+            title: "Passphrase required",
+            message: "Please contact the developer to obtain the passphrase",
+            preferredStyle: .alert
+        )
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Passphrase"
+        })
+        
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: { action in }
+        )
+        
+        let wipe = UIAlertAction(
+            title: "Wipe Keychain",
+            style: .destructive,
+            handler: { action in }
+        )
+        
+        alert.addAction(cancel)
+        alert.addAction(wipe)
+        
+        router?.presentAlert(alert)
     }
 }

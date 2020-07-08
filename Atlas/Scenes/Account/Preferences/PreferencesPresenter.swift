@@ -9,14 +9,23 @@
 import Foundation
 
 protocol PreferencesPresentationLogic {
+    func setup(viewController: PreferencesDisplayLogic)
     func presentAlert()
 }
 
 final class PreferencesPresenter {
     private weak var viewController: PreferencesDisplayLogic?
+    
+    init() {
+        
+    }
 }
 
 extension PreferencesPresenter: PreferencesPresentationLogic {
+    func setup(viewController: PreferencesDisplayLogic) {
+        self.viewController = viewController
+    }
+    
     func presentAlert() {
         viewController?.displayAlert()
     }
