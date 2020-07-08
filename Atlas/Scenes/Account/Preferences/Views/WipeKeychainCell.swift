@@ -31,7 +31,6 @@ private extension WipeKeychainCell {
         setupStackView()
         setupButton()
         setupDescriptionLabel()
-//        stackView.addSpacer()
     }
     
     func setupStackView() {
@@ -70,9 +69,9 @@ private extension WipeKeychainCell {
     func setupButtonConstraints() {
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        let height = button.heightAnchor.constraint(equalToConstant: 44.0)
-        
-        NSLayoutConstraint.activate([height])
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 44.0)
+        ])
     }
     
     func setupDescriptionLabel() {

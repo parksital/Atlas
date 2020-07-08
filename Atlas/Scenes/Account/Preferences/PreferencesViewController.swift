@@ -105,6 +105,13 @@ private extension PreferencesViewController {
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
+    func updateSnapshot(items: [PreferenceItem], sectionType: PreferenceSectionType) {
+        currentSnapshot?.deleteSections([sectionType])
+        currentSnapshot?.appendSections([sectionType])
+        currentSnapshot?.appendItems(items, toSection: sectionType)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: true)
+    }
+    
     func createAlert() -> UIAlertController {
         let alert = UIAlertController(
             title: "Passphrase required",
@@ -152,16 +159,10 @@ extension PreferencesViewController: PreferencesDisplayLogic {
     }
     
     func displayWipeCompleted() {
-        currentSnapshot?.deleteSections([.preferences])
-        currentSnapshot?.appendSections([.preferences])
-        currentSnapshot?.appendItems([.wipeKeychain(true)], toSection: .preferences)
-        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
+        updateSnapshot(items: [.wipeKeychain(true)], sectionType: .preferences)
     }
     
     func displayWipeFailure() {
-        currentSnapshot?.deleteSections([.preferences])
-        currentSnapshot?.appendSections([.preferences])
-        currentSnapshot?.appendItems([.wipeKeychain(false)], toSection: .preferences)
-        dataSource?.apply(currentSnapshot!, animatingDifferences: true)
+        updateSnapshot(items: [.wipeKeychain(false)], sectionType: .preferences)
     }
 }
