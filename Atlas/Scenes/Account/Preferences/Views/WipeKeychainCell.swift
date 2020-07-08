@@ -90,7 +90,7 @@ extension WipeKeychainCell {
         if wipeStatus {
             descriptionLabel.text = "Successfully wiped Atlas' keychain."
         } else {
-            descriptionLabel.text = "Invalid passphrase. Contact the developer to ontain the valid passphrase."
+            descriptionLabel.text = "Invalid passphrase. Contact the developer to obtain the valid passphrase."
         }
     }
 }
