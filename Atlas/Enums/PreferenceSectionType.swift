@@ -13,5 +13,5 @@ enum PreferenceSectionType: Int, CaseIterable {
 }
 
 enum PreferenceItem: Hashable {
-    case wipeKeychain
+    case wipeKeychain(Bool?)
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 final class WipeKeychainCell: UITableViewCell {
+    private let stackView = UIStackView()
+    private let descriptionLabel = UILabel(styling: .body)
     private let button = UIButton(type: .system)
     var action: (() -> Void)?
     
@@ -17,39 +19,64 @@ final class WipeKeychainCell: UITableViewCell {
         setupViews()
     }
     
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
     }
 }
 
 private extension WipeKeychainCell {
     func setupViews() {
         self.selectionStyle = .none
+        setupStackView()
         setupButton()
+        setupDescriptionLabel()
+//        stackView.addSpacer()
     }
     
-    func setupButton() {
+    func setupStackView() {
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 10.0
+        
+        setupStackViewConstraints()
+    }
+
+    func setupStackViewConstraints() {
+        contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 15.0)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -15.0)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 15.0)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -15.0)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func setupButton() {        
         button.setTitle("Wipe Keychain", for: .normal)
-        button.tintColor = .systemRed
         button.addTarget(
             self,
             action: #selector(self.buttonTapped),
             for: .touchUpInside
         )
         
+        stackView.addArrangedSubview(button)
         setupButtonConstraints()
     }
     
     func setupButtonConstraints() {
-        contentView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = button.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor)
-        let top = button.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor)
-        let bottom = button.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         let height = button.heightAnchor.constraint(equalToConstant: 44.0)
         
-        NSLayoutConstraint.activate([leading, top, bottom, height])
+        NSLayoutConstraint.activate([height])
+    }
+    
+    func setupDescriptionLabel() {
+        stackView.addArrangedSubview(descriptionLabel)
     }
     
     @objc func buttonTapped() {
@@ -58,7 +85,13 @@ private extension WipeKeychainCell {
 }
 
 extension WipeKeychainCell {
-    func configure() {
+    func configure(wiped: Bool?) {
+        guard let wipeStatus = wiped else { return }
         
+        if wipeStatus {
+            descriptionLabel.text = "Successfully wiped Atlas' keychain."
+        } else {
+            descriptionLabel.text = "Invalid passphrase, contact the developer to ontain the valid passphrase."
+        }
     }
 }

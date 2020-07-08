@@ -89,10 +89,10 @@ private extension PreferencesViewController {
     func configureTableViewDatasource() {
         dataSource = DataSource(tableView: tableView) { [interactor] (tableView, indexPath, item) -> UITableViewCell? in
             switch item {
-            case .wipeKeychain:
+            case .wipeKeychain(let wiped):
                 let cell: WipeKeychainCell = tableView.getCell(forIndexPath: indexPath)
                 cell.action = interactor?.wipeKeychainButtonTapped
-                cell.configure()
+                cell.configure(wiped: wiped)
                 return cell
             }
         }
@@ -101,7 +101,7 @@ private extension PreferencesViewController {
     func setInitialSnapshot() {
         currentSnapshot = Snapshot()
         currentSnapshot?.appendSections(PreferenceSectionType.allCases)
-        currentSnapshot?.appendItems([.wipeKeychain], toSection: .preferences)
+        currentSnapshot?.appendItems([.wipeKeychain(nil)], toSection: .preferences)
         dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
@@ -152,10 +152,16 @@ extension PreferencesViewController: PreferencesDisplayLogic {
     }
     
     func displayWipeCompleted() {
-        print("wipe successful")
+        currentSnapshot?.deleteSections([.preferences])
+        currentSnapshot?.appendSections([.preferences])
+        currentSnapshot?.appendItems([.wipeKeychain(true)], toSection: .preferences)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: false)
     }
     
     func displayWipeFailure() {
-        print("wrong passphrase")
+        currentSnapshot?.deleteSections([.preferences])
+        currentSnapshot?.appendSections([.preferences])
+        currentSnapshot?.appendItems([.wipeKeychain(false)], toSection: .preferences)
+        dataSource?.apply(currentSnapshot!, animatingDifferences: true)
     }
 }
