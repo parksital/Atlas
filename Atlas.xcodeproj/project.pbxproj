@@ -140,6 +140,8 @@
 		A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
 		A0D0B76624B674140066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
 		A0D0B76724B6741C0066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
+		A0D0B76824B686C90066B29C /* PreferencesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76024B644F40066B29C /* PreferencesRouter.swift */; };
+		A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D424B63B540082B492 /* PreferencesPresenter.swift */; };
 		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
@@ -960,6 +962,7 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
+				A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
@@ -983,6 +986,7 @@
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
+				A0D0B76824B686C90066B29C /* PreferencesRouter.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
