@@ -10,7 +10,7 @@ import UIKit
 
 final class WipeKeychainCell: UITableViewCell {
     private let stackView = UIStackView()
-    private let descriptionLabel = UILabel(styling: .body)
+    private let descriptionLabel = UILabel(styling: .footer)
     private let button = UIButton(type: .system)
     var action: (() -> Void)?
     
@@ -55,7 +55,7 @@ private extension WipeKeychainCell {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func setupButton() {        
+    func setupButton() {
         button.setTitle("Wipe Keychain", for: .normal)
         button.addTarget(
             self,
@@ -91,7 +91,7 @@ extension WipeKeychainCell {
         if wipeStatus {
             descriptionLabel.text = "Successfully wiped Atlas' keychain."
         } else {
-            descriptionLabel.text = "Invalid passphrase, contact the developer to ontain the valid passphrase."
+            descriptionLabel.text = "Invalid passphrase. Contact the developer to ontain the valid passphrase."
         }
     }
 }

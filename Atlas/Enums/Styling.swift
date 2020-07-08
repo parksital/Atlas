@@ -14,6 +14,7 @@ enum Styling {
     case secondary
     case headline
     case body
+    case footer
 }
 
 extension Styling {
@@ -24,6 +25,7 @@ extension Styling {
         case .secondary: return .preferredFont(for: .headline, weight: .regular)
         case .headline: return .preferredFont(for: .headline, weight: .regular)
         case .body: return .preferredFont(for: .body, weight: .regular)
+        case .footer: return .preferredFont(for: .footnote, weight: .regular)
         }
     }
     
