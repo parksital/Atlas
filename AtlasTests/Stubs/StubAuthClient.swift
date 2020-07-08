@@ -9,22 +9,26 @@
 import Foundation
 import Combine
 
-final class StubAuthClient: AuthClientProtocol {
-    private (set) var signOutCalled: Bool = false
+final class StubAuthClient {
     private (set) var signOutCalledCount: Int = 0
     private (set) var observeCalledCount: Int = 0
+    private (set) var getSubCalledCount: Int = 0
     
-    private (set) var result: Result<AWSAuthState, AuthError>
+    private var sub: String?
+    private var result: Result<AWSAuthState, AuthError>
     private var observedValues: [AWSAuthState] = []
     
-    init(value: AWSAuthState, observedValues: [AWSAuthState] = []) {
+    init(value: AWSAuthState, observedValues: [AWSAuthState] = [], sub: String? = nil) {
         self.result = .success(value)
         self.observedValues = observedValues
+        self.sub = sub
     }
     
     init(error: Error) {
         self.result = .failure(.generic)
     }
+}
+extension StubAuthClient: AuthClientProtocol {
     
     func initialize() -> Future<AWSAuthState, AuthError> {
         return Future<AWSAuthState, AuthError>.init { [unowned self] (promise) in
@@ -40,8 +44,14 @@ final class StubAuthClient: AuthClientProtocol {
     }
     
     func getCognitoSUB() -> Future<String, AuthError> {
-        return Future<String, AuthError>.init { (promise) in
-            promise(.success("sub"))
+        getSubCalledCount += 1
+        return Future<String, AuthError>.init { [weak self] (promise) in
+            guard let sub = self?.sub else {
+                promise(.failure(.attributesError))
+                return
+            }
+            
+            promise(.success(sub))
         }
     }
     
@@ -58,7 +68,6 @@ final class StubAuthClient: AuthClientProtocol {
     }
     
     func signOut() {
-        signOutCalled = true
         signOutCalledCount += 1
     }
 }

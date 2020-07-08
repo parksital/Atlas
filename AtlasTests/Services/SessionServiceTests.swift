@@ -25,7 +25,7 @@ class SessionServiceTests: XCTestCase {
     func test_mobileClientInitialization_error() {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(error: AuthError.generic), keychainManager: StubKeychain()
+            awsMobileClient: StubAuthClient(error: AuthError.generic), keychainManager: MockKeychain()
         )
         
         let status = sut.initialize()
@@ -38,7 +38,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
             awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.unknown]),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.initialize()
@@ -51,7 +51,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(),
             awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn]),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.observe()
@@ -64,7 +64,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
             awsMobileClient: StubAuthClient(value: .unknown),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.getAppleCredentialState(forUID: "")
@@ -76,7 +76,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
             awsMobileClient: StubAuthClient(value: .unknown),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.getAppleCredentialState(forUID: validUID)
@@ -85,7 +85,7 @@ class SessionServiceTests: XCTestCase {
     }
     
     func test_appleAuthInitialized_mobileClientInitialized_valid() {
-        let keychain = StubKeychain()
+        let keychain = MockKeychain()
         
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
@@ -101,7 +101,7 @@ class SessionServiceTests: XCTestCase {
     }
     
     func test_appleAuthInitialized_invalid_mobileClient_initialized() {
-        let keychain = StubKeychain()
+        let keychain = MockKeychain()
         
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
@@ -119,7 +119,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
             awsMobileClient: StubAuthClient(value: .signedOut),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.initialize()
@@ -132,7 +132,7 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
             awsMobileClient: StubAuthClient(value: .signedOut, observedValues: [.confirmed, .signedIn]),
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.initialize()
@@ -146,32 +146,69 @@ class SessionServiceTests: XCTestCase {
         sut = SessionService(
             appleAuthService: StubAppleAuthService(validUID: validUID),
             awsMobileClient: awsMobileClient,
-            keychainManager: StubKeychain()
+            keychainManager: MockKeychain()
         )
         
         let status = sut.initialize()
         let spy = StateSpy(publisher: status)
         XCTAssertEqual(spy.values, [.signedOut])
-        XCTAssertTrue(awsMobileClient.signOutCalled)
+        XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
     }
     
     func test_appleAuthRevoked_mobileClient_signOut() {
-        let appleAuthService = StubAppleAuthService(validUID: validUID, revoke: true)
+        let appleAuthService = StubAppleAuthService(validUID: "invalid", revoke: true)
         let awsMobileClient = StubAuthClient(value: .signedIn)
-        let keychain = StubKeychain()
+        let keychain = MockKeychain()
+        keychain.setValue(validUID, forKey: "uid")
+        
         sut = SessionService(
             appleAuthService: appleAuthService,
             awsMobileClient: awsMobileClient,
             keychainManager: keychain
         )
         
-        keychain.setValue(validUID, forKey: "uid")
         let status = sut.observe()
         let spy = StateSpy(publisher: status)
         
-        XCTAssertTrue(awsMobileClient.signOutCalled)
+        XCTAssertEqual(spy.values, [.signedOut])
         XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
-        XCTAssertEqual(spy.values, [.signedIn, .signedOut])
+    }
+    
+    func test_fetchingSub_notSaved() {
+        let appleAuthService = StubAppleAuthService(validUID: validUID)
+        let awsMobileClient = StubAuthClient(value: .signedIn, sub: "aws.cognito.sub")
+        let keychain = MockKeychain()
+        
+        sut = SessionService(
+            appleAuthService: appleAuthService,
+            awsMobileClient: awsMobileClient,
+            keychainManager: keychain
+        )
+        
+        let sub = sut.fetchSub()
+        let spy = StateSpy(publisher: sub)
+        
+        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
+        XCTAssertEqual(awsMobileClient.getSubCalledCount, 1)
+    }
+    
+    func test_fetchingSub_saved() {
+        let appleAuthService = StubAppleAuthService(validUID: validUID)
+        let awsMobileClient = StubAuthClient(value: .signedIn)
+        let keychain = MockKeychain()
+        
+        sut = SessionService(
+            appleAuthService: appleAuthService,
+            awsMobileClient: awsMobileClient,
+            keychainManager: keychain
+        )
+        
+        keychain.setValue("aws.cognito.sub", forKey: "sub")
+        let sub = sut.fetchSub()
+        let spy = StateSpy(publisher: sub)
+        
+        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
+        XCTAssertEqual(awsMobileClient.getSubCalledCount, 0)
     }
 }
 

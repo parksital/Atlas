@@ -16,6 +16,7 @@ protocol SessionServiceProtocol: class {
     func initialize() -> AnyPublisher<AWSAuthState, AuthError>
     func getAppleCredentialState(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError>
     func observe() -> AnyPublisher<AWSAuthState, AuthError>
+    func fetchSub() -> AnyPublisher<String, AuthError>
 }
 
 final class SessionService: SessionServiceProtocol {
@@ -43,6 +44,7 @@ final class SessionService: SessionServiceProtocol {
 extension SessionService {
     func initialize() -> AnyPublisher<AWSAuthState, AuthError> {
         let userID = keychainManager.getValue(forKey: "uid")
+        
         return getAppleCredentialState(forUID: userID)
             .allSatisfy({ $0 == .authorized })
             .zip(awsMobileClient.initialize())
@@ -50,7 +52,6 @@ extension SessionService {
                 if authorized {
                     return self.handleAuthState(awsAuthState)
                 } else {
-                    self.awsMobileClient.signOut()
                     return .signedOut
                 }
             }).eraseToAnyPublisher()
@@ -63,19 +64,25 @@ extension SessionService {
     
     func observe() -> AnyPublisher<AWSAuthState, AuthError> {
         initialize()
-            .append(awsMobileClient.observe())
             .merge(with: observeRevocation())
+            .append(awsMobileClient.observe())
             .removeDuplicates()
+            .map({ [unowned self] value in
+                if value == .signedOut {
+                    print("appleID revoked")
+                    self.awsMobileClient.signOut()
+                    return .signedOut
+                } else {
+                    return value
+                }
+            })
             .eraseToAnyPublisher()
     }
     
     func observeRevocation() -> AnyPublisher<AWSAuthState, AuthError> {
         appleAuthService.observeAppleIDRevocation()
-            .map({ [unowned self] _ in
-                self.awsMobileClient.signOut()
-                return .signedOut
-            })
             .setFailureType(to: AuthError.self)
+            .map({ _ in .signedOut })
             .eraseToAnyPublisher()
     }
     
@@ -87,28 +94,18 @@ extension SessionService {
         case .signedOut, .expiredToken:
             // sign in first
             return .signedIn
-        case .signedIn:
-            return .signedIn
         default:
-            return .signedOut
+            return authState
         }
     }
     
-    func setupSUBObserver() {
-//        status
-//            .filter({ $0 == .signedIn })
-//            .flatMap({ [weak self] _ in self!.fetchSub() })
-//            .subscribe(cognitoSUB)
-//            .store(in: &cancellables)
-    }
-    
     func fetchSub() -> AnyPublisher<String, AuthError> {
-//        guard let sub = self.sub else {
-//            return awsMobileClient.getCognitoSUB()
-//                .eraseToAnyPublisher()
-//        }
-//
-        return Just<String>("sub")
+        guard let sub = keychainManager.getValue(forKey: "sub") else {
+            return awsMobileClient.getCognitoSUB()
+                .eraseToAnyPublisher()
+        }
+        
+        return Just<String>(sub)
             .setFailureType(to: AuthError.self)
             .eraseToAnyPublisher()
     }

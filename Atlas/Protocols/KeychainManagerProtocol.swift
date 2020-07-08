@@ -13,7 +13,7 @@ protocol KeychainManagerProtocol {
     func getValue(forKey key: String) -> String?
 }
 
-final class StubKeychain: KeychainManagerProtocol {
+final class MockKeychain: KeychainManagerProtocol {
     private var storage: [String: String] = [:]
     
     func setValue(_ value: String, forKey key: String) {
