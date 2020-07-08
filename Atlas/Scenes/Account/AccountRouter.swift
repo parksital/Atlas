@@ -50,8 +50,7 @@ final class AccountRouter: AccountRouterProtocol {
             destination = UIViewController()
             destination.view.backgroundColor = .systemTeal
         case "Preferences":
-            destination = UIViewController()
-            destination.view.backgroundColor = .systemYellow
+            destination = PreferencesViewController()
         default: break
         }
         
