@@ -14,6 +14,7 @@ final class AuthService {
     @Keychained(key: "uid") var uid: String?
     @Keychained(key: "email") var email: String?
     @Keychained(key: "password") var password: String?
+    @Keychained(key: "token") var token: String?
     
     init(authClient: AuthClientProtocol) {
         self.authClient = authClient

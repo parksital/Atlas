@@ -40,6 +40,7 @@ final class AccountRouter: AccountRouterProtocol {
     }
     
     func routeToSelectedSetting() {
+        let container = SceneContainer.shared.container
         var destination: UIViewController!
         
         switch dataStore?.selectedSetting {
@@ -50,8 +51,7 @@ final class AccountRouter: AccountRouterProtocol {
             destination = UIViewController()
             destination.view.backgroundColor = .systemTeal
         case "Preferences":
-            destination = UIViewController()
-            destination.view.backgroundColor = .systemYellow
+            destination = container.resolve(PreferencesViewController.self)!
         default: break
         }
         
