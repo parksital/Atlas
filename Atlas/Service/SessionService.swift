@@ -44,10 +44,7 @@ final class SessionService: SessionServiceProtocol {
 
 extension SessionService {
     func setup() {
-        let p = observe()
-        
-        // regular observation of auth status
-        p
+        observe()
             .sink(receiveCompletion: { _ in },
                receiveValue: { [unowned self] value in
                 if value == .signedOut {
@@ -56,16 +53,12 @@ extension SessionService {
                 }
             }).store(in: &cancellables)
         
-        // observation of cognito SUB
-        p
+        
+        observe()
             .filter({ $0 == .signedIn })
             .flatMap({ [weak self] _ in self!.fetchSub() })
-            .subscribe(cognitoSUB).store(in: &cancellables)
-//            .sink(receiveCompletion: { _ in },
-//                    receiveValue: { [weak self] value in
-//                        self?.cognitoSUB.send(value)
-//            })
-//            
+            .subscribe(cognitoSUB)
+            .store(in: &cancellables)
     }
     
     func initialize() -> AnyPublisher<AWSAuthState, AuthError> {
@@ -90,9 +83,8 @@ extension SessionService {
     }
     
     func observe() -> AnyPublisher<AWSAuthState, AuthError> {
-        initialize()
-            .merge(with: observeRevocation())
-            .append(awsMobileClient.observe())
+        initialize().share()
+            .merge(with: observeRevocation(), awsMobileClient.observe())
             .removeDuplicates()
             .eraseToAnyPublisher()
     }

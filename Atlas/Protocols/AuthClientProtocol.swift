@@ -147,4 +147,12 @@ extension AWSMobileClient: AuthClientProtocol {
         .mapError(mapAWSMobileClientError(_:))
         .eraseToAnyPublisher()
     }
+    
+    func signOut() {
+        self.signOut { (awsError) in
+            if let error = awsError {
+                assertionFailure(error.localizedDescription)
+            }
+        }
+    }
 }
