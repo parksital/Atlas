@@ -36,12 +36,38 @@ final class SessionService: SessionServiceProtocol {
         self.appleAuthService = appleAuthService
         self.awsMobileClient = awsMobileClient
         self.keychainManager = keychainManager
+        setup()
     }
     
     deinit { cancellables.forEach { $0.cancel() } }
 }
 
 extension SessionService {
+    func setup() {
+        let p = observe()
+        
+        // regular observation of auth status
+        p
+            .sink(receiveCompletion: { _ in },
+               receiveValue: { [unowned self] value in
+                if value == .signedOut {
+                    print("appleID revoked")
+                    self.awsMobileClient.signOut()
+                }
+            }).store(in: &cancellables)
+        
+        // observation of cognito SUB
+        p
+            .filter({ $0 == .signedIn })
+            .flatMap({ [weak self] _ in self!.fetchSub() })
+            .subscribe(cognitoSUB).store(in: &cancellables)
+//            .sink(receiveCompletion: { _ in },
+//                    receiveValue: { [weak self] value in
+//                        self?.cognitoSUB.send(value)
+//            })
+//            
+    }
+    
     func initialize() -> AnyPublisher<AWSAuthState, AuthError> {
         let userID = keychainManager.getValue(forKey: "uid")
         
@@ -54,7 +80,8 @@ extension SessionService {
                 } else {
                     return .signedOut
                 }
-            }).eraseToAnyPublisher()
+            })
+            .eraseToAnyPublisher()
     }
     
     func getAppleCredentialState(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError> {
@@ -67,15 +94,6 @@ extension SessionService {
             .merge(with: observeRevocation())
             .append(awsMobileClient.observe())
             .removeDuplicates()
-            .map({ [unowned self] value in
-                if value == .signedOut {
-                    print("appleID revoked")
-                    self.awsMobileClient.signOut()
-                    return .signedOut
-                } else {
-                    return value
-                }
-            })
             .eraseToAnyPublisher()
     }
     

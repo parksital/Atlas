@@ -197,6 +197,25 @@ class SessionServiceTests: XCTestCase {
         XCTAssertEqual(spy.values, ["aws.cognito.sub"])
         XCTAssertEqual(awsMobileClient.getSubCalledCount, 0)
     }
+    
+    func test_observeSUB() {
+        let appleAuthService = StubAppleAuthService(validUID: validUID)
+        let awsMobileClient = StubAuthClient(value: .signedIn, sub: "aws.cognito.sub")
+        let keychain = MockKeychain()
+        keychain.setValue(validUID, forKey: "uid")
+        
+        sut = SessionService(
+            appleAuthService: appleAuthService,
+            awsMobileClient: awsMobileClient,
+            keychainManager: keychain
+        )
+        
+        let sub = sut.cognitoSUB.eraseToAnyPublisher()
+        let spy = StateSpy(publisher: sub)
+        
+        XCTAssertEqual(awsMobileClient.getSubCalledCount, 1)
+        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
+    }
 }
 
 private extension SessionServiceTests {
