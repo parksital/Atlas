@@ -46,10 +46,13 @@ platform :ios do
   end
 
   lane :beta do
+    ensure_git_status_clean
+    ensure_git_branch
     sync_code_signing(type: "appstore") 
     build_app(scheme: "Atlas", workspace: "Atlas.xcworkspace", include_bitcode: true)
     increment_build_number
     increment_version_number(bump_type: "patch")
     upload_to_testflight(distribute_external: true, groups: "feedback-providers")
+    reset_git_repo
   end
 end
