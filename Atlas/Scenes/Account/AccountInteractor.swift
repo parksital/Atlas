@@ -23,7 +23,7 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let sessionService: SessionService!
+    private let sessionService: SessionServiceProtocol!
     private let profileService: ProfileService!
     private (set) var settings: [String] = [
         "Saved",
@@ -33,7 +33,7 @@ final class AccountInteractor: AccountDataStore {
     private (set) var selectedSetting: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    init(sessionService: SessionService, profileService: ProfileService, presenter: AccountPresentationLogic) {
+    init(sessionService: SessionServiceProtocol, profileService: ProfileService, presenter: AccountPresentationLogic) {
         self.sessionService = sessionService
         self.profileService = profileService
         self.presenter = presenter
@@ -44,7 +44,7 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
-        sessionService.status
+        sessionService.observe()
             .map({ $0 == .signedIn })
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] signedIn in
@@ -53,7 +53,8 @@ private extension AccountInteractor {
                     } else {
                         self?.presenter.presentUser(nil)
                     }
-            }).store(in: &cancellables)
+            })
+            .store(in: &cancellables)
     }
     
     func getUser() {

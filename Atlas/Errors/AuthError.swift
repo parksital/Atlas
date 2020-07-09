@@ -20,4 +20,8 @@ enum AuthError: Error {
     }
 }
 
-
+extension AuthError: Equatable {
+    static func == (lhs: AuthError, rhs: AuthError) -> Bool {
+        lhs.localizedDescription == rhs.localizedDescription
+    }
+}

@@ -17,11 +17,12 @@ class SceneContainer {
         container = Container(parent: AWSContainer.shared.container)
         
         //MARK: - Services
+        container.autoregister(KeychainManagerProtocol.self, initializer: KeychainManager.init)
         container.autoregister(ProfileService.self, initializer: ProfileService.init)
         container.autoregister(EventService.self, initializer: EventService.init)
-        container.autoregister(SessionService.self, initializer: SessionService.init)
+        container.autoregister(SessionServiceProtocol.self, initializer: SessionService.init)
             .inObjectScope(.weak)
-        container.autoregister(AppleAuthService.self, initializer: AppleAuthService.init)
+        container.autoregister(AppleAuthServiceProtocol.self, initializer: AppleAuthService.init)
         container.autoregister(AuthService.self, initializer: AuthService.init)
             
         
@@ -49,6 +50,9 @@ class SceneContainer {
                 
                 presenter.setup(viewController: vc)
         }
+        
+        //MARK: - Preferences Depenedencies
+        PreferencesDI.setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies
         container.autoregister(SignUpInteraction.self, initializer: SignUpInteractor.init)

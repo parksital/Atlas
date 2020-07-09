@@ -126,7 +126,7 @@ private extension AccountViewController {
         currentSnapshot?.insertSections([.userProfileSection], beforeSection: .settingsSection)
         
         let item: AccountItem = user == nil ? .noProfile : .profile(user!)
-        appendSnapshot(forSection: .userProfileSection, with: [item])
+        appendSnapshot(forSection: .userProfileSection, with: [item], animated: true)
     }
 }
 

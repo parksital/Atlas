@@ -15,3 +15,5 @@ enum AWSAuthState: String {
     case confirmed
     case expiredToken
 }
+
+extension AWSAuthState: Equatable { }

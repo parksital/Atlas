@@ -30,6 +30,7 @@
 		A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
+		A023E1CE24ACC4EA001A5BAF /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
@@ -74,6 +75,8 @@
 		A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
 		A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
 		A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
+		A0407EFF24B393C4004EDFE4 /* StubAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0407EFE24B393C4004EDFE4 /* StubAuthClient.swift */; };
+		A0407F0124B393FB004EDFE4 /* StubAppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0407F0024B393FB004EDFE4 /* StubAppleAuthService.swift */; };
 		A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED3C2419718800DB772F /* EventDetailViewController.swift */; };
 		A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED402419723700DB772F /* EventDetailInteractor.swift */; };
 		A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041ED422419736000DB772F /* EventDetailPresenter.swift */; };
@@ -109,8 +112,8 @@
 		A09038FC2420D5CE00743881 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
 		A09038FD2420E68300743881 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
-		A0AD0787249A65A8009DA2CA /* Keychained.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AD0786249A65A8009DA2CA /* Keychained.swift */; };
-		A0AD0788249A6AF3009DA2CA /* Keychained.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AD0786249A65A8009DA2CA /* Keychained.swift */; };
+		A0AD0787249A65A8009DA2CA /* KeychainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */; };
+		A0AD0788249A6AF3009DA2CA /* KeychainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -121,8 +124,24 @@
 		A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
+		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
+		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
+		A0C1C8D224B617310082B492 /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */; };
+		A0C1C8D324B63AEA0082B492 /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */; };
+		A0C1C8D524B63B540082B492 /* PreferencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D424B63B540082B492 /* PreferencesPresenter.swift */; };
+		A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D724B63C890082B492 /* WipeKeychainCell.swift */; };
+		A0C1C8D924B63CA00082B492 /* WipeKeychainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D724B63C890082B492 /* WipeKeychainCell.swift */; };
+		A0C1C8DB24B63D630082B492 /* PreferenceSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */; };
+		A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */; };
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
+		A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76024B644F40066B29C /* PreferencesRouter.swift */; };
+		A0D0B76324B6475A0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
+		A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
+		A0D0B76624B674140066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
+		A0D0B76724B6741C0066B29C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76524B674140066B29C /* String+.swift */; };
+		A0D0B76824B686C90066B29C /* PreferencesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76024B644F40066B29C /* PreferencesRouter.swift */; };
+		A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8D424B63B540082B492 /* PreferencesPresenter.swift */; };
 		A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D7CA1424AA3810006288FE /* UITableView+.swift */; };
 		A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DBC47F24014C43002419C6 /* EventListInteractor.swift */; };
@@ -182,6 +201,7 @@
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
 		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
+		A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0297D04241A61070089F38C /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
@@ -204,6 +224,8 @@
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A03EECF324127AF300FCDD8C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		A0407EFE24B393C4004EDFE4 /* StubAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubAuthClient.swift; sourceTree = "<group>"; };
+		A0407F0024B393FB004EDFE4 /* StubAppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubAppleAuthService.swift; sourceTree = "<group>"; };
 		A041ED3C2419718800DB772F /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		A041ED402419723700DB772F /* EventDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailInteractor.swift; sourceTree = "<group>"; };
 		A041ED422419736000DB772F /* EventDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailPresenter.swift; sourceTree = "<group>"; };
@@ -226,7 +248,7 @@
 		A083379F24594660002E4571 /* AWSAuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAuthState.swift; sourceTree = "<group>"; };
 		A08337A2245A28DB002E4571 /* EventDetailSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailSnapshotTests.swift; sourceTree = "<group>"; };
 		A09038F82420D58E00743881 /* EventListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractorTests.swift; sourceTree = "<group>"; };
-		A0AD0786249A65A8009DA2CA /* Keychained.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychained.swift; sourceTree = "<group>"; };
+		A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerProtocol.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +263,15 @@
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
+		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
+		A0C1C8D424B63B540082B492 /* PreferencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPresenter.swift; sourceTree = "<group>"; };
+		A0C1C8D724B63C890082B492 /* WipeKeychainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeKeychainCell.swift; sourceTree = "<group>"; };
+		A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSectionType.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
+		A0D0B76024B644F40066B29C /* PreferencesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRouter.swift; sourceTree = "<group>"; };
+		A0D0B76224B6475A0066B29C /* Preferences-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences-DI.swift"; sourceTree = "<group>"; };
+		A0D0B76524B674140066B29C /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A0D7CA1424AA3810006288FE /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A0DBC47F24014C43002419C6 /* EventListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListInteractor.swift; sourceTree = "<group>"; };
 		A0DBC4852401CC57002419C6 /* EventListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListPresenter.swift; sourceTree = "<group>"; };
@@ -319,6 +349,7 @@
 				A0255BDD24250290001E117D /* Styling.swift */,
 				A083379F24594660002E4571 /* AWSAuthState.swift */,
 				A00BED5624A013CD002B538D /* AccountSectionType.swift */,
+				A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -334,9 +365,18 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		A023E1CC24ACC416001A5BAF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A023E1CD24ACC4EA001A5BAF /* SessionServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		A0255BE02425066F001E117D /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */,
 				A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */,
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
@@ -372,6 +412,7 @@
 		A03A02F02464115500C5B7E9 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				A0C1C8CB24B605620082B492 /* Preferences */,
 				A03A030B247423E800C5B7E9 /* Views */,
 				A0E1E274249E859500FCBA25 /* AccountViewController.swift */,
 				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
@@ -410,7 +451,6 @@
 			children = (
 				A03EECF324127AF300FCDD8C /* NetworkError.swift */,
 				A083379C2459463E002E4571 /* AuthError.swift */,
-				A0AD0786249A65A8009DA2CA /* Keychained.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -421,6 +461,15 @@
 				A03EECEF2411547A00FCDD8C /* AWSClient.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		A0407EFD24B393AA004EDFE4 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				A0407EFE24B393C4004EDFE4 /* StubAuthClient.swift */,
+				A0407F0024B393FB004EDFE4 /* StubAppleAuthService.swift */,
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 		A041ED3B24196FD900DB772F /* EventDetail */ = {
@@ -524,6 +573,8 @@
 			isa = PBXGroup;
 			children = (
 				A06617C324618DE3009D150E /* Atlas.xctestplan */,
+				A023E1CC24ACC416001A5BAF /* Services */,
+				A0407EFD24B393AA004EDFE4 /* Stubs */,
 				A030AEA2242C09F100BFCFC5 /* Mocks */,
 				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
@@ -540,6 +591,27 @@
 				A0B661D824002661001C5B40 /* Info.plist */,
 			);
 			path = AtlasUITests;
+			sourceTree = "<group>";
+		};
+		A0C1C8CB24B605620082B492 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				A0C1C8D624B63C7A0082B492 /* Views */,
+				A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */,
+				A0D0B76024B644F40066B29C /* PreferencesRouter.swift */,
+				A0C1C8D424B63B540082B492 /* PreferencesPresenter.swift */,
+				A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		A0C1C8D624B63C7A0082B492 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A0C1C8D724B63C890082B492 /* WipeKeychainCell.swift */,
+				A0D0B76224B6475A0066B29C /* Preferences-DI.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A0DBC4872401CC72002419C6 /* Service */ = {
@@ -566,6 +638,7 @@
 				A0503DBC242A3B5400FF1BA3 /* UIStackView+.swift */,
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
+				A0D0B76524B674140066B29C /* String+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -821,16 +894,21 @@
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
 				A00BED5424A01363002B538D /* SettingTableViewCell.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
+				A0C1C8D524B63B540082B492 /* PreferencesPresenter.swift in Sources */,
 				A04BCE56245162C1000A6969 /* SignUpRouter.swift in Sources */,
 				A083379A245945F8002E4571 /* AppleAuthData.swift in Sources */,
+				A0C1C8D224B617310082B492 /* PreferencesInteractor.swift in Sources */,
 				A0297D05241A61070089F38C /* EventDetail.swift in Sources */,
+				A0D0B76624B674140066B29C /* String+.swift in Sources */,
+				A0D0B76324B6475A0066B29C /* Preferences-DI.swift in Sources */,
 				A00BED5724A013CD002B538D /* AccountSectionType.swift in Sources */,
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03A805D24851CCD0050B464 /* User.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
 				A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */,
-				A0AD0787249A65A8009DA2CA /* Keychained.swift in Sources */,
+				A0AD0787249A65A8009DA2CA /* KeychainManagerProtocol.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
+				A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */,
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
@@ -854,14 +932,17 @@
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
 				A0324FCA245781AF00971C23 /* AuthService.swift in Sources */,
+				A0C1C8DB24B63D630082B492 /* PreferenceSectionType.swift in Sources */,
 				A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
+				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A08337A024594660002E4571 /* AWSAuthState.swift in Sources */,
 				A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */,
+				A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0324FCE245860E800971C23 /* AuthClientProtocol.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
@@ -881,29 +962,36 @@
 			files = (
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
+				A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
 				A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */,
+				A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */,
 				A03A0307246AFEFA00C5B7E9 /* SessionService.swift in Sources */,
-				A0AD0788249A6AF3009DA2CA /* Keychained.swift in Sources */,
+				A0AD0788249A6AF3009DA2CA /* KeychainManagerProtocol.swift in Sources */,
 				A09038FD2420E68300743881 /* EventListViewController.swift in Sources */,
+				A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */,
 				A083379E24594648002E4571 /* AuthError.swift in Sources */,
 				A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */,
+				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A0407F0124B393FB004EDFE4 /* StubAppleAuthService.swift in Sources */,
 				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A0324FCF2458619200971C23 /* AuthService.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,
 				A0FAFC4A245922BA006F46B1 /* PasswordGenerator.swift in Sources */,
+				A0D0B76824B686C90066B29C /* PreferencesRouter.swift in Sources */,
 				A0503DC6242A87C900FF1BA3 /* EventListPresenterTests.swift in Sources */,
 				A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */,
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
+				A0C1C8D324B63AEA0082B492 /* PreferencesInteractor.swift in Sources */,
 				A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */,
 				A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
@@ -911,6 +999,7 @@
 				A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
+				A0D0B76724B6741C0066B29C /* String+.swift in Sources */,
 				A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */,
 				A0297D20241A907A0089F38C /* AWSClient.swift in Sources */,
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
@@ -926,12 +1015,15 @@
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
 				A00BED5824A013CD002B538D /* AccountSectionType.swift in Sources */,
+				A0C1C8D924B63CA00082B492 /* WipeKeychainCell.swift in Sources */,
 				A03A02FC2464168A00C5B7E9 /* AccountPresenter.swift in Sources */,
 				A08337A12459466C002E4571 /* AWSAuthState.swift in Sources */,
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
+				A023E1CE24ACC4EA001A5BAF /* SessionServiceTests.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
+				A0407EFF24B393C4004EDFE4 /* StubAuthClient.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00BED6124A22C3A002B538D /* ConfigurableCell.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
