@@ -13,7 +13,8 @@
         },
         "categories": {
             "auth": {
-                "atlas1c1adc23": {}
+                "atlas1c1adc23": {},
+                "userPoolGroups": {}
             }
         }
     }
