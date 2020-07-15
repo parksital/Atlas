@@ -16,8 +16,8 @@ protocol AccountLogic: class {
 }
 
 protocol AccountDataStore {
-    var settings: [String] { get }
-    var selectedSetting: String { get }
+    var settings: [AccountSetting] { get }
+    var selectedSetting: AccountSetting? { get }
 }
 
 typealias AccountInteraction = AccountLogic & AccountDataStore
@@ -25,12 +25,8 @@ final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
     private let sessionService: SessionServiceProtocol!
     private let profileService: ProfileService!
-    private (set) var settings: [String] = [
-        "Saved",
-        "History",
-        "Preferences"
-    ]
-    private (set) var selectedSetting: String = ""
+    private (set) var settings: [AccountSetting] = AccountSetting.allCases
+    private (set) var selectedSetting: AccountSetting?
     private var cancellables = Set<AnyCancellable>()
     
     init(sessionService: SessionServiceProtocol, profileService: ProfileService, presenter: AccountPresentationLogic) {
