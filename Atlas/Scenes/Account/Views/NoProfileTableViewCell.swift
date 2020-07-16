@@ -59,7 +59,6 @@ private extension NoProfileTableViewCell {
     }
     
     func setupButton() {
-        button.setTitle("Get started!", for: .normal)
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5.0
@@ -86,6 +85,7 @@ private extension NoProfileTableViewCell {
 
 extension NoProfileTableViewCell {
     func configure() {
-        mainLabel.text = "You're not signed up"
+        mainLabel.text = NSLocalizedString("noProfile", comment: "missing profile")
+        button.setTitle(NSLocalizedString("getStarted", comment: ""), for: .normal)
     }
 }

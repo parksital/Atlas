@@ -6,4 +6,10 @@
   Copyright © 2020 Parvin Sital. All rights reserved.
 */
 
+"account" = "Account";
 "preferences" = "Voorkeuren";
+"myTickets" = "Mijn kaartjes";
+"saved" = "Bewaard";
+"history" = "Geschiedenis";
+"noProfile" = "U bent niet ingelogd.";
+"getStarted" = "Beginnen!";
