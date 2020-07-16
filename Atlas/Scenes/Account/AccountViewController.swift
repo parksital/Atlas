@@ -104,8 +104,7 @@ private extension AccountViewController {
                 return cell
             case .setting(let setting):
                 let cell: SettingTableViewCell = tableView.getCell(forIndexPath: indexPath)
-                // instead of rawValue, this should be some localizedString
-                cell.configure(title: setting.rawValue)
+                cell.configure(title: setting.localized)
                 return cell
             }
         }
