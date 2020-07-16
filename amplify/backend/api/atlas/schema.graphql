@@ -1,4 +1,4 @@
-type User 
+type User
   @model {
   id: ID!
   firstName: String!
@@ -14,7 +14,7 @@ type Venue
   description: String
 }
 
-type Event 
+type Event
   @model
   @key(name: "ByStartDate", fields: ["type", "start_date"], queryField: "eventsByStartDate") {
   id: ID!

@@ -8,6 +8,8 @@ mutation CreateUser(
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateUser(
@@ -19,6 +21,8 @@ mutation UpdateUser(
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteUser(
@@ -30,6 +34,8 @@ mutation DeleteUser(
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 mutation CreateVenue(
@@ -47,10 +53,14 @@ mutation CreateVenue(
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateVenue(
@@ -68,10 +78,14 @@ mutation UpdateVenue(
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteVenue(
@@ -89,10 +103,14 @@ mutation DeleteVenue(
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 mutation CreateEvent(
@@ -113,13 +131,19 @@ mutation CreateEvent(
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateEvent(
@@ -140,13 +164,19 @@ mutation UpdateEvent(
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteEvent(
@@ -167,13 +197,19 @@ mutation DeleteEvent(
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation CreateBooking(
@@ -193,10 +229,14 @@ mutation CreateBooking(
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -206,7 +246,11 @@ mutation CreateBooking(
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateBooking(
@@ -226,10 +270,14 @@ mutation UpdateBooking(
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -239,7 +287,11 @@ mutation UpdateBooking(
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteBooking(
@@ -259,10 +311,14 @@ mutation DeleteBooking(
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -272,7 +328,11 @@ mutation DeleteBooking(
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 mutation CreateArtist(
@@ -287,9 +347,13 @@ mutation CreateArtist(
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateArtist(
@@ -304,9 +368,13 @@ mutation UpdateArtist(
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteArtist(
@@ -321,8 +389,12 @@ mutation DeleteArtist(
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }

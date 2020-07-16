@@ -5,6 +5,8 @@ query GetUser($id: ID!) {
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 query ListUsers(
@@ -18,6 +20,8 @@ query ListUsers(
       firstName
       familyName
       points
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -34,10 +38,14 @@ query GetVenue($id: ID!) {
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 query ListVenues(
@@ -53,6 +61,8 @@ query ListVenues(
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -72,13 +82,19 @@ query GetEvent($id: ID!) {
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 query ListEvents(
@@ -98,10 +114,14 @@ query ListEvents(
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -115,9 +135,13 @@ query GetArtist($id: ID!) {
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 query ListArtists(
@@ -134,6 +158,8 @@ query ListArtists(
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -165,10 +191,14 @@ query EventsByStartDate(
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     nextToken
   }
