@@ -6,7 +6,10 @@
   Copyright © 2020 Parvin Sital. All rights reserved.
 */
 
+"account" = "Account";
 "preferences" = "Preferences";
 "myTickets" = "My tickets";
 "saved" = "Saved";
 "history" = "History";
+"noProfile" = "You are not signed in.";
+"getStarted" = "Get started!";
