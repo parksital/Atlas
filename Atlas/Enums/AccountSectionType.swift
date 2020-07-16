@@ -36,4 +36,9 @@ enum AccountSetting: String, CaseIterable {
     case saved
     case history
     case preferences
+    
+    
+    var localized: String {
+        NSLocalizedString(self.rawValue, comment: "")
+    }
 }
