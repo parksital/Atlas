@@ -11,7 +11,7 @@ import Foundation
 protocol AccountPresentationLogic {
     func setup(viewController: AccountDisplayLogic)
     func presentUser(_ user: User?)
-    func presentSettings(_ settings: [String])
+    func presentSettings(_ settings: [AccountSetting])
     func goToSignUp()
     func presentSelectedSetting()
 }
@@ -29,8 +29,8 @@ extension AccountPresenter: AccountPresentationLogic {
         viewController?.displayAccount(for: user)
     }
     
-    func presentSettings(_ settings: [String]) {
-        viewController?.displaySettings(settings: settings)
+    func presentSettings(_ settings: [AccountSetting]) {
+        viewController?.displaySettings(settings)
     }
     
     func goToSignUp() {

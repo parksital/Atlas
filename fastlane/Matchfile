@@ -1,5 +1,4 @@
-git_url("https://github.com/parksital/atlas-certificates.git")
-
+git_url("git@github.com:parksital/atlas-certificates.git")
 storage_mode("git")
 
 # type("development") # The default type, can be: appstore, adhoc, enterprise or development

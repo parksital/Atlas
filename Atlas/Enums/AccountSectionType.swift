@@ -16,7 +16,7 @@ enum AccountSectionType: Int, CaseIterable {
 enum AccountItem: Hashable {
     case noProfile
     case profile(User)
-    case setting(String)
+    case setting(AccountSetting)
     
     init(user: User?) {
         guard let profile = user else {
@@ -26,7 +26,19 @@ enum AccountItem: Hashable {
         self = .profile(profile)
     }
     
-    init(setting: String) {
+    init(setting: AccountSetting) {
         self = .setting(setting)
+    }
+}
+
+enum AccountSetting: String, CaseIterable {
+    case myTickets
+    case saved
+    case history
+    case preferences
+    
+    
+    var localized: String {
+        NSLocalizedString(self.rawValue, comment: "")
     }
 }

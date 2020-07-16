@@ -5,6 +5,8 @@ subscription OnCreateUser {
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateUser {
@@ -13,6 +15,8 @@ subscription OnUpdateUser {
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteUser {
@@ -21,6 +25,8 @@ subscription OnDeleteUser {
     firstName
     familyName
     points
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateVenue {
@@ -35,10 +41,14 @@ subscription OnCreateVenue {
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateVenue {
@@ -53,10 +63,14 @@ subscription OnUpdateVenue {
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteVenue {
@@ -71,10 +85,14 @@ subscription OnDeleteVenue {
         start_date
         end_date
         description
+        createdAt
+        updatedAt
       }
       nextToken
     }
     description
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateEvent {
@@ -92,13 +110,19 @@ subscription OnCreateEvent {
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateEvent {
@@ -116,13 +140,19 @@ subscription OnUpdateEvent {
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteEvent {
@@ -140,13 +170,19 @@ subscription OnDeleteEvent {
         nextToken
       }
       description
+      createdAt
+      updatedAt
     }
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateBooking {
@@ -163,10 +199,14 @@ subscription OnCreateBooking {
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -176,7 +216,11 @@ subscription OnCreateBooking {
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateBooking {
@@ -193,10 +237,14 @@ subscription OnUpdateBooking {
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -206,7 +254,11 @@ subscription OnUpdateBooking {
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteBooking {
@@ -223,10 +275,14 @@ subscription OnDeleteBooking {
         id
         name
         description
+        createdAt
+        updatedAt
       }
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
     artist {
       id
@@ -236,7 +292,11 @@ subscription OnDeleteBooking {
       bookings {
         nextToken
       }
+      createdAt
+      updatedAt
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnCreateArtist {
@@ -248,9 +308,13 @@ subscription OnCreateArtist {
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnUpdateArtist {
@@ -262,9 +326,13 @@ subscription OnUpdateArtist {
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }
 subscription OnDeleteArtist {
@@ -276,8 +344,12 @@ subscription OnDeleteArtist {
     bookings {
       items {
         id
+        createdAt
+        updatedAt
       }
       nextToken
     }
+    createdAt
+    updatedAt
   }
 }

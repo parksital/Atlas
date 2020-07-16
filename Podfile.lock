@@ -37,7 +37,8 @@ DEPENDENCIES:
   - SwinjectAutoregistration
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
+    - AloeStackView
     - AppSyncRealTimeClient
     - AWSAppSync
     - AWSAuthCore
@@ -51,8 +52,6 @@ SPEC REPOS:
     - Starscream
     - Swinject
     - SwinjectAutoregistration
-  trunk:
-    - AloeStackView
 
 SPEC CHECKSUMS:
   AloeStackView: 8a4ce0efa08128dd78d538372f60c76c224034bb
@@ -72,4 +71,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: de4644fef623120a5fba232fb840093aa87ad39d
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

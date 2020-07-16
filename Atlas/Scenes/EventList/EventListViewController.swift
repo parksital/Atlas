@@ -24,10 +24,11 @@ final class EventListViewController: UIViewController {
     
     private (set) var viewModel: EventList.ViewModel = .init()
     
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
+    private let refreshControl = UIRefreshControl()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -64,7 +65,8 @@ extension EventListViewController: EventListDisplayLogic {
     
     func displayViewModel(_ viewModel: EventList.ViewModel) {
         self.viewModel = viewModel
-        DispatchQueue.main.async { [tableView] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [tableView] in
+            tableView.refreshControl?.endRefreshing()
             tableView.reloadData()
         }
     }
@@ -95,6 +97,12 @@ private extension EventListViewController {
     func setupTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
+        refreshControl.addTarget(
+            self,
+            action: #selector(self.handleRefresh(_:)),
+            for: .valueChanged
+        )
+        tableView.refreshControl = refreshControl
         tableView.separatorStyle = .none
         setupConstraintsFor(tableView, in: view)
         
@@ -111,6 +119,10 @@ private extension EventListViewController {
         let bottom = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        interactor?.fetchEvents()
     }
 }
 

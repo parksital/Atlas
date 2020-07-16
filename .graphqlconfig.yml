@@ -1,6 +1,6 @@
 projects:
   atlas:
-    schemaPath: amplify/backend/api/atlas/build/schema.graphql
+    schemaPath: graphql/schema.json
     includes:
       - graphql/**/*.graphql
     excludes:
@@ -10,6 +10,3 @@ projects:
         codeGenTarget: swift
         generatedFileName: API.swift
         docsFilePath: graphql
-extensions:
-  amplify:
-    version: 3

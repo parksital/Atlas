@@ -13,7 +13,7 @@ protocol AccountDisplayLogic: class {
     func setup(router: AccountRouterProtocol)
     func showSignUpView()
     func displayAccount(for user: User?)
-    func displaySettings(settings: [String])
+    func displaySettings(_ settings: [AccountSetting])
     func showSelectedSetting()
 }
 
@@ -102,9 +102,9 @@ private extension AccountViewController {
                 let cell: UserProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
                 cell.setup(firstName: user.firstName, lastName: user.familyName)
                 return cell
-            case .setting(let title):
+            case .setting(let setting):
                 let cell: SettingTableViewCell = tableView.getCell(forIndexPath: indexPath)
-                cell.configure(title: title)
+                cell.configure(title: setting.localized)
                 return cell
             }
         }
@@ -155,7 +155,7 @@ extension AccountViewController: AccountDisplayLogic {
         }
     }
     
-    func displaySettings(settings: [String]) {
+    func displaySettings(_ settings: [AccountSetting]) {
         DispatchQueue.main.async { [weak self] in
             self?.appendSnapshot(
                 forSection: .settingsSection,
