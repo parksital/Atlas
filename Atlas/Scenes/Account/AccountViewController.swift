@@ -61,7 +61,7 @@ private extension AccountViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = "Account"
+        navigationItem.title = NSLocalizedString("account", comment: "")
     }
     
     func setupTableView() {
