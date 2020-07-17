@@ -24,6 +24,8 @@ final class EventDetailViewController: UIViewController {
     private var dateTimeLabel = UILabel(styling: .headline)
     private var descriptionLabel = UILabel(styling: .body)
     private var artistHeaderLabel = UILabel.init(styling: .headline)
+    private var buttonView = UIView()
+    private var ticketButton = UIButton(type: .roundedRect)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -49,6 +51,8 @@ private extension EventDetailViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupStackView()
+        setupButtonView()
+        setupTicketButton()
     }
     
     func setupNavigationBar() {
@@ -74,6 +78,33 @@ private extension EventDetailViewController {
         let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func setupButtonView() {
+        buttonView.backgroundColor = .secondarySystemBackground
+        
+        view.addSubview(buttonView)
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let _leading = buttonView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let _trailing = buttonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        let _height = buttonView.heightAnchor.constraint(equalToConstant: 44.0)
+        let _bottom = buttonView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        
+        NSLayoutConstraint.activate([_leading, _trailing, _height, _bottom])
+    }
+    
+    func setupTicketButton() {
+        ticketButton.setTitle(NSLocalizedString("buyTicket", comment: ""), for: .normal)
+        
+        buttonView.addSubview(ticketButton)
+        ticketButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let top = ticketButton.topAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.topAnchor)
+        let bottom = ticketButton.bottomAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.bottomAnchor)
+        let center = ticketButton.centerXAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.centerXAnchor)
+        
+        NSLayoutConstraint.activate([top, bottom, center])
     }
     
     func updateViewsForViewModel(_ viewModel: EventDetail.ViewModel) {
