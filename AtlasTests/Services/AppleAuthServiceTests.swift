@@ -10,43 +10,6 @@ import XCTest
 import AuthenticationServices
 import Combine
 
-protocol AppleAuthServiceProtocol {
-    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
-    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
-}
-
-typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
-final class AppleAuthService: AppleAuthServiceProtocol {
-    private let appleIDProvider: AppleIDProviderProtocol!
-    
-    init(appleIDProvider: AppleIDProviderProtocol) {
-        self.appleIDProvider = appleIDProvider
-    }
-    
-    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
-        Future<AppleIDCredentialState, Error> { [appleIDProvider] promise in
-            guard let id = uid else {
-                promise(.success(.notFound))
-                return
-            }
-            
-            appleIDProvider?.getCredentialState(forUserID: id) { (state, error) in
-                guard error == nil else {
-                    promise(.failure(error!))
-                    return
-                }
-                promise(.success(state))
-            }
-        }
-    }
-    
-    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
-        NotificationCenter.default
-            .publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)
-            .eraseToAnyPublisher()
-    }
-}
-
 class AppleAuthServiceTests: XCTestCase {
     private let validUID = "apple.auth.uid"
     private var sut: AppleAuthServiceProtocol!

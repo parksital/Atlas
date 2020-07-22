@@ -32,6 +32,10 @@
 		A0217E2A24C882250081056C /* MockAppleIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E2924C882250081056C /* MockAppleIDProvider.swift */; };
 		A0217E2E24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */; };
 		A0217E2F24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */; };
+		A0217E3124C886490081056C /* AppleAuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */; };
+		A0217E3224C886490081056C /* AppleAuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */; };
+		A0217E3424C886960081056C /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3324C886960081056C /* AppleAuthService.swift */; };
+		A0217E3524C886960081056C /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3324C886960081056C /* AppleAuthService.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
@@ -191,6 +195,8 @@
 		A0217E2724C870170081056C /* AppleAuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceTests.swift; sourceTree = "<group>"; };
 		A0217E2924C882250081056C /* MockAppleIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppleIDProvider.swift; sourceTree = "<group>"; };
 		A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIDProviderProtocol.swift; sourceTree = "<group>"; };
+		A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceProtocol.swift; sourceTree = "<group>"; };
+		A0217E3324C886960081056C /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0294F3524BF434A00380171 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -364,6 +370,7 @@
 				A030AEA9242CE30300BFCFC5 /* Fetchable.swift */,
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
 				A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */,
+				A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -600,6 +607,7 @@
 			children = (
 				A0DBC4882401CC86002419C6 /* EventService.swift */,
 				A0F6FECF247591FF00302B70 /* ProfileService.swift */,
+				A0217E3324C886960081056C /* AppleAuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -871,6 +879,7 @@
 				A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */,
 				A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */,
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
+				A0217E3424C886960081056C /* AppleAuthService.swift in Sources */,
 				A00BED5424A01363002B538D /* SettingTableViewCell.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
 				A0C1C8D524B63B540082B492 /* PreferencesPresenter.swift in Sources */,
@@ -893,6 +902,7 @@
 				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
 				A00BED5A24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
+				A0217E3124C886490081056C /* AppleAuthServiceProtocol.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
 				A041ED3D2419718800DB772F /* EventDetailViewController.swift in Sources */,
@@ -934,6 +944,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0217E3224C886490081056C /* AppleAuthServiceProtocol.swift in Sources */,
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
 				A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */,
@@ -963,6 +974,7 @@
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C1C8D324B63AEA0082B492 /* PreferencesInteractor.swift in Sources */,
 				A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */,
+				A0217E3524C886960081056C /* AppleAuthService.swift in Sources */,
 				A03A02FB2464168700C5B7E9 /* AccountInteractor.swift in Sources */,
 				A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */,
 				A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */,
