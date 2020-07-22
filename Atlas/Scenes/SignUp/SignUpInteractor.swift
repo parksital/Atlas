@@ -21,12 +21,10 @@ protocol SignUpDataStore {
 
 typealias SignUpInteraction = SignUpLogic & SignUpDataStore
 final class SignUpInteractor: SignUpDataStore {
-    private let authService: AuthService!
     private let presenter: SignUpPresentationLogic!
     private var cancellables: Set<AnyCancellable> = .init()
     
-    init(authService: AuthService, presenter: SignUpPresentationLogic) {
-        self.authService = authService
+    init(presenter: SignUpPresentationLogic) {
         self.presenter = presenter
     }
     
@@ -39,12 +37,12 @@ extension SignUpInteractor: SignUpLogic {
     }
     
     func signUpWithAppleID(authData: AppleAuthData) {
-        authService.initiateSignIn(with: authData)
-            .sink(receiveCompletion: { _ in },
-                receiveValue: { [presenter] _ in
-                    presenter?.presentSuccessfulSignUp()
-            })
-            .store(in: &cancellables)
+//        authService.initiateSignIn(with: authData)
+//            .sink(receiveCompletion: { _ in },
+//                receiveValue: { [presenter] _ in
+//                    presenter?.presentSuccessfulSignUp()
+//            })
+//            .store(in: &cancellables)
         
         presenter.presentLoadingIndicator()
     }

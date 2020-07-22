@@ -23,14 +23,12 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
-    private let sessionService: SessionServiceProtocol!
     private let profileService: ProfileService!
     private (set) var settings: [AccountSetting] = AccountSetting.allCases
     private (set) var selectedSetting: AccountSetting?
     private var cancellables = Set<AnyCancellable>()
     
-    init(sessionService: SessionServiceProtocol, profileService: ProfileService, presenter: AccountPresentationLogic) {
-        self.sessionService = sessionService
+    init(profileService: ProfileService, presenter: AccountPresentationLogic) {
         self.profileService = profileService
         self.presenter = presenter
     }
@@ -40,26 +38,10 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
-        sessionService.observe()
-            .map({ $0 == .signedIn })
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] signedIn in
-                    if signedIn {
-                        self?.getUser()
-                    } else {
-                        self?.presenter.presentUser(nil)
-                    }
-            })
-            .store(in: &cancellables)
     }
     
     func getUser() {
-        sessionService.cognitoSUB
-            .filter({ !$0.isEmpty })
-            .flatMap(profileService.getUserByID(id:))
-            .sink(receiveCompletion: { _ in  },
-                  receiveValue: presenter.presentUser(_:))
-            .store(in: &cancellables)
+    
     }
     
     func presentSettings() {
