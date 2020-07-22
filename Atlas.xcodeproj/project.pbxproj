@@ -28,6 +28,7 @@
 		A016B871242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B872242FAECE00D4057B /* AWSAppSyncClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */; };
 		A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
+		A0217E2824C870170081056C /* AppleAuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E2724C870170081056C /* AppleAuthServiceTests.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
@@ -184,6 +185,7 @@
 		A00C655F2423AE2B00D12C8D /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSAppSyncClientProtocol.swift; sourceTree = "<group>"; };
 		A016B873242FB6F300D4057B /* AWSContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSContainer.swift; sourceTree = "<group>"; };
+		A0217E2724C870170081056C /* AppleAuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceTests.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0294F3524BF434A00380171 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		A023E1CC24ACC416001A5BAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A0217E2724C870170081056C /* AppleAuthServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -969,6 +972,7 @@
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
 				A0297D17241A90280089F38C /* API.swift in Sources */,
 				A00BED5224A0133E002B538D /* UserProfileTableViewCell.swift in Sources */,
+				A0217E2824C870170081056C /* AppleAuthServiceTests.swift in Sources */,
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A0297D1E241A90470089F38C /* EventDetailPresenter.swift in Sources */,
