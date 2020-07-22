@@ -35,3 +35,17 @@ extension AppleAuthData: AuthAttributes {
         ]
     }
 }
+
+extension AppleAuthData {
+    static func fixture() -> AppleAuthData {
+        let formatter = PersonNameComponentsFormatter()
+        let components = formatter.personNameComponents(from: "David Jefferson")!
+        
+        return AppleAuthData(
+            uid: UUID().uuidString,
+            email: "user.appleid@domain.com",
+            fullName: components,
+            token: UUID().uuidString
+        )
+    }
+}

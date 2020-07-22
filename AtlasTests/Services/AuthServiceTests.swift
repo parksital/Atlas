@@ -15,44 +15,42 @@ enum AuthStatus {
     case signedIn
 }
 
-enum SignInError: Error {
+enum AuthError: Error {
+    case generic
+    case existingEmail
     case userNotFound
 }
 
-enum SignUpError: Error {
-    case generic
-    case existingEmail
-}
-
-extension SignUpError: Equatable { }
+extension AuthError: Equatable { }
 
 protocol AuthClientProtocol {
     func signUp(
         email: String,
         password: String,
         attributes: [String: String]
-    ) -> Future<AuthStatus, SignUpError>
+    ) -> Future<AuthStatus, AuthError>
     
     func signIn(
         email: String,
         password: String
-    ) -> Future<AuthStatus, SignInError>
+    ) -> Future<AuthStatus, AuthError>
 }
 
 class MockAuthClient: AuthClientProtocol {
-    private let existingUsers = ["existing.user@domain.com"]
+    private var existingUsers: [String] = []
     
     func signUp(
         email: String,
         password: String,
         attributes: [String: String]
-    ) -> Future<AuthStatus, SignUpError> {
-        return Future<AuthStatus, SignUpError> { [unowned self] promise in
+    ) -> Future<AuthStatus, AuthError> {
+        return Future<AuthStatus, AuthError> { [unowned self] promise in
             guard !self.existingUsers.contains(email) else {
                 promise(.failure(.existingEmail))
                 return
             }
             
+            self.existingUsers.append(email)
             promise(.success(.signedUp))
         }
     }
@@ -60,8 +58,8 @@ class MockAuthClient: AuthClientProtocol {
     func signIn(
         email: String,
         password: String
-    ) -> Future<AuthStatus, SignInError> {
-        return Future<AuthStatus, SignInError> { [unowned self] promise in
+    ) -> Future<AuthStatus, AuthError> {
+        return Future<AuthStatus, AuthError> { [unowned self] promise in
             guard self.existingUsers.contains(email) else {
                 promise(.failure(.userNotFound))
                 return
@@ -73,16 +71,18 @@ class MockAuthClient: AuthClientProtocol {
 }
 
 protocol AuthServiceProtocol {
+    func signInWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError>
+    
     func signUp(
         email: String,
         password: String,
         attributes: [String: String]
-    ) -> Future<AuthStatus, SignUpError>
+    ) -> Future<AuthStatus, AuthError>
     
     func signIn(
         email: String,
         password: String
-    ) -> Future<AuthStatus, SignInError>
+    ) -> Future<AuthStatus, AuthError>
 }
 
 final class AuthService: AuthServiceProtocol {
@@ -96,7 +96,7 @@ final class AuthService: AuthServiceProtocol {
         email: String,
         password: String,
         attributes: [String: String]
-    ) -> Future<AuthStatus, SignUpError> {
+    ) -> Future<AuthStatus, AuthError> {
         
         authClient.signUp(email: email, password: password, attributes: attributes)
     }
@@ -104,8 +104,17 @@ final class AuthService: AuthServiceProtocol {
     func signIn(
         email: String,
         password: String
-    ) -> Future<AuthStatus, SignInError> {
+    ) -> Future<AuthStatus, AuthError> {
         authClient.signIn(email: email, password: password)
+    }
+    
+    func signInWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+        let password = "password"
+        return signUp(email: authData.email, password: password, attributes: authData.attributes)
+            .flatMap({ [unowned self] _ in
+                self.signIn(email: authData.email, password: password)
+            })
+            .eraseToAnyPublisher()
     }
 }
 
@@ -123,12 +132,14 @@ class AuthServiceTests: XCTestCase {
     }
     
     func testSignUp_emailAlreadyExists_failure() {
+        _ = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
+        
         let f = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
         XCTAssertEqual(spy.values, [])
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, SignUpError.existingEmail)
+        XCTAssertEqual(spy.error, AuthError.existingEmail)
     }
     
     func testSignUp_success() {
@@ -145,11 +156,22 @@ class AuthServiceTests: XCTestCase {
         
         XCTAssertEqual(spy.values, [])
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, SignInError.userNotFound)
+        XCTAssertEqual(spy.error, AuthError.userNotFound)
     }
     
     func testSignIn_success() {
+        _ = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
+        
         let f = sut.signIn(email: "existing.user@domain.com", password: "password")
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        XCTAssertNil(spy.error)
+        XCTAssertEqual(spy.values, [.signedIn])
+    }
+    
+    func testSignInWithApple_success() {
+        let authData = AppleAuthData.fixture()
+        let f = sut.signInWithApple(authData)
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
         XCTAssertNil(spy.error)
