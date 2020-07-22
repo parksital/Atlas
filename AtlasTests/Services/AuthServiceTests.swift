@@ -124,7 +124,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func signUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
-        let password = "password" // generated password
+        let password = generatePassword()
         
         return signUp(email: authData.email, password: password, attributes: authData.attributes)
             .flatMap({ [unowned self] _ in
@@ -137,6 +137,15 @@ final class AuthService: AuthServiceProtocol {
                 }
             })
             .eraseToAnyPublisher()
+    }
+    
+    private func generatePassword() -> String {
+        return PasswordGenerator.shared.generatePassword(
+            includeNumbers: true,
+            includePunctuation: true,
+            includeSymbols: false,
+            length: 10
+        )
     }
 }
 
@@ -228,7 +237,6 @@ class AuthServiceTests: XCTestCase {
         let result = keychain.getValue(forKey: "password")
         XCTAssertEqual(spy.values, [.signedIn])
         XCTAssertNotNil(result)
-        XCTAssertEqual(result, "password")
     }
     
     func testSignIn_afterAppleAuthRevocation_failure() {
