@@ -72,7 +72,7 @@ class MockAuthClient: AuthClientProtocol {
 }
 
 protocol AuthServiceProtocol {
-    func signInWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError>
+    func initiateSignUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError>
     
     func signUp(
         email: String,
@@ -111,24 +111,29 @@ final class AuthService: AuthServiceProtocol {
         authClient.signIn(email: email, password: password)
     }
     
-    func signInWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
-        let password = "password" // generate password
-        
+    func initiateSignUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
         guard let uid = keychain.getValue(forKey: "uid"),
+            let password = keychain.getValue(forKey: "password"),
             uid == authData.uid else {
-                return signUp(email: authData.email, password: password, attributes: authData.attributes)
-                    .flatMap({ [unowned self] _ in
-                        self.signIn(email: authData.email, password: password)
-                    })
-                    .handleEvents(receiveOutput: { [keychain] status in
-                        if status == .signedIn {
-                            keychain?.setValue(authData.uid, forKey: "uid")
-                        }
-                    })
-                    .eraseToAnyPublisher()
+                return signUpWithApple(authData)
         }
         
         return signIn(email: authData.email, password: password)
+            .eraseToAnyPublisher()
+    }
+    
+    func signUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+        let password = "password" // generate password
+        
+        return signUp(email: authData.email, password: password, attributes: authData.attributes)
+            .flatMap({ [unowned self] _ in
+                self.signIn(email: authData.email, password: password)
+            })
+            .handleEvents(receiveOutput: { [keychain] status in
+                if status == .signedIn {
+                    keychain?.setValue(authData.uid, forKey: "uid")
+                }
+            })
             .eraseToAnyPublisher()
     }
 }
@@ -189,7 +194,7 @@ class AuthServiceTests: XCTestCase {
     func testSignIn_afterAppleAuth_success() {
         sut = makeSUT()
         let authData = AppleAuthData.fixture()
-        let f = sut.signInWithApple(authData)
+        let f = sut.initiateSignUpWithApple(authData)
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
         XCTAssertNil(spy.error)
@@ -201,19 +206,19 @@ class AuthServiceTests: XCTestCase {
         _ = sut.signUp(email: "user.appleid@domain.com", password: "password", attributes: [:])
         
         let authData = AppleAuthData.fixture()
-        let f = sut.signInWithApple(authData)
+        let f = sut.initiateSignUpWithApple(authData)
         
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         XCTAssertNotNil(spy.error)
         XCTAssertEqual(spy.error, AuthError.existingEmail)
     }
     
-    func testSavingUID_afterSignInWithApple() {
+    func testSavingUID_afterSignUpWithApple() {
         let keychain = MockKeychain()
         sut = makeSUT(keychain: keychain)
         
         let authData = AppleAuthData.fixture()
-        let f = sut.signInWithApple(authData)
+        let f = sut.initiateSignUpWithApple(authData)
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
         let result = keychain.getValue(forKey: "uid")
