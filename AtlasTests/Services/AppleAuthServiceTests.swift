@@ -8,17 +8,18 @@
 
 import XCTest
 import AuthenticationServices
+import Combine
 
 protocol AppleIDProviderProtocol {
     func getCredentialState(
         forUserID: String,
-        completion: (ASAuthorizationAppleIDProvider.CredentialState, Error?) -> Void
+        completion: (AppleIDCredentialState, Error?) -> Void
     )
 }
 
 struct MockAppleIDProvider: AppleIDProviderProtocol {
     private let validUID = "apple.auth.uid"
-    func getCredentialState(forUserID: String, completion: (ASAuthorizationAppleIDProvider.CredentialState, Error?) -> Void) {
+    func getCredentialState(forUserID: String, completion: (AppleIDCredentialState, Error?) -> Void) {
         guard forUserID == validUID else {
             completion(.notFound, nil)
             return
@@ -32,10 +33,13 @@ struct MockAppleIDProvider: AppleIDProviderProtocol {
 protocol AppleAuthServiceProtocol {
     func checkAppleIDCredentials(
         forUID uid: String?,
-        completion: @escaping (ASAuthorizationAppleIDProvider.CredentialState, Error?) -> Void
+        completion: @escaping (AppleIDCredentialState, Error?) -> Void
     )
+    
+//    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
 }
 
+typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
 final class AppleAuthService: AppleAuthServiceProtocol {
     private let appleIDProvider: AppleIDProviderProtocol!
     
@@ -43,7 +47,7 @@ final class AppleAuthService: AppleAuthServiceProtocol {
         self.appleIDProvider = appleIDProvider
     }
     
-    func checkAppleIDCredentials(forUID uid: String?, completion: @escaping (ASAuthorizationAppleIDProvider.CredentialState, Error?) -> Void) {
+    func checkAppleIDCredentials(forUID uid: String?, completion: @escaping (AppleIDCredentialState, Error?) -> Void) {
         
         guard let id = uid else {
             completion(.notFound, nil)
