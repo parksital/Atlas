@@ -31,12 +31,8 @@ struct MockAppleIDProvider: AppleIDProviderProtocol {
 
 
 protocol AppleAuthServiceProtocol {
-    func checkAppleIDCredentials(
-        forUID uid: String?,
-        completion: @escaping (AppleIDCredentialState, Error?) -> Void
-    )
-    
-//    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
+    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
 }
 
 typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
@@ -47,18 +43,27 @@ final class AppleAuthService: AppleAuthServiceProtocol {
         self.appleIDProvider = appleIDProvider
     }
     
-    func checkAppleIDCredentials(forUID uid: String?, completion: @escaping (AppleIDCredentialState, Error?) -> Void) {
-        
-        guard let id = uid else {
-            completion(.notFound, nil)
-            return
+    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
+        Future<AppleIDCredentialState, Error> { [appleIDProvider] promise in
+            guard let id = uid else {
+                promise(.success(.notFound))
+                return
+            }
+            
+            appleIDProvider?.getCredentialState(forUserID: id) { (state, error) in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                promise(.success(state))
+            }
         }
-        
-        appleIDProvider
-            .getCredentialState(forUserID: id) { (state, error) in
-                guard error == nil else { return }
-                completion(state, nil)
-        }
+    }
+    
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never> {
+        NotificationCenter.default
+            .publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)
+            .eraseToAnyPublisher()
     }
 }
 
@@ -81,23 +86,47 @@ class AppleAuthServiceTests: XCTestCase {
     }
     
     func testAppleIDCredentials_forNilUID_notFound() {
-        sut.checkAppleIDCredentials(forUID: nil) { state, error in
-                let result = state
-                XCTAssertEqual(result, .notFound)
-        }
+        let f = sut.checkAppleIDCredentials(forUID: nil)
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        XCTAssertEqual(spy.values, [.notFound])
     }
     
     func testAppleIDCredentials_validUID_authorized() {
-        sut.checkAppleIDCredentials(forUID: validUID) { state, error in
-            let result = state
-            XCTAssertEqual(result, .authorized)
-        }
+        let f = sut.checkAppleIDCredentials(forUID: validUID)
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        XCTAssertEqual(spy.values, [.authorized])
     }
     
     func testAppleIDCredentials_invalidUID_notFound() {
-        sut.checkAppleIDCredentials(forUID: "apple.invalid.uid") { state, error in
-            let result = state
-            XCTAssertEqual(result, .notFound)
+        let f = sut.checkAppleIDCredentials(forUID: "apple.invalid.uid")
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        XCTAssertEqual(spy.values, [.notFound])
+    }
+}
+
+private extension AppleAuthServiceTests {
+    // MARK: - Helpers
+    final class StateSpy<T> {
+        private (set) var values: [T] = []
+        private (set) var error: Error?
+        private var cancellables = Set<AnyCancellable>()
+        
+        init(publisher: AnyPublisher<T, Error>) {
+            publisher
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        switch completion {
+                        case .failure(let error): self?.error = error
+                        case .finished: break
+                        }
+                    },
+                    receiveValue: { [weak self] value in
+                        self?.values.append(value)
+                    }
+            ).store(in: &cancellables)
         }
     }
 }
