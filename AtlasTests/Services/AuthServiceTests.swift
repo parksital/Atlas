@@ -18,7 +18,7 @@ enum AuthStatus {
 enum AuthError: Error {
     case generic
     case existingEmail
-    case userNotFound
+    case emailNotFound
     case uidNotFound
 }
 
@@ -62,7 +62,7 @@ class MockAuthClient: AuthClientProtocol {
     ) -> Future<AuthStatus, AuthError> {
         return Future<AuthStatus, AuthError> { [unowned self] promise in
             guard self.existingUsers.contains(email) else {
-                promise(.failure(.userNotFound))
+                promise(.failure(.emailNotFound))
                 return
             }
             
@@ -123,7 +123,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func signUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
-        let password = "password" // generate password
+        let password = "password" // generated password
         
         return signUp(email: authData.email, password: password, attributes: authData.attributes)
             .flatMap({ [unowned self] _ in
@@ -132,6 +132,7 @@ final class AuthService: AuthServiceProtocol {
             .handleEvents(receiveOutput: { [keychain] status in
                 if status == .signedIn {
                     keychain?.setValue(authData.uid, forKey: "uid")
+                    keychain?.setValue(password, forKey: "password")
                 }
             })
             .eraseToAnyPublisher()
@@ -177,7 +178,7 @@ class AuthServiceTests: XCTestCase {
         
         XCTAssertEqual(spy.values, [])
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, AuthError.userNotFound)
+        XCTAssertEqual(spy.error, AuthError.emailNotFound)
     }
     
     func testSignIn_success() {
@@ -225,6 +226,20 @@ class AuthServiceTests: XCTestCase {
         XCTAssertEqual(spy.values, [.signedIn])
         XCTAssertNotNil(result)
         XCTAssertEqual(result, "user.appleid.uid")
+    }
+    
+    func testSavingPassword_afterSignUpWithApple() {
+        let keychain = MockKeychain()
+        sut = makeSUT(keychain: keychain)
+        
+        let authData = AppleAuthData.fixture()
+        let f = sut.initiateSignUpWithApple(authData)
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        let result = keychain.getValue(forKey: "password")
+        XCTAssertEqual(spy.values, [.signedIn])
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, "password")
     }
 }
 
