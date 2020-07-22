@@ -36,6 +36,7 @@
 		A0217E3224C886490081056C /* AppleAuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */; };
 		A0217E3424C886960081056C /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3324C886960081056C /* AppleAuthService.swift */; };
 		A0217E3524C886960081056C /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3324C886960081056C /* AppleAuthService.swift */; };
+		A0217E3724C889CC0081056C /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E3624C889CC0081056C /* AuthServiceTests.swift */; };
 		A0255BDE24250290001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BDF242502A2001E117D /* Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BDD24250290001E117D /* Styling.swift */; };
 		A0255BE6242506CA001E117D /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0255BE5242506CA001E117D /* UILabel+.swift */; };
@@ -197,6 +198,7 @@
 		A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIDProviderProtocol.swift; sourceTree = "<group>"; };
 		A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthServiceProtocol.swift; sourceTree = "<group>"; };
 		A0217E3324C886960081056C /* AppleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
+		A0217E3624C889CC0081056C /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A0255BDD24250290001E117D /* Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styling.swift; sourceTree = "<group>"; };
 		A0255BE5242506CA001E117D /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		A0294F3524BF434A00380171 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				A0217E2724C870170081056C /* AppleAuthServiceTests.swift */,
+				A0217E3624C889CC0081056C /* AuthServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
+				A0217E3724C889CC0081056C /* AuthServiceTests.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
