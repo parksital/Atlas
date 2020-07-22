@@ -35,9 +35,8 @@ protocol AuthClientProtocol {
     
     func signIn(
         email: String,
-        password: String,
-        completion: @escaping (Result<AuthStatus, SignInError>) -> Void
-    )
+        password: String
+    ) -> Future<AuthStatus, SignInError>
 }
 
 class MockAuthClient: AuthClientProtocol {
@@ -58,13 +57,18 @@ class MockAuthClient: AuthClientProtocol {
         }
     }
     
-    func signIn(email: String, password: String, completion: @escaping (Result<AuthStatus, SignInError>) -> Void) {
-        guard existingUsers.contains(email) else {
-            completion(.failure(.userNotFound))
-            return
+    func signIn(
+        email: String,
+        password: String
+    ) -> Future<AuthStatus, SignInError> {
+        return Future<AuthStatus, SignInError> { [unowned self] promise in
+            guard self.existingUsers.contains(email) else {
+                promise(.failure(.userNotFound))
+                return
+            }
+            
+            promise(.success(.signedIn))
         }
-        
-        completion(.success(.signedIn))
     }
 }
 
@@ -77,9 +81,8 @@ protocol AuthServiceProtocol {
     
     func signIn(
         email: String,
-        password: String,
-        completion: @escaping (Result<AuthStatus, SignInError>) -> Void
-    )
+        password: String
+    ) -> Future<AuthStatus, SignInError>
 }
 
 final class AuthService: AuthServiceProtocol {
@@ -100,14 +103,9 @@ final class AuthService: AuthServiceProtocol {
     
     func signIn(
         email: String,
-        password: String,
-        completion: @escaping (Result<AuthStatus, SignInError>) -> Void
-    ) {
-        authClient.signIn(
-            email: email,
-            password: password,
-            completion: completion
-        )
+        password: String
+    ) -> Future<AuthStatus, SignInError> {
+        authClient.signIn(email: email, password: password)
     }
 }
 
@@ -137,61 +135,24 @@ class AuthServiceTests: XCTestCase {
         let f = sut.signUp(email: "new.user@domain.com", password: "password", attributes: [:])
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
+        XCTAssertNil(spy.error)
         XCTAssertEqual(spy.values, [.signedUp])
     }
     
     func testSignIn_UserDoesNotExists_failure() {
-        let promise = expectation(description: "non existing user failure")
+        let f = sut.signIn(email: "new.user@domain.com", password: "password")
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
-        sut.signIn(email: "new.user@domain.com", password: "password") { result in
-            switch result {
-            case .failure(let error):
-                XCTAssertEqual(error, SignInError.userNotFound)
-                promise.fulfill()
-            default:
-                XCTFail()
-            }
-        }
-        
-        wait(for: [promise], timeout: 1.0)
+        XCTAssertEqual(spy.values, [])
+        XCTAssertNotNil(spy.error)
+        XCTAssertEqual(spy.error, SignInError.userNotFound)
     }
     
     func testSignIn_success() {
-        let promise = expectation(description: "successful sign in")
+        let f = sut.signIn(email: "existing.user@domain.com", password: "password")
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
-        sut.signIn(email: "existing.user@domain.com", password: "password") { result in
-            switch result {
-            case .failure(_):
-                XCTFail()
-            case .success(let status):
-                XCTAssertEqual(status, .signedIn)
-                promise.fulfill()
-            }
-        }
-        
-        wait(for: [promise], timeout: 1.0)
-    }
-    
-    func testSignUp_withAttributes() {
-//        let promise = expectation(description: "sign up success with attributes")
-//        let attributes = [
-//            "family_name": "Davis",
-//            "given_name": "Jefferson"
-//        ]
-//        sut.signUp(
-//            email: "new.user@domain.com",
-//            password: "password",
-//            attributes: attributes,
-//            completion: { result in
-//                switch result {
-//                case .failure(_):
-//                    XCTFail()
-//                case .success(let value):
-//                    XCTAssertEqual(value, .signedUp)
-//                    promise.fulfill()
-//                }
-//        })
-//
-//        wait(for: [promise], timeout: 1.0)
+        XCTAssertNil(spy.error)
+        XCTAssertEqual(spy.values, [.signedIn])
     }
 }
