@@ -19,6 +19,7 @@ enum AuthError: Error {
     case generic
     case existingEmail
     case userNotFound
+    case uidNotFound
 }
 
 extension AuthError: Equatable { }
@@ -87,9 +88,11 @@ protocol AuthServiceProtocol {
 
 final class AuthService: AuthServiceProtocol {
     private let authClient: AuthClientProtocol!
+    private let keychain: KeychainManagerProtocol!
     
-    init(authClient: AuthClientProtocol) {
+    init(authClient: AuthClientProtocol, keychain: KeychainManagerProtocol) {
         self.authClient = authClient
+        self.keychain = keychain
     }
     
     func signUp(
@@ -109,11 +112,23 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func signInWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
-        let password = "password"
-        return signUp(email: authData.email, password: password, attributes: authData.attributes)
-            .flatMap({ [unowned self] _ in
-                self.signIn(email: authData.email, password: password)
-            })
+        let password = "password" // generate password
+        
+        guard let uid = keychain.getValue(forKey: "uid"),
+            uid == authData.uid else {
+                return signUp(email: authData.email, password: password, attributes: authData.attributes)
+                    .flatMap({ [unowned self] _ in
+                        self.signIn(email: authData.email, password: password)
+                    })
+                    .handleEvents(receiveOutput: { [keychain] status in
+                        if status == .signedIn {
+                            keychain?.setValue(authData.uid, forKey: "uid")
+                        }
+                    })
+                    .eraseToAnyPublisher()
+        }
+        
+        return signIn(email: authData.email, password: password)
             .eraseToAnyPublisher()
     }
 }
@@ -123,15 +138,14 @@ class AuthServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        sut = AuthService(authClient: MockAuthClient())
     }
     
     override func tearDown() {
-        sut = nil
         super.tearDown()
     }
     
     func testSignUp_emailAlreadyExists_failure() {
+        sut = makeSUT()
         _ = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
         
         let f = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
@@ -143,6 +157,7 @@ class AuthServiceTests: XCTestCase {
     }
     
     func testSignUp_success() {
+        sut = makeSUT()
         let f = sut.signUp(email: "new.user@domain.com", password: "password", attributes: [:])
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
@@ -151,6 +166,7 @@ class AuthServiceTests: XCTestCase {
     }
     
     func testSignIn_UserDoesNotExists_failure() {
+        sut = makeSUT()
         let f = sut.signIn(email: "new.user@domain.com", password: "password")
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         
@@ -160,6 +176,7 @@ class AuthServiceTests: XCTestCase {
     }
     
     func testSignIn_success() {
+        sut = makeSUT()
         _ = sut.signUp(email: "existing.user@domain.com", password: "password", attributes: [:])
         
         let f = sut.signIn(email: "existing.user@domain.com", password: "password")
@@ -169,7 +186,8 @@ class AuthServiceTests: XCTestCase {
         XCTAssertEqual(spy.values, [.signedIn])
     }
     
-    func testSignInWithApple_success() {
+    func testSignIn_afterAppleAuth_success() {
+        sut = makeSUT()
         let authData = AppleAuthData.fixture()
         let f = sut.signInWithApple(authData)
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
@@ -177,4 +195,58 @@ class AuthServiceTests: XCTestCase {
         XCTAssertNil(spy.error)
         XCTAssertEqual(spy.values, [.signedIn])
     }
+    
+    func testSignIn_afterAppleAuthRevocation_failure() {
+        sut = makeSUT()
+        _ = sut.signUp(email: "user.appleid@domain.com", password: "password", attributes: [:])
+        
+        let authData = AppleAuthData.fixture()
+        let f = sut.signInWithApple(authData)
+        
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        XCTAssertNotNil(spy.error)
+        XCTAssertEqual(spy.error, AuthError.existingEmail)
+    }
+    
+    func testSavingUID_afterSignInWithApple() {
+        let keychain = MockKeychain()
+        sut = makeSUT(keychain: keychain)
+        
+        let authData = AppleAuthData.fixture()
+        let f = sut.signInWithApple(authData)
+        let spy = StateSpy(publisher: f.eraseToAnyPublisher())
+        
+        let result = keychain.getValue(forKey: "uid")
+        XCTAssertEqual(spy.values, [.signedIn])
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, "user.appleid.uid")
+    }
 }
+
+//MARK: - Helpers
+private extension AuthServiceTests {
+    func makeSUT(
+        authClient: AuthClientProtocol = MockAuthClient(),
+        keychain: KeychainManagerProtocol = MockKeychain()
+    ) -> AuthService {
+        AuthService(
+            authClient: authClient,
+            keychain: keychain
+        )
+    }
+}
+
+private extension AppleAuthData {
+    static func fixture() -> AppleAuthData {
+        let formatter = PersonNameComponentsFormatter()
+        let components = formatter.personNameComponents(from: "David Jefferson")!
+        
+        return AppleAuthData(
+            uid: "user.appleid.uid",
+            email: "user.appleid@domain.com",
+            fullName: components,
+            token: UUID().uuidString
+        )
+    }
+}
+
