@@ -52,12 +52,12 @@ class AppleAuthServiceTests: XCTestCase {
 
 extension XCTestCase {
     // MARK: - Helpers
-    final class StateSpy<T> {
+    final class StateSpy<T, E: Error> {
         private (set) var values: [T] = []
-        private (set) var error: Error?
+        private (set) var error: E?
         private var cancellables = Set<AnyCancellable>()
         
-        init(publisher: AnyPublisher<T, Error>) {
+        init(publisher: AnyPublisher<T, E>) {
             publisher
                 .sink(
                     receiveCompletion: { [weak self] completion in
