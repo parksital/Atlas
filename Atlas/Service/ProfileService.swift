@@ -26,12 +26,11 @@ private extension ProfileService {
 }
 
 extension ProfileService {
-    func getUserByID(id: String) -> AnyPublisher<User, AuthError> {
+    func getUserByID(id: String) -> AnyPublisher<User, Error> {
         let f: Future<GetUser, Error> = client.fetch(query: Account.Request(id: id), cachePolicy: .returnCacheDataAndFetch)
         
         return f
             .map({ $0.user })
-            .mapError(AuthError.init(error:))
             .eraseToAnyPublisher()
     }
 }
