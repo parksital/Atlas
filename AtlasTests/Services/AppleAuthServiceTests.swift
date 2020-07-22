@@ -50,7 +50,7 @@ class AppleAuthServiceTests: XCTestCase {
     }
 }
 
-private extension XCTestCase {
+extension XCTestCase {
     // MARK: - Helpers
     final class StateSpy<T> {
         private (set) var values: [T] = []

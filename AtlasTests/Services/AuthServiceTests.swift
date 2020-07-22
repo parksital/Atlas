@@ -8,6 +8,11 @@
 
 import XCTest
 import AWSMobileClient
+import Combine
+
+enum SignInError: Error {
+    case userNotFound
+}
 
 enum SignUpError: Error {
     case generic
@@ -18,6 +23,7 @@ extension SignUpError: Equatable { }
 
 protocol AuthClientProtocol {
     func signUp(email: String, password: String, completion: @escaping (Result<String, SignUpError>) -> Void)
+    func signIn(email: String, password: String, completion: @escaping (Result<String, SignInError>) -> Void)
 }
 
 struct MockAuthClient: AuthClientProtocol {
@@ -31,10 +37,18 @@ struct MockAuthClient: AuthClientProtocol {
         
         completion(.success(email))
     }
+    
+    func signIn(email: String, password: String, completion: @escaping (Result<String, SignInError>) -> Void) {
+        guard existingUsers.contains(email) else {
+            completion(.failure(.userNotFound))
+            return
+        }
+    }
 }
 
 protocol AuthServiceProtocol {
     func signUp(email: String, password: String, completion: @escaping (Result<String, SignUpError>) -> Void)
+    func signIn(email: String, password: String, completion: @escaping (Result<String, SignInError>) -> Void)
 }
 
 final class AuthService: AuthServiceProtocol {
@@ -51,6 +65,10 @@ final class AuthService: AuthServiceProtocol {
         }
         
         authClient.signUp(email: email, password: password, completion: completion)
+    }
+    
+    func signIn(email: String, password: String, completion: @escaping (Result<String, SignInError>) -> Void) {
+        authClient.signIn(email: email, password: password, completion: completion)
     }
 }
 
@@ -111,6 +129,22 @@ class AuthServiceTests: XCTestCase {
                 promise.fulfill()
             }
         })
+        
+        wait(for: [promise], timeout: 1.0)
+    }
+    
+    func testSignIn_UserDoesNotExists_failure() {
+        let promise = expectation(description: "non existing user failure")
+        
+        sut.signIn(email: "new.user@domain.com", password: "password") { result in
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error, SignInError.userNotFound)
+                promise.fulfill()
+            default:
+                XCTFail()
+            }
+        }
         
         wait(for: [promise], timeout: 1.0)
     }
