@@ -151,18 +151,3 @@ private extension AuthServiceTests {
         )
     }
 }
-
-extension AppleAuthData {
-    static func fixture() -> AppleAuthData {
-        let formatter = PersonNameComponentsFormatter()
-        let components = formatter.personNameComponents(from: "David Jefferson")!
-        
-        return AppleAuthData(
-            uid: "david.appleid.uid",
-            email: "david.appleid@domain.com",
-            fullName: components,
-            token: UUID().uuidString
-        )
-    }
-}
-

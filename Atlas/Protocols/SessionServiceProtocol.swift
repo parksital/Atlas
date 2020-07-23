@@ -12,8 +12,8 @@ import Combine
 protocol SessionServiceProtocol {
     var status: CurrentValueSubject<AuthStatus, AuthError> { get }
     
-    func initialize(uid: String)
+    func initialize()
     func observe() -> AnyPublisher<AuthStatus, AuthError>
     func initializeAuthClient() -> Future<AuthStatus, AuthError>
-    func getAppleAuthStatus(forUID uid: String) -> AnyPublisher<AppleIDCredentialState, AuthError>
+    func getAppleAuthStatus(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError>
 }

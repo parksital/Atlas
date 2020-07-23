@@ -84,34 +84,10 @@ class SessionServiceTests: XCTestCase {
         let p = sut.status.eraseToAnyPublisher()
         let spy = StateSpy(publisher: p)
         
-        sut.initialize(uid: "")
+        sut.initialize()
         
         XCTAssertEqual(sut.status.value, .signedOut)
         XCTAssertEqual(spy.values, [.unknown, .signedOut])
-    }
-    
-    func testInit_afterAppleAuth_clientSignedIn() {
-        let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
-        sut = makeSUT(authClient: authClient)
-        
-        let p = sut.status.eraseToAnyPublisher()
-        let spy = StateSpy(publisher: p)
-        
-        sut.initialize(uid: "david.appleid.uid")
-        XCTAssertEqual(spy.values, [.unknown, .signedIn])
-        XCTAssertEqual(sut.status.value, .signedIn)
-    }
-    
-    func testInit_afterAppleAuth_notFound() {
-        sut = makeSUT()
-        
-        let p = sut.status.eraseToAnyPublisher()
-        let spy = StateSpy(publisher: p)
-        
-        sut.initialize(uid: "")
-        
-        XCTAssertEqual(spy.values, [.unknown, .signedOut])
-        XCTAssertEqual(sut.status.value, .signedOut)
     }
     
     func testInit_appleAuth_revoked_clientSignedIn() {
@@ -121,7 +97,7 @@ class SessionServiceTests: XCTestCase {
         let p = sut.status.eraseToAnyPublisher()
         let spy = StateSpy(publisher: p)
         
-        sut.initialize(uid: "")
+        sut.initialize()
         
         XCTAssertEqual(authClient.signOutCalledCount, 1)
         XCTAssertEqual(spy.values, [.unknown, .signedOut])
@@ -179,17 +155,40 @@ class SessionServiceTests: XCTestCase {
         wait(for: [promise], timeout: 1.5)
     }
     
+    func testInit_withUIDfromKeychain() {
+        let authData = AppleAuthData.fixture()
+        let keychain = MockKeychain()
+        // signed in before -> uid saved
+        keychain.setValue(authData.uid, forKey: "uid")
+        
+        // signed in before -> email saved
+        let authClient = MockAuthClient(
+            existingUsers: [authData.email]
+        )
+        
+        sut = makeSUT(authClient: authClient, keychain: keychain)
+        
+        let p = sut.status.eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        sut.initialize()
+        
+        XCTAssertEqual(sut.status.value, .signedIn)
+        XCTAssertEqual(spy.values, [.unknown, .signedIn])
+    }
 }
 
 private extension SessionServiceTests {
     func makeSUT(
-        authClient: AuthClientProtocol = MockAuthClient()
+        authClient: AuthClientProtocol = MockAuthClient(),
+        keychain: KeychainManagerProtocol = MockKeychain()
     ) -> SessionService {
         let appleAuthService = AppleAuthService(appleIDProvider: MockAppleIDProvider())
         
         return SessionService(
             appleAuthService: appleAuthService,
-            authClient: authClient
+            authClient: authClient,
+            keychain: keychain
         )
     }
 }

@@ -12,18 +12,24 @@ import Combine
 class SessionService: SessionServiceProtocol {
     private let appleAuthService: AppleAuthServiceProtocol!
     private let authClient: AuthClientProtocol!
+    private let keychain: KeychainManagerProtocol!
+    
     private (set) var status =  CurrentValueSubject<AuthStatus, AuthError>(.unknown)
     private var cancellables = Set<AnyCancellable>()
     
     init(
         appleAuthService: AppleAuthServiceProtocol,
-        authClient: AuthClientProtocol
+        authClient: AuthClientProtocol,
+        keychain: KeychainManagerProtocol
     ) {
         self.appleAuthService = appleAuthService
         self.authClient = authClient
+        self.keychain = keychain
     }
     
-    func initialize(uid: String) {
+    func initialize() {
+        let uid = keychain.getValue(forKey: "uid")
+        
         getAppleAuthStatus(forUID: uid)
             .map({ $0 == .authorized})
             .zip(initializeAuthClient())
@@ -45,10 +51,12 @@ class SessionService: SessionServiceProtocol {
         authClient.initialize()
     }
     
-    func getAppleAuthStatus(forUID uid: String) -> AnyPublisher<AppleIDCredentialState, AuthError> {
+    func getAppleAuthStatus(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError> {
         appleAuthService
             .checkAppleIDCredentials(forUID: uid)
-            .mapError({ AuthError.appleIDError(underlyingError: $0) })
+            .mapError({
+                AuthError.appleIDError(underlyingError: $0)
+            })
             .eraseToAnyPublisher()
     }
     

@@ -40,3 +40,9 @@ final class AppleAuthService: AppleAuthServiceProtocol {
             .eraseToAnyPublisher()
     }
 }
+
+extension AppleAuthService {
+    static func fixture() -> AppleAuthService {
+        AppleAuthService(appleIDProvider: MockAppleIDProvider())
+    }
+}

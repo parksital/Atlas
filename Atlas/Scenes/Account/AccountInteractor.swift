@@ -16,6 +16,7 @@ protocol AccountLogic: class {
 }
 
 protocol AccountDataStore {
+    var user: User? { get }
     var settings: [AccountSetting] { get }
     var selectedSetting: AccountSetting? { get }
 }
@@ -23,14 +24,23 @@ protocol AccountDataStore {
 typealias AccountInteraction = AccountLogic & AccountDataStore
 final class AccountInteractor: AccountDataStore {
     private let presenter: AccountPresentationLogic!
+    private let sessionService: SessionServiceProtocol!
     private let profileService: ProfileService!
+    
+    private (set) var user: User?
     private (set) var settings: [AccountSetting] = AccountSetting.allCases
     private (set) var selectedSetting: AccountSetting?
+    
     private var cancellables = Set<AnyCancellable>()
     
-    init(profileService: ProfileService, presenter: AccountPresentationLogic) {
-        self.profileService = profileService
+    init(
+        presenter: AccountPresentationLogic,
+        sessionService: SessionServiceProtocol,
+        profileService: ProfileService
+    ) {
         self.presenter = presenter
+        self.sessionService = sessionService
+        self.profileService = profileService
     }
     
     deinit { cancellables.forEach({ $0.cancel() }) }
@@ -38,6 +48,19 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
+        sessionService.initialize()
+        
+        sessionService.status
+            .append(sessionService.observe())
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [unowned self] authStatus in
+                    guard authStatus == .signedIn else {
+                        self.presenter.presentUnAuthView()
+                        return
+                    }
+                    self.getUser()
+            })
+            .store(in: &cancellables)
     }
     
     func getUser() {
