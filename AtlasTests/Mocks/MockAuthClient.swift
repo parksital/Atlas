@@ -43,6 +43,12 @@ class MockAuthClient: AuthClientProtocol {
             .eraseToAnyPublisher()
     }
     
+    func getCognitoSUB() -> Future<String, AuthError> {
+        Future<String, AuthError> { (promise) in
+            promise(.success("aws.cognito.sub"))
+        }
+    }
+    
     func signUp(
         email: String,
         password: String,

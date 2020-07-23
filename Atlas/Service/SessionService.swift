@@ -13,7 +13,6 @@ class SessionService: SessionServiceProtocol {
     private let appleAuthService: AppleAuthServiceProtocol!
     private let authClient: AuthClientProtocol!
     private let keychain: KeychainManagerProtocol!
-    
     private (set) var status =  CurrentValueSubject<AuthStatus, AuthError>(.unknown)
     private var cancellables = Set<AnyCancellable>()
     
@@ -60,8 +59,18 @@ class SessionService: SessionServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    
     func observe() -> AnyPublisher<AuthStatus, AuthError> {
         authClient.observe()
+    }
+    
+    func fetchSUB() -> AnyPublisher<String, AuthError> {
+        guard let sub = keychain.getValue(forKey: "sub") else {
+            return authClient.getCognitoSUB()
+                .eraseToAnyPublisher()
+        }
+        
+        return Just<String>(sub)
+            .setFailureType(to: AuthError.self)
+            .eraseToAnyPublisher()
     }
 }

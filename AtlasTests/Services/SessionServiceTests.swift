@@ -176,6 +176,25 @@ class SessionServiceTests: XCTestCase {
         XCTAssertEqual(sut.status.value, .signedIn)
         XCTAssertEqual(spy.values, [.unknown, .signedIn])
     }
+    
+    func testFetchingSUB() {
+        sut = makeSUT()
+        let p = sut.fetchSUB().eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
+    }
+    
+    func testGetSUBfromKeychain() {
+        let keychain = MockKeychain()
+        keychain.setValue("aws.cognito.sub.david", forKey: "sub")
+        sut = makeSUT(keychain: keychain)
+        
+        let p = sut.fetchSUB().eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        XCTAssertEqual(spy.values, ["aws.cognito.sub.david"])
+    }
 }
 
 private extension SessionServiceTests {

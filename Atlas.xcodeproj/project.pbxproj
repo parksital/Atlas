@@ -89,6 +89,8 @@
 		A03E8F2D24C9DA3E00C0594D /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2A24C9D86C00C0594D /* SessionService.swift */; };
 		A03E8F2F24C9DB8100C0594D /* AccountInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2E24C9DB8100C0594D /* AccountInteractorTests.swift */; };
 		A03E8F3024C9EC4F00C0594D /* MockAppleIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0217E2924C882250081056C /* MockAppleIDProvider.swift */; };
+		A03E8F3224C9FE7600C0594D /* ProfileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F3124C9FE7600C0594D /* ProfileServiceTests.swift */; };
+		A03E8F3524CA018600C0594D /* userByID.json in Resources */ = {isa = PBXBuildFile; fileRef = A03E8F3424CA018600C0594D /* userByID.json */; };
 		A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
 		A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
 		A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
@@ -247,6 +249,8 @@
 		A03E8F2824C9D84C00C0594D /* SessionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceProtocol.swift; sourceTree = "<group>"; };
 		A03E8F2A24C9D86C00C0594D /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		A03E8F2E24C9DB8100C0594D /* AccountInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractorTests.swift; sourceTree = "<group>"; };
+		A03E8F3124C9FE7600C0594D /* ProfileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceTests.swift; sourceTree = "<group>"; };
+		A03E8F3424CA018600C0594D /* userByID.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = userByID.json; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A03EECF324127AF300FCDD8C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A041ED3C2419718800DB772F /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 				A0217E2724C870170081056C /* AppleAuthServiceTests.swift */,
 				A0217E3624C889CC0081056C /* AuthServiceTests.swift */,
 				A0CA3CBB24C9950800DE731C /* SessionServiceTests.swift */,
+				A03E8F3124C9FE7600C0594D /* ProfileServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -417,9 +422,7 @@
 		A030AEA2242C09F100BFCFC5 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */,
-				A04828B8244CC9A80054199B /* eventByID.json */,
-				A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */,
+				A03E8F3324CA00FE00C0594D /* JSON */,
 				A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */,
 				A0217E2924C882250081056C /* MockAppleIDProvider.swift */,
 				A0217E4124C8D8310081056C /* MockAuthClient.swift */,
@@ -474,6 +477,17 @@
 				A0E1E26E249E465500FCBA25 /* EventList-DI.swift */,
 			);
 			path = EventList;
+			sourceTree = "<group>";
+		};
+		A03E8F3324CA00FE00C0594D /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				A030AEA3242C0A5E00BFCFC5 /* eventsByStartDate.json */,
+				A04828B8244CC9A80054199B /* eventByID.json */,
+				A04BCE4D2450CEEC000A6969 /* eventByID-empty.json */,
+				A03E8F3424CA018600C0594D /* userByID.json */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		A03EECF224127AD700FCDD8C /* Errors */ = {
@@ -811,6 +825,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A03E8F3524CA018600C0594D /* userByID.json in Resources */,
 				A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */,
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
 				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
@@ -1038,6 +1053,7 @@
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E8F2D24C9DA3E00C0594D /* SessionService.swift in Sources */,
 				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
+				A03E8F3224C9FE7600C0594D /* ProfileServiceTests.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetail-DI.swift in Sources */,

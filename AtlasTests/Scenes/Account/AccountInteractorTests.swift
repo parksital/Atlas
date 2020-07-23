@@ -50,30 +50,30 @@ class AccountInteractorTests: XCTestCase {
         XCTAssertEqual(spy.presentUnAuthViewCalled, 1)
     }
     
-    func testObservationSession_signedIn() {
-        let authData = AppleAuthData.fixture()
-        let authClient = MockAuthClient(existingUsers: [authData.email])
-        
-        let keychain = MockKeychain()
-        keychain.setValue(authData.uid, forKey: "uid")
-        
-        let sessionService = SessionService(
-            appleAuthService: AppleAuthService.fixture(),
-            authClient: authClient,
-            keychain: keychain
-        )
-        
-        let spy = PresenterSpy()
-        sut = makeSUT(
-            presenter: spy,
-            sessionService: sessionService,
-            profileService: .fixture()
-        )
-        
-        sut.viewDidFinishLoading()
-        
-        XCTAssertEqual(spy.presentUserCalled, 1)
-    }
+//    func testObservationSession_signedIn() {
+//        let authData = AppleAuthData.fixture()
+//        let authClient = MockAuthClient(existingUsers: [authData.email])
+//
+//        let keychain = MockKeychain()
+//        keychain.setValue(authData.uid, forKey: "uid")
+//
+//        let sessionService = SessionService(
+//            appleAuthService: AppleAuthService.fixture(),
+//            authClient: authClient,
+//            keychain: keychain
+//        )
+//
+//        let spy = PresenterSpy()
+//        sut = makeSUT(
+//            presenter: spy,
+//            sessionService: sessionService,
+//            profileService: .fixture()
+//        )
+//
+//        sut.viewDidFinishLoading()
+//
+//        XCTAssertEqual(spy.presentUserCalled, 1)
+//    }
     
 //    func testStatusObservation_signIn() {
 //        let authClient = MockAuthClient(
@@ -137,14 +137,6 @@ private extension AccountInteractorTests {
         func goToSignUp() { }
         
         func presentSelectedSetting() { }
-    }
-}
-
-extension ProfileService {
-    static func fixture() -> ProfileService {
-        ProfileService(
-            client: AWSClient(appSyncClient: MockAPIClient())
-        )
     }
 }
 

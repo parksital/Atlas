@@ -24,6 +24,8 @@ protocol AuthClientProtocol {
         password: String
     ) -> Future<AuthStatus, AuthError>
     
+    func getCognitoSUB() -> Future<String, AuthError>
+    
     func signOut()
 }
 
@@ -66,6 +68,28 @@ extension AWSMobileClient: AuthClientProtocol {
         }.eraseToAnyPublisher()
     }
     
+    func getCognitoSUB() -> Future<String, AuthError> {
+        return Future<String, AuthError> { [weak self] promise in
+            self?.getUserAttributes(completionHandler: { attributes, error in
+                guard error == nil else {
+                    print("Attibutes Error: ", error!.localizedDescription)
+                    let authError = AuthError.attributesError(underlyingError: error!)
+                    promise(.failure(authError))
+                    return
+                }
+                
+                guard let dict = attributes, let sub = dict["sub"] else {
+                    let authError = AuthError.attributesError(underlyingError: error!)
+                    promise(.failure(authError))
+                    return
+                }
+                
+                KeychainWrapper.standard.set(sub, forKey: "sub")
+                promise(.success(sub))
+            })
+        }
+    }
+    
     func signUp(email: String, password: String, attributes: [String : String]) -> Future<AuthStatus, AuthError> {
         return Future<AuthStatus, AuthError> { [weak self] promise in
             guard let self = self else {
@@ -93,7 +117,6 @@ extension AWSMobileClient: AuthClientProtocol {
                 }
             }
         }
-        //        .mapError(mapAWSMobileClientError(_:))
     }
     
     func signIn(email: String, password: String) -> Future<AuthStatus, AuthError> {
@@ -119,7 +142,6 @@ extension AWSMobileClient: AuthClientProtocol {
                 }
             }
         }
-        //        .mapError(mapAWSMobileClientError(_:))
     }
 }
 

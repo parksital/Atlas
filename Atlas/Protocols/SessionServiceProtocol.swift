@@ -16,4 +16,5 @@ protocol SessionServiceProtocol {
     func observe() -> AnyPublisher<AuthStatus, AuthError>
     func initializeAuthClient() -> Future<AuthStatus, AuthError>
     func getAppleAuthStatus(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError>
+    func fetchSUB() -> AnyPublisher<String, AuthError>
 }

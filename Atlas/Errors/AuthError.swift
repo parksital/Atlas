@@ -13,5 +13,6 @@ enum AuthError: Error {
     case existingEmail
     case emailNotFound
     case uidNotFound
+    case attributesError(underlyingError: Error)
     case appleIDError(underlyingError: Error)
 }
