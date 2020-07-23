@@ -11,6 +11,8 @@ import AWSMobileClient
 import Combine
 
 protocol AuthClientProtocol {
+    func initialize() -> Future<AuthStatus, AuthError>
+    
     func signUp(
         email: String,
         password: String,
@@ -37,6 +39,12 @@ private extension AuthClientProtocol {
 
 
 extension AWSMobileClient: AuthClientProtocol {
+    func initialize() -> Future<AuthStatus, AuthError> {
+        return Future<AuthStatus, AuthError> { promise in
+            promise(.success(.unknown))
+        }
+    }
+    
     func signUp(email: String, password: String, attributes: [String : String]) -> Future<AuthStatus, AuthError> {
         return Future<AuthStatus, AuthError> { [weak self] promise in
             guard let self = self else {

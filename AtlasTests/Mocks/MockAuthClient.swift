@@ -12,6 +12,22 @@ import Combine
 class MockAuthClient: AuthClientProtocol {
     private var existingUsers: [String] = []
     
+    init(existingUsers: [String] = []) {
+        self.existingUsers = existingUsers
+    }
+    
+    func initialize() -> Future<AuthStatus, AuthError> {
+        return Future<AuthStatus, AuthError> { [unowned self] promise in
+            
+            guard !self.existingUsers.isEmpty else {
+                promise(.success(.unknown))
+                return
+            }
+            
+            promise(.success(.signedIn))
+        }
+    }
+    
     func signUp(
         email: String,
         password: String,

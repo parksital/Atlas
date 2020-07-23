@@ -9,6 +9,7 @@
 import Foundation
 
 enum AuthStatus {
+    case unknown
     case confirmed
     case signedUp
     case signedIn

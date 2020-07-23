@@ -102,7 +102,7 @@ class AuthServiceTests: XCTestCase {
     
     func testSignIn_afterAppleAuthRevocation_failure() {
         sut = makeSUT()
-        _ = sut.signUp(email: "user.appleid@domain.com", password: "password", attributes: [:])
+        _ = sut.signUp(email: "david.appleid@domain.com", password: "password", attributes: [:])
         
         let authData = AppleAuthData.fixture()
         let f = sut.initiateSignUpWithApple(authData)
@@ -159,7 +159,7 @@ extension AppleAuthData {
         
         return AppleAuthData(
             uid: "user.appleid.uid",
-            email: "user.appleid@domain.com",
+            email: "david.appleid@domain.com",
             fullName: components,
             token: UUID().uuidString
         )
