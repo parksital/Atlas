@@ -23,6 +23,8 @@ protocol AuthClientProtocol {
         email: String,
         password: String
     ) -> Future<AuthStatus, AuthError>
+    
+    func signOut()
 }
 
 private extension AuthClientProtocol {

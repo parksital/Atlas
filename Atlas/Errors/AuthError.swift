@@ -13,6 +13,5 @@ enum AuthError: Error {
     case existingEmail
     case emailNotFound
     case uidNotFound
+    case appleIDError(underlyingError: Error)
 }
-
-extension AuthError: Equatable { }

@@ -30,7 +30,7 @@ class AuthServiceTests: XCTestCase {
         
         XCTAssertEqual(spy.values, [])
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, AuthError.existingEmail)
+        XCTAssertEqual(spy.error!.localizedDescription, AuthError.existingEmail.localizedDescription)
     }
     
     func testSignUp_confirmed() {
@@ -49,7 +49,7 @@ class AuthServiceTests: XCTestCase {
         
         XCTAssertEqual(spy.values, [])
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, AuthError.emailNotFound)
+        XCTAssertEqual(spy.error!.localizedDescription, AuthError.emailNotFound.localizedDescription)
     }
     
     func testSignIn_success() {
@@ -109,7 +109,7 @@ class AuthServiceTests: XCTestCase {
         
         let spy = StateSpy(publisher: f.eraseToAnyPublisher())
         XCTAssertNotNil(spy.error)
-        XCTAssertEqual(spy.error, AuthError.existingEmail)
+        XCTAssertEqual(spy.error!.localizedDescription, AuthError.existingEmail.localizedDescription)
     }
     
     func testSignIn_afterAppleAuthRevocation_success() {

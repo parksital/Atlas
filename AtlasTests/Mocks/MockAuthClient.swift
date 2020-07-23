@@ -10,6 +10,7 @@ import Foundation
 import Combine
 
 class MockAuthClient: AuthClientProtocol {
+    private (set) var signOutCalledCount: Int = 0
     private var existingUsers: [String] = []
     
     init(existingUsers: [String] = []) {
@@ -56,5 +57,9 @@ class MockAuthClient: AuthClientProtocol {
             
             promise(.success(.signedIn))
         }
+    }
+    
+    func signOut() {
+        signOutCalledCount += 1
     }
 }
