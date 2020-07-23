@@ -152,7 +152,7 @@ private extension AuthServiceTests {
     }
 }
 
-private extension AppleAuthData {
+extension AppleAuthData {
     static func fixture() -> AppleAuthData {
         let formatter = PersonNameComponentsFormatter()
         let components = formatter.personNameComponents(from: "David Jefferson")!
