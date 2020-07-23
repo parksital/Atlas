@@ -64,7 +64,7 @@ private extension AccountInteractor {
     }
     
     func getUser() {
-    
+        
     }
     
     func presentSettings() {
