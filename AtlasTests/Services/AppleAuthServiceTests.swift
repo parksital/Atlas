@@ -11,7 +11,7 @@ import AuthenticationServices
 import Combine
 
 class AppleAuthServiceTests: XCTestCase {
-    private let validUID = "apple.auth.uid"
+    private let validUID = "david.appleid.uid"
     private var sut: AppleAuthServiceProtocol!
     
     override func setUp() {

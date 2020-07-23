@@ -10,7 +10,7 @@ import Foundation
 import AuthenticationServices
 
 struct MockAppleIDProvider: AppleIDProviderProtocol {
-    private let validUID = "apple.auth.uid"
+    private let validUID = "david.appleid.uid"
     func getCredentialState(forUserID: String, completion: (AppleIDCredentialState, Error?) -> Void) {
         guard forUserID == validUID else {
             completion(.notFound, nil)

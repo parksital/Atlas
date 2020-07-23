@@ -84,7 +84,7 @@ class AuthServiceTests: XCTestCase {
         let result = keychain.getValue(forKey: "uid")
         XCTAssertEqual(spy.values, [.signedIn])
         XCTAssertNotNil(result)
-        XCTAssertEqual(result, "user.appleid.uid")
+        XCTAssertEqual(result, "david.appleid.uid")
     }
     
     func testSavingPassword_afterSignUpWithApple() {
@@ -158,7 +158,7 @@ extension AppleAuthData {
         let components = formatter.personNameComponents(from: "David Jefferson")!
         
         return AppleAuthData(
-            uid: "user.appleid.uid",
+            uid: "david.appleid.uid",
             email: "david.appleid@domain.com",
             fullName: components,
             token: UUID().uuidString

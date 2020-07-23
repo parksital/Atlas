@@ -10,13 +10,18 @@ import XCTest
 import Combine
 
 protocol SessionServiceProtocol {
+    var status: CurrentValueSubject<AuthStatus, AuthError> { get }
+    
+    func initialize(uid: String)
     func initializeAuthClient() -> Future<AuthStatus, AuthError>
     func getAppleAuthStatus(forUID uid: String) -> Future<AppleIDCredentialState, Error>
 }
 
-struct SessionService: SessionServiceProtocol {
+class SessionService: SessionServiceProtocol {
     private let appleAuthService: AppleAuthServiceProtocol!
     private let authClient: AuthClientProtocol!
+    private (set) var status =  CurrentValueSubject<AuthStatus, AuthError>(.unknown)
+    private var cancellables = Set<AnyCancellable>()
     
     init(
         appleAuthService: AppleAuthServiceProtocol,
@@ -24,6 +29,18 @@ struct SessionService: SessionServiceProtocol {
     ) {
         self.appleAuthService = appleAuthService
         self.authClient = authClient
+    }
+    
+    func initialize(uid: String) {
+        getAppleAuthStatus(forUID: uid)
+            .map({ $0 == .authorized})
+            .sink(receiveCompletion: { _ in},
+                  receiveValue: { [status] authorized in
+                    if authorized {
+                        status.send(.signedIn)
+                    }
+            })
+            .store(in: &cancellables)
     }
     
     func initializeAuthClient() -> Future<AuthStatus, AuthError> {
@@ -51,6 +68,12 @@ class SessionServiceTests: XCTestCase {
         XCTAssertNotNil(sut)
     }
     
+    func testDeinit() {
+        sut = makeSUT()
+        sut = nil
+        XCTAssertNil(sut)
+    }
+    
     func testInitialize_appleAuth_notFound() {
         sut = makeSUT()
         let p = sut.getAppleAuthStatus(forUID: "")
@@ -61,7 +84,7 @@ class SessionServiceTests: XCTestCase {
     
     func testInitialize_appleAuth_authorized() {
         sut = makeSUT()
-        let p = sut.getAppleAuthStatus(forUID: "apple.auth.uid")
+        let p = sut.getAppleAuthStatus(forUID: "david.appleid.uid")
         let spy = StateSpy(publisher: p.eraseToAnyPublisher())
         
         XCTAssertEqual(spy.values, [.authorized])
@@ -86,10 +109,35 @@ class SessionServiceTests: XCTestCase {
         XCTAssertEqual(spy.values, [.signedIn])
     }
     
-    func testDeinit() {
+    func testStatus_initial() {
         sut = makeSUT()
-        sut = nil
-        XCTAssertNil(sut)
+        let s = sut.status
+        let spy = StateSpy(publisher: s.eraseToAnyPublisher())
+        
+        XCTAssertEqual(spy.values, [.unknown])
+    }
+    
+    func testStatus_appleAuthNotFound_clientUnknown() {
+        sut = makeSUT()
+        
+        let p = sut.status.eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        sut.initialize(uid: "")
+        XCTAssertEqual(sut.status.value, .unknown)
+        XCTAssertEqual(spy.values, [.unknown])
+    }
+    
+    func testStatus_afterAppleAuth_clientSignedIn() {
+        let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
+        sut = makeSUT(authClient: authClient)
+        
+        let p = sut.status.eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        sut.initialize(uid: "david.appleid.uid")
+        XCTAssertEqual(spy.values, [.unknown, .signedIn])
+        XCTAssertEqual(sut.status.value, .signedIn)
     }
 }
 
