@@ -12,7 +12,7 @@ import Combine
 
 protocol AuthClientProtocol {
     func initialize() -> Future<AuthStatus, AuthError>
-    
+    func observe() -> AnyPublisher<AuthStatus, AuthError>
     func signUp(
         email: String,
         password: String,
@@ -45,6 +45,25 @@ extension AWSMobileClient: AuthClientProtocol {
         return Future<AuthStatus, AuthError> { promise in
             promise(.success(.unknown))
         }
+    }
+    
+    func observe() -> AnyPublisher<AuthStatus, AuthError> {
+        Future<AuthStatus, AuthError> { [weak self] promise in
+            guard let self = self else { return }
+            
+            self.addUserStateListener(self) { userState, userInfo in
+                switch userState {
+                case .signedIn:
+                    promise(.success(.signedIn))
+                case .signedOut:
+                    promise(.success(.signedOut))
+                case .unknown:
+                    promise(.success(.unknown))
+                default:
+                    break
+                }
+            }
+        }.eraseToAnyPublisher()
     }
     
     func signUp(email: String, password: String, attributes: [String : String]) -> Future<AuthStatus, AuthError> {

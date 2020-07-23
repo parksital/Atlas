@@ -12,9 +12,14 @@ import Combine
 class MockAuthClient: AuthClientProtocol {
     private (set) var signOutCalledCount: Int = 0
     private var existingUsers: [String] = []
+    private var observedValues: [AuthStatus] = []
     
-    init(existingUsers: [String] = []) {
+    init(
+        existingUsers: [String] = [],
+        observedValues: [AuthStatus] = []
+    ) {
         self.existingUsers = existingUsers
+        self.observedValues = observedValues
     }
     
     func initialize() -> Future<AuthStatus, AuthError> {
@@ -27,6 +32,15 @@ class MockAuthClient: AuthClientProtocol {
             
             promise(.success(.signedIn))
         }
+    }
+    
+    func observe() -> AnyPublisher<AuthStatus, AuthError> {
+        Timer.publish(every: 0.2, on: .main, in: .common)
+            .autoconnect()
+            .zip(self.observedValues.publisher)
+            .map(\.1)
+            .setFailureType(to: AuthError.self)
+            .eraseToAnyPublisher()
     }
     
     func signUp(

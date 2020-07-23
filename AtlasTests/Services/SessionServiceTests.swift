@@ -13,6 +13,7 @@ protocol SessionServiceProtocol {
     var status: CurrentValueSubject<AuthStatus, AuthError> { get }
     
     func initialize(uid: String)
+    func observe() -> AnyPublisher<AuthStatus, AuthError>
     func initializeAuthClient() -> Future<AuthStatus, AuthError>
     func getAppleAuthStatus(forUID uid: String) -> AnyPublisher<AppleIDCredentialState, AuthError>
 }
@@ -42,6 +43,7 @@ class SessionService: SessionServiceProtocol {
                             self.status.send(.signedIn)
                         }
                     } else {
+                        self.status.send(.signedOut)
                         self.authClient.signOut()
                     }
             })
@@ -58,16 +60,25 @@ class SessionService: SessionServiceProtocol {
             .mapError({ AuthError.appleIDError(underlyingError: $0) })
             .eraseToAnyPublisher()
     }
+    
+    
+    func observe() -> AnyPublisher<AuthStatus, AuthError> {
+        authClient.observe()
+    }
 }
 
 class SessionServiceTests: XCTestCase {
     private var sut: SessionServiceProtocol!
+    private var cancellabels: Set<AnyCancellable>!
     
     override func setUp() {
         super.setUp()
+        cancellabels = Set<AnyCancellable>()
     }
     
     override func tearDown() {
+        cancellabels.forEach({ $0.cancel() })
+        cancellabels = nil
         super.tearDown()
     }
     
@@ -133,8 +144,8 @@ class SessionServiceTests: XCTestCase {
         
         sut.initialize(uid: "")
         
-        XCTAssertEqual(sut.status.value, .unknown)
-        XCTAssertEqual(spy.values, [.unknown])
+        XCTAssertEqual(sut.status.value, .signedOut)
+        XCTAssertEqual(spy.values, [.unknown, .signedOut])
     }
     
     func testInit_afterAppleAuth_clientSignedIn() {
@@ -157,8 +168,8 @@ class SessionServiceTests: XCTestCase {
         
         sut.initialize(uid: "")
         
-        XCTAssertEqual(spy.values, [.unknown,])
-        XCTAssertEqual(sut.status.value, .unknown)
+        XCTAssertEqual(spy.values, [.unknown, .signedOut])
+        XCTAssertEqual(sut.status.value, .signedOut)
     }
     
     func testInit_appleAuth_revoked_clientSignedIn() {
@@ -171,7 +182,33 @@ class SessionServiceTests: XCTestCase {
         sut.initialize(uid: "")
         
         XCTAssertEqual(authClient.signOutCalledCount, 1)
-        XCTAssertEqual(spy.values, [.unknown])
+        XCTAssertEqual(spy.values, [.unknown, .signedOut])
+    }
+    
+    func testObservation_signIn() {
+        let authClient = MockAuthClient(
+            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
+        )
+        
+        sut = makeSUT(authClient: authClient)
+        let promise = expectation(description: "received all observed values")
+        var result: [AuthStatus] = []
+        
+        sut.observe()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    XCTAssertEqual(result.count, 4)
+                    promise.fulfill()
+                default:
+                    XCTFail()
+                }
+            }, receiveValue: { value in
+                result.append(value)
+            })
+            .store(in: &cancellabels)
+        
+        wait(for: [promise], timeout: 1.5)
     }
 }
 

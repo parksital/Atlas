@@ -13,4 +13,5 @@ enum AuthStatus {
     case confirmed
     case signedUp
     case signedIn
+    case signedOut
 }
