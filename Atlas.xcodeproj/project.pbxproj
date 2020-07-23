@@ -83,6 +83,10 @@
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
 		A03E2AD62410087100B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
+		A03E8F2924C9D84C00C0594D /* SessionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2824C9D84C00C0594D /* SessionServiceProtocol.swift */; };
+		A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2A24C9D86C00C0594D /* SessionService.swift */; };
+		A03E8F2C24C9D9D200C0594D /* SessionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2824C9D84C00C0594D /* SessionServiceProtocol.swift */; };
+		A03E8F2D24C9DA3E00C0594D /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E8F2A24C9D86C00C0594D /* SessionService.swift */; };
 		A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECEF2411547A00FCDD8C /* AWSClient.swift */; };
 		A03EECF424127AF300FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
 		A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03EECF324127AF300FCDD8C /* NetworkError.swift */; };
@@ -238,6 +242,8 @@
 		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
+		A03E8F2824C9D84C00C0594D /* SessionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceProtocol.swift; sourceTree = "<group>"; };
+		A03E8F2A24C9D86C00C0594D /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		A03EECEF2411547A00FCDD8C /* AWSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSClient.swift; sourceTree = "<group>"; };
 		A03EECF324127AF300FCDD8C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A041ED3C2419718800DB772F /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
@@ -400,6 +406,7 @@
 				A0217E3024C886490081056C /* AppleAuthServiceProtocol.swift */,
 				A0217E3E24C8D7FA0081056C /* AuthClientProtocol.swift */,
 				A0217E4424C8D8B20081056C /* AuthServiceProtocol.swift */,
+				A03E8F2824C9D84C00C0594D /* SessionServiceProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -657,6 +664,7 @@
 				A0F6FECF247591FF00302B70 /* ProfileService.swift */,
 				A0217E3324C886960081056C /* AppleAuthService.swift */,
 				A0217E4724C8D8D00081056C /* AuthService.swift */,
+				A03E8F2A24C9D86C00C0594D /* SessionService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -980,7 +988,9 @@
 				A075E38E240E8201006F891F /* API.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
+				A03E8F2924C9D84C00C0594D /* SessionServiceProtocol.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
+				A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */,
 				A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */,
 				A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
@@ -1015,11 +1025,13 @@
 				A0CA3CBC24C9950800DE731C /* SessionServiceTests.swift in Sources */,
 				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
+				A03E8F2C24C9D9D200C0594D /* SessionServiceProtocol.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A0217E3724C889CC0081056C /* AuthServiceTests.swift in Sources */,
 				A0FAFC4724589468006F46B1 /* KeychainItemAccessibility.swift in Sources */,
+				A03E8F2D24C9DA3E00C0594D /* SessionService.swift in Sources */,
 				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,

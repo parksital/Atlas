@@ -9,76 +9,18 @@
 import XCTest
 import Combine
 
-protocol SessionServiceProtocol {
-    var status: CurrentValueSubject<AuthStatus, AuthError> { get }
-    
-    func initialize(uid: String)
-    func observe() -> AnyPublisher<AuthStatus, AuthError>
-    func initializeAuthClient() -> Future<AuthStatus, AuthError>
-    func getAppleAuthStatus(forUID uid: String) -> AnyPublisher<AppleIDCredentialState, AuthError>
-}
-
-class SessionService: SessionServiceProtocol {
-    private let appleAuthService: AppleAuthServiceProtocol!
-    private let authClient: AuthClientProtocol!
-    private (set) var status =  CurrentValueSubject<AuthStatus, AuthError>(.unknown)
-    private var cancellables = Set<AnyCancellable>()
-    
-    init(
-        appleAuthService: AppleAuthServiceProtocol,
-        authClient: AuthClientProtocol
-    ) {
-        self.appleAuthService = appleAuthService
-        self.authClient = authClient
-    }
-    
-    func initialize(uid: String) {
-        getAppleAuthStatus(forUID: uid)
-            .map({ $0 == .authorized})
-            .zip(initializeAuthClient())
-            .sink(receiveCompletion: { _ in},
-                  receiveValue: { [unowned self] (authorized, authStatus) in
-                    if authorized {
-                        if authStatus == .signedIn {
-                            self.status.send(.signedIn)
-                        }
-                    } else {
-                        self.status.send(.signedOut)
-                        self.authClient.signOut()
-                    }
-            })
-            .store(in: &cancellables)
-    }
-    
-    func initializeAuthClient() -> Future<AuthStatus, AuthError> {
-        authClient.initialize()
-    }
-    
-    func getAppleAuthStatus(forUID uid: String) -> AnyPublisher<AppleIDCredentialState, AuthError> {
-        appleAuthService
-            .checkAppleIDCredentials(forUID: uid)
-            .mapError({ AuthError.appleIDError(underlyingError: $0) })
-            .eraseToAnyPublisher()
-    }
-    
-    
-    func observe() -> AnyPublisher<AuthStatus, AuthError> {
-        authClient.observe()
-    }
-}
-
 class SessionServiceTests: XCTestCase {
     private var sut: SessionServiceProtocol!
-    private var cancellabels: Set<AnyCancellable>!
+    private var cancellables: Set<AnyCancellable>!
     
     override func setUp() {
         super.setUp()
-        cancellabels = Set<AnyCancellable>()
+        cancellables = Set<AnyCancellable>()
     }
     
     override func tearDown() {
-        cancellabels.forEach({ $0.cancel() })
-        cancellabels = nil
+        cancellables.forEach({ $0.cancel() })
+        cancellables = nil
         super.tearDown()
     }
     
@@ -206,10 +148,37 @@ class SessionServiceTests: XCTestCase {
             }, receiveValue: { value in
                 result.append(value)
             })
-            .store(in: &cancellabels)
+            .store(in: &cancellables)
         
         wait(for: [promise], timeout: 1.5)
     }
+    
+    func testStatusObservation_signIn() {
+        let authClient = MockAuthClient(
+            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
+        )
+        
+        sut = makeSUT(authClient: authClient)
+        let promise = expectation(description: "received all observed values")
+        var result: [AuthStatus] = []
+        
+        sut.observe()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    XCTAssertEqual(result.count, 4)
+                    promise.fulfill()
+                default:
+                    XCTFail()
+                }
+            }, receiveValue: { value in
+                result.append(value)
+            })
+            .store(in: &cancellables)
+        
+        wait(for: [promise], timeout: 1.5)
+    }
+    
 }
 
 private extension SessionServiceTests {
