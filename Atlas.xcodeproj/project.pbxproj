@@ -141,6 +141,7 @@
 		A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0C8B7FA2423E08200B4882D /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8B7F82423DED100B4882D /* Sequence+.swift */; };
 		A0CA3CBA24C98E3300DE731C /* SignUpInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CA3CB924C98E3300DE731C /* SignUpInteractorTests.swift */; };
+		A0CA3CBC24C9950800DE731C /* SessionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CA3CBB24C9950800DE731C /* SessionServiceTests.swift */; };
 		A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76024B644F40066B29C /* PreferencesRouter.swift */; };
 		A0D0B76324B6475A0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
 		A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0B76224B6475A0066B29C /* Preferences-DI.swift */; };
@@ -281,6 +282,7 @@
 		A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSectionType.swift; sourceTree = "<group>"; };
 		A0C8B7F82423DED100B4882D /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		A0CA3CB924C98E3300DE731C /* SignUpInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractorTests.swift; sourceTree = "<group>"; };
+		A0CA3CBB24C9950800DE731C /* SessionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceTests.swift; sourceTree = "<group>"; };
 		A0D0B76024B644F40066B29C /* PreferencesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesRouter.swift; sourceTree = "<group>"; };
 		A0D0B76224B6475A0066B29C /* Preferences-DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preferences-DI.swift"; sourceTree = "<group>"; };
 		A0D0B76524B674140066B29C /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 			children = (
 				A0217E2724C870170081056C /* AppleAuthServiceTests.swift */,
 				A0217E3624C889CC0081056C /* AuthServiceTests.swift */,
+				A0CA3CBB24C9950800DE731C /* SessionServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1009,6 +1012,7 @@
 				A09038FD2420E68300743881 /* EventListViewController.swift in Sources */,
 				A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */,
 				A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */,
+				A0CA3CBC24C9950800DE731C /* SessionServiceTests.swift in Sources */,
 				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
