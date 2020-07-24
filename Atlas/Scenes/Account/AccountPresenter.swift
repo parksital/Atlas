@@ -15,6 +15,7 @@ protocol AccountPresentationLogic {
     func presentSettings(_ settings: [AccountSetting])
     func goToSignUp()
     func presentSelectedSetting()
+    func presentError(_ error: Error)
 }
 
 final class AccountPresenter {
@@ -44,5 +45,9 @@ extension AccountPresenter: AccountPresentationLogic {
     
     func presentSelectedSetting() {
         viewController?.showSelectedSetting()
+    }
+    
+    func presentError(_ error: Error) {
+        
     }
 }

@@ -50,56 +50,19 @@ class AccountInteractorTests: XCTestCase {
         XCTAssertEqual(spy.presentUnAuthViewCalled, 1)
     }
     
-//    func testObservationSession_signedIn() {
-//        let authData = AppleAuthData.fixture()
-//        let authClient = MockAuthClient(existingUsers: [authData.email])
-//
-//        let keychain = MockKeychain()
-//        keychain.setValue(authData.uid, forKey: "uid")
-//
-//        let sessionService = SessionService(
-//            appleAuthService: AppleAuthService.fixture(),
-//            authClient: authClient,
-//            keychain: keychain
-//        )
-//
-//        let spy = PresenterSpy()
-//        sut = makeSUT(
-//            presenter: spy,
-//            sessionService: sessionService,
-//            profileService: .fixture()
-//        )
-//
-//        sut.viewDidFinishLoading()
-//
-//        XCTAssertEqual(spy.presentUserCalled, 1)
-//    }
-    
-//    func testStatusObservation_signIn() {
-//        let authClient = MockAuthClient(
-//            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
-//        )
-//
-//        sut = makeSUT(authClient: authClient)
-//        let promise = expectation(description: "received all observed values")
-//        var result: [AuthStatus] = []
-//
-//        sut.observe()
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    XCTAssertEqual(result.count, 4)
-//                    promise.fulfill()
-//                default:
-//                    XCTFail()
-//                }
-//            }, receiveValue: { value in
-//                result.append(value)
-//            })
-//            .store(in: &cancellables)
-//
-//        wait(for: [promise], timeout: 1.5)
-//    }
+    func testPresentUser_afterSignIn() {
+        let presenter = PresenterSpy()
+        sut = makeSUT(
+            presenter: presenter,
+            sessionService: .fixture(signedIn: true),
+            profileService: .fixture()
+        )
+        
+        sut.viewDidFinishLoading()
+        
+        XCTAssertNil(presenter.error)
+        XCTAssertEqual(presenter.presentUserCalled, 1)
+    }
 }
 
 private extension AccountInteractorTests {
@@ -119,6 +82,7 @@ private extension AccountInteractorTests {
         var presentSettingsCalled: Int = 0
         var presentUnAuthViewCalled: Int = 0
         var presentUserCalled: Int = 0
+        var error: Error?
         
         func setup(viewController: AccountDisplayLogic) { }
         
@@ -137,6 +101,10 @@ private extension AccountInteractorTests {
         func goToSignUp() { }
         
         func presentSelectedSetting() { }
+        
+        func presentError(_ error: Error) {
+            self.error = error
+        }
     }
 }
 
@@ -148,5 +116,26 @@ extension SessionService {
             authClient: MockAuthClient(),
             keychain: MockKeychain()
         )
+    }
+}
+
+extension XCTest {
+    func expectToEventually(
+        _ test: @autoclosure () -> Bool,
+        timeout: TimeInterval = 1.0,
+        message: String = ""
+    ) {
+        let runLoop = RunLoop.current
+        let timeoutDate = Date(timeIntervalSinceNow: timeout)
+        repeat {
+            
+            if test() {
+                return
+            }
+            
+            runLoop.run(until: Date(timeIntervalSinceNow: 0.01))
+        } while Date().compare(timeoutDate) == .orderedAscending
+        
+        XCTFail(message)
     }
 }

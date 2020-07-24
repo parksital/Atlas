@@ -33,12 +33,12 @@ class ProfileServiceTests: XCTestCase {
         XCTAssertNil(sut)
     }
     
-    func testGetUser_invalidUID() {
+    func testGetUser() {
         sut = makeSUT()
         let p = sut.getUserByID(id: "")
         let spy = StateSpy(publisher: p)
         
-        XCTAssertNotNil(spy.error)
+        XCTAssertNil(spy.error)
     }
 }
 

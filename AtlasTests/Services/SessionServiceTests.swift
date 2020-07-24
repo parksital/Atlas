@@ -81,26 +81,21 @@ class SessionServiceTests: XCTestCase {
     func testInit_appleAuthNotFound_clientUnknown() {
         sut = makeSUT()
         
-        let p = sut.status.eraseToAnyPublisher()
+        let p = sut.initialize()
         let spy = StateSpy(publisher: p)
         
-        sut.initialize()
-        
-        XCTAssertEqual(sut.status.value, .signedOut)
-        XCTAssertEqual(spy.values, [.unknown, .signedOut])
+        XCTAssertEqual(spy.values, [.signedOut])
     }
     
     func testInit_appleAuth_revoked_clientSignedIn() {
         let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
         sut = makeSUT(authClient: authClient)
         
-        let p = sut.status.eraseToAnyPublisher()
+        let p = sut.initialize()
         let spy = StateSpy(publisher: p)
         
-        sut.initialize()
-        
         XCTAssertEqual(authClient.signOutCalledCount, 1)
-        XCTAssertEqual(spy.values, [.unknown, .signedOut])
+        XCTAssertEqual(spy.values, [.signedOut])
     }
     
     func testObservation_signIn() {
@@ -168,13 +163,10 @@ class SessionServiceTests: XCTestCase {
         
         sut = makeSUT(authClient: authClient, keychain: keychain)
         
-        let p = sut.status.eraseToAnyPublisher()
+        let p = sut.initialize()
         let spy = StateSpy(publisher: p)
         
-        sut.initialize()
-        
-        XCTAssertEqual(sut.status.value, .signedIn)
-        XCTAssertEqual(spy.values, [.unknown, .signedIn])
+        XCTAssertEqual(spy.values, [.signedIn])
     }
     
     func testFetchingSUB() {

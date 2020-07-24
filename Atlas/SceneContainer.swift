@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AuthenticationServices
 import Swinject
 
 class SceneContainer {
@@ -17,6 +18,10 @@ class SceneContainer {
         container = Container(parent: AWSContainer.shared.container)
         
         //MARK: - Services
+        container.autoregister(AppleIDProviderProtocol.self, initializer: ASAuthorizationAppleIDProvider.init)
+        container.autoregister(AppleAuthServiceProtocol.self, initializer: AppleAuthService.init)
+        container.autoregister(SessionServiceProtocol.self, initializer: SessionService.init)
+        container.autoregister(AuthServiceProtocol.self, initializer: AuthService.init)
         container.autoregister(KeychainManagerProtocol.self, initializer: KeychainManager.init)
         container.autoregister(ProfileService.self, initializer: ProfileService.init)
         container.autoregister(EventService.self, initializer: EventService.init)

@@ -26,24 +26,23 @@ class SessionService: SessionServiceProtocol {
         self.keychain = keychain
     }
     
-    func initialize() {
+    func initialize() -> AnyPublisher<AuthStatus, AuthError> {
         let uid = keychain.getValue(forKey: "uid")
         
-        getAppleAuthStatus(forUID: uid)
+        return getAppleAuthStatus(forUID: uid)
             .map({ $0 == .authorized})
             .zip(initializeAuthClient())
-            .sink(receiveCompletion: { _ in},
-                  receiveValue: { [unowned self] (authorized, authStatus) in
-                    if authorized {
-                        if authStatus == .signedIn {
-                            self.status.send(.signedIn)
-                        }
-                    } else {
-                        self.status.send(.signedOut)
+            .map({ (authorized, authStatus) in
+                guard authorized,
+                    authStatus == .signedIn
+                    else {
                         self.authClient.signOut()
-                    }
+                        return .signedOut
+                }
+                
+                return .signedIn
             })
-            .store(in: &cancellables)
+            .eraseToAnyPublisher()
     }
     
     func initializeAuthClient() -> Future<AuthStatus, AuthError> {
@@ -72,5 +71,30 @@ class SessionService: SessionServiceProtocol {
         return Just<String>(sub)
             .setFailureType(to: AuthError.self)
             .eraseToAnyPublisher()
+    }
+}
+
+extension SessionService {
+    static func fixture(signedIn: Bool = false) -> SessionService {
+        if signedIn {
+            let authData = AppleAuthData.fixture()
+            
+            let keychain = MockKeychain()
+            keychain.setValue(authData.uid, forKey: "uid")
+            
+            let authClient = MockAuthClient(existingUsers: [authData.email])
+            
+            return SessionService(
+                appleAuthService: AppleAuthService.fixture(),
+                authClient: authClient,
+                keychain: keychain
+            )
+        } else {
+            return SessionService(
+                appleAuthService: AppleAuthService.fixture(),
+                authClient: MockAuthClient(),
+                keychain: MockKeychain()
+            )
+        }
     }
 }

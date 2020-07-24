@@ -41,8 +41,8 @@ class AWSContainer {
             }
         })
         
-//        container.register(AuthClientProtocol.self) { _ in
-//            AWSMobileClient.default()
-//        }
+        container.register(AuthClientProtocol.self) { _ in
+            AWSMobileClient.default()
+        }
     }
 }

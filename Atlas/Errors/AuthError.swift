@@ -15,4 +15,5 @@ enum AuthError: Error {
     case uidNotFound
     case attributesError(underlyingError: Error)
     case appleIDError(underlyingError: Error)
+    case decoding(underlyingError: Error)
 }
