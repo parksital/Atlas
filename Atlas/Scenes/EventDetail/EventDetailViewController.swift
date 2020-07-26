@@ -24,6 +24,8 @@ final class EventDetailViewController: UIViewController {
     private var dateTimeLabel = UILabel(styling: .headline)
     private var descriptionLabel = UILabel(styling: .body)
     private var artistHeaderLabel = UILabel.init(styling: .headline)
+    private var buttonView = UIView()
+    private var ticketButton = UIButton(type: .roundedRect)
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -49,6 +51,7 @@ private extension EventDetailViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupStackView()
+        setupTicketButton()
     }
     
     func setupNavigationBar() {
@@ -76,11 +79,25 @@ private extension EventDetailViewController {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
+    func setupTicketButton() {
+        ticketButton.setTitle(NSLocalizedString("buyTicket", comment: ""), for: .normal)
+        
+        buttonView.addSubview(ticketButton)
+        ticketButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let top = ticketButton.topAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.topAnchor)
+        let bottom = ticketButton.bottomAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.bottomAnchor)
+        let center = ticketButton.centerXAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.centerXAnchor)
+        let height = ticketButton.heightAnchor.constraint(equalToConstant: 44.0)
+        
+        NSLayoutConstraint.activate([top, bottom, center, height])
+    }
+    
     func updateViewsForViewModel(_ viewModel: EventDetail.ViewModel) {
         titleLabel.text = viewModel.venue
         dateTimeLabel.text = viewModel.startDate
         descriptionLabel.text = viewModel.description
-        artistHeaderLabel.text = "Artists"
+        artistHeaderLabel.text = NSLocalizedString("artists", comment: "")
         
         aloeStackView.addRows([
             titleLabel,
@@ -95,6 +112,8 @@ private extension EventDetailViewController {
             aloeStackView.addRow(label, animated: true)
             aloeStackView.showSeparator(forRow: label)
         }
+        
+        aloeStackView.addRow(buttonView, animated: true)
     }
 }
 

@@ -2,7 +2,7 @@
 //  AppleAuthService.swift
 //  Atlas
 //
-//  Created by Parvin Sital on 13/05/2020.
+//  Created by Parvin Sital on 22/07/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
@@ -10,24 +10,32 @@ import Foundation
 import AuthenticationServices
 import Combine
 
-protocol AppleAuthServiceProtocol: class {
-    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError>
+typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
+protocol AppleAuthServiceProtocol {
+    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
     func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
 }
 
-typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
 final class AppleAuthService: AppleAuthServiceProtocol {
+    private let appleIDProvider: AppleIDProviderProtocol!
     
-    func checkAppleIDAuthStatus(forUID uid: String?) -> Future<AppleIDCredentialState, AuthError> {
-        return Future<AppleIDCredentialState, AuthError> { promise in
-            guard uid != nil else {
+    init(appleIDProvider: AppleIDProviderProtocol) {
+        self.appleIDProvider = appleIDProvider
+    }
+    
+    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error> {
+        Future<AppleIDCredentialState, Error> { [appleIDProvider] promise in
+            guard let id = uid else {
                 promise(.success(.notFound))
                 return
             }
             
-            ASAuthorizationAppleIDProvider().getCredentialState(forUserID: uid!) { credentialState, error in
-                guard error == nil else { return }
-                promise(.success(credentialState))
+            appleIDProvider?.getCredentialState(forUserID: id) { (state, error) in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                promise(.success(state))
             }
         }
     }
@@ -36,5 +44,11 @@ final class AppleAuthService: AppleAuthServiceProtocol {
         NotificationCenter.default
             .publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)
             .eraseToAnyPublisher()
+    }
+}
+
+extension AppleAuthService {
+    static func fixture() -> AppleAuthService {
+        AppleAuthService(appleIDProvider: MockAppleIDProvider())
     }
 }

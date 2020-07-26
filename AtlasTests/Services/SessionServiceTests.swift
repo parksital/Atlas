@@ -2,7 +2,7 @@
 //  SessionServiceTests.swift
 //  AtlasTests
 //
-//  Created by Parvin Sital on 01/07/2020.
+//  Created by Parvin Sital on 23/07/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
@@ -10,234 +10,196 @@ import XCTest
 import Combine
 
 class SessionServiceTests: XCTestCase {
-    private let validUID = "abcxyz"
-    var sut: SessionServiceProtocol!
+    private var sut: SessionServiceProtocol!
+    private var cancellables: Set<AnyCancellable>!
     
     override func setUp() {
         super.setUp()
+        cancellables = Set<AnyCancellable>()
     }
     
     override func tearDown() {
-        sut = nil
+        cancellables.forEach({ $0.cancel() })
+        cancellables = nil
         super.tearDown()
     }
     
-    func test_mobileClientInitialization_error() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(error: AuthError.generic), keychainManager: MockKeychain()
-        )
-        
-        let status = sut.initialize()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.error, AuthError.generic)
+    func testInitialization() {
+        sut = makeSUT()
+        XCTAssertNotNil(sut)
     }
     
-    func test_mobileClientObservation_unknown() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(),
-            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.unknown]),
-            keychainManager: MockKeychain()
-        )
-        
-        let status = sut.initialize()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.values, [.signedOut])
+    func testDeinit() {
+        sut = makeSUT()
+        sut = nil
+        XCTAssertNil(sut)
     }
     
-    func test_appleAuthInitialization_invalidUID() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown),
-            keychainManager: MockKeychain()
-        )
+    func testInitialize_appleAuth_notFound() {
+        sut = makeSUT()
+        let p = sut.getAppleAuthStatus(forUID: "")
+        let spy = StateSpy(publisher: p.eraseToAnyPublisher())
         
-        let status = sut.getAppleCredentialState(forUID: "")
-        let spy = StateSpy(publisher: status)
         XCTAssertEqual(spy.values, [.notFound])
     }
     
-    func test_appleAuthInitialization_validUID() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown),
-            keychainManager: MockKeychain()
-        )
+    func testInitialize_appleAuth_authorized() {
+        sut = makeSUT()
+        let p = sut.getAppleAuthStatus(forUID: "david.appleid.uid")
+        let spy = StateSpy(publisher: p.eraseToAnyPublisher())
         
-        let status = sut.getAppleCredentialState(forUID: validUID)
-        let spy = StateSpy(publisher: status)
         XCTAssertEqual(spy.values, [.authorized])
     }
     
-    func test_appleAuthInitialized_mobileClientInitialized_valid() {
-        let keychain = MockKeychain()
+    func testInitialize_authClient_unknown() {
+        sut = makeSUT()
+        let p = sut.initializeAuthClient()
+        let spy = StateSpy(publisher: p.eraseToAnyPublisher())
         
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .signedIn),
-            keychainManager: keychain
-        )
+        XCTAssertEqual(spy.values, [.unknown])
+    }
+    
+    func testInitialize_authClient_signedIn() {
+        // doesn't matter which e-mail you enter, for now
+        let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
+        sut = makeSUT(authClient: authClient)
         
-        keychain.setValue(validUID, forKey: "uid")
-        let status = sut.initialize()
-        let spy = StateSpy(publisher: status)
+        let p = sut.initializeAuthClient()
+        let spy = StateSpy(publisher: p.eraseToAnyPublisher())
         
         XCTAssertEqual(spy.values, [.signedIn])
     }
     
-    func test_appleAuthInitialized_invalid_mobileClient_initialized() {
+    func testStatus_initial_unknown() {
+        sut = makeSUT()
+        let s = sut.status
+        let spy = StateSpy(publisher: s.eraseToAnyPublisher())
+        
+        XCTAssertEqual(spy.values, [.unknown])
+    }
+    
+    func testInit_appleAuthNotFound_clientUnknown() {
+        sut = makeSUT()
+        
+        let p = sut.initialize()
+        let spy = StateSpy(publisher: p)
+        
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
+    func testInit_appleAuth_revoked_clientSignedIn() {
+        let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
+        sut = makeSUT(authClient: authClient)
+        sut.setup()
+        let p = sut.status.eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
+        
+        XCTAssertEqual(authClient.signOutCalledCount, 1)
+        XCTAssertEqual(spy.values, [.signedOut])
+    }
+    
+    func testObservation_signIn() {
+        let authClient = MockAuthClient(
+            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
+        )
+        
+        sut = makeSUT(authClient: authClient)
+        let promise = expectation(description: "received all observed values")
+        var result: [AuthStatus] = []
+        
+        sut.observe()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    XCTAssertEqual(result.count, 4)
+                    promise.fulfill()
+                default:
+                    XCTFail()
+                }
+            }, receiveValue: { value in
+                result.append(value)
+            })
+            .store(in: &cancellables)
+        
+        wait(for: [promise], timeout: 1.5)
+    }
+    
+//    func testStatusObservation_signIn() {
+//        let authClient = MockAuthClient(
+//            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
+//        )
+//
+//        sut = makeSUT(authClient: authClient)
+//        let promise = expectation(description: "received all observed values")
+//        var result: [AuthStatus] = []
+//
+//        sut.observe()
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    XCTAssertEqual(result.count, 4)
+//                    promise.fulfill()
+//                default:
+//                    XCTFail()
+//                }
+//            }, receiveValue: { value in
+//                result.append(value)
+//            })
+//            .store(in: &cancellables)
+//
+//        wait(for: [promise], timeout: 1.5)
+//    }
+    
+    func testInit_withUIDfromKeychain() {
+        let authData = AppleAuthData.fixture()
         let keychain = MockKeychain()
+        // signed in before -> uid saved
+        keychain.setValue(authData.uid, forKey: "uid")
         
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown),
-            keychainManager: keychain
+        // signed in before -> email saved
+        let authClient = MockAuthClient(
+            existingUsers: [authData.email]
         )
         
-        let status = sut.initialize() //invalid uid
-        let spy = StateSpy(publisher: status)
+        sut = makeSUT(authClient: authClient, keychain: keychain)
         
-        XCTAssertEqual(spy.values, [.signedOut])
+        let p = sut.initialize()
+        let spy = StateSpy(publisher: p)
+        
+        XCTAssertEqual(spy.values, [.signedIn])
     }
     
-    func test_appleAuthInitialized_valid_mobileClient_initialized_signedOut() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .signedOut),
-            keychainManager: MockKeychain()
-        )
-        
-        let status = sut.initialize()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.values, [.signedOut])
-    }
-    
-    func test_appleAuth_valid_mobileClient_signedOut_observe_signIn() {
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: StubAuthClient(value: .unknown, observedValues: [.confirmed, .signedIn]),
-            keychainManager: MockKeychain()
-        )
-        
-        let status = sut.observe()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.values, [.signedOut, .confirmed, .signedIn])
-    }
-    
-    func test_appleAuth_invalid_mobileClient_signOut() {
-        let awsMobileClient = StubAuthClient(value: .signedIn)
-        sut = SessionService(
-            appleAuthService: StubAppleAuthService(validUID: validUID),
-            awsMobileClient: awsMobileClient,
-            keychainManager: MockKeychain()
-        )
-        
-        let status = sut.observe()
-        let spy = StateSpy(publisher: status)
-        XCTAssertEqual(spy.values, [.signedOut])
-        XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
-    }
-    
-    func test_appleAuthRevoked_mobileClient_signOut() {
-        let appleAuthService = StubAppleAuthService(validUID: "invalid", revoke: true)
-        let awsMobileClient = StubAuthClient(value: .signedIn)
-        let keychain = MockKeychain()
-        keychain.setValue(validUID, forKey: "uid")
-        
-        sut = SessionService(
-            appleAuthService: appleAuthService,
-            awsMobileClient: awsMobileClient,
-            keychainManager: keychain
-        )
-        
-        let status = sut.observe()
-        let spy = StateSpy(publisher: status)
-        
-        XCTAssertEqual(spy.values, [.signedOut])
-        XCTAssertEqual(awsMobileClient.signOutCalledCount, 1)
-    }
-    
-    func test_fetchingSub_notSaved() {
-        let appleAuthService = StubAppleAuthService(validUID: validUID)
-        let awsMobileClient = StubAuthClient(value: .signedIn, sub: "aws.cognito.sub")
-        let keychain = MockKeychain()
-        
-        sut = SessionService(
-            appleAuthService: appleAuthService,
-            awsMobileClient: awsMobileClient,
-            keychainManager: keychain
-        )
-        
-        let sub = sut.fetchSub()
-        let spy = StateSpy(publisher: sub)
+    func testFetchingSUB() {
+        sut = makeSUT()
+        let p = sut.fetchSUB().eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
         
         XCTAssertEqual(spy.values, ["aws.cognito.sub"])
-        XCTAssertEqual(awsMobileClient.getSubCalledCount, 1)
     }
     
-    func test_fetchingSub_saved() {
-        let appleAuthService = StubAppleAuthService(validUID: validUID)
-        let awsMobileClient = StubAuthClient(value: .signedIn)
+    func testGetSUBfromKeychain() {
         let keychain = MockKeychain()
+        keychain.setValue("aws.cognito.sub.david", forKey: "sub")
+        sut = makeSUT(keychain: keychain)
         
-        sut = SessionService(
-            appleAuthService: appleAuthService,
-            awsMobileClient: awsMobileClient,
-            keychainManager: keychain
-        )
+        let p = sut.fetchSUB().eraseToAnyPublisher()
+        let spy = StateSpy(publisher: p)
         
-        keychain.setValue("aws.cognito.sub", forKey: "sub")
-        let sub = sut.fetchSub()
-        let spy = StateSpy(publisher: sub)
-        
-        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
-        XCTAssertEqual(awsMobileClient.getSubCalledCount, 0)
-    }
-    
-    func test_observeSUB() {
-        let appleAuthService = StubAppleAuthService(validUID: validUID)
-        let awsMobileClient = StubAuthClient(value: .signedIn, sub: "aws.cognito.sub")
-        let keychain = MockKeychain()
-        keychain.setValue(validUID, forKey: "uid")
-        
-        sut = SessionService(
-            appleAuthService: appleAuthService,
-            awsMobileClient: awsMobileClient,
-            keychainManager: keychain
-        )
-        
-        let sub = sut.cognitoSUB.eraseToAnyPublisher()
-        let spy = StateSpy(publisher: sub)
-        
-        XCTAssertEqual(awsMobileClient.getSubCalledCount, 1)
-        XCTAssertEqual(spy.values, ["aws.cognito.sub"])
+        XCTAssertEqual(spy.values, ["aws.cognito.sub.david"])
     }
 }
 
 private extension SessionServiceTests {
-    // MARK: - Helpers
-    final class StateSpy<T> {
-        private (set) var values: [T] = []
-        private (set) var error: AuthError?
-        private var cancellables = Set<AnyCancellable>()
+    func makeSUT(
+        authClient: AuthClientProtocol = MockAuthClient(),
+        keychain: KeychainManagerProtocol = MockKeychain()
+    ) -> SessionService {
+        let appleAuthService = AppleAuthService(appleIDProvider: MockAppleIDProvider())
         
-        init(publisher: AnyPublisher<T, AuthError>) {
-            publisher
-                .sink(
-                    receiveCompletion: { [weak self] completion in
-                        switch completion {
-                        case .failure(let error): self?.error = error
-                        case .finished: break
-                        }
-                    },
-                    receiveValue: { [weak self] value in
-                        self?.values.append(value)
-                    }
-            ).store(in: &cancellables)
-        }
+        return SessionService(
+            appleAuthService: appleAuthService,
+            authClient: authClient,
+            keychain: keychain
+        )
     }
 }

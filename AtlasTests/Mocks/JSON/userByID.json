@@ -1,0 +1,10 @@
+{
+    "getUser": {
+        "id": "1a497ff1-396d-44c7-b02e-9f6f7d658d15",
+        "firstName": "David",
+        "familyName": "Jefferson",
+        "points": 0,
+        "createdAt": "2020-07-21T19:42:36.729Z",
+        "updatedAt": "2020-07-21T19:42:36.729Z"
+    }
+}
