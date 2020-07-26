@@ -10,6 +10,12 @@ import Foundation
 import AuthenticationServices
 import Combine
 
+typealias AppleIDCredentialState = ASAuthorizationAppleIDProvider.CredentialState
+protocol AppleAuthServiceProtocol {
+    func checkAppleIDCredentials(forUID uid: String?) -> Future<AppleIDCredentialState, Error>
+    func observeAppleIDRevocation() -> AnyPublisher<Notification, Never>
+}
+
 final class AppleAuthService: AppleAuthServiceProtocol {
     private let appleIDProvider: AppleIDProviderProtocol!
     

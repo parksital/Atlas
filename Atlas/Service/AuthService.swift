@@ -9,6 +9,22 @@
 import Foundation
 import Combine
 
+protocol AuthServiceProtocol {
+    func initiateSignUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError>
+    
+    func signUp(
+        email: String,
+        password: String,
+        attributes: [String: String]
+    ) -> Future<AuthStatus, AuthError>
+    
+    func signIn(
+        email: String,
+        password: String
+    ) -> Future<AuthStatus, AuthError>
+}
+
+
 final class AuthService: AuthServiceProtocol {
     private let authClient: AuthClientProtocol!
     private let keychain: KeychainManagerProtocol!
