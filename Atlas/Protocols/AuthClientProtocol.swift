@@ -50,22 +50,17 @@ extension AWSMobileClient: AuthClientProtocol {
     }
     
     func observe() -> AnyPublisher<AuthStatus, AuthError> {
-        Future<AuthStatus, AuthError> { [weak self] promise in
-            guard let self = self else { return }
-            
-            self.addUserStateListener(self) { userState, userInfo in
-                switch userState {
-                case .signedIn:
-                    promise(.success(.signedIn))
-                case .signedOut:
-                    promise(.success(.signedOut))
-                case .unknown:
-                    promise(.success(.unknown))
-                default:
-                    break
-                }
+        let pts = PassthroughSubject<AuthStatus, AuthError>()
+        
+        self.addUserStateListener(self) { (userState, userInfo) in
+            switch userState {
+            case .signedIn: pts.send(.signedIn)
+            case .signedOut: pts.send(.signedOut)
+            default: break
             }
-        }.eraseToAnyPublisher()
+        }
+        
+        return pts.eraseToAnyPublisher()
     }
     
     func getCognitoSUB() -> Future<String, AuthError> {

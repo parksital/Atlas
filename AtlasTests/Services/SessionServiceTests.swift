@@ -124,31 +124,31 @@ class SessionServiceTests: XCTestCase {
         wait(for: [promise], timeout: 1.5)
     }
     
-    func testStatusObservation_signIn() {
-        let authClient = MockAuthClient(
-            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
-        )
-        
-        sut = makeSUT(authClient: authClient)
-        let promise = expectation(description: "received all observed values")
-        var result: [AuthStatus] = []
-        
-        sut.observe()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    XCTAssertEqual(result.count, 4)
-                    promise.fulfill()
-                default:
-                    XCTFail()
-                }
-            }, receiveValue: { value in
-                result.append(value)
-            })
-            .store(in: &cancellables)
-        
-        wait(for: [promise], timeout: 1.5)
-    }
+//    func testStatusObservation_signIn() {
+//        let authClient = MockAuthClient(
+//            observedValues: [.unknown, .confirmed, .signedUp, .signedIn]
+//        )
+//
+//        sut = makeSUT(authClient: authClient)
+//        let promise = expectation(description: "received all observed values")
+//        var result: [AuthStatus] = []
+//
+//        sut.observe()
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    XCTAssertEqual(result.count, 4)
+//                    promise.fulfill()
+//                default:
+//                    XCTFail()
+//                }
+//            }, receiveValue: { value in
+//                result.append(value)
+//            })
+//            .store(in: &cancellables)
+//
+//        wait(for: [promise], timeout: 1.5)
+//    }
     
     func testInit_withUIDfromKeychain() {
         let authData = AppleAuthData.fixture()
