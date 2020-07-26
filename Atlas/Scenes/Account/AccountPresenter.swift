@@ -10,10 +10,12 @@ import Foundation
 
 protocol AccountPresentationLogic {
     func setup(viewController: AccountDisplayLogic)
-    func presentUser(_ user: User?)
+    func presentUnAuthView()
+    func presentUser(_ user: User)
     func presentSettings(_ settings: [AccountSetting])
     func goToSignUp()
     func presentSelectedSetting()
+    func presentError(_ error: Error)
 }
 
 final class AccountPresenter {
@@ -25,7 +27,11 @@ extension AccountPresenter: AccountPresentationLogic {
         self.viewController = viewController
     }
     
-    func presentUser(_ user: User?) {
+    func presentUnAuthView() {
+        viewController?.displayAccount(for: nil)
+    }
+    
+    func presentUser(_ user: User) {
         viewController?.displayAccount(for: user)
     }
     
@@ -39,5 +45,9 @@ extension AccountPresenter: AccountPresentationLogic {
     
     func presentSelectedSetting() {
         viewController?.showSelectedSetting()
+    }
+    
+    func presentError(_ error: Error) {
+        
     }
 }

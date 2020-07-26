@@ -2,69 +2,73 @@
 //  AuthService.swift
 //  Atlas
 //
-//  Created by Parvin Sital on 27/04/2020.
+//  Created by Parvin Sital on 22/07/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
 import Foundation
 import Combine
 
-final class AuthService {
+final class AuthService: AuthServiceProtocol {
     private let authClient: AuthClientProtocol!
-    @Keychained(key: "uid") var uid: String?
-    @Keychained(key: "email") var email: String?
-    @Keychained(key: "password") var password: String?
-    @Keychained(key: "token") var token: String?
+    private let keychain: KeychainManagerProtocol!
     
-    init(authClient: AuthClientProtocol) {
+    init(authClient: AuthClientProtocol, keychain: KeychainManagerProtocol) {
         self.authClient = authClient
+        self.keychain = keychain
     }
-}
-
-private extension AuthService {
-    func generatePassword() -> String {
-        PasswordGenerator.shared.generatePassword(
+    
+    func signUp(
+        email: String,
+        password: String,
+        attributes: [String: String]
+    ) -> Future<AuthStatus, AuthError> {
+        
+        authClient.signUp(email: email, password: password, attributes: attributes)
+    }
+    
+    func signIn(
+        email: String,
+        password: String
+    ) -> Future<AuthStatus, AuthError> {
+        authClient.signIn(email: email, password: password)
+    }
+    
+    func initiateSignUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+        guard
+            let uid = keychain.getValue(forKey: "uid"),
+            let password = keychain.getValue(forKey: "password"),
+            uid == authData.uid else {
+                return signUpWithApple(authData)
+        }
+        
+        return signIn(email: authData.email, password: password)
+            .eraseToAnyPublisher()
+    }
+    
+    func signUpWithApple(_ authData: AppleAuthData) -> AnyPublisher<AuthStatus, AuthError> {
+        let password = generatePassword()
+        
+        return signUp(email: authData.email, password: password, attributes: authData.attributes)
+            .filter({ $0 == .confirmed })
+            .flatMap({ [unowned self] _ in
+                self.signIn(email: authData.email, password: password)
+            })
+            .handleEvents(receiveOutput: { [keychain] status in
+                if status == .signedIn {
+                    keychain?.setValue(authData.uid, forKey: "uid")
+                    keychain?.setValue(password, forKey: "password")
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    private func generatePassword() -> String {
+        return PasswordGenerator.shared.generatePassword(
             includeNumbers: true,
             includePunctuation: true,
             includeSymbols: false,
             length: 10
         )
-    }
-}
-
-extension AuthService {
-    func initiateSignIn(with authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
-        if authData.uid == self.uid,
-            let email = _email.wrappedValue,
-            let password = _password.wrappedValue {
-            return signIn(email: email, password: password)
-        } else {
-            return signUpWithAppleID(authData)
-        }
-    }
-    
-    func signUpWithAppleID(_ authData: AppleAuthData) -> AnyPublisher<AWSAuthState, AuthError> {
-        let password = generatePassword()
-        return signUp(email: authData.email, password: password, attributes: authData.attributes)
-            .filter({ $0 == .confirmed})
-            .flatMap({ [weak self] _ in self!.signIn(email: authData.email, password: password) })
-            .filter({ $0 == .signedIn })
-            .handleEvents(receiveOutput: { [weak self ] _ in
-                self?.uid = authData.uid
-                self?.email = authData.email
-                self?.password = password
-            })
-            .eraseToAnyPublisher()
-    }
-    
-    func signUp(email: String, password: String, attributes: [String: String]) -> AnyPublisher<AWSAuthState, AuthError> {
-        return authClient.signUp(email: email, password: password, attributes: attributes)
-    }
-    
-    func signIn(email: String, password: String) -> AnyPublisher<AWSAuthState, AuthError> {
-        return authClient.signIn(email: email, password: password)
-    }
-    
-    func logOut() {
     }
 }

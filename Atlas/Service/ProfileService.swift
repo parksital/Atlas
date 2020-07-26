@@ -9,6 +9,10 @@
 import Foundation
 import Combine
 
+protocol ProfileServiceProtocol {
+    func getUserByID(id: String) -> AnyPublisher<User, Error>
+}
+
 final class ProfileService {
     private let client: APIClientProtocol!
     private var cancellables = Set<AnyCancellable>()
@@ -25,13 +29,20 @@ private extension ProfileService {
     
 }
 
-extension ProfileService {
-    func getUserByID(id: String) -> AnyPublisher<User, AuthError> {
+extension ProfileService: ProfileServiceProtocol {
+    func getUserByID(id: String) -> AnyPublisher<User, Error> {
         let f: Future<GetUser, Error> = client.fetch(query: Account.Request(id: id), cachePolicy: .returnCacheDataAndFetch)
         
         return f
             .map({ $0.user })
-            .mapError(AuthError.init(error:))
             .eraseToAnyPublisher()
+    }
+}
+
+extension ProfileService {
+    static func fixture() -> ProfileService {
+        ProfileService(
+            client: AWSClient(appSyncClient: MockAPIClient())
+        )
     }
 }
