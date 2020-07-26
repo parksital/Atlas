@@ -13,6 +13,7 @@ import SwinjectAutoregistration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var sessionService: SessionServiceProtocol!
     
     let container: Container = {
         SceneContainer.shared.container
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        sessionService = container
+            .resolve(SessionServiceProtocol.self)!
+        sessionService.setup()
+        
         
         let rootViewController = container.resolve(EventListViewController.self)!
         window = UIWindow(frame: UIScreen.main.bounds)

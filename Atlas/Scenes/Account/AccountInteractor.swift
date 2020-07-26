@@ -48,8 +48,7 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
-        sessionService.initialize()
-            .merge(with: sessionService.observe())
+        sessionService.status
             .catch({ [weak self] error -> Just<AuthStatus> in
                 self?.presenter.presentError(error)
                 return Just<AuthStatus>(.signedOut)
@@ -68,9 +67,7 @@ private extension AccountInteractor {
         sessionService.fetchSUB()
             .flatMap({ [unowned self] id in
                 self.profileService.getUserByID(id: id)
-                    .mapError({
-                        AuthError.decoding(underlyingError: $0)
-                    })
+                    .mapError({ AuthError.decoding($0) })
                     .eraseToAnyPublisher()
             })
             .sink(receiveCompletion: { [weak self] completion in

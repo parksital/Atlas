@@ -40,9 +40,12 @@ class AccountInteractorTests: XCTestCase {
     
     func testObserveSession_notSignedIn() {
         let spy = PresenterSpy()
+        let sessionService = SessionService.fixture()
+        sessionService.setup()
+        
         sut = makeSUT(
             presenter: spy,
-            sessionService: .fixture()
+            sessionService: sessionService
         )
         
         sut.viewDidFinishLoading()
@@ -52,9 +55,12 @@ class AccountInteractorTests: XCTestCase {
     
     func testPresentUser_afterSignIn() {
         let presenter = PresenterSpy()
+        let sessionService = SessionService.fixture(signedIn: true)
+        sessionService.setup()
+        
         sut = makeSUT(
             presenter: presenter,
-            sessionService: .fixture(signedIn: true),
+            sessionService: sessionService,
             profileService: .fixture()
         )
         

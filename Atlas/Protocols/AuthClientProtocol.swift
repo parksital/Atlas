@@ -44,8 +44,21 @@ private extension AuthClientProtocol {
 
 extension AWSMobileClient: AuthClientProtocol {
     func initialize() -> Future<AuthStatus, AuthError> {
-        return Future<AuthStatus, AuthError> { promise in
-            promise(.success(.unknown))
+        return Future<AuthStatus, AuthError> { [weak self] promise in
+            guard let self = self else { return }
+            self.initialize { userState, error in
+                print("awsMobileClient initialized with: ", userState)
+                if let error = error {
+                    let authErrror = self.mapAWSMobileClientError(error)
+                    promise(.failure(authErrror))
+                } else if let state = userState {
+                    switch state {
+                    case .signedIn: promise(.success(.signedIn))
+                    case .signedOut: promise(.success(.signedOut))
+                    default: promise(.success(.unknown))
+                    }
+                }
+            }
         }
     }
     
@@ -68,14 +81,12 @@ extension AWSMobileClient: AuthClientProtocol {
             self?.getUserAttributes(completionHandler: { attributes, error in
                 guard error == nil else {
                     print("Attibutes Error: ", error!.localizedDescription)
-                    let authError = AuthError.attributesError(underlyingError: error!)
-                    promise(.failure(authError))
+                    promise(.failure(.attributesError(error!)))
                     return
                 }
                 
                 guard let dict = attributes, let sub = dict["sub"] else {
-                    let authError = AuthError.attributesError(underlyingError: error!)
-                    promise(.failure(authError))
+                    promise(.failure(.attributesError(error!)))
                     return
                 }
                 

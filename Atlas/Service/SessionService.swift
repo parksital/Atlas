@@ -26,6 +26,20 @@ class SessionService: SessionServiceProtocol {
         self.keychain = keychain
     }
     
+    func setup() {
+        initialize()
+            .merge(with: observe(), observeRevocation())
+            .removeDuplicates()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] value in
+                    if value == .signedOut {
+                        self?.authClient.signOut()
+                    }
+                    self?.status.send(value)
+            })
+            .store(in: &cancellables)
+    }
+    
     func initialize() -> AnyPublisher<AuthStatus, AuthError> {
         let uid = keychain.getValue(forKey: "uid")
         
@@ -33,16 +47,23 @@ class SessionService: SessionServiceProtocol {
             .map({ $0 == .authorized})
             .zip(initializeAuthClient())
             .map({ (authorized, authStatus) in
-                guard authorized,
-                    authStatus == .signedIn
-                    else {
-                        self.authClient.signOut()
-                        return .signedOut
+                if authorized {
+                    return self.handleAuthStatus(authStatus)
+                } else {
+                    return .signedOut
                 }
-                
-                return .signedIn
             })
             .eraseToAnyPublisher()
+    }
+    
+    func handleAuthStatus(_ authStatus: AuthStatus) -> AuthStatus {
+        switch authStatus {
+        case .signedOut: // + .expiredToken:
+            // sign in first
+            return .signedIn
+        default:
+            return authStatus
+        }
     }
     
     func initializeAuthClient() -> Future<AuthStatus, AuthError> {
@@ -52,14 +73,19 @@ class SessionService: SessionServiceProtocol {
     func getAppleAuthStatus(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError> {
         appleAuthService
             .checkAppleIDCredentials(forUID: uid)
-            .mapError({
-                AuthError.appleIDError(underlyingError: $0)
-            })
+            .mapError({ AuthError.appleIDError($0) })
             .eraseToAnyPublisher()
     }
     
     func observe() -> AnyPublisher<AuthStatus, AuthError> {
         authClient.observe()
+    }
+    
+    func observeRevocation() -> AnyPublisher<AuthStatus, AuthError> {
+        appleAuthService.observeAppleIDRevocation()
+            .setFailureType(to: AuthError.self)
+            .map({ _ in .signedOut })
+            .eraseToAnyPublisher()
     }
     
     func fetchSUB() -> AnyPublisher<String, AuthError> {
