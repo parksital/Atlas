@@ -90,8 +90,8 @@ class SessionServiceTests: XCTestCase {
     func testInit_appleAuth_revoked_clientSignedIn() {
         let authClient = MockAuthClient(existingUsers: ["david.appleid@domain.com"])
         sut = makeSUT(authClient: authClient)
-        
-        let p = sut.initialize()
+        sut.setup()
+        let p = sut.status.eraseToAnyPublisher()
         let spy = StateSpy(publisher: p)
         
         XCTAssertEqual(authClient.signOutCalledCount, 1)

@@ -48,8 +48,7 @@ final class AccountInteractor: AccountDataStore {
 
 private extension AccountInteractor {
     func observe() {
-        sessionService.initialize()
-            .merge(with: sessionService.observe())
+        sessionService.status
             .catch({ [weak self] error -> Just<AuthStatus> in
                 self?.presenter.presentError(error)
                 return Just<AuthStatus>(.signedOut)

@@ -44,8 +44,21 @@ private extension AuthClientProtocol {
 
 extension AWSMobileClient: AuthClientProtocol {
     func initialize() -> Future<AuthStatus, AuthError> {
-        return Future<AuthStatus, AuthError> { promise in
-            promise(.success(.unknown))
+        return Future<AuthStatus, AuthError> { [weak self] promise in
+            guard let self = self else { return }
+            self.initialize { userState, error in
+                print("awsMobileClient initialized with: ", userState)
+                if let error = error {
+                    let authErrror = self.mapAWSMobileClientError(error)
+                    promise(.failure(authErrror))
+                } else if let state = userState {
+                    switch state {
+                    case .signedIn: promise(.success(.signedIn))
+                    case .signedOut: promise(.success(.signedOut))
+                    default: promise(.success(.unknown))
+                    }
+                }
+            }
         }
     }
     

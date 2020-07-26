@@ -12,6 +12,7 @@ import Combine
 protocol SessionServiceProtocol {
     var status: CurrentValueSubject<AuthStatus, AuthError> { get }
     
+    func setup()
     func initialize() -> AnyPublisher<AuthStatus, AuthError>
     func observe() -> AnyPublisher<AuthStatus, AuthError>
     func initializeAuthClient() -> Future<AuthStatus, AuthError>
