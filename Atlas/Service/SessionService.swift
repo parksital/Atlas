@@ -9,6 +9,17 @@
 import Foundation
 import Combine
 
+protocol SessionServiceProtocol {
+    var status: CurrentValueSubject<AuthStatus, AuthError> { get }
+    
+    func setup()
+    func initialize() -> AnyPublisher<AuthStatus, AuthError>
+    func observe() -> AnyPublisher<AuthStatus, AuthError>
+    func initializeAuthClient() -> Future<AuthStatus, AuthError>
+    func getAppleAuthStatus(forUID uid: String?) -> AnyPublisher<AppleIDCredentialState, AuthError>
+    func fetchSUB() -> AnyPublisher<String, AuthError>
+}
+
 class SessionService: SessionServiceProtocol {
     private let appleAuthService: AppleAuthServiceProtocol!
     private let authClient: AuthClientProtocol!
