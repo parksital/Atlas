@@ -21,6 +21,7 @@ class SceneContainer {
         container.autoregister(AppleIDProviderProtocol.self, initializer: ASAuthorizationAppleIDProvider.init)
         container.autoregister(AppleAuthServiceProtocol.self, initializer: AppleAuthService.init)
         container.autoregister(SessionServiceProtocol.self, initializer: SessionService.init)
+            .inObjectScope(.container)
         container.autoregister(AuthServiceProtocol.self, initializer: AuthService.init)
         container.autoregister(KeychainManagerProtocol.self, initializer: KeychainManager.init)
         container.autoregister(ProfileService.self, initializer: ProfileService.init)

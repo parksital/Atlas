@@ -28,7 +28,7 @@ class SessionService: SessionServiceProtocol {
     
     func setup() {
         initialize()
-            .merge(with: observe(), observeRevocation())
+            .merge(with: observe())
             .removeDuplicates()
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] value in
@@ -36,6 +36,13 @@ class SessionService: SessionServiceProtocol {
                         self?.authClient.signOut()
                     }
                     self?.status.send(value)
+            })
+            .store(in: &cancellables)
+        
+        observeRevocation()
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [authClient] _ in
+                    authClient?.signOut()
             })
             .store(in: &cancellables)
     }
@@ -47,6 +54,7 @@ class SessionService: SessionServiceProtocol {
             .map({ $0 == .authorized})
             .zip(initializeAuthClient())
             .map({ (authorized, authStatus) in
+                print("appleAuth: \(authorized), cognito: \(authStatus)")
                 if authorized {
                     return self.handleAuthStatus(authStatus)
                 } else {
