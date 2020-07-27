@@ -57,7 +57,7 @@ class SceneContainer {
         PreferencesDI.setDependencies(inContainer: container)
         
         //MARK: - Saved Dependencies
-        
+        SavedEventsDI.setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies
         container.autoregister(SignUpInteraction.self, initializer: SignUpInteractor.init)

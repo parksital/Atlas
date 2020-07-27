@@ -32,15 +32,21 @@ class SavedEventsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        setupViews()
     }
 }
-extension SavedEventsViewController: SavedEventsDisplayLogic {
-    func doSomething() {
-        let request = SavedEvents.Something.Request()
-        interactor?.doSomething(request: request)
+private extension SavedEventsViewController {
+    func setupViews() {
+        self.view.backgroundColor = .systemBackground
+        setupNavigation()
     }
     
+    func setupNavigation() {
+        navigationItem.title = NSLocalizedString("savedEvents", comment: "")
+    }
+}
+
+extension SavedEventsViewController: SavedEventsDisplayLogic {
     func displaySomething(viewModel: SavedEvents.Something.ViewModel) {
         //nameTextField.text = viewModel.name
     }
