@@ -50,8 +50,8 @@ final class AccountRouter: AccountRouterProtocol {
             destination = UIViewController()
             destination.view.backgroundColor = .systemRed
         case .saved:
-            destination = UIViewController()
-            destination.view.backgroundColor = .systemPink
+            destination = container
+                .resolve(SavedEventsViewController.self)!
         case .history:
             destination = UIViewController()
             destination.view.backgroundColor = .systemTeal
