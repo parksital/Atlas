@@ -46,7 +46,7 @@ extension EventDetailPresenter {
             id: event.id,
             title: event.title.capitalized,
             startDate: formatDate(event.startDate),
-            venue: event.venue,
+            venue: event.venue.name,
             description: event.description ?? "",
             artists: event.artists.map { $0.artistName }
         )

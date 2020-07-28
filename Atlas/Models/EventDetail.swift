@@ -23,9 +23,16 @@ struct Event {
     let title: String
     let startDate: Date
     let endDate: Date
-    let venue: String
+    let venue: Venue
     let description: String?
     let artists: [Artist]
+    
+    struct Venue {
+        let id: String
+        let name: String
+        let latitude: Double
+        let longitude: Double
+    }
     
     struct Artist {
         let id: String
@@ -45,10 +52,6 @@ extension Event: Decodable {
         case description
         case artists = "bookings"
         
-        enum VenueKeys: String, CodingKey {
-            case name
-        }
-        
         enum BookingContainerKeys: String, CodingKey {
             case items
             
@@ -60,14 +63,13 @@ extension Event: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let venueContainer = try container.nestedContainer(keyedBy: CodingKeys.VenueKeys.self, forKey: .venue)
         let bookingContainer = try container.nestedContainer(keyedBy: CodingKeys.BookingContainerKeys.self, forKey: .artists)
 
         id = try container.decode(String.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)
         startDate = try container.decode(Date.self, forKey: .startDate)
         endDate = try container.decode(Date.self, forKey: .endDate)
-        venue = try venueContainer.decode(String.self, forKey: .name)
+        venue = try container.decode(Event.Venue.self, forKey: .venue)
         description = try container.decode(String?.self, forKey: .description)
         
         var unkeyedItems = try bookingContainer.nestedUnkeyedContainer(forKey: .items)
@@ -91,6 +93,8 @@ extension Event.Artist: Decodable {
         case lastName = "last_name"
     }
 }
+
+extension Event.Venue: Decodable { }
 
 enum EventDetail {
     struct Request: Fetchable, Mockable {

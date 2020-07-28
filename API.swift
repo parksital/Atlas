@@ -2075,7 +2075,7 @@ public final class ListEventsSummarizedByStartDateQuery: GraphQLQuery {
 
 public final class GetEventDetailsQuery: GraphQLQuery {
   public static let operationString =
-    "query GetEventDetails($id: ID!) {\n  getEvent(id: $id) {\n    __typename\n    id\n    type\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n    }\n    bookings {\n      __typename\n      items {\n        __typename\n        artist {\n          __typename\n          id\n          first_name\n          last_name\n          artist_name\n        }\n      }\n      nextToken\n    }\n  }\n}"
+    "query GetEventDetails($id: ID!) {\n  getEvent(id: $id) {\n    __typename\n    id\n    type\n    title\n    start_date\n    end_date\n    description\n    venue {\n      __typename\n      id\n      name\n      longitude\n      latitude\n    }\n    bookings {\n      __typename\n      items {\n        __typename\n        artist {\n          __typename\n          id\n          first_name\n          last_name\n          artist_name\n        }\n      }\n      nextToken\n    }\n  }\n}"
 
   public var id: GraphQLID
 
@@ -2226,6 +2226,8 @@ public final class GetEventDetailsQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("longitude", type: .scalar(Double.self)),
+          GraphQLField("latitude", type: .scalar(Double.self)),
         ]
 
         public var snapshot: Snapshot
@@ -2234,8 +2236,8 @@ public final class GetEventDetailsQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        public init(id: GraphQLID, name: String) {
-          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name])
+        public init(id: GraphQLID, name: String, longitude: Double? = nil, latitude: Double? = nil) {
+          self.init(snapshot: ["__typename": "Venue", "id": id, "name": name, "longitude": longitude, "latitude": latitude])
         }
 
         public var __typename: String {
@@ -2262,6 +2264,24 @@ public final class GetEventDetailsQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var longitude: Double? {
+          get {
+            return snapshot["longitude"] as? Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "longitude")
+          }
+        }
+
+        public var latitude: Double? {
+          get {
+            return snapshot["latitude"] as? Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "latitude")
           }
         }
       }
