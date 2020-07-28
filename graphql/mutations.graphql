@@ -58,6 +58,8 @@ mutation CreateVenue(
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -83,6 +85,8 @@ mutation UpdateVenue(
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -108,6 +112,8 @@ mutation DeleteVenue(
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -130,6 +136,8 @@ mutation CreateEvent(
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -163,6 +171,8 @@ mutation UpdateEvent(
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -196,6 +206,8 @@ mutation DeleteEvent(
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -228,6 +240,8 @@ mutation CreateBooking(
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt
@@ -269,6 +283,8 @@ mutation UpdateBooking(
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt
@@ -310,6 +326,8 @@ mutation DeleteBooking(
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt

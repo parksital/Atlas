@@ -1,5 +1,5 @@
 //
-//  EventDetail-DI.swift
+//  EventDetailDI.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 20/06/2020.
