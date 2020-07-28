@@ -35,6 +35,8 @@ query GetEventDetails($id: ID!) {
     venue {
       id
       name
+      longitude
+      latitude
     }
     bookings {
       items {
