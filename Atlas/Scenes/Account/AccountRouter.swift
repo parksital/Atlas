@@ -47,8 +47,8 @@ final class AccountRouter: AccountRouterProtocol {
         
         switch selection {
         case .myTickets:
-            destination = UIViewController()
-            destination.view.backgroundColor = .systemRed
+            destination = container
+                .resolve(MyTicketsViewController.self)!
         case .saved:
             destination = container
                 .resolve(SavedEventsViewController.self)!
