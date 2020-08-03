@@ -53,6 +53,9 @@ class SceneContainer {
                 presenter.setup(viewController: vc)
         }
         
+        //MARK: - My Tickets Depenedencies
+        MyTicketsDI.setDependencies(inContainer: container)
+        
         //MARK: - Preferences Depenedencies
         PreferencesDI.setDependencies(inContainer: container)
         
