@@ -49,7 +49,7 @@ final class AccountRouter: AccountRouterProtocol {
         case .myTickets:
             destination = container
                 .resolve(MyTicketsViewController.self)!
-        case .saved:
+        case .savedEvents:
             destination = container
                 .resolve(SavedEventsViewController.self)!
         case .history:

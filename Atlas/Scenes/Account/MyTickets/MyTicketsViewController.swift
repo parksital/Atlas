@@ -16,6 +16,30 @@ protocol MyTicketsDisplayLogic: class {
 final class MyTicketsViewController: UIViewController {
     private var interactor: MyTicketsInteraction?
     private var router: MyTicketsRouterProtocol?
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        setupViews()
+        interactor?.viewDidFinishLoading()
+    }
+}
+
+private extension MyTicketsViewController {
+    func setupViews() {
+        view.backgroundColor = .systemBackground
+        setupNavigation()
+    }
+    
+    func setupNavigation() {
+        navigationItem.title = NSLocalizedString("myTickets", comment: "")
+    }
 }
 
 extension MyTicketsViewController: MyTicketsDisplayLogic {

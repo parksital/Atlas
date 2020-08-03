@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MyTicketsLogic {
-    
+    func viewDidFinishLoading()
 }
 
 protocol MyTicketsDataStore {
@@ -22,5 +22,9 @@ final class MyTicketsInteractor: MyTicketsInteraction {
     
     init(presenter: MyTicketsPresentationLogic) {
         self.presenter = presenter
+    }
+    
+    func viewDidFinishLoading() {
+        
     }
 }
