@@ -53,10 +53,11 @@ final class AccountRouter: AccountRouterProtocol {
             destination = container
                 .resolve(SavedEventsViewController.self)!
         case .history:
-            destination = UIViewController()
-            destination.view.backgroundColor = .systemTeal
+            destination = container
+                .resolve(HistoryViewController.self)!
         case .preferences:
-            destination = container.resolve(PreferencesViewController.self)!
+            destination = container
+                .resolve(PreferencesViewController.self)!
         }
         
         navigateToDestination(source: viewController!, destination: destination)

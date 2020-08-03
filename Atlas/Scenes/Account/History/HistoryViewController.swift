@@ -31,6 +31,19 @@ final class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+        interactor?.viewDidFinishLoading()
+    }
+}
+
+private extension HistoryViewController {
+    func setupViews() {
+        view.backgroundColor = .systemBackground
+        setupNavigation()
+    }
+    
+    func setupNavigation() {
+        navigationItem.title = NSLocalizedString("history", comment: "")
     }
 }
 
