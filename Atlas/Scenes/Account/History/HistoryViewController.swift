@@ -21,6 +21,8 @@ final class HistoryViewController: UIViewController {
     var interactor: HistoryInteraction?
     var router: HistoryRouterProtocol?
     
+    private let wipLabel = UILabel(styling: .primary)
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -40,10 +42,21 @@ private extension HistoryViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigation()
+        setupWIPLabel()
     }
     
     func setupNavigation() {
         navigationItem.title = NSLocalizedString("history", comment: "")
+    }
+    
+    func setupWIPLabel() {
+        wipLabel.text = "WIP"
+        view.addSubview(wipLabel)
+        wipLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let centerY = wipLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let centerX = wipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        NSLayoutConstraint.activate([centerY, centerX])
     }
 }
 

@@ -22,6 +22,8 @@ class SavedEventsViewController: UIViewController {
     var interactor: SavedEventsInteraction?
     var router: SavedEventsRoutingProtocol?
     
+    private let wipLabel = UILabel(styling: .primary)
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -39,10 +41,21 @@ private extension SavedEventsViewController {
     func setupViews() {
         self.view.backgroundColor = .systemBackground
         setupNavigation()
+        setupWIPLabel()
     }
     
     func setupNavigation() {
         navigationItem.title = NSLocalizedString("savedEvents", comment: "")
+    }
+    
+    func setupWIPLabel() {
+        wipLabel.text = "WIP"
+        view.addSubview(wipLabel)
+        wipLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let centerY = wipLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let centerX = wipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        NSLayoutConstraint.activate([centerY, centerX])
     }
 }
 
