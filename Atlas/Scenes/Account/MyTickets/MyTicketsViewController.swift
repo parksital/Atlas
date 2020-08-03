@@ -17,6 +17,8 @@ final class MyTicketsViewController: UIViewController {
     private var interactor: MyTicketsInteraction?
     private var router: MyTicketsRouterProtocol?
     
+    private let wipLabel = UILabel(styling: .primary)
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -35,10 +37,21 @@ private extension MyTicketsViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
         setupNavigation()
+        setupWIPLabel()
     }
     
     func setupNavigation() {
         navigationItem.title = NSLocalizedString("myTickets", comment: "")
+    }
+    
+    func setupWIPLabel() {
+        wipLabel.text = "WIP"
+        view.addSubview(wipLabel)
+        wipLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let centerY = wipLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let centerX = wipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        NSLayoutConstraint.activate([centerY, centerX])
     }
 }
 
