@@ -14,5 +14,13 @@
 "noProfile" = "You are not signed in.";
 "getStarted" = "Get started!";
 
+"myTickets" = "My tickets";
+
+"savedEvents" = "Saved events";
+
+"history" = "History";
+
+
 "artists" = "Artists";
-"buyTicket" = "Buy Ticket";
+"buyTicket" = "Buy tickets";
+"tickets" = "Tickets";

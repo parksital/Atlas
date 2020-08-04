@@ -34,6 +34,9 @@ class SceneContainer {
         //MARK: - EventDetail Dependencies
         EventDetailDI.setDependencies(inContainer: container)
         
+        //MARK: - Buy Ticket Dependencies
+        BuyTicketDI.setDependencies(inContainer: container)
+        
         //MARK: - Account Depenedencies
         container.autoregister(AccountInteraction.self, initializer: AccountInteractor.init)
         container.autoregister(AccountPresentationLogic.self, initializer: AccountPresenter.init)
@@ -53,8 +56,17 @@ class SceneContainer {
                 presenter.setup(viewController: vc)
         }
         
+        //MARK: - My Tickets Depenedencies
+        MyTicketsDI.setDependencies(inContainer: container)
+        
+        //MARK: - Saved Dependencies
+        SavedEventsDI.setDependencies(inContainer: container)
+        
         //MARK: - Preferences Depenedencies
         PreferencesDI.setDependencies(inContainer: container)
+        
+        //MARK: - Preferences Depenedencies
+        HistoryDI.setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies
         container.autoregister(SignUpInteraction.self, initializer: SignUpInteractor.init)

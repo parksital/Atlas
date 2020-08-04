@@ -14,5 +14,12 @@
 "noProfile" = "U bent niet ingelogd.";
 "getStarted" = "Beginnen!";
 
+"myTickets" = "Mijn kaartjes";
+
+"savedEvents" = "Bewaarde events";
+
+"history" = "Geschiedenis";
+
 "artists" = "Artiesten";
-"buyTicket" = "Koop Ticket";
+"buyTicket" = "Koop kaartjes";
+"tickets" = "Kaartjes";

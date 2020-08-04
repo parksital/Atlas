@@ -43,6 +43,8 @@ query GetVenue($id: ID!) {
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -60,6 +62,8 @@ query ListVenues(
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -81,6 +85,8 @@ query GetEvent($id: ID!) {
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -113,6 +119,8 @@ query ListEvents(
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt
@@ -190,6 +198,8 @@ query EventsByStartDate(
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt

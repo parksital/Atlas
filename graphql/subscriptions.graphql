@@ -46,6 +46,8 @@ subscription OnCreateVenue {
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -68,6 +70,8 @@ subscription OnUpdateVenue {
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -90,6 +94,8 @@ subscription OnDeleteVenue {
       }
       nextToken
     }
+    longitude
+    latitude
     description
     createdAt
     updatedAt
@@ -109,6 +115,8 @@ subscription OnCreateEvent {
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -139,6 +147,8 @@ subscription OnUpdateEvent {
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -169,6 +179,8 @@ subscription OnDeleteEvent {
       events {
         nextToken
       }
+      longitude
+      latitude
       description
       createdAt
       updatedAt
@@ -198,6 +210,8 @@ subscription OnCreateBooking {
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt
@@ -236,6 +250,8 @@ subscription OnUpdateBooking {
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt
@@ -274,6 +290,8 @@ subscription OnDeleteBooking {
       venue {
         id
         name
+        longitude
+        latitude
         description
         createdAt
         updatedAt

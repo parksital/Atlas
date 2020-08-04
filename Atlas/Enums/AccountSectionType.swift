@@ -33,7 +33,7 @@ enum AccountItem: Hashable {
 
 enum AccountSetting: String, CaseIterable {
     case myTickets
-    case saved
+    case savedEvents
     case history
     case preferences
     

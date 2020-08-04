@@ -11,6 +11,7 @@ import Foundation
 protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
     func presentEvent(_ event: Event)
+    func presentBuyTicket()
     func setup(viewController: EventDetailDisplayLogic)
 }
 
@@ -38,6 +39,10 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
         viewController?.displayViewModel(viewModel)
         
     }
+    
+    func presentBuyTicket() {
+        viewController?.displayBuyTicketScene()
+    }
 }
 
 extension EventDetailPresenter {
@@ -46,7 +51,7 @@ extension EventDetailPresenter {
             id: event.id,
             title: event.title.capitalized,
             startDate: formatDate(event.startDate),
-            venue: event.venue,
+            venue: event.venue.name,
             description: event.description ?? "",
             artists: event.artists.map { $0.artistName }
         )

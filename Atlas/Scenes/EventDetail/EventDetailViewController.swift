@@ -11,6 +11,7 @@ import AloeStackView
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayViewModel(_ viewModel: EventDetail.ViewModel)
+    func displayBuyTicketScene()
     func setup(interactor: EventDetailInteraction)
     func setup(router: EventDetailRouterProtocol)
 }
@@ -80,7 +81,16 @@ private extension EventDetailViewController {
     }
     
     func setupTicketButton() {
-        ticketButton.setTitle(NSLocalizedString("buyTicket", comment: ""), for: .normal)
+        ticketButton.setTitle(
+            NSLocalizedString("buyTicket", comment: ""),
+            for: .normal
+        )
+        
+        ticketButton.addTarget(
+            interactor,
+            action: #selector(interactor?.buyTicketButtonPressed),
+            for: .touchUpInside
+        )
         
         buttonView.addSubview(ticketButton)
         ticketButton.translatesAutoresizingMaskIntoConstraints = false
@@ -134,5 +144,9 @@ extension EventDetailViewController: EventDetailDisplayLogic {
         DispatchQueue.main.async { [weak self] in
             self?.updateViewsForViewModel(viewModel)
         }
+    }
+    
+    func displayBuyTicketScene() {
+        router?.routeToBuyTicket()
     }
 }

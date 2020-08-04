@@ -11,6 +11,8 @@ type Venue
   id: ID!
   name: String!
   events: [Event] @connection(name: "VenueEvents")
+  longitude: Float
+  latitude: Float
   description: String
 }
 

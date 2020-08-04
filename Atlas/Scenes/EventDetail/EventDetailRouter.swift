@@ -6,10 +6,11 @@
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-@objc protocol EventDetailRouting {
+protocol EventDetailRouting: BaseRouting {
     func setup(viewController: EventDetailViewController)
+    func routeToBuyTicket()
 }
 
 protocol EventDetailDataPassing {
@@ -17,7 +18,10 @@ protocol EventDetailDataPassing {
     func setup(dataStore: EventDetailDataStore)
 }
 
-typealias EventDetailRouterProtocol = NSObject & EventDetailRouting & EventDetailDataPassing
+typealias EventDetailRouterProtocol = NSObject
+    & EventDetailRouting
+    & EventDetailDataPassing
+
 final class EventDetailRouter: EventDetailRouterProtocol {
     weak var viewController: EventDetailViewController?
     var dataStore: EventDetailDataStore?
@@ -28,5 +32,11 @@ final class EventDetailRouter: EventDetailRouterProtocol {
     
     func setup(dataStore: EventDetailDataStore) {
         self.dataStore = dataStore
+    }
+    
+    func routeToBuyTicket() {
+        let container = SceneContainer.shared.container
+        let vc = container.resolve(BuyTicketViewController.self)!
+        navigateToDestination(source: viewController!, destination: vc)
     }
 }
