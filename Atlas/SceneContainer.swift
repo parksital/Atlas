@@ -34,6 +34,9 @@ class SceneContainer {
         //MARK: - EventDetail Dependencies
         EventDetailDI.setDependencies(inContainer: container)
         
+        //MARK: - Buy Ticket Dependencies
+        BuyTicketDI.setDependencies(inContainer: container)
+        
         //MARK: - Account Depenedencies
         container.autoregister(AccountInteraction.self, initializer: AccountInteractor.init)
         container.autoregister(AccountPresentationLogic.self, initializer: AccountPresenter.init)

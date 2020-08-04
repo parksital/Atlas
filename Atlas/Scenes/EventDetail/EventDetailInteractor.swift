@@ -9,9 +9,10 @@
 import Foundation
 import Combine
 
-protocol EventDetailLogic: class {
+@objc protocol EventDetailLogic: class {
     func viewDidFinishLoading()
     func fetchEvent()
+    func buyTicketButtonPressed()
 }
 
 protocol EventDetailDataStore: class {
@@ -37,6 +38,10 @@ final class EventDetailInteractor: EventDetailDataStore {
 }
 
 extension EventDetailInteractor: EventDetailLogic {
+    func buyTicketButtonPressed() {
+        presenter?.presentBuyTicket()
+    }
+    
     func fetchEvent() {
         guard let id = eventID else {
             assertionFailure("eventID not set by router")
