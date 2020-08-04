@@ -114,7 +114,25 @@ enum EventDetail {
         let title: String
         let startDate: String
         let venue: String
+        let longitude: Double
+        let latitude: Double
         let description: String?
         let artists: [String]
+    }
+}
+
+extension EventDetail.ViewModel: Hashable { }
+extension EventDetail.ViewModel {
+    static func fixture() -> EventDetail.ViewModel {
+        EventDetail.ViewModel(
+            id: UUID().uuidString,
+            title: "fake event title",
+            startDate: "january 25th 2021",
+            venue: "souperclub.",
+            longitude: 4.88883,
+            latitude: 52.36755,
+            description: "fake description",
+            artists: []
+        )
     }
 }

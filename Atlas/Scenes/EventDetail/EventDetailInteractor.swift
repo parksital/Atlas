@@ -67,6 +67,7 @@ extension EventDetailInteractor: EventDetailLogic {
             return
         }
         presenter?.presentEventTitle(title: title)
+        fetchEvent()
     }
 }
 

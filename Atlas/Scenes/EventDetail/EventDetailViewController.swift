@@ -5,28 +5,96 @@
 //  Created by Parvin Sital on 11/03/2020.
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
+import UIKit
 
-import AloeStackView
+final class EventDescriptionCell: UICollectionViewCell {
+    private let descriptionLabel = UILabel(styling: .body)
+    private var stackView = UIStackView()
+    private var viewsToAdd: [UIView] {
+        return [descriptionLabel]
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupViews()
+    }
+    
+    func setupViews() {
+        setupStackView()
+    }
+    
+    func setupStackView() {
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        viewsToAdd.forEach({ [stackView] in stackView.addArrangedSubview($0) })
+        setupStackViewConstraints()
+    }
+    
+    func setupStackViewConstraints() {
+        contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.0)
+        let trailing = stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.0)
+        let top = stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
+        let bottom = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+    }
+    
+    func configure(description: String?) {
+        descriptionLabel.text = description
+    }
+}
 
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
-    func displayViewModel(_ viewModel: EventDetail.ViewModel)
+    func displayEventDetailItems(_ items: [EventDetailItem])
     func displayBuyTicketScene()
     func setup(interactor: EventDetailInteraction)
     func setup(router: EventDetailRouterProtocol)
 }
 
-final class EventDetailViewController: UIViewController {
+final class EventDetailViewController: UICollectionViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<EventDetailSectionType, EventDetailItem>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<EventDetailSectionType, EventDetailItem>
+    
     var interactor: EventDetailInteraction?
     var router: EventDetailRouterProtocol?
-    
-    private let aloeStackView = AloeStackView()
-    private var titleLabel = UILabel(styling: .title)
-    private var dateTimeLabel = UILabel(styling: .headline)
-    private var descriptionLabel = UILabel(styling: .body)
-    private var artistHeaderLabel = UILabel.init(styling: .headline)
+    private var dataSource: DataSource!
     private var buttonView = UIView()
     private var ticketButton = UIButton(type: .roundedRect)
+    
+    init() {
+        let layout = UICollectionViewCompositionalLayout { section, env in
+            let size = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(40.0)
+            )
+            
+            let item = NSCollectionLayoutItem(
+                layoutSize: size,
+                supplementaryItems: []
+            )
+            
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(50.0)
+                ),
+                subitems: [item]
+            )
+            
+            return NSCollectionLayoutSection(group: group)
+        }
+        
+        super.init(collectionViewLayout: layout)
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -39,7 +107,6 @@ final class EventDetailViewController: UIViewController {
     override func viewDidLoad() {
         setupViews()
         interactor?.viewDidFinishLoading()
-        interactor?.fetchEvent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,46 +118,62 @@ final class EventDetailViewController: UIViewController {
 private extension EventDetailViewController {
     func setupViews() {
         view.backgroundColor = .systemBackground
-        setupStackView()
-        setupTicketButton()
+        setupCollectionView()
     }
     
     func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func setupStackView() {
-        aloeStackView.hidesSeparatorsByDefault = true
-        aloeStackView.alwaysBounceVertical = true
-        aloeStackView.backgroundColor = .systemBackground
-        aloeStackView.rowBackgroundColor = .systemBackground
-        aloeStackView.separatorColor = .separator
-        setupStackViewConstraints()
+    func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .systemBackground
+        collectionView.alwaysBounceVertical = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        
+        registerCells()
+        setupDataSource()
     }
     
-    func setupStackViewConstraints() {
-        view.addSubview(aloeStackView)
+    func registerCells() {
+        collectionView.register(cellType: UICollectionViewCell.self)
+        collectionView.register(cellType: EventHeaderCell.self)
+        collectionView.register(cellType: EventDescriptionCell.self)
+    }
+    
+    func setupDataSource() {
+        dataSource = DataSource(collectionView: collectionView) { (collectionView, indexPath, event) in
+            if let section = EventDetailSectionType(rawValue: indexPath.section) {
+                switch section {
+                case .header:
+                    let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
+                    cell.configure(
+                        venueName: event.item.venue,
+                        dateTime: event.item.startDate
+                    )
+                    return cell
+                case .description:
+                    let cell: EventDescriptionCell = collectionView.getCell(forIndexPath: indexPath)
+                    cell.configure(description: event.item.description)
+                    return cell
+                case .artists:
+                    break
+                case .admission:
+                    break
+                case .map:
+                    break
+                }
+            }
+            let cell: UICollectionViewCell = collectionView.getCell(forIndexPath: indexPath)
+            return cell
+        }
         
-        aloeStackView.translatesAutoresizingMaskIntoConstraints = false
-        let leading = aloeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailing = aloeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let top = aloeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        let bottom = aloeStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        
-        NSLayoutConstraint.activate([leading, trailing, top, bottom])
+        collectionView.dataSource = dataSource
     }
     
     func setupTicketButton() {
-        ticketButton.setTitle(
-            NSLocalizedString("buyTicket", comment: ""),
-            for: .normal
-        )
-        
-        ticketButton.addTarget(
-            interactor,
-            action: #selector(interactor?.buyTicketButtonPressed),
-            for: .touchUpInside
-        )
+        ticketButton.setTitle(NSLocalizedString("buyTicket", comment: ""), for: .normal)
         
         buttonView.addSubview(ticketButton)
         ticketButton.translatesAutoresizingMaskIntoConstraints = false
@@ -103,28 +186,15 @@ private extension EventDetailViewController {
         NSLayoutConstraint.activate([top, bottom, center, height])
     }
     
-    func updateViewsForViewModel(_ viewModel: EventDetail.ViewModel) {
-        titleLabel.text = viewModel.venue
-        dateTimeLabel.text = viewModel.startDate
-        descriptionLabel.text = viewModel.description
-        artistHeaderLabel.text = NSLocalizedString("artists", comment: "")
-        
-        aloeStackView.addRows([
-            titleLabel,
-            dateTimeLabel,
-            descriptionLabel,
-            artistHeaderLabel
-        ], animated: true)
-        
-        viewModel.artists.forEach { [aloeStackView] in
-            let label = UILabel(styling: .body)
-            label.text = $0
-            aloeStackView.addRow(label, animated: true)
-            aloeStackView.showSeparator(forRow: label)
-        }
-        
-        aloeStackView.addRow(buttonView, animated: true)
+    func updateSnapshotWithItems(_ items: [EventDetailItem]) {
+        var snapshot = Snapshot()
+        items.forEach({ item in
+            snapshot.appendSections([item.section])
+            snapshot.appendItems([item], toSection: item.section)
+        })
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
+    
 }
 
 extension EventDetailViewController: EventDetailDisplayLogic {
@@ -140,10 +210,8 @@ extension EventDetailViewController: EventDetailDisplayLogic {
         navigationItem.title = title
     }
     
-    func displayViewModel(_ viewModel: EventDetail.ViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.updateViewsForViewModel(viewModel)
-        }
+    func displayEventDetailItems(_ items: [EventDetailItem]) {
+        updateSnapshotWithItems(items)
     }
     
     func displayBuyTicketScene() {

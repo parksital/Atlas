@@ -35,9 +35,25 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
     }
     
     func presentEvent(_ event: Event) {
-        let viewModel = getViewModelForEvent(event)
-        viewController?.displayViewModel(viewModel)
+        let viewModel = EventDetail.ViewModel(
+            id: event.id,
+            title: event.title.capitalized,
+            startDate: formatDate(event.startDate),
+            venue: event.venue.name,
+            longitude: event.venue.longitude,
+            latitude: event.venue.latitude,
+            description: event.description ?? "",
+            artists: event.artists.map { $0.artistName }
+        )
         
+        let items = [
+            EventDetailItem(section: .header, item: viewModel),
+            EventDetailItem(section: .description, item: viewModel),
+            EventDetailItem(section: .artists, item: viewModel),
+            EventDetailItem(section: .admission, item: viewModel),
+            EventDetailItem(section: .map, item: viewModel)
+        ]
+        viewController?.displayEventDetailItems(items)
     }
     
     func presentBuyTicket() {
@@ -46,17 +62,6 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
 }
 
 extension EventDetailPresenter {
-    func getViewModelForEvent(_ event: Event) -> EventDetail.ViewModel {
-        EventDetail.ViewModel(
-            id: event.id,
-            title: event.title.capitalized,
-            startDate: formatDate(event.startDate),
-            venue: event.venue.name,
-            description: event.description ?? "",
-            artists: event.artists.map { $0.artistName }
-        )
-    }
-    
     func formatDate(_ date: Date) -> String {
         return date.formatted(using: dateFormatter.string(from:))
     }
