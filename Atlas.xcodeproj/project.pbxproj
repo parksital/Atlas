@@ -42,6 +42,8 @@
 		A000253624D96A06009A87D4 /* BuyTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000252B24D96A06009A87D4 /* BuyTicketViewController.swift */; };
 		A000253724D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000252C24D96A06009A87D4 /* BuyTicketInteractor.swift */; };
 		A000253824D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000252C24D96A06009A87D4 /* BuyTicketInteractor.swift */; };
+		A000253A24D96EEE009A87D4 /* BaseRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000253924D96EEE009A87D4 /* BaseRouting.swift */; };
+		A000253B24D96EEE009A87D4 /* BaseRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000253924D96EEE009A87D4 /* BaseRouting.swift */; };
 		A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
@@ -262,6 +264,7 @@
 		A000252A24D96A06009A87D4 /* BuyTicketModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketModels.swift; sourceTree = "<group>"; };
 		A000252B24D96A06009A87D4 /* BuyTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketViewController.swift; sourceTree = "<group>"; };
 		A000252C24D96A06009A87D4 /* BuyTicketInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketInteractor.swift; sourceTree = "<group>"; };
+		A000253924D96EEE009A87D4 /* BaseRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouting.swift; sourceTree = "<group>"; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
 		A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -510,6 +513,7 @@
 				A016B870242FAB1D00D4057B /* AWSAppSyncClientProtocol.swift */,
 				A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */,
 				A0217E3E24C8D7FA0081056C /* AuthClientProtocol.swift */,
+				A000253924D96EEE009A87D4 /* BaseRouting.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1116,6 +1120,7 @@
 				A000251B24D83D3B009A87D4 /* HistoryPresenter.swift in Sources */,
 				A0217E2E24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
+				A000253A24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0217E3924C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
@@ -1242,6 +1247,7 @@
 				A0217E3A24C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A00024DA24D82746009A87D4 /* MyTicketsViewController.swift in Sources */,
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
+				A000253B24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
 				A000252124D84203009A87D4 /* HistoryDI.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,

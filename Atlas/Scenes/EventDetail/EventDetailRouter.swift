@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol EventDetailRouting {
+protocol EventDetailRouting: BaseRouting {
     func setup(viewController: EventDetailViewController)
     func routeToBuyTicket()
 }
@@ -18,7 +18,10 @@ protocol EventDetailDataPassing {
     func setup(dataStore: EventDetailDataStore)
 }
 
-typealias EventDetailRouterProtocol = NSObject & EventDetailRouting & EventDetailDataPassing
+typealias EventDetailRouterProtocol = NSObject
+    & EventDetailRouting
+    & EventDetailDataPassing
+
 final class EventDetailRouter: EventDetailRouterProtocol {
     weak var viewController: EventDetailViewController?
     var dataStore: EventDetailDataStore?
@@ -35,13 +38,5 @@ final class EventDetailRouter: EventDetailRouterProtocol {
         let container = SceneContainer.shared.container
         let vc = container.resolve(BuyTicketViewController.self)!
         navigateToDestination(source: viewController!, destination: vc)
-    }
-    
-    func presentDestination(source: UIViewController, destination: UIViewController) {
-        source.present(destination, animated: true, completion: nil)
-    }
-    
-    func navigateToDestination(source: UIViewController, destination: UIViewController) {
-        source.navigationController?.pushViewController(destination, animated: true)
     }
 }
