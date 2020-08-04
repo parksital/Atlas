@@ -112,6 +112,7 @@ extension EventDetailPresenterTests {
         func displayViewModel(_ viewModel: EventDetail.ViewModel) {
             self.viewModel = viewModel
         }
+        func displayBuyTicketScene() { }
         func setup(interactor: EventDetailInteraction) { }
         func setup(router: EventDetailRouterProtocol) { }
     }
