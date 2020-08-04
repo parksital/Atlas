@@ -11,6 +11,7 @@ import Foundation
 protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
     func presentEvent(_ event: Event)
+    func presentBuyTicket()
     func setup(viewController: EventDetailDisplayLogic)
 }
 
@@ -37,6 +38,10 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
         let viewModel = getViewModelForEvent(event)
         viewController?.displayViewModel(viewModel)
         
+    }
+    
+    func presentBuyTicket() {
+        viewController?.displayBuyTicketScene()
     }
 }
 
