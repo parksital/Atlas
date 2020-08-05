@@ -106,6 +106,11 @@
 		A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
+		A035D34324DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
+		A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
+		A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */; };
+		A035D34A24DA384800ECE6A5 /* SignUpStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */; };
+		A035D34B24DA384800ECE6A5 /* SignUpStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
@@ -296,6 +301,10 @@
 		A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		A030AEA9242CE30300BFCFC5 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManagerTests.swift; sourceTree = "<group>"; };
+		A035D34C24DA384800ECE6A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUpStrings.strings; sourceTree = "<group>"; };
+		A035D34E24DA387100ECE6A5 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SignUpStrings.strings; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
 		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
@@ -500,6 +509,7 @@
 				A0217E3624C889CC0081056C /* AuthServiceTests.swift */,
 				A0CA3CBB24C9950800DE731C /* SessionServiceTests.swift */,
 				A03E8F3124C9FE7600C0594D /* ProfileServiceTests.swift */,
+				A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -636,6 +646,7 @@
 				A04BCE55245162C1000A6969 /* SignUpRouter.swift */,
 				A04BCE5824516714000A6969 /* SignUpInteractor.swift */,
 				A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */,
+				A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -799,6 +810,7 @@
 				A0217E3324C886960081056C /* AppleAuthService.swift */,
 				A0217E4724C8D8D00081056C /* AuthService.swift */,
 				A03E8F2A24C9D86C00C0594D /* SessionService.swift */,
+				A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -934,6 +946,7 @@
 				A030AEA4242C0A5E00BFCFC5 /* eventsByStartDate.json in Resources */,
 				A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */,
 				A075E3882409B107006F891F /* awsconfiguration.json in Resources */,
+				A035D34A24DA384800ECE6A5 /* SignUpStrings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +954,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A035D34B24DA384800ECE6A5 /* SignUpStrings.strings in Resources */,
 				A03E8F3524CA018600C0594D /* userByID.json in Resources */,
 				A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */,
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
@@ -1125,6 +1139,7 @@
 				A0217E3924C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
 				A0E1E272249E5A2400FCBA25 /* EventDetailDI.swift in Sources */,
+				A035D34324DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */,
@@ -1182,6 +1197,8 @@
 				A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */,
 				A0CA3CBC24C9950800DE731C /* SessionServiceTests.swift in Sources */,
 				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
+				A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */,
+				A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
@@ -1306,6 +1323,15 @@
 				A0294F3B24BF479400380171 /* nl */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A035D34C24DA384800ECE6A5 /* en */,
+				A035D34E24DA387100ECE6A5 /* nl */,
+			);
+			name = SignUpStrings.strings;
 			sourceTree = "<group>";
 		};
 		A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */ = {
