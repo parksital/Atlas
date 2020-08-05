@@ -9,6 +9,7 @@
 import UIKit
 
 final class ArtistContainerCell: UICollectionViewCell {
+    private let headerLabel = UILabel(styling: .body)
     private var stackView = UIStackView()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +29,12 @@ final class ArtistContainerCell: UICollectionViewCell {
 
 private extension ArtistContainerCell {
     func setupViews() {
+        setupHeaderLabel()
         setupStackView()
+    }
+    
+    func setupHeaderLabel() {
+        headerLabel.text = NSLocalizedString("artists", comment: "")
     }
     
     func setupStackView() {
@@ -36,6 +42,8 @@ private extension ArtistContainerCell {
         stackView.alignment = .leading
         stackView.distribution = .fill
         stackView.spacing = 0
+        stackView.addArrangedSubview(headerLabel)
+        
         setupStackViewConstraints()
     }
     
