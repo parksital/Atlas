@@ -9,10 +9,11 @@
 import UIKit
 
 final class EventDescriptionCell: UICollectionViewCell {
+    private let headerLabel = UILabel(styling: .body)
     private let descriptionLabel = UILabel(styling: .body)
     private var stackView = UIStackView()
     private var viewsToAdd: [UIView] {
-        return [descriptionLabel]
+        return [headerLabel, descriptionLabel]
     }
     
     override init(frame: CGRect) {
@@ -26,7 +27,12 @@ final class EventDescriptionCell: UICollectionViewCell {
     }
     
     func setupViews() {
+        setupHeaderLabel()
         setupStackView()
+    }
+    
+    func setupHeaderLabel() {
+        headerLabel.text = NSLocalizedString("information", comment: "")
     }
     
     func setupStackView() {
