@@ -53,7 +53,7 @@ class EventDetailPresenterTests: XCTestCase {
         
         sut.presentEvent(event)
         
-        let result = spy.viewModel!.id
+        let result = spy.items[0].event.id
         XCTAssertEqual(result, eventID)
     }
     
@@ -65,7 +65,7 @@ class EventDetailPresenterTests: XCTestCase {
         let event = try! decoder.decode(GetEvent.self, from: data).event
         
         sut.presentEvent(event)
-        let result = spy.viewModel?.description
+        let result = spy.items[0].event.description
         XCTAssertEqual(result, "")
     }
     
@@ -79,7 +79,7 @@ class EventDetailPresenterTests: XCTestCase {
         let event = try! decoder.decode(GetEvent.self, from: data).event
         
         sut.presentEvent(event)
-        let result = spy.viewModel!.artists
+        let result = spy.items[0].event.artists
         XCTAssertEqual(result, [])
     }
     
@@ -94,7 +94,7 @@ class EventDetailPresenterTests: XCTestCase {
         
         sut.presentEvent(event)
         
-        let result = spy.viewModel!.startDate
+        let result = spy.items[0].event.startDate
         let expectation = "Thursday, 21 January 2021 at 23:00"
         XCTAssertEqual(result, expectation)
     }
@@ -103,15 +103,16 @@ class EventDetailPresenterTests: XCTestCase {
 extension EventDetailPresenterTests {
     private class ViewControllerSpy: EventDetailDisplayLogic {
         var eventtitle: String?
-        var viewModel: EventDetail.ViewModel?
+        var items: [EventDetailItem] = []
         
         func displayEventTitle(_ title: String) {
             eventtitle = title
         }
         
-        func displayViewModel(_ viewModel: EventDetail.ViewModel) {
-            self.viewModel = viewModel
+        func displayEventDetailItems(_ items: [EventDetailItem]) {
+            self.items = items
         }
+        
         func displayBuyTicketScene() { }
         func setup(interactor: EventDetailInteraction) { }
         func setup(router: EventDetailRouterProtocol) { }

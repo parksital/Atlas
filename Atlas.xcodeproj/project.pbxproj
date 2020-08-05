@@ -44,6 +44,12 @@
 		A000253824D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000252C24D96A06009A87D4 /* BuyTicketInteractor.swift */; };
 		A000253A24D96EEE009A87D4 /* BaseRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000253924D96EEE009A87D4 /* BaseRouting.swift */; };
 		A000253B24D96EEE009A87D4 /* BaseRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000253924D96EEE009A87D4 /* BaseRouting.swift */; };
+		A000254324D99C98009A87D4 /* EventDetailSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254224D99C98009A87D4 /* EventDetailSectionType.swift */; };
+		A000254524D99F14009A87D4 /* EventDetailSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254224D99C98009A87D4 /* EventDetailSectionType.swift */; };
+		A000254824D9B2F2009A87D4 /* EventHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */; };
+		A000254924D9B2F2009A87D4 /* EventHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */; };
+		A000254B24D9D827009A87D4 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254A24D9D827009A87D4 /* UICollectionView+.swift */; };
+		A000254C24D9D827009A87D4 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254A24D9D827009A87D4 /* UICollectionView+.swift */; };
 		A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
@@ -122,6 +128,12 @@
 		A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A805D24851CCD0050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
 		A03A805E24851CD10050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
+		A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799324DAA2D60001093F /* EventDescriptionCell.swift */; };
+		A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799324DAA2D60001093F /* EventDescriptionCell.swift */; };
+		A03C799724DAA5910001093F /* ArtistContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799624DAA5910001093F /* ArtistContainerCell.swift */; };
+		A03C799824DAA5910001093F /* ArtistContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799624DAA5910001093F /* ArtistContainerCell.swift */; };
+		A03C799D24DAEF8A0001093F /* ButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */; };
+		A03C799E24DAEF8A0001093F /* ButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -270,6 +282,9 @@
 		A000252B24D96A06009A87D4 /* BuyTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketViewController.swift; sourceTree = "<group>"; };
 		A000252C24D96A06009A87D4 /* BuyTicketInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTicketInteractor.swift; sourceTree = "<group>"; };
 		A000253924D96EEE009A87D4 /* BaseRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouting.swift; sourceTree = "<group>"; };
+		A000254224D99C98009A87D4 /* EventDetailSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailSectionType.swift; sourceTree = "<group>"; };
+		A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHeaderCell.swift; sourceTree = "<group>"; };
+		A000254A24D9D827009A87D4 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
 		A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -311,6 +326,9 @@
 		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAccountView.swift; sourceTree = "<group>"; };
 		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A03C799324DAA2D60001093F /* EventDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDescriptionCell.swift; sourceTree = "<group>"; };
+		A03C799624DAA5910001093F /* ArtistContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistContainerCell.swift; sourceTree = "<group>"; };
+		A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewCell.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E8F2A24C9D86C00C0594D /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
@@ -479,6 +497,17 @@
 			path = BuyTicket;
 			sourceTree = "<group>";
 		};
+		A000254624D9B2C1009A87D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
+				A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */,
+				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
+				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A00C65622423AE6A00D12C8D /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +516,7 @@
 				A00BED5624A013CD002B538D /* AccountSectionType.swift */,
 				A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */,
 				A0217E3824C8D7BE0081056C /* AuthStatus.swift */,
+				A000254224D99C98009A87D4 /* EventDetailSectionType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -629,6 +659,7 @@
 		A041ED3B24196FD900DB772F /* EventDetail */ = {
 			isa = PBXGroup;
 			children = (
+				A000254624D9B2C1009A87D4 /* Views */,
 				A000252624D969EE009A87D4 /* BuyTicket */,
 				A041ED3C2419718800DB772F /* EventDetailViewController.swift */,
 				A0E1E271249E5A2400FCBA25 /* EventDetailDI.swift */,
@@ -828,6 +859,7 @@
 				A04BCE5F2451AB4A000A6969 /* UIFont+.swift */,
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 				A0D0B76524B674140066B29C /* String+.swift */,
+				A000254A24D9D827009A87D4 /* UICollectionView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1079,6 +1111,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A000254824D9B2F2009A87D4 /* EventHeaderCell.swift in Sources */,
 				A09D139124CF1FE400FB132E /* SavedEventsModels.swift in Sources */,
 				A09D139224CF1FE400FB132E /* SavedEventsViewController.swift in Sources */,
 				A04BCE53245148BC000A6969 /* SignUpViewController.swift in Sources */,
@@ -1108,6 +1141,7 @@
 				A03EECF02411547A00FCDD8C /* AWSClient.swift in Sources */,
 				A03A805D24851CCD0050B464 /* User.swift in Sources */,
 				A00024D324D81B1C009A87D4 /* MyTicketsInteractor.swift in Sources */,
+				A000254324D99C98009A87D4 /* EventDetailSectionType.swift in Sources */,
 				A000251A24D83D3B009A87D4 /* HistoryDI.swift in Sources */,
 				A00024D924D81D17009A87D4 /* MyTicketsDI.swift in Sources */,
 				A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */,
@@ -1135,6 +1169,7 @@
 				A0217E2E24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A000253A24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
+				A03C799724DAA5910001093F /* ArtistContainerCell.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0217E3924C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
@@ -1155,6 +1190,7 @@
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A03E8F3024C9EC4F00C0594D /* MockAppleIDProvider.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A000251F24D83D3B009A87D4 /* HistoryInteractor.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
@@ -1170,9 +1206,11 @@
 				A09D139024CF1FE400FB132E /* SavedEventsRouter.swift in Sources */,
 				A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */,
 				A04BCE5924516714000A6969 /* SignUpInteractor.swift in Sources */,
+				A03C799D24DAEF8A0001093F /* ButtonViewCell.swift in Sources */,
 				A00BED5124A01321002B538D /* UserProfileTableViewCell.swift in Sources */,
 				A0FAFC45245889A9006F46B1 /* KeychainItemAccessibility.swift in Sources */,
 				A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */,
+				A000254B24D9D827009A87D4 /* UICollectionView+.swift in Sources */,
 				A09D136324CF131B00FB132E /* SavedEventsDI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1185,6 +1223,7 @@
 				A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */,
 				A0255BE7242506DA001E117D /* UILabel+.swift in Sources */,
 				A00B0BFD24D05A30005ACFE0 /* SavedEventsModels.swift in Sources */,
+				A000254524D99F14009A87D4 /* EventDetailSectionType.swift in Sources */,
 				A0D0B76924B686CC0066B29C /* PreferencesPresenter.swift in Sources */,
 				A03EECF524127AFD00FCDD8C /* NetworkError.swift in Sources */,
 				A09038FE2420E6B000743881 /* EventSummaryCell.swift in Sources */,
@@ -1196,6 +1235,7 @@
 				A0D0B76424B6475E0066B29C /* Preferences-DI.swift in Sources */,
 				A00C655E24238E1900D12C8D /* EventListSectionType.swift in Sources */,
 				A0CA3CBC24C9950800DE731C /* SessionServiceTests.swift in Sources */,
+				A000254C24D9D827009A87D4 /* UICollectionView+.swift in Sources */,
 				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
 				A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */,
 				A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */,
@@ -1252,6 +1292,7 @@
 				A0217E2824C870170081056C /* AppleAuthServiceTests.swift in Sources */,
 				A03E8F2F24C9DB8100C0594D /* AccountInteractorTests.swift in Sources */,
 				A000253024D96A06009A87D4 /* BuyTicketPresenter.swift in Sources */,
+				A000254924D9B2F2009A87D4 /* EventHeaderCell.swift in Sources */,
 				A0255BDF242502A2001E117D /* Styling.swift in Sources */,
 				A04BCE542451499F000A6969 /* SignUpViewController.swift in Sources */,
 				A00B0BFB24D05A2B005ACFE0 /* SavedEventsPresenter.swift in Sources */,
@@ -1266,9 +1307,11 @@
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
 				A000253B24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,
+				A03C799E24DAEF8A0001093F /* ButtonViewCell.swift in Sources */,
 				A000252124D84203009A87D4 /* HistoryDI.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A000253624D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
+				A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A0217E4024C8D7FA0081056C /* AuthClientProtocol.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
@@ -1288,6 +1331,7 @@
 				A000252424D8420B009A87D4 /* HistoryModels.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A03C799824DAA5910001093F /* ArtistContainerCell.swift in Sources */,
 				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
