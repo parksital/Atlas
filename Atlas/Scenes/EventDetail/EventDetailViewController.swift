@@ -120,22 +120,22 @@ private extension EventDetailViewController {
     }
     
     func setupDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { (collectionView, indexPath, event) in
-            switch event.section {
+        dataSource = DataSource(collectionView: collectionView) { (collectionView, indexPath, object) in
+            switch object.section {
             case .header:
                 let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
                 cell.configure(
-                    venueName: event.item.venue,
-                    dateTime: event.item.startDate
+                    venueName: object.event.venue,
+                    dateTime: object.event.startDate
                 )
                 return cell
             case .description:
                 let cell: EventDescriptionCell = collectionView.getCell(forIndexPath: indexPath)
-                cell.configure(description: event.item.description)
+                cell.configure(description: object.event.description)
                 return cell
             case .artists:
                 let cell: ArtistContainerCell = collectionView.getCell(forIndexPath: indexPath)
-                cell.configure(withArtists: event.item.artists)
+                cell.configure(withArtists: object.event.artists)
                 return cell
             case .admission:
                 break

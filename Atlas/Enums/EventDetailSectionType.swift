@@ -26,12 +26,12 @@ extension EventDetailSectionType: Hashable {
 
 struct EventDetailItem {
     let section: EventDetailSectionType
-    let item: EventDetail.ViewModel
+    let event: EventDetail.ViewModel
 }
 
 extension EventDetailItem: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.section)
-        hasher.combine(self.item)
+        hasher.combine(self.event)
     }
 }
