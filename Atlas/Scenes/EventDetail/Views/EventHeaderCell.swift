@@ -10,7 +10,7 @@ import UIKit
 final class EventHeaderCell: UICollectionViewCell {
     private let stackView = UIStackView()
     private let venueLabel = UILabel(styling: .title)
-    private let dateTimeLabel = UILabel(styling: .secondary)
+    private let dateTimeLabel = UILabel(styling: .headline)
     private var viewsToAdd: [UIView] {
         return [venueLabel, dateTimeLabel]
     }

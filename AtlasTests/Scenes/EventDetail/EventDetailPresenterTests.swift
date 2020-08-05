@@ -53,7 +53,7 @@ class EventDetailPresenterTests: XCTestCase {
         
         sut.presentEvent(event)
         
-        let result = spy.items[0].item.id
+        let result = spy.items[0].event.id
         XCTAssertEqual(result, eventID)
     }
     
@@ -65,7 +65,7 @@ class EventDetailPresenterTests: XCTestCase {
         let event = try! decoder.decode(GetEvent.self, from: data).event
         
         sut.presentEvent(event)
-        let result = spy.items[0].item.description
+        let result = spy.items[0].event.description
         XCTAssertEqual(result, "")
     }
     
@@ -79,7 +79,7 @@ class EventDetailPresenterTests: XCTestCase {
         let event = try! decoder.decode(GetEvent.self, from: data).event
         
         sut.presentEvent(event)
-        let result = spy.items[0].item.artists
+        let result = spy.items[0].event.artists
         XCTAssertEqual(result, [])
     }
     
@@ -94,7 +94,7 @@ class EventDetailPresenterTests: XCTestCase {
         
         sut.presentEvent(event)
         
-        let result = spy.items[0].item.startDate
+        let result = spy.items[0].event.startDate
         let expectation = "Thursday, 21 January 2021 at 23:00"
         XCTAssertEqual(result, expectation)
     }
