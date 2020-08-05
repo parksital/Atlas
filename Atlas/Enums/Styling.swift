@@ -23,7 +23,7 @@ extension Styling {
         case .title: return .preferredFont(for: .title1, weight: .regular)
         case .primary: return .preferredFont(for: .headline, weight: .bold)
         case .secondary: return .preferredFont(for: .headline, weight: .regular)
-        case .headline: return .preferredFont(for: .headline, weight: .regular)
+        case .headline: return .preferredFont(for: .headline, weight: .semibold)
         case .body: return .preferredFont(for: .body, weight: .regular)
         case .footer: return .preferredFont(for: .footnote, weight: .regular)
         }

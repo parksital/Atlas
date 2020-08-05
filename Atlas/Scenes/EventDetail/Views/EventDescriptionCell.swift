@@ -9,7 +9,7 @@
 import UIKit
 
 final class EventDescriptionCell: UICollectionViewCell {
-    private let headerLabel = UILabel(styling: .body)
+    private let headerLabel = UILabel(styling: .headline)
     private let descriptionLabel = UILabel(styling: .body)
     private var stackView = UIStackView()
     private var viewsToAdd: [UIView] {
