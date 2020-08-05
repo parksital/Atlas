@@ -22,11 +22,9 @@ final class EventDetailViewController: UICollectionViewController {
     var interactor: EventDetailInteraction?
     var router: EventDetailRouterProtocol?
     private var dataSource: DataSource!
-    private var buttonView = UIView()
-    private var ticketButton = UIButton(type: .roundedRect)
     
     init() {
-        let layout = UICollectionViewCompositionalLayout { section, env in
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
             let size = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .estimated(40.0)
@@ -35,6 +33,13 @@ final class EventDetailViewController: UICollectionViewController {
             let item = NSCollectionLayoutItem(
                 layoutSize: size,
                 supplementaryItems: []
+            )
+            
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: nil,
+                top: .fixed(10.0),
+                trailing: nil,
+                bottom: .fixed(10.0)
             )
             
             let group = NSCollectionLayoutGroup.vertical(
@@ -99,10 +104,11 @@ private extension EventDetailViewController {
         collectionView.register(cellType: EventHeaderCell.self)
         collectionView.register(cellType: EventDescriptionCell.self)
         collectionView.register(cellType: ArtistContainerCell.self)
+        collectionView.register(cellType: ButtonViewCell.self)
     }
     
     func setupDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { (collectionView, indexPath, object) in
+        dataSource = DataSource(collectionView: collectionView) { [interactor] (collectionView, indexPath, object) in
             switch object.section {
             case .header:
                 let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
@@ -120,7 +126,10 @@ private extension EventDetailViewController {
                 cell.configure(withArtists: object.event.artists)
                 return cell
             case .admission:
-                break
+                let cell: ButtonViewCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.action = interactor?.buyTicketButtonPressed
+                cell.configure(buttonTitle: NSLocalizedString("buyTicket", comment: ""))
+                return cell
             case .map:
                 break
             }
@@ -129,20 +138,6 @@ private extension EventDetailViewController {
         }
         
         collectionView.dataSource = dataSource
-    }
-    
-    func setupTicketButton() {
-        ticketButton.setTitle(NSLocalizedString("buyTicket", comment: ""), for: .normal)
-        
-        buttonView.addSubview(ticketButton)
-        ticketButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        let top = ticketButton.topAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.topAnchor)
-        let bottom = ticketButton.bottomAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.bottomAnchor)
-        let center = ticketButton.centerXAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.centerXAnchor)
-        let height = ticketButton.heightAnchor.constraint(equalToConstant: 44.0)
-        
-        NSLayoutConstraint.activate([top, bottom, center, height])
     }
     
     func updateSnapshotWithItems(_ items: [EventDetailItem]) {

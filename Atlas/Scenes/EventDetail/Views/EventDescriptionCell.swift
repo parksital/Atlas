@@ -32,7 +32,7 @@ final class EventDescriptionCell: UICollectionViewCell {
     }
     
     func setupHeaderLabel() {
-        headerLabel.text = NSLocalizedString("information", comment: "")
+        headerLabel.text = NSLocalizedString("eventInformation", comment: "")
     }
     
     func setupStackView() {

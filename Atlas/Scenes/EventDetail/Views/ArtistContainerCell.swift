@@ -9,7 +9,7 @@
 import UIKit
 
 final class ArtistContainerCell: UICollectionViewCell {
-    private let headerLabel = UILabel(styling: .body)
+    private let headerLabel = UILabel(styling: .headline)
     private var stackView = UIStackView()
     override init(frame: CGRect) {
         super.init(frame: frame)
