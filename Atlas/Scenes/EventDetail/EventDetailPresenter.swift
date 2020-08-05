@@ -49,9 +49,9 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
         let items = [
             EventDetailItem(section: .header, item: viewModel),
             EventDetailItem(section: .description, item: viewModel),
-            EventDetailItem(section: .artists, item: viewModel),
-            EventDetailItem(section: .admission, item: viewModel),
-            EventDetailItem(section: .map, item: viewModel)
+            EventDetailItem(section: .artists, item: viewModel)
+            //            EventDetailItem(section: .admission, item: viewModel),
+            //            EventDetailItem(section: .map, item: viewModel)
         ]
         viewController?.displayEventDetailItems(items)
     }

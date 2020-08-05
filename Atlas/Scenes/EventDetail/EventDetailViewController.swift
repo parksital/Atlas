@@ -45,13 +45,31 @@ final class EventDetailViewController: UICollectionViewController {
                 subitems: [item]
             )
             
-            return NSCollectionLayoutSection(group: group)
+            let section = NSCollectionLayoutSection(group: group)
+            
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(44)
+            )
+            
+            let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            
+            section.boundarySupplementaryItems = [headerElement]
+            
+            return section
         }
         
         super.init(collectionViewLayout: layout)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(
+        nibName nibNameOrNil: String?,
+        bundle nibBundleOrNil: Bundle?
+    ) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -92,6 +110,9 @@ private extension EventDetailViewController {
     }
     
     func registerCells() {
+        // register the header
+        collectionView.register(supplementaryElement: EventDetailSectionHeader.self)
+        //  register the rest
         collectionView.register(cellType: UICollectionViewCell.self)
         collectionView.register(cellType: EventHeaderCell.self)
         collectionView.register(cellType: EventDescriptionCell.self)
@@ -100,34 +121,47 @@ private extension EventDetailViewController {
     
     func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { (collectionView, indexPath, event) in
-            if let section = EventDetailSectionType(rawValue: indexPath.section) {
-                switch section {
-                case .header:
-                    let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
-                    cell.configure(
-                        venueName: event.item.venue,
-                        dateTime: event.item.startDate
-                    )
-                    return cell
-                case .description:
-                    let cell: EventDescriptionCell = collectionView.getCell(forIndexPath: indexPath)
-                    cell.configure(description: event.item.description)
-                    return cell
-                case .artists:
-                    let cell: ArtistContainerCell = collectionView.getCell(forIndexPath: indexPath)
-                    cell.configure(withArtists: event.item.artists)
-                    return cell
-                case .admission:
-                    break
-                case .map:
-                    break
-                }
+            switch event.section {
+            case .header:
+                let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.configure(
+                    venueName: event.item.venue,
+                    dateTime: event.item.startDate
+                )
+                return cell
+            case .description:
+                let cell: EventDescriptionCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.configure(description: event.item.description)
+                return cell
+            case .artists:
+                let cell: ArtistContainerCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.configure(withArtists: event.item.artists)
+                return cell
+            case .admission:
+                break
+            case .map:
+                break
             }
             let cell: UICollectionViewCell = collectionView.getCell(forIndexPath: indexPath)
             return cell
         }
-        
+        dataSource.supplementaryViewProvider = self.viewProvider
         collectionView.dataSource = dataSource
+    }
+    
+    func viewProvider(
+        collectionView: UICollectionView,
+        kind: String,
+        indexPath: IndexPath
+    ) -> UICollectionReusableView? {
+        if kind == UICollectionView.elementKindSectionHeader {
+            return collectionView.getSupplementaryView(
+                ofType: EventDetailSectionHeader.self,
+                forIndexPath: indexPath
+            )
+        } else {
+            return nil
+        }
     }
     
     func setupTicketButton() {
@@ -152,7 +186,6 @@ private extension EventDetailViewController {
         })
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
 }
 
 extension EventDetailViewController: EventDetailDisplayLogic {
