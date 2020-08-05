@@ -123,6 +123,10 @@
 		A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */; };
 		A03A805D24851CCD0050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
 		A03A805E24851CD10050B464 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A805C24851CCD0050B464 /* User.swift */; };
+		A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799324DAA2D60001093F /* EventDescriptionCell.swift */; };
+		A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799324DAA2D60001093F /* EventDescriptionCell.swift */; };
+		A03C799724DAA5910001093F /* ArtistContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799624DAA5910001093F /* ArtistContainerCell.swift */; };
+		A03C799824DAA5910001093F /* ArtistContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03C799624DAA5910001093F /* ArtistContainerCell.swift */; };
 		A03CC8F1241FDF5E00A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03CC8F0241FDF5E00A1D287 /* Date+.swift */; };
 		A03E2AD5241007A900B45712 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03E2AD4241007A900B45712 /* EventSummary.swift */; };
@@ -311,6 +315,8 @@
 		A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
 		A03A030F2475406700C5B7E9 /* EmptyAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAccountView.swift; sourceTree = "<group>"; };
 		A03A805C24851CCD0050B464 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A03C799324DAA2D60001093F /* EventDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDescriptionCell.swift; sourceTree = "<group>"; };
+		A03C799624DAA5910001093F /* ArtistContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistContainerCell.swift; sourceTree = "<group>"; };
 		A03CC8F0241FDF5E00A1D287 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A03E2AD4241007A900B45712 /* EventSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
 		A03E8F2A24C9D86C00C0594D /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
@@ -483,6 +489,8 @@
 			isa = PBXGroup;
 			children = (
 				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
+				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
+				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1143,6 +1151,7 @@
 				A0217E2E24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */,
 				A0FAFC4924592222006F46B1 /* PasswordGenerator.swift in Sources */,
 				A000253A24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
+				A03C799724DAA5910001093F /* ArtistContainerCell.swift in Sources */,
 				A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */,
 				A0217E3924C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
@@ -1162,6 +1171,7 @@
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A03E8F3024C9EC4F00C0594D /* MockAppleIDProvider.swift in Sources */,
 				A075E38E240E8201006F891F /* API.swift in Sources */,
+				A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A000251F24D83D3B009A87D4 /* HistoryInteractor.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
@@ -1278,6 +1288,7 @@
 				A000252124D84203009A87D4 /* HistoryDI.swift in Sources */,
 				A0297D1B241A903E0089F38C /* EventDetailViewController.swift in Sources */,
 				A000253624D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
+				A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A0217E4024C8D7FA0081056C /* AuthClientProtocol.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
@@ -1297,6 +1308,7 @@
 				A000252424D8420B009A87D4 /* HistoryModels.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A03C799824DAA5910001093F /* ArtistContainerCell.swift in Sources */,
 				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
