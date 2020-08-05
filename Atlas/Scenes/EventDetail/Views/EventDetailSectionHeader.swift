@@ -14,4 +14,12 @@ protocol SupplementaryKind {
 
 final class EventDetailSectionHeader: UICollectionReusableView, SupplementaryKind {
     static var elementKind = UICollectionView.elementKindSectionHeader
+    
+    
+}
+
+extension EventDetailSectionHeader {
+    func configure(title: String?) {
+        
+    }
 }

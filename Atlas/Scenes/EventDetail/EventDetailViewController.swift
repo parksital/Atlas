@@ -45,22 +45,7 @@ final class EventDetailViewController: UICollectionViewController {
                 subitems: [item]
             )
             
-            let section = NSCollectionLayoutSection(group: group)
-            
-            let headerSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(44)
-            )
-            
-            let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
-            
-            section.boundarySupplementaryItems = [headerElement]
-            
-            return section
+            return NSCollectionLayoutSection(group: group)
         }
         
         super.init(collectionViewLayout: layout)
@@ -110,9 +95,6 @@ private extension EventDetailViewController {
     }
     
     func registerCells() {
-        // register the header
-        collectionView.register(supplementaryElement: EventDetailSectionHeader.self)
-        //  register the rest
         collectionView.register(cellType: UICollectionViewCell.self)
         collectionView.register(cellType: EventHeaderCell.self)
         collectionView.register(cellType: EventDescriptionCell.self)
@@ -145,23 +127,8 @@ private extension EventDetailViewController {
             let cell: UICollectionViewCell = collectionView.getCell(forIndexPath: indexPath)
             return cell
         }
-        dataSource.supplementaryViewProvider = self.viewProvider
+        
         collectionView.dataSource = dataSource
-    }
-    
-    func viewProvider(
-        collectionView: UICollectionView,
-        kind: String,
-        indexPath: IndexPath
-    ) -> UICollectionReusableView? {
-        if kind == UICollectionView.elementKindSectionHeader {
-            return collectionView.getSupplementaryView(
-                ofType: EventDetailSectionHeader.self,
-                forIndexPath: indexPath
-            )
-        } else {
-            return nil
-        }
     }
     
     func setupTicketButton() {
