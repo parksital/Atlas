@@ -115,8 +115,8 @@
 		A035D34324DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
 		A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
 		A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */; };
-		A035D34A24DA384800ECE6A5 /* SignUpStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */; };
-		A035D34B24DA384800ECE6A5 /* SignUpStrings.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */; };
+		A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUp.strings */; };
+		A035D34B24DA384800ECE6A5 /* SignUp.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUp.strings */; };
 		A038D17824184AD100507207 /* EventSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038D17724184AD100507207 /* EventSummaryCell.swift */; };
 		A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */; };
 		A03A02F6246411B100C5B7E9 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */; };
@@ -318,8 +318,8 @@
 		A030AEA9242CE30300BFCFC5 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
 		A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManagerTests.swift; sourceTree = "<group>"; };
-		A035D34C24DA384800ECE6A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUpStrings.strings; sourceTree = "<group>"; };
-		A035D34E24DA387100ECE6A5 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SignUpStrings.strings; sourceTree = "<group>"; };
+		A035D34C24DA384800ECE6A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUp.strings; sourceTree = "<group>"; };
+		A035D34E24DA387100ECE6A5 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SignUp.strings; sourceTree = "<group>"; };
 		A038D17724184AD100507207 /* EventSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCell.swift; sourceTree = "<group>"; };
 		A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
 		A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
@@ -677,7 +677,6 @@
 				A04BCE55245162C1000A6969 /* SignUpRouter.swift */,
 				A04BCE5824516714000A6969 /* SignUpInteractor.swift */,
 				A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */,
-				A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -749,6 +748,7 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				A0BD4AD324DBF45A00075F5E /* Resources */,
 				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
@@ -766,7 +766,6 @@
 				A0B661C224002661001C5B40 /* Info.plist */,
 				A016B873242FB6F300D4057B /* AWSContainer.swift */,
 				A0B98B66243FB475004C072F /* SceneContainer.swift */,
-				A0294F3A24BF475800380171 /* Localizable.strings */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -793,6 +792,15 @@
 				A0B661D824002661001C5B40 /* Info.plist */,
 			);
 			path = AtlasUITests;
+			sourceTree = "<group>";
+		};
+		A0BD4AD324DBF45A00075F5E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A0294F3A24BF475800380171 /* Localizable.strings */,
+				A035D34D24DA384800ECE6A5 /* SignUp.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A0C1C8CB24B605620082B492 /* Preferences */ = {
@@ -978,7 +986,7 @@
 				A030AEA4242C0A5E00BFCFC5 /* eventsByStartDate.json in Resources */,
 				A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */,
 				A075E3882409B107006F891F /* awsconfiguration.json in Resources */,
-				A035D34A24DA384800ECE6A5 /* SignUpStrings.strings in Resources */,
+				A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,7 +994,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A035D34B24DA384800ECE6A5 /* SignUpStrings.strings in Resources */,
+				A035D34B24DA384800ECE6A5 /* SignUp.strings in Resources */,
 				A03E8F3524CA018600C0594D /* userByID.json in Resources */,
 				A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */,
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
@@ -1369,13 +1377,13 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		A035D34D24DA384800ECE6A5 /* SignUpStrings.strings */ = {
+		A035D34D24DA384800ECE6A5 /* SignUp.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A035D34C24DA384800ECE6A5 /* en */,
 				A035D34E24DA387100ECE6A5 /* nl */,
 			);
-			name = SignUpStrings.strings;
+			name = SignUp.strings;
 			sourceTree = "<group>";
 		};
 		A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */ = {

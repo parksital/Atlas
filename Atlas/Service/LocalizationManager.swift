@@ -11,23 +11,19 @@ import Foundation
 enum LanguageCode: String {
     case english = "en"
     case dutch = "nl"
-
-    static var systemLanguageCode: LanguageCode? {
-        return Locale.current.languageCode.flatMap(LanguageCode.init)
-    }
-
-    var languageName: String {
-        switch self {
-        case .english:
-            return "English"
-        case .dutch:
-            return "Dutch"
-        }
-    }
 }
 
 final class LocalizationManager {
-    var currentLanguage: LanguageCode = .systemLanguageCode ?? .english
+    private let locale: Locale!
+    
+    var currentLanguage: LanguageCode {
+        return locale.languageCode
+        .flatMap(LanguageCode.init) ?? .english
+    }
+    
+    init(locale: Locale = .current) {
+        self.locale = locale
+    }
     
     func localize(
         _ key: String,
