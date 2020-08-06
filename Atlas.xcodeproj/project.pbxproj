@@ -112,8 +112,8 @@
 		A030AEA6242C0AF600BFCFC5 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
 		A030AEA8242CE2EF00BFCFC5 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
-		A035D34324DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
-		A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */; };
+		A035D34324DA31CB00ECE6A5 /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationService.swift */; };
+		A035D34424DA31CB00ECE6A5 /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34224DA31CB00ECE6A5 /* LocalizationService.swift */; };
 		A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */; };
 		A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUp.strings */; };
 		A035D34B24DA384800ECE6A5 /* SignUp.strings in Resources */ = {isa = PBXBuildFile; fileRef = A035D34D24DA384800ECE6A5 /* SignUp.strings */; };
@@ -198,6 +198,8 @@
 		A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */; };
 		A0BD4AE024DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
 		A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
+		A0BD4AE424DC28CE00075F5E /* VIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */; };
+		A0BD4AE524DC28EE00075F5E /* VIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -319,7 +321,7 @@
 		A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		A030AEA9242CE30300BFCFC5 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
-		A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		A035D34224DA31CB00ECE6A5 /* LocalizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
 		A035D34524DA34B800ECE6A5 /* LocalizationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManagerTests.swift; sourceTree = "<group>"; };
 		A035D34C24DA384800ECE6A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SignUp.strings; sourceTree = "<group>"; };
 		A035D34E24DA387100ECE6A5 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SignUp.strings; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 		A0BD4ADC24DC143B00075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADE24DC143F00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCode.swift; sourceTree = "<group>"; };
+		A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPViewController.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -748,6 +751,7 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				A0BD4AE224DC28BE00075F5E /* VIP */,
 				A0BD4AD324DBF45A00075F5E /* Resources */,
 				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
@@ -811,6 +815,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A0BD4AE224DC28BE00075F5E /* VIP */ = {
+			isa = PBXGroup;
+			children = (
+				A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */,
+			);
+			path = VIP;
+			sourceTree = "<group>";
+		};
 		A0C1C8CB24B605620082B492 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,7 +869,7 @@
 				A0217E3324C886960081056C /* AppleAuthService.swift */,
 				A0217E4724C8D8D00081056C /* AuthService.swift */,
 				A03E8F2A24C9D86C00C0594D /* SessionService.swift */,
-				A035D34224DA31CB00ECE6A5 /* LocalizationManager.swift */,
+				A035D34224DA31CB00ECE6A5 /* LocalizationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1175,6 +1187,7 @@
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A000253524D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
 				A000251D24D83D3B009A87D4 /* HistoryModels.swift in Sources */,
+				A0BD4AE424DC28CE00075F5E /* VIPViewController.swift in Sources */,
 				A000252F24D96A06009A87D4 /* BuyTicketPresenter.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
@@ -1191,7 +1204,7 @@
 				A0217E3924C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A0D7CA1524AA3810006288FE /* UITableView+.swift in Sources */,
 				A0E1E272249E5A2400FCBA25 /* EventDetailDI.swift in Sources */,
-				A035D34324DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */,
+				A035D34324DA31CB00ECE6A5 /* LocalizationService.swift in Sources */,
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */,
@@ -1256,7 +1269,7 @@
 				A000254C24D9D827009A87D4 /* UICollectionView+.swift in Sources */,
 				A0C1C8DC24B63D670082B492 /* PreferenceSectionType.swift in Sources */,
 				A035D34624DA34B800ECE6A5 /* LocalizationManagerTests.swift in Sources */,
-				A035D34424DA31CB00ECE6A5 /* LocalizationManager.swift in Sources */,
+				A035D34424DA31CB00ECE6A5 /* LocalizationService.swift in Sources */,
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
@@ -1333,6 +1346,7 @@
 				A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A0217E4024C8D7FA0081056C /* AuthClientProtocol.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
+				A0BD4AE524DC28EE00075F5E /* VIPViewController.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,
