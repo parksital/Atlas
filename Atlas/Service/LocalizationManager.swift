@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum LanguageCode: String {
-    case english = "en"
-    case dutch = "nl"
-}
-
 typealias L = LocalizationManager
 final class LocalizationManager {
     private let locale: Locale!

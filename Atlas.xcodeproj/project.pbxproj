@@ -196,6 +196,8 @@
 		A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
 		A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */; };
+		A0BD4AE024DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
+		A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -380,6 +382,7 @@
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
 		A0BD4ADC24DC143B00075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADE24DC143F00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
+		A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCode.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -520,6 +523,7 @@
 				A0C1C8DA24B63D630082B492 /* PreferenceSectionType.swift */,
 				A0217E3824C8D7BE0081056C /* AuthStatus.swift */,
 				A000254224D99C98009A87D4 /* EventDetailSectionType.swift */,
+				A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1212,6 +1216,7 @@
 				A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */,
 				A000253124D96A06009A87D4 /* BuyTicketRouter.swift in Sources */,
 				A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */,
+				A0BD4AE024DC158A00075F5E /* LanguageCode.swift in Sources */,
 				A016B874242FB6F300D4057B /* AWSContainer.swift in Sources */,
 				A0503DBD242A3B5400FF1BA3 /* UIStackView+.swift in Sources */,
 				A00C655D24238DE900D12C8D /* EventListSectionType.swift in Sources */,
@@ -1288,6 +1293,7 @@
 				A000253824D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */,
 				A000252324D84209009A87D4 /* HistoryRouter.swift in Sources */,
 				A0217E2F24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */,
+				A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */,
 				A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */,
 				A0D0B76724B6741C0066B29C /* String+.swift in Sources */,
 				A04BCE5A24516738000A6969 /* SignUpInteractor.swift in Sources */,
