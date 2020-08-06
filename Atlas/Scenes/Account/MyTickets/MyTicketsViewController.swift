@@ -13,7 +13,10 @@ protocol MyTicketsDisplayLogic: class {
     func setup(router: MyTicketsRouterProtocol)
 }
 
-final class MyTicketsViewController: UIViewController {
+final class MyTicketsViewController: UIViewController, HasLocalization {
+    var tableName: String { return "MyTickets"}
+    var localizationService: LocalizationService!
+    
     private var interactor: MyTicketsInteraction?
     private var router: MyTicketsRouterProtocol?
     
@@ -41,7 +44,7 @@ private extension MyTicketsViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = NSLocalizedString("myTickets", comment: "")
+        navigationItem.title = localize("myTickets")
     }
     
     func setupWIPLabel() {

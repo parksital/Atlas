@@ -44,7 +44,7 @@ class SceneContainer {
         AccountDI().setDependencies(inContainer: container)
         
         //MARK: - My Tickets Depenedencies
-        MyTicketsDI.setDependencies(inContainer: container)
+        MyTicketsDI().setDependencies(inContainer: container)
         
         //MARK: - Saved Dependencies
         SavedEventsDI.setDependencies(inContainer: container)
