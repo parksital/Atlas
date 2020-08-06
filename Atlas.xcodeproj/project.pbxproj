@@ -198,8 +198,6 @@
 		A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */; };
 		A0BD4AE024DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
 		A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
-		A0BD4AE424DC28CE00075F5E /* VIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */; };
-		A0BD4AE524DC28EE00075F5E /* VIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -385,7 +383,6 @@
 		A0BD4ADC24DC143B00075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADE24DC143F00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCode.swift; sourceTree = "<group>"; };
-		A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIPViewController.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -751,7 +748,6 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
-				A0BD4AE224DC28BE00075F5E /* VIP */,
 				A0BD4AD324DBF45A00075F5E /* Resources */,
 				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
@@ -813,14 +809,6 @@
 				A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		A0BD4AE224DC28BE00075F5E /* VIP */ = {
-			isa = PBXGroup;
-			children = (
-				A0BD4AE324DC28CE00075F5E /* VIPViewController.swift */,
-			);
-			path = VIP;
 			sourceTree = "<group>";
 		};
 		A0C1C8CB24B605620082B492 /* Preferences */ = {
@@ -1187,7 +1175,6 @@
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A000253524D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
 				A000251D24D83D3B009A87D4 /* HistoryModels.swift in Sources */,
-				A0BD4AE424DC28CE00075F5E /* VIPViewController.swift in Sources */,
 				A000252F24D96A06009A87D4 /* BuyTicketPresenter.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
 				A041ED412419723700DB772F /* EventDetailInteractor.swift in Sources */,
@@ -1346,7 +1333,6 @@
 				A03C799524DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A0217E4024C8D7FA0081056C /* AuthClientProtocol.swift in Sources */,
 				A09038F92420D58E00743881 /* EventListInteractorTests.swift in Sources */,
-				A0BD4AE524DC28EE00075F5E /* VIPViewController.swift in Sources */,
 				A0297D1D241A90440089F38C /* EventDetailRouter.swift in Sources */,
 				A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */,
 				A0E1E276249E85B600FCBA25 /* AccountViewController.swift in Sources */,

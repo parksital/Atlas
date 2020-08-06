@@ -10,7 +10,13 @@ import Foundation
 
 protocol HasLocalization: class {
     var tableName: String { get }
-    var localizationManager: LocalizationService { get }
+    var localizationService: LocalizationService! { get set }
+}
+
+extension HasLocalization {
+    func localize(_ key: String) -> String {
+        localizationService.localize(key, tableName: tableName)
+    }
 }
 
 final class LocalizationService {
@@ -40,13 +46,5 @@ final class LocalizationService {
             tableName: tableName,
             bundle: bundle,
             comment: "")
-    }
-}
-
-extension VIPViewControllerProtocol where Self: HasLocalization {
-    /// Every (UI)ViewController that conforms VIPViewControllerProtocol
-    /// and HasLocalization will have access to this method
-    func localize(_ key: String) -> String {
-        localizationManager.localize(key, tableName: tableName)
     }
 }

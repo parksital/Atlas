@@ -18,9 +18,9 @@ protocol SignUpDisplayLogic: class {
     func setup(router: SignUpRouterProtocol)
 }
 
-final class SignUpViewController: VIPViewController, HasLocalization {
+final class SignUpViewController: UIViewController, HasLocalization {
     var tableName: String { return "SignUp" }
-    var localizationManager = LocalizationService()
+    var localizationService: LocalizationService!
     
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
