@@ -13,12 +13,13 @@ enum LanguageCode: String {
     case dutch = "nl"
 }
 
+typealias L = LocalizationManager
 final class LocalizationManager {
     private let locale: Locale!
     
-    var currentLanguage: LanguageCode {
+    private var currentLanguage: LanguageCode {
         return locale.languageCode
-        .flatMap(LanguageCode.init) ?? .english
+            .flatMap(LanguageCode.init) ?? .english
     }
     
     init(locale: Locale = .current) {

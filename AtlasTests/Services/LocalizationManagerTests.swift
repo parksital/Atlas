@@ -9,6 +9,7 @@
 import XCTest
 
 class LocalizationManagerTests: XCTestCase {
+    private let tableName = "LocalizedTest"
     private var sut: LocalizationManager!
     
     override func setUp() {
@@ -19,11 +20,19 @@ class LocalizationManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testLocalization() {
+    func testDefaultEnglish() {
         sut = LocalizationManager()
-        let key = "testing"
-        let result = sut.localize(key, tableName: "SignUp")
-        XCTAssertEqual(result, "Testing")
+        let key = "thisIsATest"
+        let result = sut.localize(key, tableName: tableName)
+        XCTAssertEqual(result, "This is a test")
+    }
+    
+    func testLocaleSetTo_dutch() {
+        let locale = Locale(identifier: "nl")
+        sut = LocalizationManager(locale: locale)
+        let key = "thisIsATest"
+        let result = sut.localize(key, tableName: tableName)
+        XCTAssertEqual(result, "Dit is een test")
     }
     
     func testDutch_myName() {
@@ -31,7 +40,7 @@ class LocalizationManagerTests: XCTestCase {
         sut = LocalizationManager(locale: locale)
         
         let key = "myName"
-        let result = sut.localize(key, tableName: "SignUp")
+        let result = sut.localize(key, tableName: tableName)
         XCTAssertEqual(result, "Mijn naam")
     }
     
@@ -39,7 +48,7 @@ class LocalizationManagerTests: XCTestCase {
         sut = LocalizationManager()
         
         let key = "myName"
-        let result = sut.localize(key, tableName: "SignUp")
+        let result = sut.localize(key, tableName: tableName)
         XCTAssertEqual(result, "My name")
     }
     
@@ -48,7 +57,7 @@ class LocalizationManagerTests: XCTestCase {
         sut = LocalizationManager(locale: locale)
         
         let key = "myName"
-        let result = sut.localize(key, tableName: "SignUp")
+        let result = sut.localize(key, tableName: tableName)
         XCTAssertEqual(result, "My name")
     }
 }

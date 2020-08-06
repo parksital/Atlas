@@ -195,6 +195,7 @@
 		A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B68243FB72B004C072F /* SceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B98B66243FB475004C072F /* SceneContainer.swift */; };
 		A0B98B69243FB751004C072F /* AWSContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A016B873242FB6F300D4057B /* AWSContainer.swift */; };
+		A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -377,6 +378,8 @@
 		A0B661D624002661001C5B40 /* AtlasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasUITests.swift; sourceTree = "<group>"; };
 		A0B661D824002661001C5B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0B98B66243FB475004C072F /* SceneContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneContainer.swift; sourceTree = "<group>"; };
+		A0BD4ADC24DC143B00075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
+		A0BD4ADE24DC143F00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -649,13 +652,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		A0407EFD24B393AA004EDFE4 /* Stubs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Stubs;
-			sourceTree = "<group>";
-		};
 		A041ED3B24196FD900DB772F /* EventDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,9 +769,9 @@
 		A0B661CA24002661001C5B40 /* AtlasTests */ = {
 			isa = PBXGroup;
 			children = (
+				A0BD4AD824DC13DD00075F5E /* Resources */,
 				A06617C324618DE3009D150E /* Atlas.xctestplan */,
 				A023E1CC24ACC416001A5BAF /* Services */,
-				A0407EFD24B393AA004EDFE4 /* Stubs */,
 				A030AEA2242C09F100BFCFC5 /* Mocks */,
 				A0503DC2242A875400FF1BA3 /* Scenes */,
 				A0B661CB24002661001C5B40 /* AtlasTests.swift */,
@@ -799,6 +795,14 @@
 			children = (
 				A0294F3A24BF475800380171 /* Localizable.strings */,
 				A035D34D24DA384800ECE6A5 /* SignUp.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A0BD4AD824DC13DD00075F5E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -998,6 +1002,7 @@
 				A03E8F3524CA018600C0594D /* userByID.json in Resources */,
 				A04BCE4E2450CEEC000A6969 /* eventByID-empty.json in Resources */,
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
+				A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */,
 				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1393,6 +1398,15 @@
 				A0294F3524BF434A00380171 /* nl */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0BD4ADC24DC143B00075F5E /* en */,
+				A0BD4ADE24DC143F00075F5E /* nl */,
+			);
+			name = LocalizedTest.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
