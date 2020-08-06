@@ -204,6 +204,8 @@
 		A0BD4AED24DC4BC600075F5E /* Account.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AEF24DC4BC600075F5E /* Account.strings */; };
 		A0BD4AF324DC4ECF00075F5E /* ServiceInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */; };
 		A0BD4AF424DC4ECF00075F5E /* ServiceInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */; };
+		A0BD4AF824DC55B200075F5E /* MyTickets.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AFB24DC55B200075F5E /* MyTickets.strings */; };
+		A0BD4AF924DC55B200075F5E /* MyTickets.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AFB24DC55B200075F5E /* MyTickets.strings */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -393,6 +395,8 @@
 		A0BD4AEE24DC4BC600075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Account.strings; sourceTree = "<group>"; };
 		A0BD4AF024DC4BCA00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Account.strings; sourceTree = "<group>"; };
 		A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInjection.swift; sourceTree = "<group>"; };
+		A0BD4AFA24DC55B200075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MyTickets.strings; sourceTree = "<group>"; };
+		A0BD4AFC24DC55B600075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MyTickets.strings; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -810,6 +814,7 @@
 				A0294F3A24BF475800380171 /* Localizable.strings */,
 				A035D34D24DA384800ECE6A5 /* SignUp.strings */,
 				A0BD4AEF24DC4BC600075F5E /* Account.strings */,
+				A0BD4AFB24DC55B200075F5E /* MyTickets.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1016,6 +1021,7 @@
 				A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */,
 				A075E3882409B107006F891F /* awsconfiguration.json in Resources */,
 				A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */,
+				A0BD4AF824DC55B200075F5E /* MyTickets.strings in Resources */,
 				A0BD4AEC24DC4BC600075F5E /* Account.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1030,6 +1036,7 @@
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
 				A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */,
 				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
+				A0BD4AF924DC55B200075F5E /* MyTickets.strings in Resources */,
 				A0BD4AED24DC4BC600075F5E /* Account.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1449,6 +1456,15 @@
 				A0BD4AF024DC4BCA00075F5E /* nl */,
 			);
 			name = Account.strings;
+			sourceTree = "<group>";
+		};
+		A0BD4AFB24DC55B200075F5E /* MyTickets.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0BD4AFA24DC55B200075F5E /* en */,
+				A0BD4AFC24DC55B600075F5E /* nl */,
+			);
+			name = MyTickets.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
