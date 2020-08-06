@@ -8,16 +8,10 @@
 
 import Foundation
 
-struct SignUpViewModel {
-    let mainText: String
-    let secondaryText: String
-}
-
 protocol SignUpPresentationLogic {
     func setup(viewController: SignUpDisplayLogic)
     func presentLoadingIndicator()
     func presentSuccessfulSignUp()
-    func presentView()
 }
 
 final class SignUpPresenter {
@@ -35,13 +29,5 @@ extension SignUpPresenter: SignUpPresentationLogic {
     
     func presentSuccessfulSignUp() {
         viewController?.signUpSuccessful()
-    }
-    
-    func presentView() {
-        let viewModel = SignUpViewModel(
-            mainText: "[Value proposition main text]",
-            secondaryText: "[Value proposition secondary text]"
-        )
-        viewController?.setupWithViewModel(viewModel)
     }
 }
