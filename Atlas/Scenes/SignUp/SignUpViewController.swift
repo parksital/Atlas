@@ -18,7 +18,10 @@ protocol SignUpDisplayLogic: class {
     func setup(router: SignUpRouterProtocol)
 }
 
-final class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController, HasLocalization {
+    var tableName: String { return "SignUp" }
+    var localizationService: LocalizationService!
+    
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
     
@@ -79,7 +82,7 @@ private extension SignUpViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.label]
         navigationController?.navigationBar.barStyle = .default
-        navigationItem.title = "Account"
+        navigationItem.title = localize("account")
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: router,

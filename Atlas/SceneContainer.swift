@@ -26,6 +26,9 @@ class SceneContainer {
         container.autoregister(KeychainManagerProtocol.self, initializer: KeychainManager.init)
         container.autoregister(ProfileService.self, initializer: ProfileService.init)
         container.autoregister(EventService.self, initializer: EventService.init)
+        container.register(LocalizationService.self) { _ in
+            LocalizationService()
+        }
             
         
         //MARK: - Eventlist Dependencies
@@ -86,6 +89,12 @@ class SceneContainer {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
+    }
+    
+    func resolveLocalization<C: UIViewController>(
+        _ r: Resolver,
+        _ vc: C) where C: HasLocalization {
+        vc.localizationService = r.resolve(LocalizationService.self)!
     }
 }
