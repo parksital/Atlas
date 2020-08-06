@@ -41,23 +41,7 @@ class SceneContainer {
         BuyTicketDI.setDependencies(inContainer: container)
         
         //MARK: - Account Depenedencies
-        container.autoregister(AccountInteraction.self, initializer: AccountInteractor.init)
-        container.autoregister(AccountPresentationLogic.self, initializer: AccountPresenter.init)
-        container.autoregister(AccountRouterProtocol.self, initializer: AccountRouter.init)
-        container.register(AccountViewController.self) { _ in AccountViewController() }
-            .initCompleted { r, vc in
-                let interactor = r.resolve(AccountInteraction.self)!
-                let router = r.resolve(AccountRouterProtocol.self)!
-                let presenter = r.resolve(AccountPresentationLogic.self)!
-                
-                vc.setup(interactor: interactor)
-                vc.setup(router: router)
-                
-                router.setup(viewController: vc)
-                router.setup(dataStore: interactor)
-                
-                presenter.setup(viewController: vc)
-        }
+        AccountDI().setDependencies(inContainer: container)
         
         //MARK: - My Tickets Depenedencies
         MyTicketsDI.setDependencies(inContainer: container)

@@ -84,8 +84,8 @@ private extension NoProfileTableViewCell {
 }
 
 extension NoProfileTableViewCell {
-    func configure() {
-        mainLabel.text = NSLocalizedString("noProfile", comment: "missing profile")
-        button.setTitle(NSLocalizedString("getStarted", comment: ""), for: .normal)
+    func configure(mainLabelText: String, buttonTitle: String) {
+        mainLabel.text = mainLabelText
+        button.setTitle(buttonTitle, for: .normal)
     }
 }

@@ -8,10 +8,12 @@
 
 import Foundation
 
-enum AccountSectionType: Int, CaseIterable {
+enum AccountSectionType: Int {
     case userProfileSection
     case settingsSection
 }
+
+extension AccountSectionType: CaseIterable { }
 
 enum AccountItem: Hashable {
     case noProfile
@@ -31,14 +33,11 @@ enum AccountItem: Hashable {
     }
 }
 
-enum AccountSetting: String, CaseIterable {
+enum AccountSetting: String {
     case myTickets
     case savedEvents
     case history
     case preferences
-    
-    
-    var localized: String {
-        NSLocalizedString(self.rawValue, comment: "")
-    }
 }
+
+extension AccountSetting: CaseIterable { }
