@@ -5,21 +5,6 @@
   Created by Parvin Sital on 15/07/2020.
   Copyright © 2020 Parvin Sital. All rights reserved.
 */
-
-"account" = "Account";
-"preferences" = "Voorkeuren";
-"myTickets" = "Mijn kaartjes";
-"saved" = "Bewaard";
-"history" = "Geschiedenis";
-"noProfile" = "U bent niet ingelogd.";
-"getStarted" = "Beginnen!";
-
-"myTickets" = "Mijn kaartjes";
-
-"savedEvents" = "Bewaarde events";
-
-"history" = "Geschiedenis";
-
 "artists" = "Artiesten";
 "buyTicket" = "Koop kaartjes";
 "tickets" = "Kaartjes";

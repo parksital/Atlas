@@ -198,6 +198,12 @@
 		A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */; };
 		A0BD4AE024DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
 		A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */; };
+		A0BD4AE724DC440C00075F5E /* AccountDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE624DC440C00075F5E /* AccountDI.swift */; };
+		A0BD4AE824DC440C00075F5E /* AccountDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AE624DC440C00075F5E /* AccountDI.swift */; };
+		A0BD4AEC24DC4BC600075F5E /* Account.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AEF24DC4BC600075F5E /* Account.strings */; };
+		A0BD4AED24DC4BC600075F5E /* Account.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AEF24DC4BC600075F5E /* Account.strings */; };
+		A0BD4AF324DC4ECF00075F5E /* ServiceInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */; };
+		A0BD4AF424DC4ECF00075F5E /* ServiceInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -383,6 +389,10 @@
 		A0BD4ADC24DC143B00075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADE24DC143F00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizedTest.strings; sourceTree = "<group>"; };
 		A0BD4ADF24DC158A00075F5E /* LanguageCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCode.swift; sourceTree = "<group>"; };
+		A0BD4AE624DC440C00075F5E /* AccountDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDI.swift; sourceTree = "<group>"; };
+		A0BD4AEE24DC4BC600075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Account.strings; sourceTree = "<group>"; };
+		A0BD4AF024DC4BCA00075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Account.strings; sourceTree = "<group>"; };
+		A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInjection.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -597,6 +607,7 @@
 				A0C1C8CB24B605620082B492 /* Preferences */,
 				A03A030B247423E800C5B7E9 /* Views */,
 				A0E1E274249E859500FCBA25 /* AccountViewController.swift */,
+				A0BD4AE624DC440C00075F5E /* AccountDI.swift */,
 				A03A02F3246411A900C5B7E9 /* AccountInteractor.swift */,
 				A03A02F5246411B100C5B7E9 /* AccountPresenter.swift */,
 				A03A02F7246411BA00C5B7E9 /* AccountRouter.swift */,
@@ -748,11 +759,12 @@
 		A0B661B32400265F001C5B40 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
-				A0BD4AD324DBF45A00075F5E /* Resources */,
 				A04BCE5E245184CC000A6969 /* Atlas.entitlements */,
 				A075E38D240E8201006F891F /* API.swift */,
 				A075E3872409B106006F891F /* awsconfiguration.json */,
 				A0B661B42400265F001C5B40 /* AppDelegate.swift */,
+				A0BD4AF124DC4EB000075F5E /* Swinject */,
+				A0BD4AD324DBF45A00075F5E /* Resources */,
 				A0255BE02425066F001E117D /* Protocols */,
 				A00C65622423AE6A00D12C8D /* Enums */,
 				A0FEA88A241BF87400B3F3A1 /* Utilities */,
@@ -764,8 +776,6 @@
 				A0B661BD24002660001C5B40 /* Assets.xcassets */,
 				A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */,
 				A0B661C224002661001C5B40 /* Info.plist */,
-				A016B873242FB6F300D4057B /* AWSContainer.swift */,
-				A0B98B66243FB475004C072F /* SceneContainer.swift */,
 			);
 			path = Atlas;
 			sourceTree = "<group>";
@@ -799,6 +809,7 @@
 			children = (
 				A0294F3A24BF475800380171 /* Localizable.strings */,
 				A035D34D24DA384800ECE6A5 /* SignUp.strings */,
+				A0BD4AEF24DC4BC600075F5E /* Account.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -809,6 +820,16 @@
 				A0BD4ADD24DC143B00075F5E /* LocalizedTest.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A0BD4AF124DC4EB000075F5E /* Swinject */ = {
+			isa = PBXGroup;
+			children = (
+				A016B873242FB6F300D4057B /* AWSContainer.swift */,
+				A0B98B66243FB475004C072F /* SceneContainer.swift */,
+				A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */,
+			);
+			path = Swinject;
 			sourceTree = "<group>";
 		};
 		A0C1C8CB24B605620082B492 /* Preferences */ = {
@@ -995,6 +1016,7 @@
 				A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */,
 				A075E3882409B107006F891F /* awsconfiguration.json in Resources */,
 				A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */,
+				A0BD4AEC24DC4BC600075F5E /* Account.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,6 +1030,7 @@
 				A07BF6B8242D258F002CD54F /* eventsByStartDate.json in Resources */,
 				A0BD4ADB24DC143B00075F5E /* LocalizedTest.strings in Resources */,
 				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
+				A0BD4AED24DC4BC600075F5E /* Account.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1172,6 +1195,7 @@
 				A041ED432419736000DB772F /* EventDetailPresenter.swift in Sources */,
 				A0E1E275249E859500FCBA25 /* AccountViewController.swift in Sources */,
 				A00BED5A24A1098A002B538D /* NoProfileTableViewCell.swift in Sources */,
+				A0BD4AF324DC4ECF00075F5E /* ServiceInjection.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A000253524D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
 				A000251D24D83D3B009A87D4 /* HistoryModels.swift in Sources */,
@@ -1195,6 +1219,7 @@
 				A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */,
 				A04BCE602451AB4A000A6969 /* UIFont+.swift in Sources */,
 				A0E1E26F249E465500FCBA25 /* EventList-DI.swift in Sources */,
+				A0BD4AE724DC440C00075F5E /* AccountDI.swift in Sources */,
 				A000253324D96A06009A87D4 /* BuyTicketModels.swift in Sources */,
 				A0255BE6242506CA001E117D /* UILabel+.swift in Sources */,
 				A000252D24D96A06009A87D4 /* BuyTicketDI.swift in Sources */,
@@ -1261,6 +1286,7 @@
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
 				A000252024D841FE009A87D4 /* HistoryViewController.swift in Sources */,
+				A0BD4AE824DC440C00075F5E /* AccountDI.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A00024DB24D82762009A87D4 /* MyTicketsInteractor.swift in Sources */,
 				A0217E3724C889CC0081056C /* AuthServiceTests.swift in Sources */,
@@ -1280,6 +1306,7 @@
 				A00A6F64242B7298001EAF54 /* EventListSnapshotTests.swift in Sources */,
 				A0503DC1242A762900FF1BA3 /* UIStackView+.swift in Sources */,
 				A0C1C8D324B63AEA0082B492 /* PreferencesInteractor.swift in Sources */,
+				A0BD4AF424DC4ECF00075F5E /* ServiceInjection.swift in Sources */,
 				A0E1E270249E549400FCBA25 /* EventList-DI.swift in Sources */,
 				A00024DD24D82768009A87D4 /* MyTicketsDI.swift in Sources */,
 				A0217E3524C886960081056C /* AppleAuthService.swift in Sources */,
@@ -1413,6 +1440,15 @@
 				A0BD4ADE24DC143F00075F5E /* nl */,
 			);
 			name = LocalizedTest.strings;
+			sourceTree = "<group>";
+		};
+		A0BD4AEF24DC4BC600075F5E /* Account.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0BD4AEE24DC4BC600075F5E /* en */,
+				A0BD4AF024DC4BCA00075F5E /* nl */,
+			);
+			name = Account.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
