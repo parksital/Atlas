@@ -56,24 +56,7 @@ class SceneContainer {
         HistoryDI.setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies
-        container.autoregister(SignUpInteraction.self, initializer: SignUpInteractor.init)
-        container.autoregister(SignUpPresentationLogic.self, initializer: SignUpPresenter.init)
-        container.autoregister(SignUpRouterProtocol.self, initializer: SignUpRouter.init)
-        container.register(SignUpViewController.self) { r  in
-            SignUpViewController()
-        }.initCompleted { r, vc in
-            let interactor = r.resolve(SignUpInteraction.self)!
-            let router = r.resolve(SignUpRouterProtocol.self)!
-            let presenter = r.resolve(SignUpPresentationLogic.self)!
-            
-            vc.setup(router: router)
-            vc.setup(interactor: interactor)
-            
-            router.setup(dataStore: interactor)
-            router.setup(viewController: vc)
-            
-            presenter.setup(viewController: vc)
-        }.initCompleted(resolveLocalization)
+        SignUpDI().setDependencies(inContainer: container)
     }
     
     func resolveLocalization<C: UIViewController>(

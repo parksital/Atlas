@@ -24,14 +24,6 @@ class SignUpInteractorTests: XCTestCase {
         XCTAssertNotNil(sut)
     }
     
-    func testViewDidFinishLoading_called() {
-        let spy = PresenterSpy()
-        sut = makeSUT(presenterSpy: spy)
-        sut.viewDidFinishLoading()
-        
-        XCTAssertEqual(spy.presentViewCalledCount, 1)
-    }
-    
     func testSignUpWithApple() {
         let spy = PresenterSpy()
         sut = makeSUT(presenterSpy: spy)

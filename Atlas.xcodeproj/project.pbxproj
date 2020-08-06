@@ -206,6 +206,8 @@
 		A0BD4AF424DC4ECF00075F5E /* ServiceInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */; };
 		A0BD4AF824DC55B200075F5E /* MyTickets.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AFB24DC55B200075F5E /* MyTickets.strings */; };
 		A0BD4AF924DC55B200075F5E /* MyTickets.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0BD4AFB24DC55B200075F5E /* MyTickets.strings */; };
+		A0BD4AFE24DC57E700075F5E /* SignUpDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AFD24DC57E700075F5E /* SignUpDI.swift */; };
+		A0BD4AFF24DC57E700075F5E /* SignUpDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD4AFD24DC57E700075F5E /* SignUpDI.swift */; };
 		A0BE38C624192D8C0077DE4E /* EventListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE38C524192D8C0077DE4E /* EventListRouter.swift */; };
 		A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
 		A0C1C8CE24B605BE0082B492 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */; };
@@ -397,6 +399,7 @@
 		A0BD4AF224DC4ECF00075F5E /* ServiceInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInjection.swift; sourceTree = "<group>"; };
 		A0BD4AFA24DC55B200075F5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MyTickets.strings; sourceTree = "<group>"; };
 		A0BD4AFC24DC55B600075F5E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MyTickets.strings; sourceTree = "<group>"; };
+		A0BD4AFD24DC57E700075F5E /* SignUpDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDI.swift; sourceTree = "<group>"; };
 		A0BE38C524192D8C0077DE4E /* EventListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRouter.swift; sourceTree = "<group>"; };
 		A0C1C8CC24B605760082B492 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		A0C1C8D124B617310082B492 /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -689,6 +692,7 @@
 			isa = PBXGroup;
 			children = (
 				A04BCE52245148BC000A6969 /* SignUpViewController.swift */,
+				A0BD4AFD24DC57E700075F5E /* SignUpDI.swift */,
 				A04BCE55245162C1000A6969 /* SignUpRouter.swift */,
 				A04BCE5824516714000A6969 /* SignUpInteractor.swift */,
 				A04BCE5B2451679C000A6969 /* SignUpPresenter.swift */,
@@ -1159,6 +1163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A000254824D9B2F2009A87D4 /* EventHeaderCell.swift in Sources */,
+				A0BD4AFE24DC57E700075F5E /* SignUpDI.swift in Sources */,
 				A09D139124CF1FE400FB132E /* SavedEventsModels.swift in Sources */,
 				A09D139224CF1FE400FB132E /* SavedEventsViewController.swift in Sources */,
 				A04BCE53245148BC000A6969 /* SignUpViewController.swift in Sources */,
@@ -1335,6 +1340,7 @@
 				A03E2AD62410087100B45712 /* EventSummary.swift in Sources */,
 				A09038FB2420D5CB00743881 /* EventListRouter.swift in Sources */,
 				A04BCE57245165B9000A6969 /* SignUpRouter.swift in Sources */,
+				A0BD4AFF24DC57E700075F5E /* SignUpDI.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
 				A00BED5524A01381002B538D /* SettingTableViewCell.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
