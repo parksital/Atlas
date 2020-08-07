@@ -35,7 +35,7 @@ class SceneContainer {
         EventListDI.setDependencies(inContainer: container)
         
         //MARK: - EventDetail Dependencies
-        EventDetailDI.setDependencies(inContainer: container)
+        EventDetailDI().setDependencies(inContainer: container)
         
         //MARK: - Buy Ticket Dependencies
         BuyTicketDI.setDependencies(inContainer: container)

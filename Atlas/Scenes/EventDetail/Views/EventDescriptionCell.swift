@@ -27,12 +27,7 @@ final class EventDescriptionCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        setupHeaderLabel()
         setupStackView()
-    }
-    
-    func setupHeaderLabel() {
-        headerLabel.text = NSLocalizedString("eventInformation", comment: "")
     }
     
     func setupStackView() {
@@ -54,7 +49,8 @@ final class EventDescriptionCell: UICollectionViewCell {
         NSLayoutConstraint.activate([leading, trailing, top, bottom])
     }
     
-    func configure(description: String?) {
+    func configure(headerText: String?, description: String?) {
+        headerLabel.text = headerText
         descriptionLabel.text = description
     }
 }
