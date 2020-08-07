@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 final class MapCell: UICollectionViewCell {
+    private let regionRadius: Double = 250.0
     private let containerView = UIView()
     private let mapView: MKMapView = {
         let map = MKMapView()
@@ -75,3 +76,10 @@ private extension MapCell {
 }
 
 extension MapCell: MKMapViewDelegate { }
+
+extension MapCell {
+    func configure(latitude: Double, longitude: Double) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        mapView.zoomToLocation(location)
+    }
+}

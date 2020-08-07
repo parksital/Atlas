@@ -195,6 +195,8 @@
 		A0B2816124DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
 		A0B2816224DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
 		A0B2816424DD75EE00E2DB03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B2816324DD75EE00E2DB03 /* MapKit.framework */; };
+		A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
+		A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -394,6 +396,7 @@
 		A0B2815F24DD6BEF00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/History.strings; sourceTree = "<group>"; };
 		A0B2816024DD71DA00E2DB03 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		A0B2816324DD75EE00E2DB03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A0B2816524DD971C00E2DB03 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -929,6 +932,7 @@
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 				A0D0B76524B674140066B29C /* String+.swift */,
 				A000254A24D9D827009A87D4 /* UICollectionView+.swift */,
+				A0B2816524DD971C00E2DB03 /* MKMapView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1277,6 +1281,7 @@
 				A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A000251F24D83D3B009A87D4 /* HistoryInteractor.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
+				A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */,
@@ -1327,6 +1332,7 @@
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
+				A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A000252024D841FE009A87D4 /* HistoryViewController.swift in Sources */,
 				A0BD4AE824DC440C00075F5E /* AccountDI.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,

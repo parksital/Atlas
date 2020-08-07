@@ -145,6 +145,10 @@ private extension EventDetailViewController {
                 return cell
             case .map:
                 let cell: MapCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.configure(
+                    latitude: object.event.latitude,
+                    longitude: object.event.longitude
+                )
                 return cell
             }
         }
