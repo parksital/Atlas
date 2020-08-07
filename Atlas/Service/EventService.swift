@@ -23,7 +23,7 @@ class EventService {
     }
     
     func events() -> AnyPublisher<[EventItem], Error> {
-        let f: Future<GetEventList, Error> = client.fetch(query: EventList.Request(token: token))
+        let f: Future<GetEventList, Error> = client.fetch(query: EventList.Request(token: token), cachePolicy: .returnCacheDataElseFetch)
         
         return f
             .map({ $0.eventSummaryList.eventItems })
@@ -31,6 +31,6 @@ class EventService {
     }
     
     func event(byID id: String) -> Future<GetEvent, Error> {
-        return client.fetch(query: EventDetail.Request(id: id))
+        return client.fetch(query: EventDetail.Request(id: id), cachePolicy: .returnCacheDataElseFetch)
     }
 }

@@ -50,8 +50,8 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
             EventDetailItem(section: .header, event: viewModel),
             EventDetailItem(section: .description, event: viewModel),
             EventDetailItem(section: .artists, event: viewModel),
-            EventDetailItem(section: .admission, event: viewModel)
-            //            EventDetailItem(section: .map, event: viewModel)
+            EventDetailItem(section: .admission, event: viewModel),
+            EventDetailItem(section: .map, event: viewModel)
         ]
         viewController?.displayEventDetailItems(items)
     }
