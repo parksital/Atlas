@@ -53,7 +53,7 @@ class SceneContainer {
         PreferencesDI.setDependencies(inContainer: container)
         
         //MARK: - Preferences Depenedencies
-        HistoryDI.setDependencies(inContainer: container)
+        HistoryDI().setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies
         SignUpDI().setDependencies(inContainer: container)

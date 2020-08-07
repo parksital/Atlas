@@ -17,13 +17,19 @@ protocol HistoryDisplayLogic: class {
     func setup(router: HistoryRouterProtocol)
 }
 
-final class HistoryViewController: UIViewController {
+final class HistoryViewController: UIViewController, HasLocalization {
+    var tableName: String { return "History" }
+    var localizationService: LocalizationService!
+    
     var interactor: HistoryInteraction?
     var router: HistoryRouterProtocol?
     
     private let wipLabel = UILabel(styling: .primary)
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(
+        nibName nibNameOrNil: String?,
+        bundle nibBundleOrNil: Bundle?
+    ) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -46,7 +52,7 @@ private extension HistoryViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = NSLocalizedString("history", comment: "")
+        navigationItem.title = localize("history")
     }
     
     func setupWIPLabel() {
