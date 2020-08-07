@@ -188,6 +188,8 @@
 		A0AD0788249A6AF3009DA2CA /* KeychainManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */; };
 		A0B2814B24DD52EF00E2DB03 /* EventDetail.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2814E24DD52EF00E2DB03 /* EventDetail.strings */; };
 		A0B2814C24DD52EF00E2DB03 /* EventDetail.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2814E24DD52EF00E2DB03 /* EventDetail.strings */; };
+		A0B2815324DD66B800E2DB03 /* SavedEvents.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2815624DD66B800E2DB03 /* SavedEvents.strings */; };
+		A0B2815424DD66B800E2DB03 /* SavedEvents.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2815624DD66B800E2DB03 /* SavedEvents.strings */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -381,6 +383,8 @@
 		A0AD0786249A65A8009DA2CA /* KeychainManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerProtocol.swift; sourceTree = "<group>"; };
 		A0B2814D24DD52EF00E2DB03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EventDetail.strings; sourceTree = "<group>"; };
 		A0B2814F24DD52F000E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/EventDetail.strings; sourceTree = "<group>"; };
+		A0B2815524DD66B800E2DB03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SavedEvents.strings; sourceTree = "<group>"; };
+		A0B2815724DD66BA00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SavedEvents.strings; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -824,6 +828,7 @@
 				A0BD4AEF24DC4BC600075F5E /* Account.strings */,
 				A0BD4AFB24DC55B200075F5E /* MyTickets.strings */,
 				A0B2814E24DD52EF00E2DB03 /* EventDetail.strings */,
+				A0B2815624DD66B800E2DB03 /* SavedEvents.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1033,6 +1038,7 @@
 				A035D34A24DA384800ECE6A5 /* SignUp.strings in Resources */,
 				A0BD4AF824DC55B200075F5E /* MyTickets.strings in Resources */,
 				A0BD4AEC24DC4BC600075F5E /* Account.strings in Resources */,
+				A0B2815324DD66B800E2DB03 /* SavedEvents.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,6 +1055,7 @@
 				A04828B9244CC9A80054199B /* eventByID.json in Resources */,
 				A0BD4AF924DC55B200075F5E /* MyTickets.strings in Resources */,
 				A0BD4AED24DC4BC600075F5E /* Account.strings in Resources */,
+				A0B2815424DD66B800E2DB03 /* SavedEvents.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1451,6 +1458,15 @@
 				A0B2814F24DD52F000E2DB03 /* nl */,
 			);
 			name = EventDetail.strings;
+			sourceTree = "<group>";
+		};
+		A0B2815624DD66B800E2DB03 /* SavedEvents.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0B2815524DD66B800E2DB03 /* en */,
+				A0B2815724DD66BA00E2DB03 /* nl */,
+			);
+			name = SavedEvents.strings;
 			sourceTree = "<group>";
 		};
 		A0B661BF24002661001C5B40 /* LaunchScreen.storyboard */ = {

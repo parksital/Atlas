@@ -9,8 +9,8 @@
 import Foundation
 import Swinject
 
-class SavedEventsDI {
-    static func setDependencies(inContainer container: Container) {
+class SavedEventsDI: ServiceInjection {
+    func setDependencies(inContainer container: Container) {
         container.autoregister(SavedEventsInteraction.self, initializer: SavedEventsInteractor.init)
         container.autoregister(SavedEventsPresentationLogic.self, initializer: SavedEventsPresenter.init)
         container.autoregister(SavedEventsRoutingProtocol.self, initializer: SavedEventsRouter.init)
@@ -29,6 +29,6 @@ class SavedEventsDI {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
     }
 }
