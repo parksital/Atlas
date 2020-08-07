@@ -108,6 +108,7 @@ private extension EventDetailViewController {
         collectionView.register(cellType: EventDescriptionCell.self)
         collectionView.register(cellType: ArtistContainerCell.self)
         collectionView.register(cellType: ButtonViewCell.self)
+        collectionView.register(cellType: MapCell.self)
     }
     
     func setupDataSource() {
@@ -143,10 +144,10 @@ private extension EventDetailViewController {
                 cell.configure(buttonTitle: title)
                 return cell
             case .map:
-                break
+                let cell: MapCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.configure(event: object.event)
+                return cell
             }
-            let cell: UICollectionViewCell = collectionView.getCell(forIndexPath: indexPath)
-            return cell
         }
         
         collectionView.dataSource = dataSource

@@ -192,6 +192,13 @@
 		A0B2815424DD66B800E2DB03 /* SavedEvents.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2815624DD66B800E2DB03 /* SavedEvents.strings */; };
 		A0B2815B24DD6BEE00E2DB03 /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2815E24DD6BEE00E2DB03 /* History.strings */; };
 		A0B2815C24DD6BEE00E2DB03 /* History.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2815E24DD6BEE00E2DB03 /* History.strings */; };
+		A0B2816124DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
+		A0B2816224DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
+		A0B2816424DD75EE00E2DB03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B2816324DD75EE00E2DB03 /* MapKit.framework */; };
+		A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
+		A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
+		A0B2816B24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
+		A0B2816C24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -389,6 +396,10 @@
 		A0B2815724DD66BA00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SavedEvents.strings; sourceTree = "<group>"; };
 		A0B2815D24DD6BEE00E2DB03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/History.strings; sourceTree = "<group>"; };
 		A0B2815F24DD6BEF00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/History.strings; sourceTree = "<group>"; };
+		A0B2816024DD71DA00E2DB03 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		A0B2816324DD75EE00E2DB03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A0B2816524DD971C00E2DB03 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
+		A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -446,6 +457,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B2816424DD75EE00E2DB03 /* MapKit.framework in Frameworks */,
 				FCB58863BC11DF4258B6FA5B /* Pods_Atlas.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +499,7 @@
 		991808CDF031BF198AF0FD0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0B2816324DD75EE00E2DB03 /* MapKit.framework */,
 				56497F2372BE0C7AA23CEAAF /* Pods_Atlas.framework */,
 				8AA48707140C7C543758D0AE /* Pods_AtlasUITests.framework */,
 				C083B80D55FBBCBA506E560C /* Pods_Atlas_AtlasTests.framework */,
@@ -535,10 +548,8 @@
 		A000254624D9B2C1009A87D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
-				A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */,
-				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
-				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
+				A0B2816924DDA0B500E2DB03 /* Cells */,
+				A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -754,6 +765,18 @@
 			path = Saved;
 			sourceTree = "<group>";
 		};
+		A0B2816924DDA0B500E2DB03 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
+				A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */,
+				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
+				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
+				A0B2816024DD71DA00E2DB03 /* MapCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		A0B661A82400265F001C5B40 = {
 			isa = PBXGroup;
 			children = (
@@ -921,6 +944,7 @@
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 				A0D0B76524B674140066B29C /* String+.swift */,
 				A000254A24D9D827009A87D4 /* UICollectionView+.swift */,
+				A0B2816524DD971C00E2DB03 /* MKMapView+.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1261,6 +1285,7 @@
 				A0C1C8DB24B63D630082B492 /* PreferenceSectionType.swift in Sources */,
 				A03A03102475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0DBC48024014C43002419C6 /* EventListInteractor.swift in Sources */,
+				A0B2816124DD71DA00E2DB03 /* MapCell.swift in Sources */,
 				A000253724D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */,
 				A030AEAA242CE30300BFCFC5 /* Fetchable.swift in Sources */,
 				A03E8F3024C9EC4F00C0594D /* MockAppleIDProvider.swift in Sources */,
@@ -1268,9 +1293,11 @@
 				A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A000251F24D83D3B009A87D4 /* HistoryInteractor.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
+				A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */,
+				A0B2816B24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */,
 				A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */,
 				A000253124D96A06009A87D4 /* BuyTicketRouter.swift in Sources */,
 				A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */,
@@ -1318,6 +1345,7 @@
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
+				A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A000252024D841FE009A87D4 /* HistoryViewController.swift in Sources */,
 				A0BD4AE824DC440C00075F5E /* AccountDI.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
@@ -1363,6 +1391,7 @@
 				A04BCE57245165B9000A6969 /* SignUpRouter.swift in Sources */,
 				A0BD4AFF24DC57E700075F5E /* SignUpDI.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
+				A0B2816C24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */,
 				A00BED5524A01381002B538D /* SettingTableViewCell.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
 				A0297D17241A90280089F38C /* API.swift in Sources */,
@@ -1384,6 +1413,7 @@
 				A00B0BFC24D05A2D005ACFE0 /* SavedEventsRouter.swift in Sources */,
 				A0217E3A24C8D7BE0081056C /* AuthStatus.swift in Sources */,
 				A00024DA24D82746009A87D4 /* MyTicketsViewController.swift in Sources */,
+				A0B2816224DD71DA00E2DB03 /* MapCell.swift in Sources */,
 				A0F6FED1247592D200302B70 /* ProfileService.swift in Sources */,
 				A000253B24D96EEE009A87D4 /* BaseRouting.swift in Sources */,
 				A03A02F92464166800C5B7E9 /* AccountRouter.swift in Sources */,

@@ -24,6 +24,9 @@
   "testTargets" : [
     {
       "parallelizable" : true,
+      "skippedTests" : [
+        "EventDetailSnapshotTests"
+      ],
       "target" : {
         "containerPath" : "container:Atlas.xcodeproj",
         "identifier" : "A0B661C624002661001C5B40",
