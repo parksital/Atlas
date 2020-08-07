@@ -13,8 +13,8 @@
 import Foundation
 import Swinject
 
-class HistoryDI {
-    static func setDependencies(inContainer container: Container) {
+class HistoryDI: ServiceInjection {
+    func setDependencies(inContainer container: Container) {
         container.autoregister(HistoryInteraction.self, initializer: HistoryInteractor.init)
         container.autoregister(HistoryPresentationLogic.self, initializer: HistoryPresenter.init)
         container.autoregister(HistoryRouterProtocol.self, initializer: HistoryRouter.init)
@@ -33,6 +33,6 @@ class HistoryDI {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
     }
 }
