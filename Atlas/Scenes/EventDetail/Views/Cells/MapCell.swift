@@ -78,8 +78,15 @@ private extension MapCell {
 extension MapCell: MKMapViewDelegate { }
 
 extension MapCell {
-    func configure(latitude: Double, longitude: Double) {
-        let location = CLLocation(latitude: latitude, longitude: longitude)
+    func configure(event: EventDetail.ViewModel) {
+        let location = event.location
+        
+        let annotation = VenueAnnotation(
+            title: event.venue,
+            coordinate: location.coordinate
+        )
+        
         mapView.zoomToLocation(location)
+        mapView.addAnnotation(annotation)
     }
 }

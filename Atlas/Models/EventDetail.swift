@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 
 // MARK: - GetEvent
@@ -122,6 +123,15 @@ enum EventDetail {
 }
 
 extension EventDetail.ViewModel: Hashable { }
+extension EventDetail.ViewModel {
+    var location: CLLocation {
+        CLLocation(
+            latitude: latitude,
+            longitude: longitude
+        )
+    }
+}
+
 extension EventDetail.ViewModel {
     static func fixture() -> EventDetail.ViewModel {
         EventDetail.ViewModel(

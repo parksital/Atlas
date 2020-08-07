@@ -197,6 +197,8 @@
 		A0B2816424DD75EE00E2DB03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B2816324DD75EE00E2DB03 /* MapKit.framework */; };
 		A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
 		A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
+		A0B2816B24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
+		A0B2816C24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
 		A0B661B52400265F001C5B40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B42400265F001C5B40 /* AppDelegate.swift */; };
 		A0B661B92400265F001C5B40 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B661B82400265F001C5B40 /* EventListViewController.swift */; };
 		A0B661BE24002660001C5B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0B661BD24002660001C5B40 /* Assets.xcassets */; };
@@ -397,6 +399,7 @@
 		A0B2816024DD71DA00E2DB03 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		A0B2816324DD75EE00E2DB03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A0B2816524DD971C00E2DB03 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
+		A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
 		A0B661B12400265F001C5B40 /* Atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B661B42400265F001C5B40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0B661B82400265F001C5B40 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
@@ -545,11 +548,8 @@
 		A000254624D9B2C1009A87D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
-				A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */,
-				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
-				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
-				A0B2816024DD71DA00E2DB03 /* MapCell.swift */,
+				A0B2816924DDA0B500E2DB03 /* Cells */,
+				A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -763,6 +763,18 @@
 				A09D138D24CF1FE400FB132E /* SavedEventsInteractor.swift */,
 			);
 			path = Saved;
+			sourceTree = "<group>";
+		};
+		A0B2816924DDA0B500E2DB03 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */,
+				A03C799C24DAEF8A0001093F /* ButtonViewCell.swift */,
+				A03C799324DAA2D60001093F /* EventDescriptionCell.swift */,
+				A03C799624DAA5910001093F /* ArtistContainerCell.swift */,
+				A0B2816024DD71DA00E2DB03 /* MapCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		A0B661A82400265F001C5B40 = {
@@ -1285,6 +1297,7 @@
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */,
+				A0B2816B24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */,
 				A0F6FED0247591FF00302B70 /* ProfileService.swift in Sources */,
 				A000253124D96A06009A87D4 /* BuyTicketRouter.swift in Sources */,
 				A0D0B76124B644F40066B29C /* PreferencesRouter.swift in Sources */,
@@ -1378,6 +1391,7 @@
 				A04BCE57245165B9000A6969 /* SignUpRouter.swift in Sources */,
 				A0BD4AFF24DC57E700075F5E /* SignUpDI.swift in Sources */,
 				A0B661CC24002661001C5B40 /* AtlasTests.swift in Sources */,
+				A0B2816C24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */,
 				A00BED5524A01381002B538D /* SettingTableViewCell.swift in Sources */,
 				A0297D09241A7DA10089F38C /* EventDetailPresenterTests.swift in Sources */,
 				A0297D17241A90280089F38C /* API.swift in Sources */,
