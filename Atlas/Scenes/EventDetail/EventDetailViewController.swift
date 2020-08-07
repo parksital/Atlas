@@ -15,7 +15,10 @@ protocol EventDetailDisplayLogic: class {
     func setup(router: EventDetailRouterProtocol)
 }
 
-final class EventDetailViewController: UICollectionViewController {
+final class EventDetailViewController: UICollectionViewController, HasLocalization {
+    var tableName: String { return "EventDetail" }
+    var localizationService: LocalizationService!
+    
     typealias DataSource = UICollectionViewDiffableDataSource<EventDetailSectionType, EventDetailItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<EventDetailSectionType, EventDetailItem>
     
@@ -108,7 +111,8 @@ private extension EventDetailViewController {
     }
     
     func setupDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { [interactor] (collectionView, indexPath, object) in
+        dataSource = DataSource(collectionView: collectionView) { [weak self] (collectionView, indexPath, object) in
+            guard let self = self else { return nil }
             switch object.section {
             case .header:
                 let cell: EventHeaderCell = collectionView.getCell(forIndexPath: indexPath)
@@ -119,16 +123,24 @@ private extension EventDetailViewController {
                 return cell
             case .description:
                 let cell: EventDescriptionCell = collectionView.getCell(forIndexPath: indexPath)
-                cell.configure(description: object.event.description)
+                cell.configure(
+                    headerText: self.localize("eventInformation"),
+                    description: object.event.description
+                )
                 return cell
             case .artists:
                 let cell: ArtistContainerCell = collectionView.getCell(forIndexPath: indexPath)
-                cell.configure(withArtists: object.event.artists)
+                cell.configure(
+                    headerText: self.localize("artists"),
+                    artists: object.event.artists
+                )
                 return cell
             case .admission:
                 let cell: ButtonViewCell = collectionView.getCell(forIndexPath: indexPath)
-                cell.action = interactor?.buyTicketButtonPressed
-                cell.configure(buttonTitle: NSLocalizedString("buyTicket", comment: ""))
+                cell.action = self.interactor?.buyTicketButtonPressed
+                let key = "buyTickets"
+                let title = self.localize(key)
+                cell.configure(buttonTitle: title)
                 return cell
             case .map:
                 break

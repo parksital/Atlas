@@ -1,0 +1,11 @@
+/* 
+  EventDetail.strings
+  Atlas
+
+  Created by Parvin Sital on 07/08/2020.
+  Copyright © 2020 Parvin Sital. All rights reserved.
+*/
+
+"eventInformation" = "Informatie";
+"artists" = "Artiesten";
+"buyTickets" = "Koop kaartjes";

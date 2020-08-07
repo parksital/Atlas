@@ -29,12 +29,7 @@ final class ArtistContainerCell: UICollectionViewCell {
 
 private extension ArtistContainerCell {
     func setupViews() {
-        setupHeaderLabel()
         setupStackView()
-    }
-    
-    func setupHeaderLabel() {
-        headerLabel.text = NSLocalizedString("artists", comment: "")
     }
     
     func setupStackView() {
@@ -60,7 +55,8 @@ private extension ArtistContainerCell {
 }
 
 extension ArtistContainerCell {
-    func configure(withArtists artists: [String]) {
+    func configure(headerText: String?, artists: [String]) {
+        headerLabel.text = headerText
         artists.forEach({ [weak self] artist in
             let label = UILabel(styling: .body)
             label.text = artist
