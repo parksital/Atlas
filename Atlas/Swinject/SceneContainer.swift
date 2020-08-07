@@ -50,9 +50,9 @@ class SceneContainer {
         SavedEventsDI().setDependencies(inContainer: container)
         
         //MARK: - Preferences Depenedencies
-        PreferencesDI.setDependencies(inContainer: container)
+        PreferencesDI().setDependencies(inContainer: container)
         
-        //MARK: - Preferences Depenedencies
+        //MARK: - History Depenedencies
         HistoryDI().setDependencies(inContainer: container)
         
         //MARK: - SignUp Dependencies

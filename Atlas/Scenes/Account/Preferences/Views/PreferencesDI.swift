@@ -1,5 +1,5 @@
 //
-//  Preferences-DI.swift
+//  PreferencesDI.swift
 //  Atlas
 //
 //  Created by Parvin Sital on 08/07/2020.
@@ -9,8 +9,8 @@
 import Foundation
 import Swinject
 
-class PreferencesDI {
-    static func setDependencies(inContainer container: Container) {
+class PreferencesDI: ServiceInjection {
+    func setDependencies(inContainer container: Container) {
         container.autoregister(PreferencesInteraction.self, initializer: PreferencesInteractor.init)
         container.autoregister(PreferencesPresentationLogic.self, initializer: PreferencesPresenter.init)
         container.autoregister(PreferencesRouterProtocol.self, initializer: PreferencesRouter.init)
@@ -29,6 +29,6 @@ class PreferencesDI {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
     }
 }
