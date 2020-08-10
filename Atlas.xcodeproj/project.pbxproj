@@ -51,6 +51,11 @@
 		A000254B24D9D827009A87D4 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254A24D9D827009A87D4 /* UICollectionView+.swift */; };
 		A000254C24D9D827009A87D4 /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000254A24D9D827009A87D4 /* UICollectionView+.swift */; };
 		A0077DB224E1A71E0020E3D0 /* MapLinkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB124E1A71E0020E3D0 /* MapLinkerTests.swift */; };
+		A0077DB424E1F09B0020E3D0 /* MapLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB324E1F09B0020E3D0 /* MapLinker.swift */; };
+		A0077DB524E1F09F0020E3D0 /* MapLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB324E1F09B0020E3D0 /* MapLinker.swift */; };
+		A0077DB724E1F2F40020E3D0 /* URLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB624E1F2F40020E3D0 /* URLOpening.swift */; };
+		A0077DB824E1F2F40020E3D0 /* URLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB624E1F2F40020E3D0 /* URLOpening.swift */; };
+		A0077DBB24E1F3890020E3D0 /* MockUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB924E1F3890020E3D0 /* MockUIApplication.swift */; };
 		A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
@@ -315,6 +320,9 @@
 		A000254724D9B2F2009A87D4 /* EventHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHeaderCell.swift; sourceTree = "<group>"; };
 		A000254A24D9D827009A87D4 /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		A0077DB124E1A71E0020E3D0 /* MapLinkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLinkerTests.swift; sourceTree = "<group>"; };
+		A0077DB324E1F09B0020E3D0 /* MapLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLinker.swift; sourceTree = "<group>"; };
+		A0077DB624E1F2F40020E3D0 /* URLOpening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpening.swift; sourceTree = "<group>"; };
+		A0077DB924E1F3890020E3D0 /* MockUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIApplication.swift; sourceTree = "<group>"; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
 		A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -608,6 +616,7 @@
 				A0217E2D24C8829D0081056C /* AppleIDProviderProtocol.swift */,
 				A0217E3E24C8D7FA0081056C /* AuthClientProtocol.swift */,
 				A000253924D96EEE009A87D4 /* BaseRouting.swift */,
+				A0077DB624E1F2F40020E3D0 /* URLOpening.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -619,6 +628,7 @@
 				A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */,
 				A0217E2924C882250081056C /* MockAppleIDProvider.swift */,
 				A0217E4124C8D8310081056C /* MockAuthClient.swift */,
+				A0077DB924E1F3890020E3D0 /* MockUIApplication.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -953,6 +963,7 @@
 				A0D0B76524B674140066B29C /* String+.swift */,
 				A000254A24D9D827009A87D4 /* UICollectionView+.swift */,
 				A0B2816524DD971C00E2DB03 /* MKMapView+.swift */,
+				A0077DB324E1F09B0020E3D0 /* MapLinker.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1255,6 +1266,7 @@
 				A03A02F8246411BA00C5B7E9 /* AccountRouter.swift in Sources */,
 				A0AD0787249A65A8009DA2CA /* KeychainManagerProtocol.swift in Sources */,
 				A00C65602423AE2B00D12C8D /* EventList.swift in Sources */,
+				A0077DB724E1F2F40020E3D0 /* URLOpening.swift in Sources */,
 				A0C1C8CD24B605760082B492 /* PreferencesViewController.swift in Sources */,
 				A00024D524D81B83009A87D4 /* MyTicketsRouter.swift in Sources */,
 				A03A02F4246411A900C5B7E9 /* AccountInteractor.swift in Sources */,
@@ -1265,6 +1277,7 @@
 				A0BD4AF324DC4ECF00075F5E /* ServiceInjection.swift in Sources */,
 				A0B98B67243FB475004C072F /* SceneContainer.swift in Sources */,
 				A000253524D96A06009A87D4 /* BuyTicketViewController.swift in Sources */,
+				A0077DB424E1F09B0020E3D0 /* MapLinker.swift in Sources */,
 				A000251D24D83D3B009A87D4 /* HistoryModels.swift in Sources */,
 				A000252F24D96A06009A87D4 /* BuyTicketPresenter.swift in Sources */,
 				A0255BDE24250290001E117D /* Styling.swift in Sources */,
@@ -1366,6 +1379,7 @@
 				A0D7CA1624AA3817006288FE /* UITableView+.swift in Sources */,
 				A03E8F3224C9FE7600C0594D /* ProfileServiceTests.swift in Sources */,
 				A083379B24594605002E4571 /* AppleAuthData.swift in Sources */,
+				A0077DB824E1F2F40020E3D0 /* URLOpening.swift in Sources */,
 				A04BCE612451AB62000A6969 /* UIFont+.swift in Sources */,
 				A0E1E273249E5AA800FCBA25 /* EventDetailDI.swift in Sources */,
 				A00B0BFA24D059EE005ACFE0 /* SavedEventsDI.swift in Sources */,
@@ -1390,6 +1404,7 @@
 				A03A03112475406800C5B7E9 /* EmptyAccountView.swift in Sources */,
 				A0297D1F241A90610089F38C /* EventService.swift in Sources */,
 				A000253824D96A06009A87D4 /* BuyTicketInteractor.swift in Sources */,
+				A0077DB524E1F09F0020E3D0 /* MapLinker.swift in Sources */,
 				A000252324D84209009A87D4 /* HistoryRouter.swift in Sources */,
 				A0217E2F24C8829D0081056C /* AppleIDProviderProtocol.swift in Sources */,
 				A0BD4AE124DC158A00075F5E /* LanguageCode.swift in Sources */,
@@ -1452,6 +1467,7 @@
 				A000252424D8420B009A87D4 /* HistoryModels.swift in Sources */,
 				A03CC8F2241FDF6900A1D287 /* Date+.swift in Sources */,
 				A09038FA2420D5C900743881 /* EventListPresenter.swift in Sources */,
+				A0077DBB24E1F3890020E3D0 /* MockUIApplication.swift in Sources */,
 				A03C799824DAA5910001093F /* ArtistContainerCell.swift in Sources */,
 				A00C65612423AE3A00D12C8D /* EventList.swift in Sources */,
 			);
