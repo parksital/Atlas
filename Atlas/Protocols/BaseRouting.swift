@@ -13,6 +13,11 @@ protocol BaseRouting {
         source: UIViewController,
         destination: UIViewController
     )
+    
+    func presentDestination(
+        source: UIViewController,
+        destination: UIViewController
+    )
 }
 
 extension BaseRouting {
@@ -21,5 +26,9 @@ extension BaseRouting {
         destination: UIViewController
     ) {
         source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func presentDestination(source: UIViewController, destination: UIViewController) {
+        source.present(destination, animated: true, completion: nil)
     }
 }

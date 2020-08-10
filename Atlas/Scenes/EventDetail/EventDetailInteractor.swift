@@ -13,6 +13,7 @@ import Combine
     func viewDidFinishLoading()
     func fetchEvent()
     func buyTicketButtonPressed()
+    func mapViewTapped()
 }
 
 protocol EventDetailDataStore: class {
@@ -68,6 +69,10 @@ extension EventDetailInteractor: EventDetailLogic {
         }
         presenter?.presentEventTitle(title: title)
         fetchEvent()
+    }
+    
+    func mapViewTapped() {
+        presenter?.presentOpenWithAlert()
     }
 }
 

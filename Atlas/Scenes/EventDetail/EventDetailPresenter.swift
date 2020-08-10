@@ -12,6 +12,7 @@ protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
     func presentEvent(_ event: Event)
     func presentBuyTicket()
+    func presentOpenWithAlert()
     func setup(viewController: EventDetailDisplayLogic)
 }
 
@@ -58,6 +59,10 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
     
     func presentBuyTicket() {
         viewController?.displayBuyTicketScene()
+    }
+    
+    func presentOpenWithAlert() {
+        viewController?.displayOpenWithAlert()
     }
 }
 
