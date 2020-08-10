@@ -188,10 +188,11 @@ extension EventDetailViewController: EventDetailDisplayLogic {
     func displayOpenWithAlert() {
         let alert = self.createAlert(
             title: localize("openWith"),
-            message: localize("pleaseSelectApp"),
+            message: localize("selectMapsApp"),
             style: .actionSheet,
             actions: []
         )
+        
         router?.presentOpenWithAlert(alert)
     }
 }
@@ -212,7 +213,7 @@ extension EventDetailViewController {
         actions.forEach(output.addAction(_:))
         output.addAction(createCancelAction())
         
-        return UIAlertController()
+        return output
     }
     
     func createCancelAction() -> UIAlertAction {

@@ -72,8 +72,7 @@ extension EventDetailInteractor: EventDetailLogic {
     }
     
     func mapViewTapped() {
-//        presenter?.presentOpenWithAlert()
-        print("map tapped")
+        presenter?.presentOpenWithAlert()
     }
 }
 
