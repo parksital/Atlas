@@ -18,13 +18,19 @@ protocol SavedEventsDisplayLogic: class {
     func displaySomething(viewModel: SavedEvents.Something.ViewModel)
 }
 
-class SavedEventsViewController: UIViewController {
+class SavedEventsViewController: UIViewController, HasLocalization {
+    var tableName: String { return "SavedEvents" }
+    var localizationService: LocalizationService!
+    
     var interactor: SavedEventsInteraction?
     var router: SavedEventsRoutingProtocol?
     
     private let wipLabel = UILabel(styling: .primary)
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(
+        nibName nibNameOrNil: String?,
+        bundle nibBundleOrNil: Bundle?
+    ) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -45,7 +51,7 @@ private extension SavedEventsViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = NSLocalizedString("savedEvents", comment: "")
+        navigationItem.title = localize("savedEvents")
     }
     
     func setupWIPLabel() {

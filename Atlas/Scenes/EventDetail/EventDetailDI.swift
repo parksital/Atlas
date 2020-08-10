@@ -9,8 +9,8 @@
 import Foundation
 import Swinject
 
-class EventDetailDI {
-    static func setDependencies(inContainer container: Container) {
+class EventDetailDI: ServiceInjection {
+    func setDependencies(inContainer container: Container) {
         container.autoregister(EventDetailInteraction.self, initializer: EventDetailInteractor.init)
         container.autoregister(EventDetailPresentationLogic.self, initializer: EventDetailPresenter.init)
         container.autoregister(EventDetailRouterProtocol.self, initializer: EventDetailRouter.init)
@@ -29,6 +29,6 @@ class EventDetailDI {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
     }
 }

@@ -17,7 +17,10 @@ protocol AccountDisplayLogic: class {
     func showSelectedSetting()
 }
 
-final class AccountViewController: UIViewController {
+final class AccountViewController: UIViewController, HasLocalization {
+    var tableName: String { return "Account" }
+    var localizationService: LocalizationService!
+    
     typealias DataSource = UITableViewDiffableDataSource<AccountSectionType, AccountItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<AccountSectionType, AccountItem>
     
@@ -61,7 +64,7 @@ private extension AccountViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = NSLocalizedString("account", comment: "")
+        navigationItem.title = localize("account")
     }
     
     func setupTableView() {
@@ -91,12 +94,16 @@ private extension AccountViewController {
     }
     
     func configureTableViewDatasource() {
-        dataSource = DataSource(tableView: tableView) { [interactor] (tableView, indexPath, item) -> UITableViewCell? in
+        dataSource = DataSource(tableView: tableView) { [weak self] (tableView, indexPath, item) -> UITableViewCell? in
+            guard let self = self else { return nil }
             switch item {
             case .noProfile:
                 let cell: NoProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
-                cell.action = interactor?.goToSignUp
-                cell.configure()
+                cell.action = self.interactor?.goToSignUp
+                cell.configure(
+                    mainLabelText: self.localize("noProfile"),
+                    buttonTitle: self.localize("getStarted")
+                )
                 return cell
             case .profile(let user):
                 let cell: UserProfileTableViewCell = tableView.getCell(forIndexPath: indexPath)
@@ -104,7 +111,8 @@ private extension AccountViewController {
                 return cell
             case .setting(let setting):
                 let cell: SettingTableViewCell = tableView.getCell(forIndexPath: indexPath)
-                cell.configure(title: setting.localized)
+                let key = setting.rawValue
+                cell.configure(title: self.localize(key))
                 return cell
             }
         }

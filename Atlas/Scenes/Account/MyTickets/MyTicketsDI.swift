@@ -9,8 +9,8 @@
 import Foundation
 import Swinject
 
-class MyTicketsDI {
-    static func setDependencies(inContainer container: Container) {
+class MyTicketsDI: ServiceInjection {
+    func setDependencies(inContainer container: Container) {
         container.autoregister(MyTicketsInteraction.self, initializer: MyTicketsInteractor.init)
         container.autoregister(MyTicketsPresentationLogic.self, initializer: MyTicketsPresenter.init)
         container.autoregister(MyTicketsRouterProtocol.self, initializer: MyTicketsRouter.init)
@@ -29,6 +29,6 @@ class MyTicketsDI {
             router.setup(viewController: vc)
             
             presenter.setup(viewController: vc)
-        }
+        }.initCompleted(resolveLocalization)
     }
 }

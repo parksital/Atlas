@@ -1,0 +1,11 @@
+/* 
+  SignUpStrings.strings
+  Atlas
+
+  Created by Parvin Sital on 05/08/2020.
+  Copyright © 2020 Parvin Sital. All rights reserved.
+*/
+
+"account" = "Account";
+"mainProp" = "Sign up to enjoy many benefits.";
+"secProp" = "Discover events tailored to your preferences, obtain effortless access to guest lists and tickets, save your favorite events for later and more to come!";

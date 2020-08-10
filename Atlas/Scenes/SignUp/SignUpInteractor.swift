@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 protocol SignUpLogic {
-    func viewDidFinishLoading()
     func signUpWithAppleID(authData: AppleAuthData)
     func handleCredentialsError()
 }
@@ -34,10 +33,6 @@ final class SignUpInteractor: SignUpDataStore {
 }
 
 extension SignUpInteractor: SignUpLogic {
-    func viewDidFinishLoading() {
-        presenter?.presentView()
-    }
-    
     func signUpWithAppleID(authData: AppleAuthData) {
         authService.initiateSignUpWithApple(authData)
             .sink(receiveCompletion: { completion in },

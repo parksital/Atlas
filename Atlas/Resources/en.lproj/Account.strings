@@ -1,0 +1,15 @@
+/* 
+  Account.strings
+  Atlas
+
+  Created by Parvin Sital on 06/08/2020.
+  Copyright © 2020 Parvin Sital. All rights reserved.
+*/
+
+"account" = "Account";
+"myTickets" = "My tickets";
+"savedEvents" = "Saved events";
+"history" = "History";
+"preferences" = "Preferences";
+"noProfile" = "You are not signed in.";
+"getStarted" = "Get started!";

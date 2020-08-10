@@ -16,7 +16,10 @@ protocol PreferencesDisplayLogic: class {
     func displayWipeFailure()
 }
 
-final class PreferencesViewController: UIViewController {
+final class PreferencesViewController: UIViewController, HasLocalization {
+    var tableName: String { return "Preferences" }
+    var localizationService: LocalizationService!
+    
     typealias DataSource = UITableViewDiffableDataSource<PreferenceSectionType, PreferenceItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<PreferenceSectionType, PreferenceItem>
     
@@ -45,11 +48,6 @@ final class PreferencesViewController: UIViewController {
         setupViews()
         interactor?.viewDidFinishLoading()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
 }
 
 private extension PreferencesViewController {
@@ -60,7 +58,7 @@ private extension PreferencesViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = "Preferences"
+        navigationItem.title = localize("preferences")
     }
     
     func setupTableView() {

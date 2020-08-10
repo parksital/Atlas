@@ -1,0 +1,15 @@
+/* 
+  Account.strings
+  Atlas
+
+  Created by Parvin Sital on 06/08/2020.
+  Copyright © 2020 Parvin Sital. All rights reserved.
+*/
+
+"account" = "Account";
+"myTickets" = "Mijn kaartjes";
+"savedEvents" = "Bewaarde events";
+"history" = "Geschiedenis";
+"preferences" = "Voorkeuren";
+"noProfile" = "U bent niet ingelogd.";
+"getStarted" = "Beginnen!";

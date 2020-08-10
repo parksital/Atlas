@@ -13,12 +13,14 @@ import AuthenticationServices
 protocol SignUpDisplayLogic: class {
     func signUpSuccessful()
     func displayActivityIndicator()
-    func setupWithViewModel(_ viewModel: SignUpViewModel)
     func setup(interactor: SignUpInteraction)
     func setup(router: SignUpRouterProtocol)
 }
 
-final class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController, HasLocalization {
+    var tableName: String { return "SignUp" }
+    var localizationService: LocalizationService!
+    
     private var interactor: SignUpInteraction?
     private var router: SignUpRouterProtocol?
     
@@ -40,7 +42,6 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        interactor?.viewDidFinishLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +80,7 @@ private extension SignUpViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.label]
         navigationController?.navigationBar.barStyle = .default
-        navigationItem.title = "Account"
+        navigationItem.title = localize("account")
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: router,
@@ -109,10 +110,12 @@ private extension SignUpViewController {
     }
     
     func setupMainLabel() {
+        mainLabel.text = localize("mainProp")
         aloeStackView.addRow(mainLabel, animated: true)
     }
     
     func setupSecondaryLabel() {
+        secondaryLabel.text = localize("secProp")
         aloeStackView.addRow(secondaryLabel, animated: true)
     }
     
@@ -169,11 +172,6 @@ private extension SignUpViewController {
         authorizationController.performRequests()
     }
     
-    func updateValuesWithViewModel(_ viewModel: SignUpViewModel) {
-        mainLabel.text = viewModel.mainText
-        secondaryLabel.text = viewModel.secondaryText
-    }
-    
     func disableDismissal() {
         self.isModalInPresentation = true
         view.isUserInteractionEnabled = false
@@ -188,12 +186,6 @@ private extension SignUpViewController {
 }
 
 extension SignUpViewController: SignUpDisplayLogic {
-    func setupWithViewModel(_ viewModel: SignUpViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.updateValuesWithViewModel(viewModel)
-        }
-    }
-    
     func displayActivityIndicator() {
         disableDismissal()
         activityIndicator.hidesWhenStopped = true
