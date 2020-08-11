@@ -15,10 +15,16 @@ final class MapCell: UICollectionViewCell {
     private let mapView: MKMapView = {
         let map = MKMapView()
         map.mapType = .standard
+        map.showsCompass = true
         map.isZoomEnabled = false
         map.isScrollEnabled = false
+        map.isPitchEnabled = false
+        map.isRotateEnabled = false
         return map
     }()
+    
+    private var tapGesture: UITapGestureRecognizer!
+    var openWithAction: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +39,7 @@ final class MapCell: UICollectionViewCell {
 
 private extension MapCell {
     func setupViews() {
+        setupTapGesture()
         setupContainerConstraints()
         setupMapView()
         applyRoundedCorners()
@@ -51,6 +58,11 @@ private extension MapCell {
     
     func setupMapView() {
         mapView.delegate = self
+        mapView.addGestureRecognizer(tapGesture)
+        setupMapViewConstraints()
+    }
+    
+    func setupMapViewConstraints() {
         containerView.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -73,17 +85,45 @@ private extension MapCell {
         containerView.layer.shadowRadius = 8.0
         containerView.layer.shadowOpacity = 0.2
     }
+    
+    func setupTapGesture() {
+        tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.mapTapped)
+        )
+        tapGesture.delegate = self
+    }
+    
+    @objc func mapTapped() {
+        openWithAction?()
+    }
 }
 
-extension MapCell: MKMapViewDelegate { }
+extension MapCell: UIGestureRecognizerDelegate { }
+
+extension MapCell: MKMapViewDelegate {
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        let marker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        marker.animatesWhenAdded = false
+        marker.isEnabled = false
+        marker.isSelected = true
+        marker.titleVisibility = .visible
+        marker.subtitleVisibility = .visible
+        return marker
+    }
+}
 
 extension MapCell {
     func configure(event: EventDetail.ViewModel) {
         let location = event.location
         
         let annotation = VenueAnnotation(
+            coordinate: location.coordinate,
             title: event.venue,
-            coordinate: location.coordinate
+            subtitle: event.address
         )
         
         mapView.zoomToLocation(location)

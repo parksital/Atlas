@@ -12,6 +12,7 @@ protocol EventDetailPresentationLogic: class {
     func presentEventTitle(title: String)
     func presentEvent(_ event: Event)
     func presentBuyTicket()
+    func presentOpenMaps(forVenue venue: Event.Venue)
     func setup(viewController: EventDetailDisplayLogic)
 }
 
@@ -40,6 +41,7 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
             title: event.title.capitalized,
             startDate: formatDate(event.startDate),
             venue: event.venue.name,
+            address: event.venue.streetName,
             longitude: event.venue.longitude,
             latitude: event.venue.latitude,
             description: event.description ?? "",
@@ -58,6 +60,13 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
     
     func presentBuyTicket() {
         viewController?.displayBuyTicketScene()
+    }
+    
+    func presentOpenMaps(forVenue venue: Event.Venue) {
+        viewController?.displayOpenMaps(
+            latidude: venue.latitude,
+            longitude: venue.longitude
+        )
     }
 }
 

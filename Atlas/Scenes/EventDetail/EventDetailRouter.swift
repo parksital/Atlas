@@ -11,6 +11,7 @@ import UIKit
 protocol EventDetailRouting: BaseRouting {
     func setup(viewController: EventDetailViewController)
     func routeToBuyTicket()
+    func presentOpenWithAlert(_ alert: UIAlertController)
 }
 
 protocol EventDetailDataPassing {
@@ -38,5 +39,9 @@ final class EventDetailRouter: EventDetailRouterProtocol {
         let container = SceneContainer.shared.container
         let vc = container.resolve(BuyTicketViewController.self)!
         navigateToDestination(source: viewController!, destination: vc)
+    }
+    
+    func presentOpenWithAlert(_ alert: UIAlertController) {
+        presentDestination(source: viewController!, destination: alert)
     }
 }

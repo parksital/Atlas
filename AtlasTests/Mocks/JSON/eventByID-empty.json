@@ -10,7 +10,9 @@
             "id": "866c0127-f6a6-4285-8af0-de31c0a4ec77",
             "name": "supperclub",
             "latitude": 52.36755,
-            "longitude": 4.88883
+            "longitude": 4.88883,
+            "city": "Amsterdam",
+            "street_name": "Singel 460"
         },
         "bookings": {
             "items": [],

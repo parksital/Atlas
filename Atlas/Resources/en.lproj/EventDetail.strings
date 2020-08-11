@@ -9,3 +9,10 @@
 "eventInformation" = "Event information";
 "artists" = "Artists";
 "buyTickets" = "Buy tickets";
+
+"openWith" = "Open with";
+"selectMapsApp" = "Select an application";
+"appleMaps" = "Apple Maps";
+"googleMaps" = "Google Maps";
+"wazeNavigation" = "Waze";
+"cancel" = "Cancel";

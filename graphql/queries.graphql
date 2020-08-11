@@ -45,6 +45,8 @@ query GetVenue($id: ID!) {
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -64,6 +66,8 @@ query ListVenues(
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -87,6 +91,8 @@ query GetEvent($id: ID!) {
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -121,6 +127,8 @@ query ListEvents(
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
@@ -200,6 +208,8 @@ query EventsByStartDate(
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt

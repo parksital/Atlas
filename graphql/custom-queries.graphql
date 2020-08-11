@@ -37,6 +37,8 @@ query GetEventDetails($id: ID!) {
       name
       longitude
       latitude
+      street_name
+      city
     }
     bookings {
       items {

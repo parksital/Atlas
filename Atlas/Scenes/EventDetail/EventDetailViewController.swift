@@ -6,11 +6,13 @@
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 import UIKit
+import MapKit
 
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayEventDetailItems(_ items: [EventDetailItem])
     func displayBuyTicketScene()
+    func displayOpenMaps(latidude: Double, longitude: Double)
     func setup(interactor: EventDetailInteraction)
     func setup(router: EventDetailRouterProtocol)
 }
@@ -139,12 +141,12 @@ private extension EventDetailViewController {
             case .admission:
                 let cell: ButtonViewCell = collectionView.getCell(forIndexPath: indexPath)
                 cell.action = self.interactor?.buyTicketButtonPressed
-                let key = "buyTickets"
-                let title = self.localize(key)
+                let title = self.localize("buyTickets")
                 cell.configure(buttonTitle: title)
                 return cell
             case .map:
                 let cell: MapCell = collectionView.getCell(forIndexPath: indexPath)
+                cell.openWithAction = self.interactor?.mapViewTapped
                 cell.configure(event: object.event)
                 return cell
             }
@@ -182,5 +184,57 @@ extension EventDetailViewController: EventDetailDisplayLogic {
     
     func displayBuyTicketScene() {
         router?.routeToBuyTicket()
+    }
+    
+    func displayOpenMaps(latidude: Double, longitude: Double) {
+        let linker = MapLinker(latitude: latidude, longitude: longitude)
+    
+        let actions: [UIAlertAction] = linker.availableServices
+            .map({ [weak self] service in
+                let action = UIAlertAction(
+                    title: self?.localize(service.rawValue),
+                    style: .default,
+                    handler: { _ in
+                        linker.openURL(forService: service)
+                })
+                return action
+            })
+        
+        let alert = self.createAlert(
+            title: localize("selectMapsApp"),
+            message: localize("openWith"),
+            style: .actionSheet,
+            actions: actions
+        )
+        
+        router?.presentOpenWithAlert(alert)
+    }
+}
+
+extension EventDetailViewController {
+    func createAlert(
+        title: String,
+        message: String? = nil,
+        style: UIAlertController.Style = .alert,
+        actions: [UIAlertAction] = []
+    ) -> UIAlertController {
+        let output = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: style
+        )
+        
+        actions.forEach(output.addAction(_:))
+        output.addAction(createCancelAction())
+        
+        return output
+    }
+    
+    func createCancelAction() -> UIAlertAction {
+        return UIAlertAction(
+            title: localize("cancel"),
+            style: .cancel,
+            handler: nil
+        )
     }
 }

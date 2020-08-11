@@ -13,9 +13,11 @@ import Combine
     func viewDidFinishLoading()
     func fetchEvent()
     func buyTicketButtonPressed()
+    func mapViewTapped()
 }
 
 protocol EventDetailDataStore: class {
+    var event: Event? { get }
     var eventID: String? { get set }
     var eventTitle: String? { get set }
 }
@@ -24,7 +26,10 @@ typealias EventDetailInteraction = EventDetailLogic & EventDetailDataStore
 final class EventDetailInteractor: EventDetailDataStore {
     var eventID: String?
     var eventTitle: String?
+    private (set) var event: Event?
+    
     var presenter: EventDetailPresentationLogic?
+    
     private let eventService: EventService!
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -38,8 +43,13 @@ final class EventDetailInteractor: EventDetailDataStore {
 }
 
 extension EventDetailInteractor: EventDetailLogic {
-    func buyTicketButtonPressed() {
-        presenter?.presentBuyTicket()
+    func viewDidFinishLoading() {
+        guard let title = eventTitle else {
+            assertionFailure("eventTitle not set by router")
+            return
+        }
+        presenter?.presentEventTitle(title: title)
+        fetchEvent()
     }
     
     func fetchEvent() {
@@ -56,18 +66,19 @@ extension EventDetailInteractor: EventDetailLogic {
                     }
             },
                 receiveValue: { [weak self] response in
+                    self?.event = response.event
                     self?.presentEvent(response.event)
                 }
         ).store(in: &cancellables)
     }
     
-    func viewDidFinishLoading() {
-        guard let title = eventTitle else {
-            assertionFailure("eventTitle not set by router")
-            return
-        }
-        presenter?.presentEventTitle(title: title)
-        fetchEvent()
+    func buyTicketButtonPressed() {
+        presenter?.presentBuyTicket()
+    }
+    
+    func mapViewTapped() {
+        guard let venue = event?.venue else { return }
+        presenter?.presentOpenMaps(forVenue: venue)
     }
 }
 
