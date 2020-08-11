@@ -33,6 +33,8 @@ struct Event {
         let name: String
         let latitude: Double
         let longitude: Double
+        let streetName: String
+        let city: String
     }
     
     struct Artist {
@@ -95,7 +97,16 @@ extension Event.Artist: Decodable {
     }
 }
 
-extension Event.Venue: Decodable { }
+extension Event.Venue: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case latitude
+        case longitude
+        case streetName = "street_name"
+        case city
+    }
+}
 
 enum EventDetail {
     struct Request: Fetchable, Mockable {
@@ -115,6 +126,7 @@ enum EventDetail {
         let title: String
         let startDate: String
         let venue: String
+        let address: String
         let longitude: Double
         let latitude: Double
         let description: String?
@@ -139,6 +151,7 @@ extension EventDetail.ViewModel {
             title: "fake event title",
             startDate: "january 25th 2021",
             venue: "souperclub.",
+            address: "Singel 460, Amsterdam",
             longitude: 4.88883,
             latitude: 52.36755,
             description: "fake description",

@@ -48,6 +48,8 @@ subscription OnCreateVenue {
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -72,6 +74,8 @@ subscription OnUpdateVenue {
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -96,6 +100,8 @@ subscription OnDeleteVenue {
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -117,6 +123,8 @@ subscription OnCreateEvent {
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -149,6 +157,8 @@ subscription OnUpdateEvent {
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -181,6 +191,8 @@ subscription OnDeleteEvent {
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -212,6 +224,8 @@ subscription OnCreateBooking {
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
@@ -252,6 +266,8 @@ subscription OnUpdateBooking {
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
@@ -292,6 +308,8 @@ subscription OnDeleteBooking {
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
