@@ -9,3 +9,10 @@
 "eventInformation" = "Informatie";
 "artists" = "Artiesten";
 "buyTickets" = "Koop kaartjes";
+
+"openWith" = "Openen met";
+"selectMapsApp" = "Selecteer een applicatie";
+"appleMaps" = "Kaarten";
+"googleMaps" = "Google Maps";
+"wazeNavigation" = "Waze";
+"cancel" = "Annuleer";

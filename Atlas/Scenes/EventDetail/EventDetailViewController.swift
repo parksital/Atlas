@@ -201,8 +201,8 @@ extension EventDetailViewController: EventDetailDisplayLogic {
             })
         
         let alert = self.createAlert(
-            title: localize("openWith"),
-            message: localize("selectMapsApp"),
+            title: localize("selectMapsApp"),
+            message: localize("openWith"),
             style: .actionSheet,
             actions: actions
         )
