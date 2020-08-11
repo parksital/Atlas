@@ -40,7 +40,7 @@ class MapLinkerTests: XCTestCase {
             longitude: longitude,
             urlOpener: mockUIApplication
         )
-        let result = sut.url(forService: .apple)
+        let result = sut.url(forService: .appleMaps)
 
         XCTAssertEqual(result, expectation)
     }
@@ -54,7 +54,7 @@ class MapLinkerTests: XCTestCase {
             urlOpener: mockUIApplication
         )
         
-        let result = sut.url(forService: .google)
+        let result = sut.url(forService: .googleMaps)
         XCTAssertEqual(result, expectation)
     }
     
@@ -66,7 +66,7 @@ class MapLinkerTests: XCTestCase {
             longitude: longitude,
             urlOpener: mockUIApplication
         )
-        let result = sut.url(forService: .waze)
+        let result = sut.url(forService: .wazeNavigation)
         XCTAssertEqual(result, expectation)
     }
     
@@ -77,11 +77,8 @@ class MapLinkerTests: XCTestCase {
             longitude: longitude,
             urlOpener: mockUIApplication
         )
-        let expectation = [
-            "appleMaps",
-            "googleMaps",
-            "waze"
-        ]
+        let expectation = MapLinker.Service.allCases
+            .map({ $0.rawValue })
         
         let result = sut.services
         XCTAssertEqual(result, expectation)
@@ -98,7 +95,7 @@ class MapLinkerTests: XCTestCase {
             urlOpener: mockUIApplication
         )
         let result = sut.availableServices
-        XCTAssertEqual(result, [.apple])
+        XCTAssertEqual(result, [.appleMaps])
     }
     
     func testListAvailableServices_appleAndGoogle() {
@@ -112,7 +109,7 @@ class MapLinkerTests: XCTestCase {
             urlOpener: mockUIApplication
         )
         let result = sut.availableServices
-        XCTAssertEqual(result, [.apple, .google])
+        XCTAssertEqual(result, [.appleMaps, .googleMaps])
     }
     
     func testListAvailableServices_appleGoogleWaze() {
@@ -130,6 +127,6 @@ class MapLinkerTests: XCTestCase {
             urlOpener: mockUIApplication
         )
         let result = sut.availableServices
-        XCTAssertEqual(result, [.apple, .google, .waze])
+        XCTAssertEqual(result, [.appleMaps, .googleMaps, .wazeNavigation])
     }
 }

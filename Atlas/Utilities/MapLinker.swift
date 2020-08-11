@@ -10,45 +10,45 @@ import UIKit
 
 struct MapLinker {
     enum Service: String {
-        case apple = "appleMaps"
-        case google = "googleMaps"
-        case waze
+        case appleMaps
+        case googleMaps
+        case wazeNavigation
         
         private var scheme: String {
             switch self {
-            case .apple: return "https"
-            case .google: return "comgooglemaps"
-            case .waze: return "waze"
+            case .appleMaps: return "https"
+            case .googleMaps: return "comgooglemaps"
+            case .wazeNavigation: return "waze"
             }
         }
         
         private var host: String {
             switch self {
-            case .apple: return "maps.apple.com"
-            case .google: return ""
-            case .waze: return ""
+            case .appleMaps: return "maps.apple.com"
+            case .googleMaps: return ""
+            case .wazeNavigation: return ""
             }
         }
         
         private var path: String {
             switch self {
-            case .apple: return "/"
-            case .google: return ""
-            case .waze: return ""
+            case .appleMaps: return "/"
+            case .googleMaps: return ""
+            case .wazeNavigation: return ""
             }
         }
         
         func queryItems(latitude: Double, longitude: Double) -> [URLQueryItem] {
             var output: [URLQueryItem] = []
             switch self {
-            case .apple:
+            case .appleMaps:
                 output.append(URLQueryItem(name: "daddr", value: "\(latitude),\(longitude)"))
-            case .google:
+            case .googleMaps:
                 output.append(contentsOf: [
                     URLQueryItem(name: "daddr", value: "\(latitude),\(longitude)"),
                     URLQueryItem(name: "directionsmode", value: "driving")
                 ])
-            case .waze:
+            case .wazeNavigation:
                 output.append(contentsOf: [
                     URLQueryItem(name: "ll", value: "\(latitude),\(longitude)"),
                     URLQueryItem(name: "navigate", value: "false")
