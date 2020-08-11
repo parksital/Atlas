@@ -29,6 +29,9 @@ extension BaseRouting {
     }
     
     func presentDestination(source: UIViewController, destination: UIViewController) {
-        source.present(destination, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            source.present(destination, animated: true, completion: nil)
+        }
+        
     }
 }

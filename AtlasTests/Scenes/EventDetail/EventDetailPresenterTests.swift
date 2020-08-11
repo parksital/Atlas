@@ -113,7 +113,7 @@ extension EventDetailPresenterTests {
             self.items = items
         }
         
-        func displayOpenWithAlert() { }
+        func displayOpenMaps(latidude: Double, longitude: Double) { }
         func displayBuyTicketScene() { }
         func setup(interactor: EventDetailInteraction) { }
         func setup(router: EventDetailRouterProtocol) { }

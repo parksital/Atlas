@@ -11,7 +11,8 @@ import MapKit
 
 class MapLinkerTests: XCTestCase {
     private var sut: MapLinker!
-    private var location: CLLocationCoordinate2D!
+    private var latitude: Double = 1.0
+    private var longitude: Double = 5.0
     
     private var appleURL: URL!
     private var googleURL: URL!
@@ -19,16 +20,11 @@ class MapLinkerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        location = CLLocationCoordinate2D(
-            latitude: 1.0,
-            longitude: 5.0
-        )
+        appleURL = URL(string: "https://maps.apple.com/?daddr=\(latitude),\(longitude)")!
         
-        appleURL = URL(string: "https://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)")!
+        googleURL = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")!
         
-        googleURL = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-        
-        wazeURL = URL(string: "waze://?ll=\(location.latitude),\(location.longitude)&navigate=false")!
+        wazeURL = URL(string: "waze://?ll=\(latitude),\(longitude)&navigate=false")!
     }
     
     override func tearDown() {
@@ -39,7 +35,11 @@ class MapLinkerTests: XCTestCase {
         let expectation = appleURL
         let mockUIApplication = MockUIApplication(authorizedLinks: [])
 
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let result = sut.url(forService: .apple)
 
         XCTAssertEqual(result, expectation)
@@ -48,7 +48,12 @@ class MapLinkerTests: XCTestCase {
     func testLinkCreationForGoogle() {
         let expectation = googleURL
         let mockUIApplication = MockUIApplication(authorizedLinks: [])
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
+        
         let result = sut.url(forService: .google)
         XCTAssertEqual(result, expectation)
     }
@@ -56,14 +61,22 @@ class MapLinkerTests: XCTestCase {
     func testLinkCreationForWaze() {
         let expectation =  wazeURL
         let mockUIApplication = MockUIApplication(authorizedLinks: [])
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let result = sut.url(forService: .waze)
         XCTAssertEqual(result, expectation)
     }
     
     func testListAllServices() {
         let mockUIApplication = MockUIApplication(authorizedLinks: [])
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let expectation = [
             "appleMaps",
             "googleMaps",
@@ -79,7 +92,11 @@ class MapLinkerTests: XCTestCase {
             authorizedLinks: [appleURL]
         )
         
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let result = sut.availableServices
         XCTAssertEqual(result, [.apple])
     }
@@ -89,7 +106,11 @@ class MapLinkerTests: XCTestCase {
             authorizedLinks: [appleURL, googleURL]
         )
         
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let result = sut.availableServices
         XCTAssertEqual(result, [.apple, .google])
     }
@@ -103,7 +124,11 @@ class MapLinkerTests: XCTestCase {
             ]
         )
         
-        sut = MapLinker(location: location, urlOpener: mockUIApplication)
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
         let result = sut.availableServices
         XCTAssertEqual(result, [.apple, .google, .waze])
     }

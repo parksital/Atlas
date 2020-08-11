@@ -6,12 +6,13 @@
 //  Copyright © 2020 Parvin Sital. All rights reserved.
 //
 import UIKit
+import MapKit
 
 protocol EventDetailDisplayLogic: class {
     func displayEventTitle(_ title: String)
     func displayEventDetailItems(_ items: [EventDetailItem])
     func displayBuyTicketScene()
-    func displayOpenWithAlert()
+    func displayOpenMaps(latidude: Double, longitude: Double)
     func setup(interactor: EventDetailInteraction)
     func setup(router: EventDetailRouterProtocol)
 }
@@ -185,12 +186,24 @@ extension EventDetailViewController: EventDetailDisplayLogic {
         router?.routeToBuyTicket()
     }
     
-    func displayOpenWithAlert() {
+    func displayOpenMaps(latidude: Double, longitude: Double) {
+        let linker = MapLinker(latitude: latidude, longitude: longitude)
+    
+        let actions: [UIAlertAction] = linker.availableServices
+            .map({ [weak self] in
+                let action = UIAlertAction(
+                    title: self?.localize($0.rawValue),
+                    style: .default,
+                    handler: nil
+                )
+                return action
+        })
+        
         let alert = self.createAlert(
             title: localize("openWith"),
             message: localize("selectMapsApp"),
             style: .actionSheet,
-            actions: []
+            actions: actions
         )
         
         router?.presentOpenWithAlert(alert)

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 struct MapLinker {
     enum Service: String {
@@ -73,15 +72,18 @@ struct MapLinker {
         }
     }
     
-    let location: CLLocationCoordinate2D
+    let latitude: Double
+    let longitude: Double
     let urlOpener: URLOpening
     
     init(
-        location: CLLocationCoordinate2D,
+        latitude: Double,
+        longitude: Double,
         urlOpener: URLOpening = UIApplication.shared
     ) {
+        self.latitude = latitude
+        self.longitude = longitude
         self.urlOpener = urlOpener
-        self.location = location
     }
     
     var services: [String] {
@@ -93,8 +95,8 @@ struct MapLinker {
         return Service.allCases
             .filter({ value in
                 let url = value.url(
-                    latitude: location.latitude,
-                    longitude: location.longitude
+                    latitude: latitude,
+                    longitude: longitude
                 )
                 return urlOpener.canOpenURL(url)
             })
@@ -102,8 +104,8 @@ struct MapLinker {
     
     func url(forService service: Service) -> URL? {
         service.url(
-            latitude: location.latitude,
-            longitude: location.longitude
+            latitude: latitude,
+            longitude: longitude
         )
     }
 }
