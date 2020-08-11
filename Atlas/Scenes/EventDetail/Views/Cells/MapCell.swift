@@ -12,16 +12,7 @@ import MapKit
 final class MapCell: UICollectionViewCell {
     private let regionRadius: Double = 250.0
     private let containerView = UIView()
-    private let mapView: MKMapView = {
-        let map = MKMapView()
-        map.mapType = .standard
-        map.showsCompass = true
-        map.isZoomEnabled = false
-        map.isScrollEnabled = false
-        map.isPitchEnabled = false
-        map.isRotateEnabled = false
-        return map
-    }()
+    private let mapView = EDMapView()
     
     private var tapGesture: UITapGestureRecognizer!
     var openWithAction: (() -> Void)?
@@ -126,7 +117,7 @@ extension MapCell {
             subtitle: event.address
         )
         
-        mapView.zoomToLocation(location)
+        mapView.zoomToLocation(location, regionRadius: regionRadius)
         mapView.addAnnotation(annotation)
     }
 }
