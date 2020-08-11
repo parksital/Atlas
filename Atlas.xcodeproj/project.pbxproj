@@ -56,6 +56,8 @@
 		A0077DB724E1F2F40020E3D0 /* URLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB624E1F2F40020E3D0 /* URLOpening.swift */; };
 		A0077DB824E1F2F40020E3D0 /* URLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB624E1F2F40020E3D0 /* URLOpening.swift */; };
 		A0077DBB24E1F3890020E3D0 /* MockUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DB924E1F3890020E3D0 /* MockUIApplication.swift */; };
+		A0077DC024E30B500020E3D0 /* EDMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DBF24E30B4F0020E3D0 /* EDMapView.swift */; };
+		A0077DC124E30CA20020E3D0 /* EDMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0077DBF24E30B4F0020E3D0 /* EDMapView.swift */; };
 		A00A6AF2242D151D00251DE4 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA7242CE2EF00BFCFC5 /* Mockable.swift */; };
 		A00A6AF3242D152200251DE4 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA9242CE30300BFCFC5 /* Fetchable.swift */; };
 		A00A6AF4242D159300251DE4 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A030AEA5242C0AF600BFCFC5 /* MockAPIClient.swift */; };
@@ -201,8 +203,6 @@
 		A0B2816124DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
 		A0B2816224DD71DA00E2DB03 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816024DD71DA00E2DB03 /* MapCell.swift */; };
 		A0B2816424DD75EE00E2DB03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B2816324DD75EE00E2DB03 /* MapKit.framework */; };
-		A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
-		A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816524DD971C00E2DB03 /* MKMapView+.swift */; };
 		A0B2816B24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
 		A0B2816C24DDA0C900E2DB03 /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */; };
 		A0B2817024DDC17A00E2DB03 /* Preferences.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0B2817324DDC17A00E2DB03 /* Preferences.strings */; };
@@ -323,6 +323,7 @@
 		A0077DB324E1F09B0020E3D0 /* MapLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLinker.swift; sourceTree = "<group>"; };
 		A0077DB624E1F2F40020E3D0 /* URLOpening.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpening.swift; sourceTree = "<group>"; };
 		A0077DB924E1F3890020E3D0 /* MockUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIApplication.swift; sourceTree = "<group>"; };
+		A0077DBF24E30B4F0020E3D0 /* EDMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EDMapView.swift; sourceTree = "<group>"; };
 		A00A6F63242B7298001EAF54 /* EventListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListSnapshotTests.swift; sourceTree = "<group>"; };
 		A00BED5024A01321002B538D /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
 		A00BED5324A01363002B538D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -410,7 +411,6 @@
 		A0B2815F24DD6BEF00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/History.strings; sourceTree = "<group>"; };
 		A0B2816024DD71DA00E2DB03 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		A0B2816324DD75EE00E2DB03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		A0B2816524DD971C00E2DB03 /* MKMapView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+.swift"; sourceTree = "<group>"; };
 		A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
 		A0B2817224DDC17A00E2DB03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.strings; sourceTree = "<group>"; };
 		A0B2817424DDC17C00E2DB03 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Preferences.strings; sourceTree = "<group>"; };
@@ -564,6 +564,7 @@
 			children = (
 				A0B2816924DDA0B500E2DB03 /* Cells */,
 				A0B2816A24DDA0C900E2DB03 /* VenueAnnotation.swift */,
+				A0077DBF24E30B4F0020E3D0 /* EDMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -962,7 +963,6 @@
 				A0D7CA1424AA3810006288FE /* UITableView+.swift */,
 				A0D0B76524B674140066B29C /* String+.swift */,
 				A000254A24D9D827009A87D4 /* UICollectionView+.swift */,
-				A0B2816524DD971C00E2DB03 /* MKMapView+.swift */,
 				A0077DB324E1F09B0020E3D0 /* MapLinker.swift */,
 			);
 			path = Utilities;
@@ -1242,6 +1242,7 @@
 				A0DBC4862401CC57002419C6 /* EventListPresenter.swift in Sources */,
 				A0217E3424C886960081056C /* AppleAuthService.swift in Sources */,
 				A00BED5424A01363002B538D /* SettingTableViewCell.swift in Sources */,
+				A0077DC024E30B500020E3D0 /* EDMapView.swift in Sources */,
 				A00024D124D819D1009A87D4 /* MyTicketsViewController.swift in Sources */,
 				A000251C24D83D3B009A87D4 /* HistoryRouter.swift in Sources */,
 				A041ED45241973D800DB772F /* EventDetailRouter.swift in Sources */,
@@ -1316,7 +1317,6 @@
 				A03C799424DAA2D60001093F /* EventDescriptionCell.swift in Sources */,
 				A000251F24D83D3B009A87D4 /* HistoryInteractor.swift in Sources */,
 				A0FAFC4324588951006F46B1 /* KeychainWrapper.swift in Sources */,
-				A0B2816624DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A0C1C8D824B63C890082B492 /* WipeKeychainCell.swift in Sources */,
 				A0C8B7F92423DED100B4882D /* Sequence+.swift in Sources */,
 				A03E8F2B24C9D86C00C0594D /* SessionService.swift in Sources */,
@@ -1368,9 +1368,9 @@
 				A0297D18241A902D0089F38C /* EventDetail.swift in Sources */,
 				A04BCE5D245167A1000A6969 /* SignUpPresenter.swift in Sources */,
 				A0FAFC462458945B006F46B1 /* KeychainWrapper.swift in Sources */,
-				A0B2816724DD971C00E2DB03 /* MKMapView+.swift in Sources */,
 				A000252024D841FE009A87D4 /* HistoryViewController.swift in Sources */,
 				A0BD4AE824DC440C00075F5E /* AccountDI.swift in Sources */,
+				A0077DC124E30CA20020E3D0 /* EDMapView.swift in Sources */,
 				A0297D1C241A90410089F38C /* EventDetailInteractor.swift in Sources */,
 				A00024DB24D82762009A87D4 /* MyTicketsInteractor.swift in Sources */,
 				A0217E3724C889CC0081056C /* AuthServiceTests.swift in Sources */,
