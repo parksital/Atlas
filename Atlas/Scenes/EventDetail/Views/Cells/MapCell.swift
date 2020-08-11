@@ -48,7 +48,6 @@ private extension MapCell {
     }
     
     func setupMapView() {
-        mapView.delegate = self
         mapView.addGestureRecognizer(tapGesture)
         setupMapViewConstraints()
     }
@@ -91,21 +90,6 @@ private extension MapCell {
 }
 
 extension MapCell: UIGestureRecognizerDelegate { }
-
-extension MapCell: MKMapViewDelegate {
-    func mapView(
-        _ mapView: MKMapView,
-        viewFor annotation: MKAnnotation
-    ) -> MKAnnotationView? {
-        let marker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        marker.animatesWhenAdded = false
-        marker.isEnabled = false
-        marker.isSelected = true
-        marker.titleVisibility = .visible
-        marker.subtitleVisibility = .visible
-        return marker
-    }
-}
 
 extension MapCell {
     func configure(event: EventDetail.ViewModel) {
