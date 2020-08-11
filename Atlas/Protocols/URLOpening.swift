@@ -10,6 +10,30 @@ import UIKit
 
 protocol URLOpening {
     func canOpenURL(_ url: URL) -> Bool
+    func open(
+        _ url: URL,
+        completion: (() -> Void)?
+    )
+    func open(
+        _ url: URL,
+        options: [String: Any],
+        completion: (() -> Void)?
+    )
 }
 
-extension UIApplication: URLOpening { }
+extension UIApplication: URLOpening {
+    func open(
+        _ url: URL,
+        completion: (() -> Void)?
+    ) {
+        self.open(url, options: [:], completion: completion)
+    }
+    
+    func open(
+        _ url: URL,
+        options: [String: Any],
+        completion: (() -> Void)?
+    ) {
+        self.open(url, options: [:], completionHandler: nil)
+    }
+}

@@ -102,6 +102,15 @@ struct MapLinker {
             })
     }
     
+    func openURL(forService service: Service) {
+        let url = service.url(
+            latitude: latitude,
+            longitude: longitude
+        )
+        
+        urlOpener.open(url, completion: nil)
+    }
+    
     func url(forService service: Service) -> URL? {
         service.url(
             latitude: latitude,

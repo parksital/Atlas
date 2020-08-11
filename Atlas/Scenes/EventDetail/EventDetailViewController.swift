@@ -190,14 +190,15 @@ extension EventDetailViewController: EventDetailDisplayLogic {
         let linker = MapLinker(latitude: latidude, longitude: longitude)
     
         let actions: [UIAlertAction] = linker.availableServices
-            .map({ [weak self] in
+            .map({ [weak self] service in
                 let action = UIAlertAction(
-                    title: self?.localize($0.rawValue),
+                    title: self?.localize(service.rawValue),
                     style: .default,
-                    handler: nil
-                )
+                    handler: { _ in
+                        linker.openURL(forService: service)
+                })
                 return action
-        })
+            })
         
         let alert = self.createAlert(
             title: localize("openWith"),

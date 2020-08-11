@@ -8,9 +8,30 @@
 
 import Foundation
 
-struct MockUIApplication: URLOpening {
+class MockUIApplication: URLOpening {
+    var openURLCalledCount: Int = 0
     var authorizedLinks: [URL]
+    
+    init(authorizedLinks: [URL]) {
+        self.authorizedLinks = authorizedLinks
+    }
+    
     func canOpenURL(_ url: URL) -> Bool {
         return authorizedLinks.contains(url)
+    }
+    
+    func open(
+        _ url: URL,
+        completion: (() -> Void)?
+    ) {
+        self.open(url, options: [:], completion: completion)
+    }
+    
+    func open(
+        _ url: URL,
+        options: [String: Any],
+        completion: (() -> Void)?
+    ) {
+        openURLCalledCount += 1
     }
 }

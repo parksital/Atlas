@@ -129,4 +129,23 @@ class MapLinkerTests: XCTestCase {
         let result = sut.availableServices
         XCTAssertEqual(result, [.appleMaps, .googleMaps, .wazeNavigation])
     }
+    
+    func testOpenLinkCalled() {
+        let mockUIApplication = MockUIApplication(
+            authorizedLinks: [
+                appleURL,
+                googleURL,
+                wazeURL
+            ]
+        )
+        
+        sut = MapLinker(
+            latitude: latitude,
+            longitude: longitude,
+            urlOpener: mockUIApplication
+        )
+        
+        sut.openURL(forService: .appleMaps)
+        XCTAssertEqual(mockUIApplication.openURLCalledCount, 1)
+    }
 }
