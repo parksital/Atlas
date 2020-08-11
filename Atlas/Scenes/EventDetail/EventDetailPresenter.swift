@@ -41,6 +41,7 @@ extension EventDetailPresenter: EventDetailPresentationLogic {
             title: event.title.capitalized,
             startDate: formatDate(event.startDate),
             venue: event.venue.name,
+            address: event.venue.streetName,
             longitude: event.venue.longitude,
             latitude: event.venue.latitude,
             description: event.description ?? "",

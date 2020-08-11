@@ -60,6 +60,8 @@ mutation CreateVenue(
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -87,6 +89,8 @@ mutation UpdateVenue(
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -114,6 +118,8 @@ mutation DeleteVenue(
     }
     longitude
     latitude
+    street_name
+    city
     description
     createdAt
     updatedAt
@@ -138,6 +144,8 @@ mutation CreateEvent(
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -173,6 +181,8 @@ mutation UpdateEvent(
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -208,6 +218,8 @@ mutation DeleteEvent(
       }
       longitude
       latitude
+      street_name
+      city
       description
       createdAt
       updatedAt
@@ -242,6 +254,8 @@ mutation CreateBooking(
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
@@ -285,6 +299,8 @@ mutation UpdateBooking(
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt
@@ -328,6 +344,8 @@ mutation DeleteBooking(
         name
         longitude
         latitude
+        street_name
+        city
         description
         createdAt
         updatedAt

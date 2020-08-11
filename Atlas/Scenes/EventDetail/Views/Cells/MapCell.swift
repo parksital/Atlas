@@ -123,7 +123,7 @@ extension MapCell {
         let annotation = VenueAnnotation(
             coordinate: location.coordinate,
             title: event.venue,
-            subtitle: "Singel 460, Amsterdam"
+            subtitle: event.address
         )
         
         mapView.zoomToLocation(location)
